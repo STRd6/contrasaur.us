@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>contra</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Matthew Diebolt">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" />
+	<script src="power_canvas.jquery.js" />
+	<script src="sprites.strd6.js" />
+        <script src="base.js" />
+
+	<!-- Date: 2010-05-08 -->
+</head>
+<body>
+
+  <canvas id="gameCanvas" width="300" height="300">
+    <p> Get a better browser</p>
+  </canvas>
+  
+  <script>
+  var score = 0;
+  var enemyBullets = [];
+  var bullets = [];
+  var enemies = [];
+  var canvas;
+
+  $('#gameCanvas').powerCanvas({init: function(_canvas) {
+    canvas = _canvas;
+
+    var gameObjects = [Dinosaur(), Floor()]; 
+
+    var dino = gameObjects[0];
+
+    var intervalID = setInterval(function() {
+      canvas.clear().fill('#ccc');
+      //tiledBackground.draw(canvas, 0, 0);
+
+      // Gather Input
+
+      if (Math.random() < .03) {
+        enemies.push(Enemy());
+      }
+
+      $.each(enemies, function(i, enemy) {
+        collision(dino, enemy);
+      });
+      
+      $.each(gameObjects, function(i, gameObject) {
+        gameObject.update();
+        
+        if (gameObject.active()) {
+          gameObject.draw(canvas);
+        }
+      });
+
+      var liveEnemies = [];
+
+      $.each(enemies, function(i, enemy) {
+        enemy.update();
+
+        $.each(bullets, function(i, bullet) {
+          collision(bullet, enemy);
+        });
+
+        $.each(enemyBullets, function(i, bullet) {
+          collision(bullet, dino);
+        });
+
+        if (enemy.active()) {
+          liveEnemies.push(enemy);
+          enemy.draw(canvas);
+        }
+      });
+
+      enemies = liveEnemies;
+
+      var liveBullets = [];
+      var liveEnemyBullets = [];
+
+      $.each(bullets, function(i, bullet) {
+        if (bullet.update()) {
+          liveBullets.push(bullet);
+        }
+        
+        bullet.draw(canvas);
+      });
+      bullets = liveBullets;
+
+      $.each(enemyBullets, function(i, bullet) {
+        if (bullet.update()) {
+          liveEnemyBullets.push(bullet);
+        }
+
+        bullet.draw(canvas);
+      });
+      enemyBullets = liveEnemyBullets;
+
+      // Debug text
+      canvas.fillColor("#000");
+      canvas.fillText("Enemy bullets: " + enemyBullets.length, 200, 220);
+      canvas.fillText("Bullets: " + bullets.length, 200, 240);
+      canvas.fillText("Enemies " + enemies.length, 200, 260);
+      canvas.fillText("Dino Health: " + dino.health(), 10, 14);
+
+      // Score display
+      canvas.fillText("Score: " + score, 225, 14);
+
+      // GG
+      if (dino.health() <= 0) {
+        clearInterval(intervalID);
+        canvas.fillText("GG", 140, 140);
+      }
+    }, 50);
+  }});
+  </script>
+
+</body>
+</html>
