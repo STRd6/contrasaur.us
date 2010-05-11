@@ -7,7 +7,7 @@ function ProgressBar(I) {
   I = $.extend({
     backgroundColor: "#000",
     color: "#0C0",
-    colorMap: function(value) {
+    colorMap: function() {
       return I.color;
     },
     borderColor: "#FFF",
