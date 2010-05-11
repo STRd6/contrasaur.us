@@ -39,6 +39,7 @@ function Dinosaur() {
   var height = 50;
   var health = 50;
   var active = true;
+  var jetpackCounter = 0
 
   var x = (canvas.width() - width) / 2;
   var y = 0;
@@ -88,6 +89,23 @@ function Dinosaur() {
 
       theta += thetaVelocity;
 
+      if(Math.random() < 0.01 && jetpackCounter <= 0) {
+        jetpackCounter += 50;
+      }
+
+      if (jetpackCounter > 0 && !airborne) {
+        yVelocity = -1;
+      }
+
+      if (jetpackCounter <= 0) {
+        yVelocity = 6;
+      }
+
+      if (jetpackCounter > 0) {
+        airborne = true;
+        jetpackCounter--;
+      }
+
       if(Math.random() < 0.05) {
         thetaVelocity = thetaVelocity * -1;
       }
@@ -96,7 +114,7 @@ function Dinosaur() {
         theta += Math.PI;
       }
 
-      if(Math.sin(-theta) < 0) {
+      if(Math.sin(-theta) < 0 && !airborne) {
         theta = -theta;
       }
     },
@@ -104,6 +122,7 @@ function Dinosaur() {
     collisionAction: function() {
       xVelocity = xVelocity * -1
     }
+
   });
 }
 
@@ -127,10 +146,20 @@ function collision(A, B) {
 function Enemy() {
   var height = 40;
   var width = 10;
+
+  var startingY;
+
+  if (Math.random() < 0.5) {
+    startingY = 0;
+  } else {
+    startingY = 200;
+  }
+
+  var yVelocity = 3;
   var theta = Math.random() * (Math.PI * 2);
   var I = {
     x: rand(300),
-    y: 200 - height,
+    y: startingY,
     width: width,
     height: height,
     health: 3,
@@ -141,8 +170,16 @@ function Enemy() {
   var self = $.extend(GameObject(I), {
     collisionAction: function() {},
     update: function() {
-      if (Math.random() < 0.5) {
+      
+      I.y += yVelocity;
+
+      if (Math.random() < 0.3) {
         enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "C00"));
+      }
+
+      if (I.y + I.height > 200) {
+        I.y = 200 - I.height;
+        yVelocity = 0;
       }
     }
   });
