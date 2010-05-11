@@ -70,6 +70,8 @@
         if (enemy.active()) {
           liveEnemies.push(enemy);
           enemy.draw(canvas);
+        } else {
+          score += 1000;
         }
       });
 
