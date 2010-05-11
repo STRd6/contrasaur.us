@@ -16,7 +16,7 @@ function GameObject(I) {
       }
     },
     
-    health: function() { return I.health },
+    health: function() {return I.health},
     
     hit: function() {
       I.health--;
@@ -39,7 +39,7 @@ function Dinosaur() {
   var height = 50;
   var health = 50;
   var active = true;
-  var jetpackCounter = 0
+  var jetpackCounter = 0;
 
   var x = (canvas.width() - width) / 2;
   var y = 0;
@@ -86,6 +86,23 @@ function Dinosaur() {
 
       bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
       score += bullets.length;
+
+      if (score % 69 == 0) {
+
+        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 6),
+          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 3),
+          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 2),
+          Bullet(I.x + I.width/2, I.y + I.height/2, (2 * Math.PI) / 3),
+          Bullet(I.x + I.width/2, I.y + I.height/2, (5 * Math.PI) / 6),
+          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI),
+          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 6),
+          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 3),
+          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 2),
+          Bullet(I.x + I.width/2, I.y + I.height/2, -(2 * Math.PI) / 3),
+          Bullet(I.x + I.width/2, I.y + I.height/2, -(5 * Math.PI) / 6),
+          Bullet(I.x + I.width/2, I.y + I.height/2, 0)
+        );
+      };
 
       theta += thetaVelocity;
 
@@ -200,7 +217,7 @@ function Floor() {
       canvas.fillRect(0, canvas.height() - height, canvas.width(), height);
     },
 
-    active: function() { return active }
+    active: function() {return active}
   }
 }
 
@@ -212,7 +229,6 @@ function Bullet(x, y, theta, color) {
   var width = 5;
   var height = 5;
   var active = true;
-  var health = 1;
 
   var I = {
     x: x,
