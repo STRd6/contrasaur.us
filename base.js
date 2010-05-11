@@ -89,7 +89,7 @@ function Dinosaur() {
 
       theta += thetaVelocity;
 
-      if(Math.random() < 0.01 && jetpackCounter <= 0 && !airborne) {
+      if(Math.random() < 0.01 && jetpackCounter <= 0) {
         jetpackCounter += 50;
       }
 
@@ -158,7 +158,7 @@ function Enemy() {
   var yVelocity = 3;
   var theta = Math.random() * (Math.PI * 2);
   var I = {
-    x: rand(300),
+    x: rand(canvas.width()),
     y: startingY,
     width: width,
     height: height,
