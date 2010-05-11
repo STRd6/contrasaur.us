@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>contra</title>
-	<meta name="generator" content="TextMate http://macromates.com/">
-	<meta name="author" content="Matthew Diebolt">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" />
-	<script src="power_canvas.jquery.js" />
-	<script src="sprites.strd6.js" />
-        <script src="base.js" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>contra</title>
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="Matthew Diebolt">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="power_canvas.jquery.js"></script>
+  <script src="sprites.strd6.js"></script>
+  <script src="base.js"></script>
+  <script src="UI.js"></script>
+  <script src="util.js"></script>
 
-	<!-- Date: 2010-05-08 -->
+  <!-- Date: 2010-05-08 -->
 </head>
 <body>
 
@@ -31,6 +33,28 @@
     var gameObjects = [Dinosaur(), Floor()]; 
 
     var dino = gameObjects[0];
+    
+    var healthBar = ProgressBar({
+      colorMap: function colorMap(completeness) {
+        var r = Math.floor(Math.clamp(1.5 - 2 * completeness, 0, 1) * 255).toString(16);
+        if(r.length == 1) {
+          r = "0" + r;
+        }
+        
+        var g = Math.floor(Math.clamp(completeness * 0.75, 0, 1) * 255).toString(16);
+        if(g.length == 1) {
+          g = "0" + g;
+        }
+        
+        return "#" + r + g + "00";
+      },
+      max: dino.health(),
+      value: dino.health(),
+      x: 50,
+      y: 4,
+      width: 100,
+      height: 14
+    });
 
     var intervalID = setInterval(function() {
       canvas.clear().fill('#ccc');
@@ -97,13 +121,16 @@
         bullet.draw(canvas);
       });
       enemyBullets = liveEnemyBullets;
+      
+      healthBar.value(dino.health());
+      healthBar.draw(canvas);
 
       // Debug text
       canvas.fillColor("#000");
       canvas.fillText("Enemy bullets: " + enemyBullets.length, 200, 220);
       canvas.fillText("Bullets: " + bullets.length, 200, 240);
       canvas.fillText("Enemies " + enemies.length, 200, 260);
-      canvas.fillText("Dino Health: " + dino.health(), 10, 14);
+      canvas.fillText("Health: ", 10, 14);
 
       // Score display
       canvas.fillText("Score: " + score, 225, 14);

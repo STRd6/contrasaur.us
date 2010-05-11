@@ -174,7 +174,7 @@ function Enemy() {
       I.y += yVelocity;
 
       if (Math.random() < 0.3) {
-        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "C00"));
+        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
       }
 
       if (I.y + I.height > 200) {
