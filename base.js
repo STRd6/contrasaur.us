@@ -89,7 +89,7 @@ function Dinosaur() {
 
       theta += thetaVelocity;
 
-      if(Math.random() < 0.01 && jetpackCounter <= 0) {
+      if(Math.random() < 0.01 && jetpackCounter <= 0 && !airborne) {
         jetpackCounter += 50;
       }
 
