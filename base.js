@@ -2,41 +2,34 @@ function rand(n) {
   return Math.floor(Math.random() * n);
 }
 
-function boundingBoxGenerator(I) {
-  return function() {
-    return {x: I.x, y: I.y, w: I.width, h: I.height};
-  }
-}
-
-function activeGenerator(I) {
-  return function(newActive) {
-    if(newActive != undefined) {
-      I.active = newActive;
-      return this;
-    } else {
-      return I.active;
-    }
-  }
-}
-
-function hitGenerator(I) {
-  return function() {
-    I.health--;
-    if (I.health <= 0) {
-      I.active = false;
-    }
-  }
-}
-
 function GameObject(I) {
   return {
-    boundingBox: boundingBoxGenerator(I),
-    active: activeGenerator(I),
-    hit: hitGenerator(I),
+    boundingBox: function() {
+      return {x: I.x, y: I.y, w: I.width, h: I.height};
+    },
+    active: function(newActive) {
+      if(newActive != undefined) {
+        I.active = newActive;
+        return this;
+      } else {
+        return I.active;
+      }
+    },
+    
+    health: function() { return I.health },
+    
+    hit: function() {
+      I.health--;
+      if (I.health <= 0) {
+        I.active = false;
+      }
+    },
+    
     draw: function(canvas) {
       canvas.fillColor(I.color);
       canvas.fillRect(I.x, I.y, I.width, I.height);
     },
+    
     update: function() {}
   }
 }
@@ -63,10 +56,11 @@ function Dinosaur() {
     width: width,
     height: height,
     active: active,
+    color: "#00F",
     health: health
   };
 
-  return {
+  return $.extend(GameObject(I), {
 
     update: function() {
       I.x += xVelocity;
@@ -89,8 +83,9 @@ function Dinosaur() {
         airborne = false;
       }
 
-      score += 1;
       bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
+      score += bullets.length;
+
       theta += thetaVelocity;
 
       if(Math.random() < 0.05) {
@@ -106,22 +101,10 @@ function Dinosaur() {
       }
     },
 
-    draw: function(canvas) {
-      canvas.fillColor("#00F");
-      canvas.fillRect(I.x, I.y, I.width, I.height)
-    },
-
-    boundingBox: boundingBoxGenerator(I),
-
     collisionAction: function() {
       xVelocity = xVelocity * -1
-    },
-
-    hit: hitGenerator(I),
-
-    active: activeGenerator(I),
-    health: function() { return I.health }
-  }
+    }
+  });
 }
 
 function collision(A, B) {
