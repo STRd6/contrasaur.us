@@ -325,6 +325,10 @@ function Bullet(x, y, theta, color) {
   };
 
   var self = GameObject(I);
+  
+  self.draw = function(canvas) {
+    bulletTile.draw(canvas, I.x, I.y);
+  };
 
   self.update = after(self.update, function() {
     // Check Bounds
