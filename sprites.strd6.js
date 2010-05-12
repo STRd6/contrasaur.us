@@ -1,95 +1,112 @@
-var Tile = function(image, sourceX, sourceY, width, height) {
-  var self = {
-    update: function() {},
+(function(){
+  function LoaderProxy() {
+    return {
+      draw: function() {},
+      update: function(){}
+    };
+  }
 
-    draw: function(canvas, x, y, options) {
-      canvas.drawImage(image,
-        sourceX,
-        sourceY,
-        width,
-        height,
-        x,
-        y,
-        width,
-        height,
-        options
-      );
-    }
+  window["Tile"] = function(image, sourceX, sourceY, width, height) {
+    sourceX = sourceX || 0;
+    sourceY = sourceY || 0;
+    width = width || image.width;
+    height = height || image.height;
+
+    return {
+      update: function() {},
+
+      draw: function(canvas, x, y, options) {
+        canvas.drawImage(image,
+          sourceX,
+          sourceY,
+          width,
+          height,
+          x,
+          y,
+          width,
+          height,
+          options
+        );
+      },
+
+      width: width,
+      height: height
+    };
   };
-  return self;
-};
 
-var Composite = function(tileData) {
-  var tileCount = tileData.length;
+  window["Composite"] = function(tileData) {
+    var tileCount = tileData.length;
 
-  var self = {
-    update: function() {},
+    var self = {
+      update: function() {},
 
-    draw: function(canvas, x, y, options) {
-      var datum;
+      draw: function(canvas, x, y, options) {
+        var datum;
 
-      for(var i = 0; i < tileCount; i++) {
-        datum = tileData[i];
+        for(var i = 0; i < tileCount; i++) {
+          datum = tileData[i];
 
-        canvas.withState(x, y, options, function() {
-          datum.tile.draw(canvas, datum.x, datum.y, datum.options);
-        });
-      }
-    }
-  };
-  self.tileData = tileData;
-  return self;
-};
-
-var Animation = function(frameData) {
-  var currentFrame = 0;
-  var frameCount = frameData.length;
-
-  return {
-    update: function() {
-      currentFrame = (currentFrame + 1) % frameCount;
-    },
-
-    draw: function(canvas, x, y, options) {
-      frameData[currentFrame].draw(canvas, x, y, options);
-    }
-  };
-};
-
-var Actor = function(states, defaultState, callbacks) {
-  var state = defaultState || "default";
-  var timedEvents = [];
-
-  return {
-    addTimedEvent: function(count, callback) {
-      timedEvents.push({
-        count: count,
-        callback: callback
-      })
-    },
-    
-    update: function() {
-      timedEvents.each(function(timedEvent){
-        if (timedEvent.count == 0) {
-          timedEvent.callback.call(this);
+          canvas.withState(x, y, options, function() {
+            datum.tile.draw(canvas, datum.x, datum.y, datum.options);
+          });
         }
-        timedEvent.count--;
-      });
-      if(states[state]) {
-        states[state].update();
       }
-      callbacks.update.call(this, state);
-    },
+    };
 
-    draw: callbacks.draw,
-
-    state: function(newState) {
-      if(newState === undefined) {
-        return state;
-      } else {
-        state = newState;
-        return this;
-      }
-    }
+    return self;
   };
-};
+
+  window["Animation"] = function(frameData) {
+    var currentFrame = 0;
+    var frameCount = frameData.length;
+
+    return {
+      update: function() {
+        currentFrame = (currentFrame + 1) % frameCount;
+      },
+
+      draw: function(canvas, x, y, options) {
+        frameData[currentFrame].draw(canvas, x, y, options);
+      }
+    };
+  };
+
+  window["Actor"] = function(states, defaultState, callbacks) {
+    var state = defaultState || "default";
+
+    return {
+      update: function() {
+        if(states[state]) {
+          states[state].update();
+        }
+        callbacks.update.call(this, state);
+      },
+
+      draw: callbacks.draw,
+
+      state: function(newState) {
+        if(newState === undefined) {
+          return state;
+        } else {
+          state = newState;
+          return this;
+        }
+      }
+    };
+  };
+
+  window["loadImageTile"] = function(url) {
+    var img = new Image();
+    var proxy = LoaderProxy();
+
+    img.onload = function() {
+      var tile = Tile(this);
+      proxy.update = tile.update;
+      proxy.draw = tile.draw;
+    };
+
+    img.src = url;
+
+    return proxy;
+  };
+})();
