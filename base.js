@@ -274,7 +274,7 @@ function Bullet(x, y, theta, color) {
   };
 
   var self = GameObject(I);
-  
+
   self.update = after(self.update, function() {
     // Check Bounds
     if (I.x >= 0 && I.x < canvas.width() &&
@@ -285,11 +285,7 @@ function Bullet(x, y, theta, color) {
     }
     return I.active;
   });
-  
-  self.hit = after(self.hit, function() {
-    I.active = false;
-  });
-  
+
   return self;
 }
 
