@@ -84,6 +84,7 @@ function Dinosaur() {
   var healthMax = 50;
 
   var airborne = true;
+  var berserk = false;
 
   var theta = 0;
   var thetaVelocity = Math.PI / 24;
@@ -111,9 +112,16 @@ function Dinosaur() {
   }
 
   function fireWeapons() {
-    if(I.weapons.machineGun) {
+    var berserkTheta = theta - Math.PI / 24;
+
+    if(I.weapons.machineGun && !berserk) {
       // Machine Gun Fire
-      bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
+    } 
+    
+    if (I.weapons.machineGun && berserk) {
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, berserkTheta));
     }
 
     if (I.weapons.bombs && score % 69 == 0) {
@@ -165,6 +173,12 @@ function Dinosaur() {
   }
 
   self.update = after(self.update, function() {
+    if(I.health < healthMax / 2) {
+      berserk = true;
+    } else {
+      berserk = false;
+    }
+
     // Flip when hitting edges of screen
     if (I.x + I.width > canvas.width() || I.x < 0) {
       I.xVelocity = I.xVelocity * -1;
@@ -187,7 +201,7 @@ function Dinosaur() {
     
     fireWeapons();
     updateGunAngle();
-    
+
     if(Math.random() < 0.01 && jetpackCounter <= 0) {
       jetpackCounter += 50;
     }
