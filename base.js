@@ -55,8 +55,6 @@ function GameObject(I) {
 function Dinosaur() {
   var width = 50;
   var height = 50;
-  var health = 50;
-  var active = true;
   var jetpackCounter = 0;
 
   var x = (canvas.width() - width) / 2;
@@ -64,8 +62,6 @@ function Dinosaur() {
 
   var airborne = true;
 
-  var xVelocity = 1;
-  var yVelocity = 6;
   var theta = 0;
   var thetaVelocity = Math.PI / 24;
 
@@ -74,119 +70,125 @@ function Dinosaur() {
     y: y,
     width: width,
     height: height,
-    active: active,
     color: "#00F",
-    health: health,
+    health: 50,
     weapons: {
       bombs: true,
       machineGun: true,
       shotgun: true
-    }
+    },
+    xVelocity: 1,
+    yVelocity: 6
   };
 
-  return $.extend(GameObject(I), {
-
-    update: function() {
-      I.x += xVelocity;
-      I.y += yVelocity;
-
-      if (I.x + I.width > canvas.width() || I.x < 0) {
-        xVelocity = xVelocity * -1;
-      }
-
-      if (airborne) {
-        xVelocity += (Math.random() - 0.5) * 3;
-        xVelocity = xVelocity * 0.9;
-      }
-
-      if (I.y + I.height > 200) {
-        I.y = 200 - I.height;
-        yVelocity = 0;
-
-        xVelocity = (Math.abs(xVelocity) / xVelocity) * 5;
-        airborne = false;
-      }
-
-      if(I.weapons.machineGun) {
-        // Machine Gun Fire
-        bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
-      }
-
-      if (I.weapons.bombs && score % 69 == 0) {
-        // Bomb Blast
-        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 6),
-          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 3),
-          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 2),
-          Bullet(I.x + I.width/2, I.y + I.height/2, (2 * Math.PI) / 3),
-          Bullet(I.x + I.width/2, I.y + I.height/2, (5 * Math.PI) / 6),
-          Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI),
-          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 6),
-          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 3),
-          Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 2),
-          Bullet(I.x + I.width/2, I.y + I.height/2, -(2 * Math.PI) / 3),
-          Bullet(I.x + I.width/2, I.y + I.height/2, -(5 * Math.PI) / 6),
-          Bullet(I.x + I.width/2, I.y + I.height/2, 0)
-        );
-      };
-      
-      if(I.weapons.shotgun && Math.random() < 0.05) {
-        // Shotgun Blast
-        var direction = Math.atan(yVelocity/xVelocity);
-        if(xVelocity < 0) {
-          direction = direction + Math.PI;
-        }
-
-        (3 + rand(7)).times(function() {
-          function fuzz() {
-            return Math.random() * 20 - 10;
-          }
-
-          var x = I.x + I.width/2 + fuzz();
-          var y = I.y + I.height/2 + fuzz();
-
-          bullets.push(Bullet(x, y, direction));
-        });
-      }
-      
-      score += bullets.length;
-
-      theta += thetaVelocity;
-
-      if(Math.random() < 0.01 && jetpackCounter <= 0) {
-        jetpackCounter += 50;
-      }
-
-      if (jetpackCounter > 0 && !airborne) {
-        yVelocity = -1;
-      }
-
-      if (jetpackCounter <= 0) {
-        yVelocity = 6;
-      }
-
-      if (jetpackCounter > 0) {
-        airborne = true;
-        jetpackCounter--;
-      }
-
-      if(Math.random() < 0.05) {
-        thetaVelocity = thetaVelocity * -1;
-      }
-
-      if(Math.random() < 0.05) {
-        theta += Math.PI;
-      }
-
-      if(Math.sin(-theta) < 0 && !airborne) {
-        theta = -theta;
-      }
-    },
-
-    collisionAction: function() {
-      xVelocity = xVelocity * -1
+  var self = GameObject(I);
+  
+  function fireWeapons() {
+    if(I.weapons.machineGun) {
+      // Machine Gun Fire
+      bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
     }
 
+    if (I.weapons.bombs && score % 69 == 0) {
+      // Bomb Blast
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 6),
+        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 3),
+        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 2),
+        Bullet(I.x + I.width/2, I.y + I.height/2, (2 * Math.PI) / 3),
+        Bullet(I.x + I.width/2, I.y + I.height/2, (5 * Math.PI) / 6),
+        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI),
+        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 6),
+        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 3),
+        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 2),
+        Bullet(I.x + I.width/2, I.y + I.height/2, -(2 * Math.PI) / 3),
+        Bullet(I.x + I.width/2, I.y + I.height/2, -(5 * Math.PI) / 6),
+        Bullet(I.x + I.width/2, I.y + I.height/2, 0)
+      );
+    };
+    
+    if(I.weapons.shotgun && Math.random() < 0.05) {
+      // Shotgun Blast
+      var direction = Math.atan(I.yVelocity/I.xVelocity);
+      if(I.xVelocity < 0) {
+        direction = direction + Math.PI;
+      }
+
+      (3 + rand(7)).times(function() {
+        function fuzz() {
+          return Math.random() * 20 - 10;
+        }
+
+        var x = I.x + I.width/2 + fuzz();
+        var y = I.y + I.height/2 + fuzz();
+
+        bullets.push(Bullet(x, y, direction));
+      });
+    }
+  }
+  
+  // Adjust machine gun angle
+  function updateGunAngle() {
+    theta += thetaVelocity;
+    
+    // Change gun rotation direction
+    if(Math.random() < 0.05) {
+      thetaVelocity = thetaVelocity * -1;
+    }
+
+    // Flip target angle 180
+    if(Math.random() < 0.05) {
+      theta += Math.PI;
+    }
+
+    // Don't shoot machine gun into the ground
+    if(Math.sin(-theta) < 0 && !airborne) {
+      theta = -theta;
+    }
+  }
+
+  self.update = after(self.update, function() {
+    // Flip when hitting edges of screen
+    if (I.x + I.width > canvas.width() || I.x < 0) {
+      I.xVelocity = I.xVelocity * -1;
+    }
+    
+    // Wiggle in the air
+    if (airborne) {
+      I.xVelocity += (Math.random() - 0.5) * 3;
+      I.xVelocity = I.xVelocity * 0.9;
+    }
+    
+    // Land
+    if (I.y + I.height > 200) {
+      I.y = 200 - I.height;
+      I.yVelocity = 0;
+
+      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+      airborne = false;
+    }
+    
+    fireWeapons();
+    updateGunAngle();
+    
+    if(Math.random() < 0.01 && jetpackCounter <= 0) {
+      jetpackCounter += 50;
+    }
+
+    if (jetpackCounter > 0 && !airborne) {
+      I.yVelocity = -1;
+    }
+
+    if (jetpackCounter <= 0) {
+      I.yVelocity = 6;
+    }
+
+    if (jetpackCounter > 0) {
+      airborne = true;
+      jetpackCounter--;
+    }
   });
+  
+  return self;
 }
 
 function collision(A, B) {

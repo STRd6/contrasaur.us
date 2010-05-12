@@ -67,7 +67,8 @@
       }
       
       if (Math.random() < 0.01) {
-        gameObjects.push(PowerUp({
+        // HAX: Putting this in enemy bullets so it will collide with dino.
+        enemyBullets.push(PowerUp({
           x: rand(canvas.width()),
           yVelocity: 2
         }));
@@ -124,6 +125,8 @@
         }
       });
       enemyBullets = liveEnemyBullets;
+      
+      score += bullets.length;
       
       healthBar.value(dino.health());
       healthBar.draw(canvas);
