@@ -1,12 +1,9 @@
-function rand(n) {
-  return Math.floor(Math.random() * n);
-}
-
 function GameObject(I) {
   return {
     boundingBox: function() {
       return {x: I.x, y: I.y, w: I.width, h: I.height};
     },
+
     active: function(newActive) {
       if(newActive != undefined) {
         I.active = newActive;
@@ -15,21 +12,21 @@ function GameObject(I) {
         return I.active;
       }
     },
-    
+
     health: function() {return I.health},
-    
+
     hit: function() {
       I.health--;
       if (I.health <= 0) {
         I.active = false;
       }
     },
-    
+
     draw: function(canvas) {
       canvas.fillColor(I.color);
       canvas.fillRect(I.x, I.y, I.width, I.height);
     },
-    
+
     update: function() {}
   }
 }
