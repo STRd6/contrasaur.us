@@ -65,6 +65,10 @@
       if (Math.random() < .03) {
         enemies.push(Enemy());
       }
+      
+      if (Math.random() < 0.01) {
+        gameObjects.push(PowerUp());
+      }
 
       $.each(enemies, function(i, enemy) {
         collision(dino, enemy);
@@ -129,7 +133,8 @@
       canvas.fillColor("#000");
       canvas.fillText("Enemy bullets: " + enemyBullets.length, 200, 220);
       canvas.fillText("Bullets: " + bullets.length, 200, 240);
-      canvas.fillText("Enemies " + enemies.length, 200, 260);
+      canvas.fillText("Enemies: " + enemies.length, 200, 260);
+      canvas.fillText("GameObjects: " + gameObjects.length, 200, 280);
       canvas.fillText("Health: ", 10, 14);
 
       // Score display

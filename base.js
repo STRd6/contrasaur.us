@@ -58,7 +58,12 @@ function Dinosaur() {
     height: height,
     active: active,
     color: "#00F",
-    health: health
+    health: health,
+    weapons: {
+      bombs: true,
+      machineGun: true,
+      shotgun: true
+    }
   };
 
   return $.extend(GameObject(I), {
@@ -84,11 +89,13 @@ function Dinosaur() {
         airborne = false;
       }
 
-      bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
-      score += bullets.length;
+      if(I.weapons.machineGun) {
+        // Machine Gun Fire
+        bullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta));
+      }
 
-      if (score % 69 == 0) {
-
+      if (I.weapons.bombs && score % 69 == 0) {
+        // Bomb Blast
         bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 6),
           Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 3),
           Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 2),
@@ -103,6 +110,27 @@ function Dinosaur() {
           Bullet(I.x + I.width/2, I.y + I.height/2, 0)
         );
       };
+      
+      if(I.weapons.shotgun && Math.random() < 0.05) {
+        // Shotgun Blast
+        var direction = Math.atan(yVelocity/xVelocity);
+        if(xVelocity < 0) {
+          direction = direction + Math.PI;
+        }
+
+        (3 + rand(7)).times(function() {
+          function fuzz() {
+            return Math.random() * 20 - 10;
+          }
+
+          var x = I.x + I.width/2 + fuzz();
+          var y = I.y + I.height/2 + fuzz();
+
+          bullets.push(Bullet(x, y, direction));
+        });
+      }
+      
+      score += bullets.length;
 
       theta += thetaVelocity;
 
@@ -154,8 +182,8 @@ function collision(A, B) {
   if (A.active() && B.active()) {
     if(xOverlap && yOverlap) {
       A.collisionAction();
-      A.hit();
-      B.hit();
+      A.hit(B);
+      B.hit(A);
     }
   }
 }
@@ -252,6 +280,56 @@ function Bullet(x, y, theta, color) {
         I.active = false;
       }
       return I.active;
+    },
+
+    collisionAction: function() {
+      I.active = false;
+    }
+  });
+}
+
+function PowerUp(I) {
+  I = $.extend({
+    color: "#F0F",
+    symbol: "?",
+    x: rand(canvas.width()),
+    y: 0,
+    width: 15,
+    height: 15,
+    xVelocity: 0,
+    yVelocity: 2,
+    age: 0,
+    active: true
+  }, I);
+
+  return $.extend(GameObject(I), {
+    draw: function(canvas) {
+      canvas.fillColor(I.color);
+      canvas.fillRect(I.x, I.y, I.width, I.height);
+      canvas.fillColor("#FFF");
+      canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
+    },
+    
+    update: function() {
+      I.age++;
+      
+      I.xVelocity = Math.sin(I.age/10);
+
+      I.x += I.xVelocity;
+      I.y += I.yVelocity;
+
+      if (I.x >= 0 && I.x < canvas.width() &&
+        I.y >= 0 && I.y < 200) {
+        I.active = I.active && true;
+      } else {
+        I.active = false;
+      }
+
+      return I.active;
+    },
+    
+    hit: function(dino) {
+      dino.addWeapon("shotgun");
     },
 
     collisionAction: function() {
