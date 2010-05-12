@@ -26,13 +26,18 @@
   var bullets = [];
   var enemies = [];
   var canvas;
+  var dino;
+  
+  function display(text) {
+    enemies.push(GameText(text, dino.boundingBox()));
+  }
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
     canvas = _canvas;
 
     var gameObjects = [Dinosaur(), Floor()]; 
 
-    var dino = gameObjects[0];
+    dino = gameObjects[0];
     
     var healthBar = ProgressBar({
       colorMap: function colorMap(completeness) {

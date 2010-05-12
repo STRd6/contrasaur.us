@@ -2,6 +2,15 @@ function rand(n) {
   return Math.floor(Math.random() * n);
 }
 
+/**
+ * Randomly select an element from the array.
+ *
+ * @return a random element from an array
+ */
+Array.prototype.rand = function() {
+  return this[rand(this.length)];
+};
+
 Math.clamp = function(val, min, max) {
   return Math.min(Math.max(val, min), max);
 };

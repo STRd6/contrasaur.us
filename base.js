@@ -52,6 +52,27 @@ function GameObject(I) {
   }
 }
 
+function GameText(text, I) {
+  var self = GameObject(I);
+  
+  I.y -= 30;
+  I.width = 1;
+  I.height = 1;
+
+  self.draw = function() {
+    canvas.fillColor("#000");
+    canvas.fillText(text, I.x, I.y);
+  };
+  
+  self.update = after(self.update, function() {
+    if(I.age > 30) {
+      I.active = false;
+    }
+  });
+
+  return self;
+}
+
 function Dinosaur() {
   var width = 50;
   var height = 50;
@@ -75,9 +96,9 @@ function Dinosaur() {
     color: "#00F",
     health: 50,
     weapons: {
-      bombs: true,
-      machineGun: true,
-      shotgun: true
+      bombs: 0,
+      machineGun: 1,
+      shotgun: 0
     },
     xVelocity: 1,
     yVelocity: 6
@@ -103,14 +124,14 @@ function Dinosaur() {
       }
     };
     
-    if(I.weapons.shotgun && Math.random() < 0.05) {
+    if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
       // Shotgun Blast
       var direction = Math.atan(I.yVelocity/I.xVelocity);
       if(I.xVelocity < 0) {
         direction = direction + Math.PI;
       }
 
-      (3 + rand(7)).times(function() {
+      (3 + rand(I.weapons.shotgun)).times(function() {
         function fuzz() {
           return Math.random() * 20 - 10;
         }
@@ -190,11 +211,13 @@ function Dinosaur() {
     I.health++;
     
     if(powerup.health) {
+      display("FOOD!");
       heal(powerup.health);
     }
     
     if(powerup.weapon) {
       for(var weapon in powerup.weapon) {
+        display(weapon + "!");
         I.weapons[weapon] += powerup.weapon[weapon];
       }
     }
@@ -334,7 +357,11 @@ function PowerUp(I) {
 
   self.hit = after(self.hit, function(other) {
     if(other.powerup) {
-      other.powerup({health: 10});
+      other.powerup([
+        {health: 10},
+        {weapon: {shotgun: 2}},
+        {weapon: {bombs: 1}}
+      ].rand());
     }
   });
 
