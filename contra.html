@@ -94,10 +94,6 @@
           collision(bullet, enemy);
         });
 
-        $.each(enemyBullets, function(i, bullet) {
-          collision(bullet, dino);
-        });
-
         if (enemy.active()) {
           liveEnemies.push(enemy);
           enemy.draw(canvas);
@@ -105,7 +101,6 @@
           score += 1000;
         }
       });
-
       enemies = liveEnemies;
 
       var liveBullets = [];
@@ -121,7 +116,8 @@
       bullets = liveBullets;
 
       $.each(enemyBullets, function(i, bullet) {
-        bullet.update()
+        collision(bullet, dino);
+        bullet.update();
         if (bullet.active()) {
           bullet.draw(canvas);
           liveEnemyBullets.push(bullet);
