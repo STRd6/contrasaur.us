@@ -91,19 +91,10 @@ function Dinosaur() {
 
     if (I.weapons.bombs && score % 69 == 0) {
       // Bomb Blast
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 6),
-        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 3),
-        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI / 2),
-        Bullet(I.x + I.width/2, I.y + I.height/2, (2 * Math.PI) / 3),
-        Bullet(I.x + I.width/2, I.y + I.height/2, (5 * Math.PI) / 6),
-        Bullet(I.x + I.width/2, I.y + I.height/2, Math.PI),
-        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 6),
-        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 3),
-        Bullet(I.x + I.width/2, I.y + I.height/2, -Math.PI / 2),
-        Bullet(I.x + I.width/2, I.y + I.height/2, -(2 * Math.PI) / 3),
-        Bullet(I.x + I.width/2, I.y + I.height/2, -(5 * Math.PI) / 6),
-        Bullet(I.x + I.width/2, I.y + I.height/2, 0)
-      );
+      for (var i = 0; i <= 24; i++) {
+        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI)
+        );
+      }
     };
     
     if(I.weapons.shotgun && Math.random() < 0.05) {
