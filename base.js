@@ -237,6 +237,10 @@ function Dinosaur() {
     }
   };
   
+  self.bump = function() {
+    I.xVelocity = -I.xVelocity;
+  };
+  
   return self;
 }
 
@@ -288,6 +292,12 @@ function Enemy() {
     if (I.y + I.height > 200) {
       I.y = 200 - I.height;
       yVelocity = 0;
+    }
+  });
+
+  self.hit = after(self.hit, function(other) {
+    if(other.bump) {
+      other.bump();
     }
   });
 
