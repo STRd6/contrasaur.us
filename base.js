@@ -59,6 +59,8 @@ function Dinosaur() {
 
   var x = (canvas.width() - width) / 2;
   var y = 0;
+  
+  var healthMax = 50;
 
   var airborne = true;
 
@@ -82,7 +84,11 @@ function Dinosaur() {
   };
 
   var self = GameObject(I);
-  
+
+  function heal(amount) {
+    I.health = Math.clamp(I.health + amount, 0, healthMax);
+  }
+
   function fireWeapons() {
     if(I.weapons.machineGun) {
       // Machine Gun Fire
@@ -178,6 +184,21 @@ function Dinosaur() {
       jetpackCounter--;
     }
   });
+  
+  self.powerup = function(powerup) {
+    // HAX: Countering the default loss from hitting the powerup
+    I.health++;
+    
+    if(powerup.health) {
+      heal(powerup.health);
+    }
+    
+    if(powerup.weapon) {
+      for(var weapon in powerup.weapon) {
+        I.weapons[weapon] += powerup.weapon[weapon];
+      }
+    }
+  };
   
   return self;
 }
@@ -310,6 +331,12 @@ function PowerUp(I) {
       I.active = false;
     }
   });
-  
+
+  self.hit = after(self.hit, function(other) {
+    if(other.powerup) {
+      other.powerup({health: 10});
+    }
+  });
+
   return self;
 }
