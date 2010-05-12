@@ -27,6 +27,7 @@
   var enemies = [];
   var canvas;
   var dino;
+  var floor;
   var bulletTile = loadImageTile("blast_small.png");
   
   function display(text) {
@@ -39,6 +40,7 @@
     var gameObjects = [Dinosaur(), Floor()]; 
 
     dino = gameObjects[0];
+    floor = gameObjects[1];
     
     var healthBar = ProgressBar({
       colorMap: function colorMap(completeness) {
@@ -82,6 +84,13 @@
 
       $.each(enemies, function(i, enemy) {
         collision(dino, enemy);
+      });
+
+      $.each(enemies, function(i, enemy) {
+        var health = enemy.health();
+        // hack to make sure enemies aren't killed by the floor
+        collision(floor, enemy);
+        enemy.health(health);
       });
       
       $.each(gameObjects, function(i, gameObject) {

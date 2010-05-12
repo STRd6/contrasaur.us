@@ -31,7 +31,23 @@ function GameObject(I) {
       }
     },
 
-    health: function() {return I.health},
+    health: function(newHealth) {
+      if(newHealth != undefined) {
+        I.health = newHealth;
+        return this;
+      } else {
+        return I.health;
+      }
+    },
+
+    yVelocity: function(newyVelocity) {
+      if(newyVelocity != undefined) {
+        I.yVelocity = newyVelocity;
+        return this;
+      } else {
+        return I.yVelocity;
+      }
+    },
 
     hit: function() {
       I.health--;
@@ -265,7 +281,7 @@ function Enemy() {
   if (Math.random() < 0.5) {
     startingY = 0;
   } else {
-    startingY = 200;
+    startingY = 160;
   }
 
   var theta = Math.random() * (Math.PI * 2);
@@ -308,18 +324,41 @@ function Floor() {
   var height = 100;
   var active = true;
 
-  return {
-
-    update: function() {},
-
-    draw: function(canvas) {
-      canvas.fillColor("#0F0");
-      canvas.fillRect(0, canvas.height() - height, canvas.width(), height);
-    },
-
-    active: function() {return active}
+  var I = {
+    x: 0,
+    y: canvas.height() - height,
+    width: canvas.width(),
+    height: height,
+    yVelocity: 0,
+    health: 1,
+    color: "#0F0"
   }
+
+  var self = GameObject(I);
+
+  self.hit = function(other) {
+    active = true;
+
+//  var o = other.boundingBox();
+//
+//
+//      console.log(o.y + o.h);
+//      console.log(canvas.height() - height);
+//
+//    if(o.y + o.h > canvas.height() - height) {
+//      o.y = (canvas.height() - height) - o.h;
+//      o.yVelocity(0);
+//    }
 }
+
+  return self;
+}
+
+// Land on the ground
+//    if (I.y + I.height > 200) {
+//      I.y = 200 - I.height;
+//      yVelocity = 0;
+//    }
 
 function Bullet(x, y, theta, color) {
   var speed = 10;
