@@ -1,4 +1,22 @@
 function GameObject(I) {
+  $.reverseMerge(I, {
+    active: true,
+    age: 0,
+    color: "#880",
+    health: 1,
+    x: 0,
+    y: 0,
+    width: 10,
+    height: 10,
+    xVelocity: 0,
+    yVelocity: 0
+  });
+
+  function move() {
+    I.x += I.xVelocity;
+    I.y += I.yVelocity;
+  }
+
   return {
     boundingBox: function() {
       return {x: I.x, y: I.y, w: I.width, h: I.height};
@@ -27,7 +45,10 @@ function GameObject(I) {
       canvas.fillRect(I.x, I.y, I.width, I.height);
     },
 
-    update: function() {}
+    update: function() {
+      I.age++;
+      move();
+    }
   }
 }
 
@@ -178,7 +199,6 @@ function collision(A, B) {
     (t.y < b.y && t.y + t.h >= b.y);
   if (A.active() && B.active()) {
     if(xOverlap && yOverlap) {
-      A.collisionAction();
       A.hit(B);
       B.hit(A);
     }
@@ -186,43 +206,37 @@ function collision(A, B) {
 }
 
 function Enemy() {
-  var height = 40;
-  var width = 10;
-
   var startingY;
-
   if (Math.random() < 0.5) {
     startingY = 0;
   } else {
     startingY = 200;
   }
 
-  var yVelocity = 3;
   var theta = Math.random() * (Math.PI * 2);
+
   var I = {
     x: rand(canvas.width()),
     y: startingY,
-    width: width,
-    height: height,
+    width: 10,
+    height: 40,
+    yVelocity: 3,
     health: 3,
-    color: "#F00",
-    active: true
+    color: "#F00"
   }
 
-  var self = $.extend(GameObject(I), {
-    collisionAction: function() {},
-    update: function() {
-      
-      I.y += yVelocity;
-
-      if (Math.random() < 0.3) {
-        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
-      }
-
-      if (I.y + I.height > 200) {
-        I.y = 200 - I.height;
-        yVelocity = 0;
-      }
+  var self = GameObject(I);
+  
+  self.update = after(self.update, function() {
+    // Shoot
+    if (Math.random() < 0.3) {
+      enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+    }
+    
+    // Land on the ground
+    if (I.y + I.height > 200) {
+      I.y = 200 - I.height;
+      yVelocity = 0;
     }
   });
 
@@ -247,90 +261,66 @@ function Floor() {
 }
 
 function Bullet(x, y, theta, color) {
-
   var speed = 10;
-  var xVelocity = Math.cos(theta)*speed;
-  var yVelocity = Math.sin(theta)*speed;
-  var width = 5;
-  var height = 5;
-  var active = true;
 
   var I = {
     x: x,
     y: y,
-    width: width,
-    height: height,
-    active: active,
-    color: color || "#000"
+    width: 4,
+    height: 4,
+    color: color || "#000",
+    xVelocity: Math.cos(theta)*speed,
+    yVelocity: Math.sin(theta)*speed
   };
 
-  return $.extend(GameObject(I), {
-
-    update: function() {
-      I.x += xVelocity;
-      I.y += yVelocity;
-
-      if (I.x >= 0 && I.x < canvas.width() &&
-        I.y >= 0 && I.y < 200) {
-        I.active = I.active && true;
-      } else {
-        I.active = false;
-      }
-      return I.active;
-    },
-
-    collisionAction: function() {
+  var self = GameObject(I);
+  
+  self.update = after(self.update, function() {
+    // Check Bounds
+    if (I.x >= 0 && I.x < canvas.width() &&
+      I.y >= 0 && I.y < 200) {
+      I.active = I.active && true;
+    } else {
       I.active = false;
     }
+    return I.active;
   });
+  
+  self.hit = after(self.hit, function() {
+    I.active = false;
+  });
+  
+  return self;
 }
 
 function PowerUp(I) {
-  I = $.extend({
+  $.reverseMerge(I, {
     color: "#F0F",
     symbol: "?",
-    x: rand(canvas.width()),
-    y: 0,
     width: 15,
-    height: 15,
-    xVelocity: 0,
-    yVelocity: 2,
-    age: 0,
-    active: true
-  }, I);
+    height: 15
+  });
 
-  return $.extend(GameObject(I), {
-    draw: function(canvas) {
-      canvas.fillColor(I.color);
-      canvas.fillRect(I.x, I.y, I.width, I.height);
-      canvas.fillColor("#FFF");
-      canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
-    },
-    
-    update: function() {
-      I.age++;
-      
-      I.xVelocity = Math.sin(I.age/10);
+  var self = GameObject(I);
+  
+  self.draw = after(self.draw, function() {
+    canvas.fillColor("#FFF");
+    canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
+  });
+  
+  self.update = before(self.update, function() {
+    I.xVelocity = Math.sin(I.age/10);
+  });
 
-      I.x += I.xVelocity;
-      I.y += I.yVelocity;
-
-      if (I.x >= 0 && I.x < canvas.width() &&
-        I.y >= 0 && I.y < 200) {
-        I.active = I.active && true;
-      } else {
-        I.active = false;
-      }
-
-      return I.active;
-    },
-    
-    hit: function(dino) {
-      dino.addWeapon("shotgun");
-    },
-
-    collisionAction: function() {
+  self.update = after(self.update, function() {
+    // Check Bounds
+    if (I.x >= 0 && I.x < canvas.width() &&
+      I.y >= 0 && I.y < 200) {
+      I.active = I.active && true;
+    } else {
       I.active = false;
     }
   });
+  
+  return self;
 }
