@@ -9,7 +9,8 @@ function GameObject(I) {
     width: 10,
     height: 10,
     xVelocity: 0,
-    yVelocity: 0
+    yVelocity: 0,
+    collideDamage: 1
   });
 
   function move() {
@@ -49,8 +50,9 @@ function GameObject(I) {
       }
     },
 
-    hit: function() {
-      I.health--;
+    hit: function(other) {
+      console.log(other.collideDamage);
+      I.health = I.health - other.collideDamage;
       if (I.health <= 0) {
         I.active = false;
       }
@@ -70,7 +72,9 @@ function GameObject(I) {
 
 function GameText(text, I) {
   var self = GameObject(I);
-  
+
+  self.collideDamage = 0;
+
   I.y -= 30;
   I.width = 1;
   I.height = 1;
@@ -123,6 +127,8 @@ function Dinosaur() {
 
   var self = GameObject(I);
 
+  self.collideDamage = 2;
+
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
@@ -134,8 +140,6 @@ function Dinosaur() {
       I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
       airborne = false;
     }
-    
-    console.log(I.yVelocity);
   }
 
   function fireWeapons() {
@@ -304,6 +308,8 @@ function Enemy() {
 
   var self = GameObject(I);
 
+  self.collideDamage = 1;
+
   self.land = function(h) {
     if (I.y + I.height > canvas.height() - h) {
       I.y = canvas.height() - I.height - h;
@@ -343,6 +349,8 @@ function Floor() {
 
   var self = GameObject(I);
 
+  self.collideDamage = 0;
+
   self.hit = function(other) {
     other.land(height);
 }
@@ -364,7 +372,9 @@ function Bullet(x, y, theta, color) {
   };
 
   var self = GameObject(I);
-  
+
+  self.collideDamage = 1;
+
   self.draw = function(canvas) {
     bulletTile.draw(canvas, I.x, I.y);
   };
@@ -372,7 +382,7 @@ function Bullet(x, y, theta, color) {
   self.update = after(self.update, function() {
     // Check Bounds
     if (I.x >= 0 && I.x < canvas.width() &&
-      I.y >= 0 && I.y < 200) {
+      I.y >= 0 && I.y < 380) {
       I.active = I.active && true;
     } else {
       I.active = false;
@@ -392,7 +402,9 @@ function PowerUp(I) {
   });
 
   var self = GameObject(I);
-  
+
+  self.collideDamage = 0;
+
   self.draw = after(self.draw, function() {
     canvas.fillColor("#FFF");
     canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
@@ -405,7 +417,7 @@ function PowerUp(I) {
   self.update = after(self.update, function() {
     // Check Bounds
     if (I.x >= 0 && I.x < canvas.width() &&
-      I.y >= 0 && I.y < 200) {
+      I.y >= 0 && I.y < 380) {
       I.active = I.active && true;
     } else {
       I.active = false;

@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <canvas id="gameCanvas" width="640" height="300">
+  <canvas id="gameCanvas" width="640" height="480">
     <p> Get a better browser</p>
   </canvas>
   
@@ -98,9 +98,7 @@
         }));
       }
 
-      var health = dino.health();
       collision(dino,floor);
-      dino.health(health);
 
       $.each(enemies, function(i, enemy) {
         collision(dino, enemy);
@@ -108,10 +106,7 @@
       });
 
       $.each(enemies, function(i, enemy) {
-        var health = enemy.health();
-        // hack to make sure enemies aren't killed by the floor
         collision(floor, enemy);
-        enemy.health(health);
       });
       
       $.each(gameObjects, function(i, gameObject) {
