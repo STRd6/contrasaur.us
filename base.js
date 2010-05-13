@@ -90,8 +90,8 @@ function GameText(text, I) {
 }
 
 function Dinosaur() {
-  var width = 50;
-  var height = 50;
+  var width = 128;
+  var height = 128;
   var jetpackCounter = 0;
 
   var x = (canvas.width() - width) / 2;
@@ -256,6 +256,10 @@ function Dinosaur() {
   self.bump = function() {
     I.xVelocity = -I.xVelocity;
   };
+  
+  self.draw = function(canvas) {
+    dinoTile.draw(canvas, I.x, I.y);
+  }
   
   return self;
 }
