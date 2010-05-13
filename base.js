@@ -291,7 +291,7 @@ function Enemy() {
   if (Math.random() < 0.5) {
     startingY = 0;
   } else {
-    startingY = 160;
+    startingY = 340;
   }
 
   var theta = Math.random() * (Math.PI * 2);
