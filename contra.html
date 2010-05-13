@@ -29,6 +29,9 @@
   var dino;
   var floor;
   var bulletTile = loadImageTile("blast_small.png");
+  var clouds1 = loadImageTile("clouds1.png");
+  var clouds2 = loadImageTile("clouds2.png");
+  var parallax = 0;
   
   function display(text) {
     enemies.push(GameText(text, dino.boundingBox()));
@@ -65,8 +68,17 @@
     });
 
     var intervalID = setInterval(function() {
-      canvas.clear().fill('#ccc');
+      canvas.clear().fill('#17E');
       //tiledBackground.draw(canvas, 0, 0);
+      
+      // Draw Clouds
+      clouds2.draw(canvas, 0.5 * parallax, 0);
+      clouds2.draw(canvas, 0.5 * parallax + canvas.width(), 0);
+      clouds1.draw(canvas, parallax, 0);
+      clouds1.draw(canvas, parallax + canvas.width(), 0);
+      
+      parallax -= 1;
+      parallax = parallax % canvas.width();
 
       // Gather Input
 
