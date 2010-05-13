@@ -126,6 +126,17 @@ function Dinosaur() {
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
+  
+  self.land = function(h) {
+    if (I.y + I.height > canvas.height() - h) {
+      I.y = canvas.height() - I.height - h;
+      I.yVelocity = 0;
+      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+      airborne = false;
+    }
+    
+    console.log(I.yVelocity);
+  }
 
   function fireWeapons() {
     var berserkTheta = theta - Math.PI / 24;
@@ -205,16 +216,7 @@ function Dinosaur() {
       I.xVelocity += (Math.random() - 0.5) * 3;
       I.xVelocity = I.xVelocity * 0.9;
     }
-    
-    // Land
-    if (I.y + I.height > 200) {
-      I.y = 200 - I.height;
-      I.yVelocity = 0;
 
-      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
-      airborne = false;
-    }
-    
     fireWeapons();
     updateGunAngle();
 
@@ -226,7 +228,7 @@ function Dinosaur() {
       I.yVelocity = -1;
     }
 
-    if (jetpackCounter <= 0) {
+    if (jetpackCounter <= 0 && airborne) {
       I.yVelocity = 6;
     }
 
@@ -301,7 +303,14 @@ function Enemy() {
   }
 
   var self = GameObject(I);
-  
+
+  self.land = function(h) {
+    if (I.y + I.height > canvas.height() - h) {
+      I.y = canvas.height() - I.height - h;
+      I.yVelocity = 0;
+    }
+  }
+
   self.update = after(self.update, function() {
     // Shoot
     if (Math.random() < 0.3) {
@@ -335,24 +344,11 @@ function Floor() {
   var self = GameObject(I);
 
   self.hit = function(other) {
-    active = true;
-
-  var o = other.boundingBox();
-
-    if(o.y + o.h > canvas.height() - height) {
-      o.y = (canvas.height() - height) - o.h;
-      other.yVelocity(0);
-    }
+    other.land(height);
 }
 
   return self;
 }
-
-// Land on the ground
-//    if (I.y + I.height > 200) {
-//      I.y = 200 - I.height;
-//      yVelocity = 0;
-//    }
 
 function Bullet(x, y, theta, color) {
   var speed = 10;

@@ -98,8 +98,13 @@
         }));
       }
 
+      var health = dino.health();
+      collision(dino,floor);
+      dino.health(health);
+
       $.each(enemies, function(i, enemy) {
         collision(dino, enemy);
+
       });
 
       $.each(enemies, function(i, enemy) {
