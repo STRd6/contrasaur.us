@@ -303,12 +303,6 @@ function Enemy() {
     if (Math.random() < 0.3) {
       enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
     }
-    
-    // Land on the ground
-    if (I.y + I.height > 200) {
-      I.y = 200 - I.height;
-      yVelocity = 0;
-    }
   });
 
   self.hit = after(self.hit, function(other) {
@@ -339,16 +333,12 @@ function Floor() {
   self.hit = function(other) {
     active = true;
 
-//  var o = other.boundingBox();
-//
-//
-//      console.log(o.y + o.h);
-//      console.log(canvas.height() - height);
-//
-//    if(o.y + o.h > canvas.height() - height) {
-//      o.y = (canvas.height() - height) - o.h;
-//      o.yVelocity(0);
-//    }
+  var o = other.boundingBox();
+
+    if(o.y + o.h > canvas.height() - height) {
+      o.y = (canvas.height() - height) - o.h;
+      other.yVelocity(0);
+    }
 }
 
   return self;
