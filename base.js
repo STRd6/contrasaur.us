@@ -270,6 +270,7 @@ function Dinosaur() {
     // Flip when hitting edges of screen
     if (I.x + I.width > canvas.width() || I.x < 0) {
       I.xVelocity = I.xVelocity * -1;
+      I.x += I.xVelocity;
     }
     
     // Wiggle in the air
