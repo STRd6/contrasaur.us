@@ -18,9 +18,16 @@ function GameObject(I) {
     I.y += I.yVelocity;
   }
 
+  function midpoint() {
+    return {
+      x: this.x + this.w/2,
+      y: this.y + this.h/2
+    }
+  }
+
   return {
     boundingBox: function() {
-      return {x: I.x, y: I.y, w: I.width, h: I.height};
+      return {x: I.x, y: I.y, w: I.width, h: I.height, midpoint: midpoint};
     },
 
     active: function(newActive) {
@@ -132,7 +139,27 @@ function Dinosaur() {
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
-  
+
+  function nearestEnemy() {
+    var nearest;
+    var nearestDistance;
+
+    $.each(enemies, function(i, enemy) {
+      var enemyDistance = distance(self.boundingBox().midpoint(), enemy.boundingBox().midpoint());
+      if(nearest) {
+        if(nearestDistance > enemyDistance) {
+          nearest = enemy;
+          nearestDistance = enemyDistance;
+        }
+      } else {
+        nearest = enemy;
+        nearestDistance = enemyDistance
+      }
+    });
+
+    return nearest;
+  }
+ 
   self.land = function(h) {
     I.y = h - I.height;
     I.yVelocity = 0;
@@ -162,10 +189,13 @@ function Dinosaur() {
     };
     
     if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
+      var target = nearestEnemy();
       // Shotgun Blast
-      var direction = Math.atan(I.yVelocity/I.xVelocity);
-      if(I.xVelocity < 0) {
-        direction = direction + Math.PI;
+      var direction;
+      if(target) {
+        direction = Math.atan2(target.boundingBox().y - I.y, target.boundingBox().x - I.x);
+      } else {
+        direction = Math.atan2(I.yVelocity, I.xVelocity);
       }
 
       (3 + rand(I.weapons.shotgun)).times(function() {
@@ -374,7 +404,6 @@ function Tank() {
 
 function Floor() {
   var height = 100;
-  var active = true;
 
   var I = {
     x: 0,
