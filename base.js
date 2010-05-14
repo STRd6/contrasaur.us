@@ -90,7 +90,9 @@ function GameText(text, I) {
     canvas.fillColor("#000");
     canvas.fillText(text, I.x, I.y);
   };
-  
+
+  self.pointsWorth = 0;
+
   self.update = after(self.update, function() {
     if(I.age > 30) {
       I.active = false;
@@ -472,6 +474,8 @@ function PowerUp(I) {
   var self = GameObject(I);
 
   self.collideDamage = 0;
+
+  self.pointsWorth = 1000;
 
   self.draw = after(self.draw, function() {
     canvas.fillColor("#FFF");
