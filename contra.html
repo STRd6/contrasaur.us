@@ -105,6 +105,10 @@
       if (Math.random() < .03) {
         enemies.push(Enemy());
       }
+
+      if (Math.random() < .01) {
+        enemies.push(Tank());
+      }
       
       if (Math.random() < 0.01) {
         // HAX: Putting this in enemy bullets so it will collide with dino.
@@ -146,7 +150,7 @@
           liveEnemies.push(enemy);
           enemy.draw(canvas);
         } else {
-          score += 1000;
+          score += enemy.pointsWorth;
         }
       });
       enemies = liveEnemies;

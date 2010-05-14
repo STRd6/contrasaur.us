@@ -303,6 +303,7 @@ function Enemy() {
 
   var self = GameObject(I);
 
+  self.pointsWorth = 1000;
   self.collideDamage = 1;
 
   self.land = function(h) {
@@ -314,6 +315,51 @@ function Enemy() {
     // Shoot
     if (Math.random() < 0.3) {
       enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+    }
+  });
+
+  self.hit = after(self.hit, function(other) {
+    if(other.bump) {
+      other.bump();
+    }
+  });
+
+  return self;
+}
+
+function Tank() {
+  var theta;
+
+  if (Math.random() < 0.5) {
+    theta = 0;
+  } else {
+    theta = Math.PI;
+  }
+
+  var I = {
+    x: rand(canvas.width()),
+    y: 350,
+    width: 30,
+    height: 30,
+    xVelcity: 1,
+    health: 10,
+    color: "#FF7"
+  }
+
+  var self = GameObject(I);
+
+  self.pointsWorth = 5000;
+  self.collideDamage = 3;
+
+  self.land = function(h) {
+    I.y = h - I.height;
+    I.yVelocity = 0;
+  }
+
+  self.update = after(self.update, function() {
+    // Shoot
+    if (Math.random() < 0.05) {
+      enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00", 7));
     }
   });
 
@@ -351,14 +397,14 @@ function Floor() {
   return self;
 }
 
-function Bullet(x, y, theta, color) {
+function Bullet(x, y, theta, color, size) {
   var speed = 10;
 
   var I = {
     x: x,
     y: y,
-    width: 4,
-    height: 4,
+    width: size || 4,
+    height: size || 4,
     color: color || "#000",
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
