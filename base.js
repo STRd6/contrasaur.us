@@ -25,7 +25,7 @@ function GameObject(I) {
     }
   }
 
-  return {
+  var self = {
     boundingBox: function() {
       return {x: I.x, y: I.y, w: I.width, h: I.height, midpoint: midpoint};
     },
@@ -73,33 +73,60 @@ function GameObject(I) {
     update: function() {
       I.age++;
       move();
+    },
+
+    extend: function(options) {
+      var afterMethods = options.after;
+      var beforeMethods = options.before;
+
+      delete options.after;
+      delete options.before;
+
+      $.each(options, function(name, method) {
+        self[name] = method;
+      });
+
+      if(beforeMethods) {
+        $.each(beforeMethods, function(name, method) {
+          self[name] = before(self[name], method);
+        });
+      }
+
+      if(afterMethods) {
+        $.each(afterMethods, function(name, method) {
+          self[name] = after(self[name], method);
+        });
+      }
+
+      return self;
     }
-  }
+  };
+
+  return self;
 }
 
 function GameText(text, I) {
-  var self = GameObject(I);
-
-  self.collideDamage = 0;
-
   I.y -= 30;
   I.width = 1;
   I.height = 1;
 
-  self.draw = function() {
-    canvas.fillColor("#000");
-    canvas.fillText(text, I.x, I.y);
-  };
+  return GameObject(I).extend({
+    collideDamage: 0,
+    pointsWorth: 0,
 
-  self.pointsWorth = 0;
+    draw: function(canvas) {
+      canvas.fillColor("#000");
+      canvas.fillText(text, I.x, I.y);
+    },
 
-  self.update = after(self.update, function() {
-    if(I.age > 30) {
-      I.active = false;
+    after: {
+      update: function() {
+        if(I.age > 30) {
+          I.active = false;
+        }
+      }
     }
   });
-
-  return self;
 }
 
 function Dinosaur() {
