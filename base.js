@@ -449,26 +449,24 @@ function Bullet(x, y, theta, color, size) {
     yVelocity: Math.sin(theta)*speed
   };
 
-  var self = GameObject(I);
-
-  self.collideDamage = 1;
-
-  self.draw = function(canvas) {
-    bulletTile.draw(canvas, I.x, I.y);
-  };
-
-  self.update = after(self.update, function() {
-    // Check Bounds
-    if (I.x >= 0 && I.x < canvas.width() &&
-      I.y >= 0 && I.y < 380) {
-      I.active = I.active && true;
-    } else {
-      I.active = false;
+  return GameObject(I).extend({
+    collideDamage: 1,
+    draw: function(canvas) {
+      bulletTile.draw(canvas, I.x, I.y);
+    },
+    after: {
+      update: function() {
+        // Check Bounds
+        if (I.x >= 0 && I.x < canvas.width() &&
+          I.y >= 0 && I.y < 380) {
+          I.active = I.active && true;
+        } else {
+          I.active = false;
+        }
+        return I.active;
+      }
     }
-    return I.active;
   });
-
-  return self;
 }
 
 function PowerUp(I) {
