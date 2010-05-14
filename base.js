@@ -174,7 +174,7 @@ function Dinosaur() {
         }
 
         var x = I.x + I.width/2 + fuzz();
-        var y = I.y + I.height/2 + fuzz();
+        var y = I.y + I.height/2 + fuzz() * 2;
 
         bullets.push(Bullet(x, y, direction));
       });
@@ -241,9 +241,6 @@ function Dinosaur() {
   });
   
   self.powerup = function(powerup) {
-    // HAX: Countering the default loss from hitting the powerup
-    I.health++;
-    
     if(powerup.health) {
       display("FOOD!");
       heal(powerup.health);
