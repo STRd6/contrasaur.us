@@ -425,20 +425,15 @@ function Floor() {
     y: canvas.height() - height,
     width: canvas.width(),
     height: height,
-    yVelocity: 0,
-    health: 1,
     color: "#0F0"
-  }
+  };
 
-  var self = GameObject(I);
-
-  self.collideDamage = 0;
-
-  self.hit = function(other) {
-    other.land(I.y);
-  }
-
-  return self;
+  return GameObject(I).extend({
+    collideDamage: 0,
+    hit: function(other) {
+      other.land(I.y);
+    }
+  });
 }
 
 function Bullet(x, y, theta, color, size) {
