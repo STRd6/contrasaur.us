@@ -30,6 +30,10 @@ function GameObject(I) {
       return {x: I.x, y: I.y, w: I.width, h: I.height, midpoint: midpoint};
     },
 
+    // TODO: Encapsulate these better
+    collideDamage: 0,
+    pointsWorth: 0,
+
     active: function(newActive) {
       if(newActive != undefined) {
         I.active = newActive;
@@ -111,9 +115,6 @@ function GameText(text, I) {
   I.height = 1;
 
   return GameObject(I).extend({
-    collideDamage: 0,
-    pointsWorth: 0,
-
     draw: function(canvas) {
       canvas.fillColor("#000");
       canvas.fillText(text, I.x, I.y);
@@ -477,40 +478,36 @@ function PowerUp(I) {
     height: 15
   });
 
-  var self = GameObject(I);
-
-  self.collideDamage = 0;
-
-  self.pointsWorth = 1000;
-
-  self.draw = after(self.draw, function() {
-    canvas.fillColor("#FFF");
-    canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
-  });
-  
-  self.update = before(self.update, function() {
-    I.xVelocity = Math.sin(I.age/10);
-  });
-
-  self.update = after(self.update, function() {
-    // Check Bounds
-    if (I.x >= 0 && I.x < canvas.width() &&
-      I.y >= 0 && I.y < 380) {
-      I.active = I.active && true;
-    } else {
-      I.active = false;
+  return GameObject(I).extend({
+    pointsWorth: 1000,
+    before: {
+      update: function() {
+        I.xVelocity = Math.sin(I.age/10);
+      }
+    },
+    after: {
+      draw: function(canvas) {
+        canvas.fillColor("#FFF");
+        canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
+      },
+      hit: function(other) {
+        if(other.powerup) {
+          other.powerup([
+            {health: 10},
+            {weapon: {shotgun: 2}},
+            {weapon: {bombs: 1}}
+          ].rand());
+        }
+      },
+      update: function() {
+        // Check Bounds
+        if (I.x >= 0 && I.x < canvas.width() &&
+          I.y >= 0 && I.y < 380) {
+          I.active = I.active && true;
+        } else {
+          I.active = false;
+        }
+      }
     }
   });
-
-  self.hit = after(self.hit, function(other) {
-    if(other.powerup) {
-      other.powerup([
-        {health: 10},
-        {weapon: {shotgun: 2}},
-        {weapon: {bombs: 1}}
-      ].rand());
-    }
-  });
-
-  return self;
 }
