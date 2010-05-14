@@ -161,9 +161,49 @@ function Dinosaur() {
 
   var healthMax = I.health;
 
-  var self = GameObject(I);
+  function fireWeapons() {
+    var berserkTheta = theta - Math.PI / 24;
 
-  self.collideDamage = 2;
+    if(I.weapons.machineGun && !berserk) {
+      // Machine Gun Fire
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
+    }
+
+    if (I.weapons.machineGun && berserk) {
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
+      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, berserkTheta));
+    }
+
+    if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
+      // Bomb Blast
+      for (var i = 0; i <= 24; i++) {
+        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI)
+        );
+      }
+    };
+
+    if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
+      var target = nearestEnemy();
+      // Shotgun Blast
+      var direction;
+      if(target) {
+        direction = Math.atan2(target.boundingBox().y - I.y, target.boundingBox().x - I.x);
+      } else {
+        direction = Math.atan2(I.yVelocity, I.xVelocity);
+      }
+
+      (3 + rand(I.weapons.shotgun)).times(function() {
+        function fuzz() {
+          return Math.random() * 20 - 10;
+        }
+
+        var x = I.x + I.width/2 + fuzz();
+        var y = I.y + I.height/2 + fuzz() * 2;
+
+        bullets.push(Bullet(x, y, direction));
+      });
+    }
+  }
 
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
@@ -188,57 +228,6 @@ function Dinosaur() {
 
     return nearest;
   }
- 
-  self.land = function(h) {
-    I.y = h - I.height;
-    I.yVelocity = 0;
-    I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
-    airborne = false;
-  }
-
-  function fireWeapons() {
-    var berserkTheta = theta - Math.PI / 24;
-
-    if(I.weapons.machineGun && !berserk) {
-      // Machine Gun Fire
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
-    } 
-    
-    if (I.weapons.machineGun && berserk) {
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, berserkTheta));
-    }
-
-    if (I.weapons.bombs && score % 69 == 0) {
-      // Bomb Blast
-      for (var i = 0; i <= 24; i++) {
-        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI)
-        );
-      }
-    };
-    
-    if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
-      var target = nearestEnemy();
-      // Shotgun Blast
-      var direction;
-      if(target) {
-        direction = Math.atan2(target.boundingBox().y - I.y, target.boundingBox().x - I.x);
-      } else {
-        direction = Math.atan2(I.yVelocity, I.xVelocity);
-      }
-
-      (3 + rand(I.weapons.shotgun)).times(function() {
-        function fuzz() {
-          return Math.random() * 20 - 10;
-        }
-
-        var x = I.x + I.width/2 + fuzz();
-        var y = I.y + I.height/2 + fuzz() * 2;
-
-        bullets.push(Bullet(x, y, direction));
-      });
-    }
-  }
   
   // Adjust machine gun angle
   function updateGunAngle() {
@@ -260,68 +249,76 @@ function Dinosaur() {
     }
   }
 
-  self.update = after(self.update, function() {
-    if(I.health < healthMax / 2) {
-      berserk = true;
-    } else {
-      berserk = false;
-    }
+  var self = GameObject(I).extend({
+    bump: function() {
+      I.xVelocity = -I.xVelocity;
+    },
+    collideDamage: 2,
+    draw: function(canvas) {
+      dinoTile.draw(canvas, I.x, I.y);
+    },
+    land: function(h) {
+      I.y = h - I.height;
+      I.yVelocity = 0;
+      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+      airborne = false;
+    },
+    powerup: function(powerup) {
+      if(powerup.health) {
+        display("FOOD!");
+        heal(powerup.health);
+      }
 
-    // Flip when hitting edges of screen
-    if (I.x + I.width > canvas.width() || I.x < 0) {
-      I.xVelocity = I.xVelocity * -1;
-      I.x += I.xVelocity;
-    }
-    
-    // Wiggle in the air
-    if (airborne) {
-      I.xVelocity += (Math.random() - 0.5) * 3;
-      I.xVelocity = I.xVelocity * 0.9;
-    }
+      if(powerup.weapon) {
+        for(var weapon in powerup.weapon) {
+          display(weapon + "!");
+          I.weapons[weapon] += powerup.weapon[weapon];
+        }
+      }
+    },
+    after: {
+      update: function() {
+        if(I.health < healthMax / 2) {
+          berserk = true;
+        } else {
+          berserk = false;
+        }
 
-    fireWeapons();
-    updateGunAngle();
+        // Flip when hitting edges of screen
+        if (I.x + I.width > canvas.width() || I.x < 0) {
+          I.xVelocity = I.xVelocity * -1;
+          I.x += I.xVelocity;
+        }
 
-    if(Math.random() < 0.01 && jetpackCounter <= 0) {
-      jetpackCounter += 50;
-    }
+        // Wiggle in the air
+        if (airborne) {
+          I.xVelocity += (Math.random() - 0.5) * 3;
+          I.xVelocity = I.xVelocity * 0.9;
+        }
 
-    if (jetpackCounter > 0 && !airborne) {
-      I.yVelocity = -1;
-    }
+        fireWeapons();
+        updateGunAngle();
 
-    if (jetpackCounter <= 0 && airborne) {
-      I.yVelocity = 6;
-    }
+        if(Math.random() < 0.01 && jetpackCounter <= 0) {
+          jetpackCounter += 50;
+        }
 
-    if (jetpackCounter > 0) {
-      airborne = true;
-      jetpackCounter--;
-    }
-  });
-  
-  self.powerup = function(powerup) {
-    if(powerup.health) {
-      display("FOOD!");
-      heal(powerup.health);
-    }
-    
-    if(powerup.weapon) {
-      for(var weapon in powerup.weapon) {
-        display(weapon + "!");
-        I.weapons[weapon] += powerup.weapon[weapon];
+        if (jetpackCounter > 0 && !airborne) {
+          I.yVelocity = -1;
+        }
+
+        if (jetpackCounter <= 0 && airborne) {
+          I.yVelocity = 6;
+        }
+
+        if (jetpackCounter > 0) {
+          airborne = true;
+          jetpackCounter--;
+        }
       }
     }
-  };
-  
-  self.bump = function() {
-    I.xVelocity = -I.xVelocity;
-  };
-  
-  self.draw = function(canvas) {
-    dinoTile.draw(canvas, I.x, I.y);
-  }
-  
+  });
+
   return self;
 }
 
