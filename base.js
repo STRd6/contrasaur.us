@@ -100,8 +100,6 @@ function Dinosaur() {
 
   var x = (canvas.width() - width) / 2;
   var y = 0;
-  
-  var healthMax = 50;
 
   var airborne = true;
   var berserk = false;
@@ -115,7 +113,7 @@ function Dinosaur() {
     width: width,
     height: height,
     color: "#00F",
-    health: 50,
+    health: 100,
     weapons: {
       bombs: 0,
       machineGun: 1,
@@ -124,6 +122,8 @@ function Dinosaur() {
     xVelocity: 1,
     yVelocity: 6
   };
+
+  var healthMax = I.health;
 
   var self = GameObject(I);
 
