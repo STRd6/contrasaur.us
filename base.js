@@ -62,7 +62,6 @@ function GameObject(I) {
     },
 
     hit: function(other) {
-      console.log(other.collideDamage);
       I.health = I.health - other.collideDamage;
       if (I.health <= 0) {
         I.active = false;
