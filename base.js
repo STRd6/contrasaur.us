@@ -340,7 +340,9 @@ function collision(A, B) {
   }
 }
 
-function Enemy() {
+function Enemy(I) {
+  I = I || {};
+
   var startingY;
   if (Math.random() < 0.5) {
     startingY = 0;
@@ -350,15 +352,20 @@ function Enemy() {
 
   var theta = Math.random() * (Math.PI * 2);
 
-  var I = {
+  $.reverseMerge(I, {
     x: rand(canvas.width()),
     y: startingY,
     width: 10,
     height: 40,
     yVelocity: 3,
     health: 3,
-    color: "#F00"
-  }
+    color: "#F00",
+    shootLogic: function() {
+      if (Math.random() < 0.3) {
+        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+      }
+    }
+  });
 
   return GameObject(I).extend({
     collideDamage: 1,
@@ -374,58 +381,40 @@ function Enemy() {
         }
       },
       update: function() {
-        // Shoot
-        if (Math.random() < 0.3) {
-          enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
-        }
+        I.shootLogic();
       }
     }
   });
 }
 
 function Tank() {
-  var theta;
+  var gunAngle;
+  var xVelocity;
 
   if (Math.random() < 0.5) {
-    theta = 0;
+    xVelocity = 0.5;
+    gunAngle = - Math.PI / 12;
   } else {
-    theta = Math.PI;
+    xVelocity = -0.5;
+    gunAngle = 13 * Math.PI / 12;
   }
 
   var I = {
-    x: rand(canvas.width()),
     y: 350,
     width: 30,
     height: 30,
-    xVelcity: 1,
+    xVelocity: xVelocity,
     health: 10,
-    color: "#FF7"
-  }
-
-  var self = GameObject(I);
-
-  self.pointsWorth = 5000;
-  self.collideDamage = 3;
-
-  self.land = function(h) {
-    I.y = h - I.height;
-    I.yVelocity = 0;
-  }
-
-  self.update = after(self.update, function() {
-    // Shoot
-    if (Math.random() < 0.05) {
-      enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00", 7));
+    color: "#FF7",
+    shootLogic: function() {
+      // Shoot
+      if (Math.random() < 0.05) {
+        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, gunAngle, "#C00", 7));
+      }
     }
-  });
+  };
 
-  self.hit = after(self.hit, function(other) {
-    if(other.bump) {
-      other.bump();
-    }
-  });
-
-  return self;
+  return Enemy(I);
 }
 
 function Floor() {
