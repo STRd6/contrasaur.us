@@ -360,30 +360,27 @@ function Enemy() {
     color: "#F00"
   }
 
-  var self = GameObject(I);
-
-  self.pointsWorth = 1000;
-  self.collideDamage = 1;
-
-  self.land = function(h) {
-    I.y = h - I.height;
-    I.yVelocity = 0;
-  }
-
-  self.update = after(self.update, function() {
-    // Shoot
-    if (Math.random() < 0.3) {
-      enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+  return GameObject(I).extend({
+    collideDamage: 1,
+    pointsWorth: 1000,
+    land: function(h) {
+      I.y = h - I.height;
+      I.yVelocity = 0;
+    },
+    after: {
+      hit: function(other) {
+        if(other.bump) {
+          other.bump();
+        }
+      },
+      update: function() {
+        // Shoot
+        if (Math.random() < 0.3) {
+          enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+        }
+      }
     }
   });
-
-  self.hit = after(self.hit, function(other) {
-    if(other.bump) {
-      other.bump();
-    }
-  });
-
-  return self;
 }
 
 function Tank() {
