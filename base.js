@@ -134,12 +134,10 @@ function Dinosaur() {
   }
   
   self.land = function(h) {
-    if (I.y + I.height > canvas.height() - h) {
-      I.y = canvas.height() - I.height - h;
-      I.yVelocity = 0;
-      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
-      airborne = false;
-    }
+    I.y = h - I.height;
+    I.yVelocity = 0;
+    I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+    airborne = false;
   }
 
   function fireWeapons() {
@@ -311,10 +309,8 @@ function Enemy() {
   self.collideDamage = 1;
 
   self.land = function(h) {
-    if (I.y + I.height > canvas.height() - h) {
-      I.y = canvas.height() - I.height - h;
-      I.yVelocity = 0;
-    }
+    I.y = h - I.height;
+    I.yVelocity = 0;
   }
 
   self.update = after(self.update, function() {
@@ -352,8 +348,8 @@ function Floor() {
   self.collideDamage = 0;
 
   self.hit = function(other) {
-    other.land(height);
-}
+    other.land(I.y);
+  }
 
   return self;
 }
