@@ -33,8 +33,6 @@
   var dino;
   var floor;
   var bulletTile = loadImageTile("blast_small.png");
-  var clouds1 = loadImageTile("clouds1.png");
-  var clouds2 = loadImageTile("clouds2.png");
   var dinoTile = loadImageTile("dino1.png");
   var parallax = 0;
   var parallax2 = 0;
@@ -45,6 +43,19 @@
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
     canvas = _canvas;
+    
+    var backgrounds = [
+      {
+        image: loadImageTile("clouds2.png"),
+        rate: -0.5,
+        position: 0
+      },
+      {
+        image: loadImageTile("clouds1.png"),
+        rate: -1,
+        position: 0
+      }
+    ]
 
     var gameObjects = [Dinosaur(), Floor()]; 
 
@@ -76,17 +87,18 @@
     var intervalID = setInterval(function() {
       canvas.clear().fill('#17E');
       //tiledBackground.draw(canvas, 0, 0);
-      
-      // Draw Clouds
-      clouds2.draw(canvas, parallax2, 0);
-      clouds2.draw(canvas, parallax2 + canvas.width(), 0);
-      clouds1.draw(canvas, parallax, 0);
-      clouds1.draw(canvas, parallax + canvas.width(), 0);
-      
-      parallax2 -= 1;
-      parallax2 = parallax2 % canvas.width();
-      parallax -= 2;
-      parallax = parallax % canvas.width();
+
+      // Draw Backgrounds
+      $.each(backgrounds, function(i, background) {
+        var offset = canvas.width();
+        if(background.position > 0) {
+          offset = -offset;
+        }
+
+        background.image.draw(canvas, background.position, 0);
+        background.image.draw(canvas, background.position + offset, 0);
+        background.position = (background.position + background.rate) % canvas.width();
+      });
 
       // Gather Input
 

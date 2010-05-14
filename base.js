@@ -198,7 +198,7 @@ function Dinosaur() {
     }
 
     // Don't shoot machine gun into the ground
-    if(Math.sin(-theta) < 0 && !airborne) {
+    if(Math.sin(-theta) < -0.2 && !airborne) {
       theta = -theta;
     }
   }
