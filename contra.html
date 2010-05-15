@@ -34,6 +34,7 @@
   var floor;
   var bulletTile = loadImageTile("blast_small.png");
   var dinoTile = loadImageTile("dino1.png");
+  var tankTile = loadImageTile("tank.png");
   
   function display(text) {
     enemies.push(GameText(text, dino.boundingBox()));
@@ -122,7 +123,7 @@
       }
 
       if (Math.random() < .01) {
-        enemies.push(Tank());
+        enemies.push(Tank({sprite: tankTile}));
       }
       
       if (Math.random() < 0.01) {

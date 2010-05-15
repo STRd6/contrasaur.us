@@ -415,7 +415,7 @@ function Enemy(I) {
   return self;
 }
 
-function Tank() {
+function Tank(I) {
   var gunAngle;
   var xVelocity;
 
@@ -427,7 +427,7 @@ function Tank() {
     gunAngle = 13 * Math.PI / 12;
   }
 
-  var I = {
+  $.reverseMerge(I, {
     y: 350,
     width: 30,
     height: 30,
@@ -447,7 +447,7 @@ function Tank() {
         ));
       }
     }
-  };
+  });
 
   var self = Enemy(I);
 
