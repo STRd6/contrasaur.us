@@ -2,7 +2,9 @@
   function LoaderProxy() {
     return {
       draw: function() {},
-      update: function(){}
+      update: function(){},
+      width: null,
+      height: null
     };
   }
 
@@ -95,7 +97,7 @@
     };
   };
 
-  window["loadImageTile"] = function(url) {
+  window["loadImageTile"] = function(url, loadedCallback) {
     var img = new Image();
     var proxy = LoaderProxy();
 
@@ -103,6 +105,12 @@
       var tile = Tile(this);
       proxy.update = tile.update;
       proxy.draw = tile.draw;
+      proxy.width = tile.width;
+      proxy.height = tile.height;
+
+      if(loadedCallback) {
+        loadedCallback(proxy);
+      }
     };
 
     img.src = url;
