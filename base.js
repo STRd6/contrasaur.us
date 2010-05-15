@@ -29,7 +29,7 @@ function GameObject(I) {
     },
 
     boundingBox: function() {
-      return { x: I.x, y: I.y, w: I.width, h: I.height };
+      return { x: I.x, y: I.y, width: I.width, height: I.height };
     },
 
     // TODO: Encapsulate these better
@@ -348,10 +348,10 @@ function collision(A, B) {
   var b = A.boundingBox();
   var t = B.boundingBox();
 
-  var xOverlap = (b.x < t.x && b.x + b.w >= t.x) ||
-    (t.x < b.x && t.x + t.w >= b.x);
-  var yOverlap = (b.y < t.y && b.y + b.h >= t.y) ||
-    (t.y < b.y && t.y + t.h >= b.y);
+  var xOverlap = (b.x < t.x && b.x + b.width >= t.x) ||
+    (t.x < b.x && t.x + t.width >= b.x);
+  var yOverlap = (b.y < t.y && b.y + b.height >= t.y) ||
+    (t.y < b.y && t.y + t.height >= b.y);
   if (A.active() && B.active()) {
     if(xOverlap && yOverlap) {
       A.hit(B);
