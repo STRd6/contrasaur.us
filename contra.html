@@ -34,8 +34,6 @@
   var floor;
   var bulletTile = loadImageTile("blast_small.png");
   var dinoTile = loadImageTile("dino1.png");
-  var parallax = 0;
-  var parallax2 = 0;
   
   function display(text) {
     enemies.push(GameText(text, dino.boundingBox()));
@@ -43,7 +41,7 @@
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
     canvas = _canvas;
-    
+
     var backgrounds = [
       {
         image: loadImageTile("clouds2.png"),
@@ -55,7 +53,15 @@
         rate: -1,
         position: 0
       }
-    ]
+    ];
+
+    var foregrounds = [
+      {
+      image:,
+      rate:,
+      position
+      }
+    ]; 
 
     var gameObjects = [Dinosaur(), Floor()]; 
 
