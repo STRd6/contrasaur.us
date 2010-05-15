@@ -72,8 +72,12 @@ function GameObject(I) {
     },
 
     draw: function(canvas) {
-      canvas.fillColor(I.color);
-      canvas.fillRect(I.x, I.y, I.width, I.height);
+      if (I.sprite) {
+        I.sprite.draw(canvas, I.x, I.y);
+      } else {
+        canvas.fillColor(I.color);
+        canvas.fillRect(I.x, I.y, I.width, I.height);
+      }
     },
 
     update: function() {
@@ -168,20 +172,27 @@ function Dinosaur() {
   function fireWeapons() {
     var berserkTheta = theta - Math.PI / 24;
 
-    if(I.weapons.machineGun && !berserk) {
-      // Machine Gun Fire
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
-    }
-
-    if (I.weapons.machineGun && berserk) {
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, theta));
-      bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, berserkTheta));
+    // Machine Gun Fire
+    bullets.push(Bullet(theta, {
+      x: self.boundingBox().midpoint().x,
+      y: self.boundingBox().midpoint().y
+    }));
+ 
+    if (berserk) {
+      bullets.push(Bullet(berserkTheta, {
+        x: self.boundingBox().midpoint().x,
+        y: self.boundingBox().midpoint().y
+      }));
     }
 
     if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
       // Bomb Blast
       (24).times(function(i) {
-        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI))
+        var theta = (i / 12) * Math.PI;
+        Bullet(theta, {
+          x: self.boundingBox().midpoint().x,
+          y: self.boundingBox().midpoint().y
+        });
       }
     )};
 
@@ -207,7 +218,7 @@ function Dinosaur() {
         var x = I.x + I.width/2 + fuzz();
         var y = I.y + I.height/2 + fuzz() * 2;
 
-        bullets.push(Bullet(x, y, direction));
+        bullets.push(Bullet(direction, { x: x, y: y }));
       });
     }
   }
@@ -369,12 +380,18 @@ function Enemy(I) {
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
-        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
+        enemyBullets.push(Bullet(
+          theta, {
+            x: self.boundingBox().midpoint().x,
+            y: self.boundingBox().midpoint().y,
+            color: '#C00'
+          }
+        ));
       }
     }
   });
 
-  return GameObject(I).extend({
+  var self = GameObject(I).extend({
     land: function(h) {
       I.y = h - I.height;
       I.yVelocity = 0;
@@ -390,6 +407,8 @@ function Enemy(I) {
       }
     }
   });
+
+  return self;
 }
 
 function Tank() {
@@ -414,12 +433,21 @@ function Tank() {
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
-        enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, gunAngle, "#C00", 7));
+        enemyBullets.push(Bullet(
+          gunAngle, {
+            x: self.boundingBox().midpoint().x,
+            y: self.boundingBox().midpoint().y,
+            sprite: loadImageTile("blast_small.png"),
+            collideDamage: 7
+          }
+        ));
       }
     }
   };
 
-  return Enemy(I);
+  var self = Enemy(I);
+
+  return self;
 }
 
 function Floor() {
@@ -442,24 +470,27 @@ function Floor() {
   });
 }
 
-function Bullet(x, y, theta, color, size) {
+function Bullet(theta, I) {
   var speed = 10;
 
-  var I = {
+  $.reverseMerge(I, {
     collideDamage: 1,
-    x: x,
-    y: y,
-    width: size || 4,
-    height: size || 4,
-    color: color || "#000",
+    width: 4,
+    height: 4,
+    color: "#000",
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
-  };
+  });
 
   var self = GameObject(I).extend({
     draw: function(canvas) {
-      var midpoint = self.boundingBox().midpoint();
-      canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, '#000');
+      if (I.sprite) {
+        I.sprite.draw(canvas, I.x, I.y);
+      } else {
+        canvas.fillColor(I.color);
+        var midpoint = self.boundingBox().midpoint();
+        canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, '#000');
+      }
     },
     after: {
       update: function() {
