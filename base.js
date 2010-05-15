@@ -152,7 +152,7 @@ function Dinosaur() {
     width: width,
     height: height,
     color: "#00F",
-    health: 100,
+    health: 500,
     weapons: {
       bombs: 0,
       machineGun: 1,
@@ -190,7 +190,11 @@ function Dinosaur() {
       // Shotgun Blast
       var direction;
       if(target) {
-        direction = Math.atan2(target.boundingBox().y - I.y, target.boundingBox().x - I.x);
+        var targetMidpoint = target.boundingBox().midpoint();
+        direction = Math.atan2(
+          targetMidpoint.y - self.boundingBox().midpoint().y,
+          targetMidpoint.x - self.boundingBox().midpoint().x
+        );
       } else {
         direction = Math.atan2(I.yVelocity, I.xVelocity);
       }
@@ -452,9 +456,10 @@ function Bullet(x, y, theta, color, size) {
     yVelocity: Math.sin(theta)*speed
   };
 
-  return GameObject(I).extend({
+  var self = GameObject(I).extend({
     draw: function(canvas) {
-      bulletTile.draw(canvas, I.x, I.y);
+      var midpoint = self.boundingBox().midpoint();
+      canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, '#000');
     },
     after: {
       update: function() {
@@ -469,6 +474,8 @@ function Bullet(x, y, theta, color, size) {
       }
     }
   });
+
+  return self;
 }
 
 function PowerUp(I) {
