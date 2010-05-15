@@ -19,18 +19,17 @@ function GameObject(I) {
     I.y += I.yVelocity;
   }
 
-  function midpoint() {
-    return {
-      x: this.x + this.w/2,
-      y: this.y + this.h/2
-    }
-  }
-
   var self = {
 
+    midpoint: function() {
+      return {
+        x: I.x + I.width/2,
+        y: I.y + I.height/2
+      }
+    },
 
     boundingBox: function() {
-      return {x: I.x, y: I.y, w: I.width, h: I.height, midpoint: midpoint};
+      return { x: I.x, y: I.y, w: I.width, h: I.height };
     },
 
     // TODO: Encapsulate these better
@@ -55,12 +54,10 @@ function GameObject(I) {
       }
     },
 
-    yVelocity: function(newyVelocity) {
-      if(newyVelocity != undefined) {
-        I.yVelocity = newyVelocity;
-        return this;
-      } else {
-        return I.yVelocity;
+    velocity: function() {
+      return {
+        x: I.xVelocity,
+        y: I.yVelocity
       }
     },
 
@@ -160,7 +157,7 @@ function Dinosaur() {
     weapons: {
       bombs: 0,
       machineGun: 1,
-      shotgun: 0
+      shotgun: 6
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -174,14 +171,14 @@ function Dinosaur() {
 
     // Machine Gun Fire
     bullets.push(Bullet(theta, {
-      x: self.boundingBox().midpoint().x,
-      y: self.boundingBox().midpoint().y
+      x: self.midpoint().x,
+      y: self.midpoint().y
     }));
  
     if (berserk) {
       bullets.push(Bullet(berserkTheta, {
-        x: self.boundingBox().midpoint().x,
-        y: self.boundingBox().midpoint().y
+        x: self.midpoint().x,
+        y: self.midpoint().y
       }));
     }
 
@@ -190,8 +187,8 @@ function Dinosaur() {
       (24).times(function(i) {
         var theta = (i / 12) * Math.PI;
         Bullet(theta, {
-          x: self.boundingBox().midpoint().x,
-          y: self.boundingBox().midpoint().y
+          x: self.midpoint().x,
+          y: self.midpoint().y
         });
       }
     )};
@@ -200,11 +197,18 @@ function Dinosaur() {
       var target = nearestEnemy();
       // Shotgun Blast
       var direction;
+
       if(target) {
-        var targetMidpoint = target.boundingBox().midpoint();
+        var targetMidpoint = target.midpoint();
+        var targetDistance = distance(self.midpoint(), targetMidpoint);
+        var targetVelocity = target.velocity();
+
+        targetMidpoint.y += (targetDistance / 10) * targetVelocity.y;
+        targetMidpoint.x += (targetDistance / 10) * targetVelocity.x;
+
         direction = Math.atan2(
-          targetMidpoint.y - self.boundingBox().midpoint().y,
-          targetMidpoint.x - self.boundingBox().midpoint().x
+          targetMidpoint.y - self.midpoint().y,
+          targetMidpoint.x - self.midpoint().x
         );
       } else {
         direction = Math.atan2(I.yVelocity, I.xVelocity);
@@ -232,7 +236,7 @@ function Dinosaur() {
     var nearestDistance;
 
     $.each(enemies, function(i, enemy) {
-      var enemyDistance = distance(self.boundingBox().midpoint(), enemy.boundingBox().midpoint());
+      var enemyDistance = distance(self.midpoint(), enemy.midpoint());
       if(nearest) {
         if(nearestDistance > enemyDistance) {
           nearest = enemy;
@@ -382,8 +386,8 @@ function Enemy(I) {
       if (Math.random() < 0.3) {
         enemyBullets.push(Bullet(
           theta, {
-            x: self.boundingBox().midpoint().x,
-            y: self.boundingBox().midpoint().y,
+            x: self.midpoint().x,
+            y: self.midpoint().y,
             color: '#C00'
           }
         ));
@@ -435,8 +439,8 @@ function Tank() {
       if (Math.random() < 0.05) {
         enemyBullets.push(Bullet(
           gunAngle, {
-            x: self.boundingBox().midpoint().x,
-            y: self.boundingBox().midpoint().y,
+            x: self.midpoint().x,
+            y: self.midpoint().y,
             sprite: loadImageTile("blast_small.png"),
             collideDamage: 7
           }
@@ -488,7 +492,7 @@ function Bullet(theta, I) {
         I.sprite.draw(canvas, I.x, I.y);
       } else {
         canvas.fillColor(I.color);
-        var midpoint = self.boundingBox().midpoint();
+        var midpoint = self.midpoint();
         canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, '#000');
       }
     },
