@@ -10,7 +10,8 @@ function GameObject(I) {
     height: 10,
     xVelocity: 0,
     yVelocity: 0,
-    collideDamage: 1
+    collideDamage: 1,
+    pointsWorth: 1000
   });
 
   function move() {
@@ -26,13 +27,15 @@ function GameObject(I) {
   }
 
   var self = {
+
+
     boundingBox: function() {
       return {x: I.x, y: I.y, w: I.width, h: I.height, midpoint: midpoint};
     },
 
     // TODO: Encapsulate these better
-    collideDamage: 0,
-    pointsWorth: 0,
+    collideDamage: function() { return I.collideDamage },
+    pointsWorth: function() { return I.pointsWorth },
 
     active: function(newActive) {
       if(newActive != undefined) {
@@ -62,7 +65,7 @@ function GameObject(I) {
     },
 
     hit: function(other) {
-      I.health = I.health - other.collideDamage;
+      I.health = I.health - other.collideDamage();
       if (I.health <= 0) {
         I.active = false;
       }
@@ -156,7 +159,8 @@ function Dinosaur() {
       shotgun: 0
     },
     xVelocity: 1,
-    yVelocity: 6
+    yVelocity: 6,
+    collideDamage: 2
   };
 
   var healthMax = I.health;
@@ -176,11 +180,10 @@ function Dinosaur() {
 
     if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
       // Bomb Blast
-      for (var i = 0; i <= 24; i++) {
-        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI)
-        );
+      (24).times(function(i) {
+        bullets.push(Bullet(I.x + I.width/2, I.y + I.height/2, (i / 12) * Math.PI))
       }
-    };
+    )};
 
     if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
       var target = nearestEnemy();
@@ -253,12 +256,12 @@ function Dinosaur() {
     bump: function() {
       I.xVelocity = -I.xVelocity;
     },
-    collideDamage: 2,
+
     draw: function(canvas) {
       dinoTile.draw(canvas, I.x, I.y);
     },
     land: function(h) {
-      I.y = h - I.height;
+      I.y = h - (I.height + 1);
       I.yVelocity = 0;
       I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
       airborne = false;
@@ -305,6 +308,7 @@ function Dinosaur() {
 
         if (jetpackCounter > 0 && !airborne) {
           I.yVelocity = -1;
+          airborne = true;
         }
 
         if (jetpackCounter <= 0 && airborne) {
@@ -312,7 +316,6 @@ function Dinosaur() {
         }
 
         if (jetpackCounter > 0) {
-          airborne = true;
           jetpackCounter--;
         }
       }
@@ -358,6 +361,8 @@ function Enemy(I) {
     yVelocity: 3,
     health: 3,
     color: "#F00",
+    collideDamage: 1,
+    pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
         enemyBullets.push(Bullet(I.x + I.width/2 , I.y + I.height/2, theta, "#C00"));
@@ -366,8 +371,6 @@ function Enemy(I) {
   });
 
   return GameObject(I).extend({
-    collideDamage: 1,
-    pointsWorth: 1000,
     land: function(h) {
       I.y = h - I.height;
       I.yVelocity = 0;
@@ -423,11 +426,12 @@ function Floor() {
     y: canvas.height() - height,
     width: canvas.width(),
     height: height,
-    color: "#0F0"
+    color: "#0F0",
+    collideDamage: 0
   };
 
   return GameObject(I).extend({
-    collideDamage: 0,
+
     hit: function(other) {
       other.land(I.y);
     }
@@ -438,6 +442,7 @@ function Bullet(x, y, theta, color, size) {
   var speed = 10;
 
   var I = {
+    collideDamage: 1,
     x: x,
     y: y,
     width: size || 4,
@@ -448,7 +453,6 @@ function Bullet(x, y, theta, color, size) {
   };
 
   return GameObject(I).extend({
-    collideDamage: 1,
     draw: function(canvas) {
       bulletTile.draw(canvas, I.x, I.y);
     },
@@ -472,11 +476,11 @@ function PowerUp(I) {
     color: "#F0F",
     symbol: "?",
     width: 15,
-    height: 15
+    height: 15,
+    pointsWorth: 1000
   });
 
   return GameObject(I).extend({
-    pointsWorth: 1000,
     before: {
       update: function() {
         I.xVelocity = Math.sin(I.age/10);

@@ -150,7 +150,7 @@
           liveEnemies.push(enemy);
           enemy.draw(canvas);
         } else {
-          score += enemy.pointsWorth;
+          score += enemy.pointsWorth();
         }
       });
       enemies = liveEnemies;
