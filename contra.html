@@ -40,8 +40,13 @@
   }
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
-    canvas = _canvas;
+    canvas = _canvas; 
 
+    var gameObjects = [Dinosaur(), Floor()]; 
+
+    dino = gameObjects[0];
+    floor = gameObjects[1];
+    
     var backgrounds = [
       {
         image: loadImageTile("clouds2.png"),
@@ -57,16 +62,20 @@
 
     var foregrounds = [
       {
-        image: 0,
+        image: loadImageTile('jungleTree.png', function(tile) { 
+          foregrounds[0].y = rand(floor.boundingBox().h) + canvas.height() - floor.boundingBox().h -  tile.height;
+        }),
         rate: 0,
-        position: 0
+        position: 160
+      },
+      {
+        image: loadImageTile('jungleTree.png', function(tile) { 
+          foregrounds[1].y = rand(floor.boundingBox().h) + canvas.height() - floor.boundingBox().h -  tile.height;
+        }),
+        rate: 0,
+        position: canvas.width() - 140
       }
-    ]; 
-
-    var gameObjects = [Dinosaur(), Floor()]; 
-
-    dino = gameObjects[0];
-    floor = gameObjects[1];
+    ];
     
     var healthBar = ProgressBar({
       colorMap: function colorMap(completeness) {
@@ -182,6 +191,19 @@
         }
       });
       enemyBullets = liveEnemyBullets;
+      
+      // Draw Foregrounds
+      $.each(foregrounds, function(i, foreground) {
+        var offset = canvas.width();
+        
+        if(foreground.position > 0) {
+          offset = -offset;
+        }
+
+        foreground.image.draw(canvas, foreground.position, foreground.y);
+        foreground.image.draw(canvas, foreground.position + offset, foreground.y);
+        foreground.position = (foreground.position + foreground.rate) % canvas.width();
+      });
       
       score += bullets.length;
       
