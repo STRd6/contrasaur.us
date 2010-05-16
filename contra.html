@@ -64,17 +64,17 @@
     var foregrounds = [
       {
         image: loadImageTile('jungleTree.png', function(tile) { 
-          foregrounds[0].y = rand(floor.boundingBox().height) + canvas.height() - floor.boundingBox().height -  tile.height;
+          foregrounds[0].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
         }),
         rate: 0,
-        position: 160
+        position: rand(240)
       },
       {
         image: loadImageTile('jungleTree.png', function(tile) { 
-          foregrounds[1].y = rand(floor.boundingBox().height) + canvas.height() - floor.boundingBox().height -  tile.height;
+          foregrounds[1].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
         }),
         rate: 0,
-        position: canvas.width() - 140
+        position: rand(240)
       }
     ];
     

@@ -157,7 +157,8 @@ function Dinosaur() {
     weapons: {
       bombs: 0,
       machineGun: 1,
-      shotgun: 6
+      shotgun: 6,
+      bazooka: 40
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -192,6 +193,14 @@ function Dinosaur() {
         });
       }
     )};
+
+    if (I.weapons.bazooka && rand(100) < I.weapons.bazooka) {
+      //Bazooka shot
+      bullets.push(Missile(theta, {
+        x: self.midpoint().x,
+        y: self.midpoint().y
+      }));
+    }
 
     if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
       var target = nearestEnemy();
@@ -510,6 +519,24 @@ function Bullet(theta, I) {
     }
   });
 
+  return self;
+}
+
+function Missile(theta, I) {
+  $.reverseMerge(I, {
+    color: '#000',
+    width: 8,
+    height: 4,
+    collideDamage: 20
+  });
+
+  var self = Bullet(theta, I).extend({
+    after: {
+      update: function() {
+        I.speed += 2;
+      }
+    }
+  });
   return self;
 }
 
