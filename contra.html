@@ -6,11 +6,20 @@
   <meta name="generator" content="TextMate http://macromates.com/">
   <meta name="author" content="Matthew Diebolt">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script src="power_canvas.jquery.js"></script>
-  <script src="sprites.strd6.js"></script>
-  <script src="base.js"></script>
-  <script src="UI.js"></script>
-  <script src="util.js"></script>
+  <script src="javascripts/power_canvas.jquery.js"></script>
+  <script src="javascripts/sprites.strd6.js"></script>
+  <script src="javascripts/util.js"></script>
+  <script src="javascripts/contrasaurus/bullet.js"></script>
+  <script src="javascripts/contrasaurus/dinosaur.js"></script>
+  <script src="javascripts/contrasaurus/enemy.js"></script>
+  <script src="javascripts/contrasaurus/floor.js"></script>
+  <script src="javascripts/contrasaurus/game_object.js"></script>
+  <script src="javascripts/contrasaurus/missile.js"></script>
+  <script src="javascripts/contrasaurus/powerup.js"></script>
+  <script src="javascripts/contrasaurus/tank.js"></script>
+  <script src="javascripts/contrasaurus/UI.js"></script>
+
+
 
   <!-- Date: 2010-05-08 -->
 </head>
@@ -20,7 +29,7 @@
     <p> Get a better browser</p>
   </canvas>
 
-  <audio src="Dragon Force - My Spirit Will Go On.mp3" autoplay="true" controls="controls">
+  <audio src="audio/Dragon Force - My Spirit Will Go On.mp3" autoplay="true" controls="controls">
     Your browser does not support the audio element.
   </audio>
 
@@ -32,9 +41,9 @@
   var canvas;
   var dino;
   var floor;
-  var bulletTile = loadImageTile("blast_small.png");
-  var dinoTile = loadImageTile("dino1.png");
-  var tankTile = loadImageTile("tank.png");
+  var bulletTile = loadImageTile("images/blast_small.png");
+  var dinoTile = loadImageTile("images/dino1.png");
+  var tankTile = loadImageTile("images/tank.png");
   
   function display(text) {
     enemies.push(GameText(text, dino.boundingBox()));
@@ -50,12 +59,12 @@
     
     var backgrounds = [
       {
-        image: loadImageTile("clouds2.png"),
+        image: loadImageTile("images/clouds2.png"),
         rate: -0.5,
         position: 0
       },
       {
-        image: loadImageTile("clouds1.png"),
+        image: loadImageTile("images/clouds1.png"),
         rate: -1,
         position: 0
       }
@@ -63,14 +72,14 @@
 
     var foregrounds = [
       {
-        image: loadImageTile('jungleTree.png', function(tile) { 
+        image: loadImageTile('images/jungleTree.png', function(tile) {
           foregrounds[0].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
         }),
         rate: 0,
         position: rand(240)
       },
       {
-        image: loadImageTile('jungleTree.png', function(tile) { 
+        image: loadImageTile('images/jungleTree.png', function(tile) {
           foregrounds[1].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
         }),
         rate: 0,
@@ -128,7 +137,7 @@
       
       if (Math.random() < 0.01) {
         // HAX: Putting this in enemy bullets so it will collide with dino.
-        enemyBullets.push(PowerUp({
+        enemyBullets.push(Powerup({
           x: rand(canvas.width()),
           yVelocity: 2
         }));

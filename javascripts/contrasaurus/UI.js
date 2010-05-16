@@ -48,3 +48,24 @@ function ProgressBar(I) {
   
   return self;
 }
+
+function GameText(text, I) {
+  I.y -= 30;
+  I.width = 1;
+  I.height = 1;
+
+  return GameObject(I).extend({
+    draw: function(canvas) {
+      canvas.fillColor("#000");
+      canvas.fillText(text, I.x, I.y);
+    },
+
+    after: {
+      update: function() {
+        if(I.age > 30) {
+          I.active = false;
+        }
+      }
+    }
+  });
+}
