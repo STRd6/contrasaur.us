@@ -15,9 +15,8 @@ function Bullet(theta, I) {
       if (I.sprite) {
         I.sprite.draw(canvas, I.x, I.y);
       } else {
-        canvas.fillColor(I.color);
         var midpoint = self.midpoint();
-        canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, '#000');
+        canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, I.color);
       }
     },
     after: {

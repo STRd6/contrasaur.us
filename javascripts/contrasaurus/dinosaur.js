@@ -23,7 +23,7 @@ function Dinosaur() {
       bombs: 0,
       machineGun: 1,
       shotgun: 6,
-      bazooka: 40
+      bazooka: 4
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -43,6 +43,14 @@ function Dinosaur() {
 
     if (berserk) {
       bullets.push(Bullet(berserkTheta, {
+        x: self.midpoint().x,
+        y: self.midpoint().y
+      }));
+    }
+
+    // Mortars
+    if (rand(20) == 0) {
+      bullets.push(Mortar({
         x: self.midpoint().x,
         y: self.midpoint().y
       }));

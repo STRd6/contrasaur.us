@@ -23,7 +23,8 @@ function Powerup(I) {
           other.powerup([
             {health: 10},
             {weapon: {shotgun: 2}},
-            {weapon: {bombs: 1}}
+            {weapon: {bombs: 1}},
+            {weapon: {bazooka: 1}}
           ].rand());
         }
       },
