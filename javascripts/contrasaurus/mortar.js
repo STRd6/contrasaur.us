@@ -5,7 +5,7 @@ function Mortar(I) {
   $.reverseMerge(I, {
     color: "#880",
     width: 20,
-    collisionDamage: 0
+    collideDamage: 0
   });
 
   var self = Bullet(launchAngle, I).extend({

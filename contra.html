@@ -9,6 +9,8 @@
   <script src="javascripts/power_canvas.jquery.js"></script>
   <script src="javascripts/sprites.strd6.js"></script>
   <script src="javascripts/util.js"></script>
+  <script src="javascripts/contrasaurus/bomb.js"></script>
+  <script src="javascripts/contrasaurus/bomber.js"></script>
   <script src="javascripts/contrasaurus/bullet.js"></script>
   <script src="javascripts/contrasaurus/dinosaur.js"></script>
   <script src="javascripts/contrasaurus/enemy.js"></script>
@@ -135,6 +137,10 @@
 
       if (Math.random() < .03) {
         enemies.push(Enemy());
+        enemies.push(Bomber({
+          x: 600,
+          y: 40
+        }));
       }
 
       if (Math.random() < .01) {
