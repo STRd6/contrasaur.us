@@ -45,6 +45,11 @@
   var bulletTile = loadImageTile("images/blast_small.png");
   var dinoTile = loadImageTile("images/dino1.png");
   var tankTile = loadImageTile("images/tank.png");
+  var bulletQueue = [];
+
+  function shoot(bullet) {
+    bulletQueue.push(bullet);
+  }
   
   function display(text) {
     enemies.push(GameText(text, dino.boundingBox()));
@@ -192,6 +197,8 @@
         }
       });
       bullets = liveBullets;
+      Array.prototype.push.apply(bullets, bulletQueue);
+      bulletQueue = [];
 
       $.each(enemyBullets, function(i, bullet) {
         collision(bullet, dino);

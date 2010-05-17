@@ -1,6 +1,6 @@
 function Mortar(I) {
   I = I || {};
-  var launchAngle = -Math.PI/4;
+  var launchAngle = -Math.PI/2.5;
 
   $.reverseMerge(I, {
     color: "#880",
@@ -14,26 +14,24 @@ function Mortar(I) {
         I.active = true;
       },
       update: function() {
-        I.yVelocity += 0.2;
+        I.yVelocity += 0.3;
+        bullets.push(Bullet(0, {
+          x: 50,
+          y: 50,
+          color: "#F0F"
+        }));
 
         // Deploy cluster bombs at top
-        if (I.yVelocity > 0) {
-          console.log("Boom!");
-
-          console.log(bullets.length);
+        if (I.yVelocity >= 0) {
           I.active = false;
-
-          (12).times(function(i) {
-            var theta = (i / 12) * Math.PI;
-            bullets.push(Bullet(theta, {
+          (11).times(function(i) {
+            var theta = ((i + 1) / 12) * Math.PI;
+            shoot(Bullet(theta, {
               x: self.midpoint().x,
               y: self.midpoint().y,
               color: "#F0F"
             }));
           });
-
-
-          console.log(bullets.length);
         }
       }
     }
