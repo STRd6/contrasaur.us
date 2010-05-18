@@ -120,19 +120,6 @@ function Scene(backgrounds, foregrounds) {
 
   return {
     drawBackgrounds: drawLayersGenerator(backgrounds),
-
-    drawForegrounds: function(position, canvas) {
-      $.each(foregrounds, function(i, foreground) {
-        var offset = canvas.width();
-
-        if(foreground.position > 0) {
-          offset = -offset;
-        }
-
-        foreground.image.draw(canvas, foreground.position, foreground.y);
-        foreground.image.draw(canvas, foreground.position + offset, foreground.y);
-        foreground.position = (foreground.position + foreground.rate) % canvas.width();
-      });
-    }
+    drawForegrounds: drawLayersGenerator(foregrounds)
   }
 }

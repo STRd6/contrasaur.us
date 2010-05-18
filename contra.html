@@ -69,23 +69,6 @@
     dino = gameObjects[0];
     floor = gameObjects[1];
 
-    var foregrounds = [
-      {
-        image: loadImageTile('images/jungleTree.png', function(tile) {
-          foregrounds[0].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
-        }),
-        rate: 0,
-        position: rand(240)
-      },
-      {
-        image: loadImageTile('images/jungleTree.png', function(tile) {
-          foregrounds[1].y = rand(floor.boundingBox().height - 10) + 10 + canvas.height() - floor.boundingBox().height -  tile.height;
-        }),
-        rate: 0,
-        position: rand(240)
-      }
-    ];
-
     var scene = Scene([
       {
         image: loadImageTile("images/mountains.png"),
@@ -119,7 +102,22 @@
         },
         repeat: true
       }
-    ], foregrounds);
+    ], [
+      {
+        image: loadImageTile('images/jungleTree.png'),
+        position: {
+          x: rand(canvas.width() - 116),
+          y: canvas.height() - floor.boundingBox().height + 10 + rand(floor.boundingBox().height - 10) - 160,
+        }
+      },
+      {
+        image: loadImageTile('images/jungleTree.png'),
+        position: {
+          x: rand(canvas.width() - 116),
+          y: canvas.height() - floor.boundingBox().height + 10 + rand(floor.boundingBox().height - 10) - 160,
+        }
+      }
+    ]);
   
     var healthBar = ProgressBar({
       colorMap: function colorMap(completeness) {
