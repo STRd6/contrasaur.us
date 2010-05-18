@@ -24,7 +24,7 @@ function Tank(I) {
           gunAngle, {
             x: self.midpoint().x,
             y: self.midpoint().y,
-            sprite: loadImageTile("blast_small.png"),
+            sprite: loadImageTile("images/blast_small.png"),
             collideDamage: 7
           }
         ));
