@@ -15,6 +15,22 @@ Array.prototype.rand = function() {
   return this[rand(this.length)];
 };
 
+/**
+ * Returns a mod useful for array wrapping.
+ *
+ * @param {Number} n
+ * @param {Number} base
+ */
+Math.mod = function(n, base) {
+  var result = n % base;
+
+  if(result < 0 && base > 0) {
+    result += base;
+  }
+
+  return result;
+};
+
 Math.clamp = function(val, min, max) {
   return Math.min(Math.max(val, min), max);
 };
