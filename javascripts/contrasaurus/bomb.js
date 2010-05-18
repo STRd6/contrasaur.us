@@ -4,7 +4,7 @@ function Bomb(launchAngle, I) {
   $.reverseMerge(I, {
     color: "#000",
     width: 10,
-    collideDamage: 5
+    collideDamage: 1
   });
 
   var self = Bullet(launchAngle, I).extend({

@@ -74,39 +74,50 @@ function Scene(backgrounds, foregrounds) {
   function drawLayersGenerator(layers) {
     return function(position, canvas) {
       $.each(layers, function(i, layer) {
-        layer.image.draw(canvas, 
-          layer.position.x + position.x, 
-          layer.position.y + position.y
-        );
+        var xPosition = layer.position.x + position.x;
+        var yPosition = layer.position.y + position.y;
 
-        var offset = {x: 0, y: 0};
         if(layer.repeat) {
-          offset.x = canvas.width();
-          if(layer.position.x + position.x > 0) {
-            offset.x = -offset;
-          }
+          xPosition = Math.mod(xPosition, canvas.width());
+          yPosition = Math.mod(yPosition, canvas.height());
+
+          layer.image.draw(canvas,
+            xPosition,
+            yPosition
+          );
 
           // X-repeat
           layer.image.draw(canvas,
-            layer.position.x + position.x + offset.x,
-            layer.position.y + position.y
+            xPosition - canvas.width(),
+            yPosition
           );
 
           // Y-repeat
           layer.image.draw(canvas,
-            layer.position.x + position.x,
-            layer.position.y + position.y + offset.y
+            xPosition,
+            yPosition - canvas.height()
+          );
+
+          // XY-repeat
+          layer.image.draw(canvas,
+            xPosition - canvas.width(),
+            yPosition - canvas.height()
+          );
+        } else {
+          layer.image.draw(canvas,
+            xPosition,
+            yPosition
           );
         }
 
         // TODO: Move to update
         if(layer.rate) {
-          layer.position.x = (layer.position.x + layer.rate.x) % canvas.width();
+          layer.position.x += layer.rate.x;
         }
       });
     }
   }
-  
+
   return {
     drawBackgrounds: drawLayersGenerator(backgrounds),
 
