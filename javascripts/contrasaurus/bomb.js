@@ -10,7 +10,7 @@ function Bomb(launchAngle, I) {
   var self = Bullet(launchAngle, I).extend({
     after: {
       hit: function() {
-        I.active = true;
+        I.active = false;
       },
 
       update: function() {
