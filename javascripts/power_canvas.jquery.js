@@ -91,8 +91,8 @@
         return this;
       },
 
-      fillText: function(text, x, y) {
-        context.fillText(text, x, y);
+      fillText: function(text, x, y, maxWidth) {
+        context.fillText(text, x, y, maxWidth);
 
         return this;
       },
@@ -106,6 +106,10 @@
         }
       },
 
+      font: function(font) {
+        context.font = font;
+      },
+
       strokeColor: function(color) {
         if(color) {
           context.strokeStyle = color;
@@ -113,6 +117,11 @@
         } else {
           return context.strokeStyle;
         }
+      },
+
+      textAlign: function(textAlign) {
+        context.textAlign = textAlign;
+        return this;
       },
 
       height: function() {

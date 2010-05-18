@@ -48,6 +48,7 @@
   var dinoTile = loadImageTile("images/dino1.png");
   var tankTile = loadImageTile("images/tank.png");
   var bulletQueue = [];
+  var dialogBox = DialogBox("GAME OVER");
 
   function shoot(bullet) {
     bulletQueue.push(bullet);
@@ -98,6 +99,7 @@
     }
 
     canvas = _canvas;
+    canvas.font("bold 1em consolas, 'Courier New', 'andale mono', 'lucida console', monospace");
     var position = {
       x: 0,
       y: 0
@@ -162,12 +164,13 @@
       colorMap: healthColorMap,
       max: dino.health(),
       value: dino.health(),
-      x: 50,
+      x: 85,
       y: 4,
       width: 100,
       height: 14
     });
 
+    // Main loop
     var intervalID = setInterval(function() {
       canvas.clear().fill('#17E');
       //tiledBackground.draw(canvas, 0, 0);
@@ -252,7 +255,7 @@
       // GG
       if (dino.health() <= 0) {
         clearInterval(intervalID);
-        canvas.fillText("GG", 140, 140);
+        dialogBox.draw(canvas);
       }
     }, 33);
   }});

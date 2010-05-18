@@ -137,3 +137,24 @@ function healthColorMap(completeness) {
 
   return "#" + r + g + "00";
 }
+
+function DialogBox(text) {
+  return {
+    draw: function(canvas) {
+      var yPosition = Math.floor((canvas.height() * 2) / 3);
+      var height = Math.ceil(canvas.height() / 3);
+      var lineHeight = 16;
+
+      canvas.fillColor("rgba(0, 0, 0, 0.75)");
+      canvas.fillRect(0, yPosition, canvas.width(), height);
+
+      canvas.textAlign("middle");
+      canvas.fillColor("#FFF");
+      canvas.fillText(text, 0, yPosition + lineHeight, canvas.width());
+    },
+
+    update: function() {
+
+    }
+  }
+}
