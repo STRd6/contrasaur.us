@@ -69,3 +69,59 @@ function GameText(text, I) {
     }
   });
 }
+
+function Scene(backgrounds, foregrounds) {
+  function drawLayersGenerator(layers) {
+    return function(position, canvas) {
+      $.each(layers, function(i, layer) {
+        layer.image.draw(canvas, 
+          layer.position.x + position.x, 
+          layer.position.y + position.y
+        );
+
+        var offset = {x: 0, y: 0};
+        if(layer.repeat) {
+          offset.x = canvas.width();
+          if(layer.position.x + position.x > 0) {
+            offset.x = -offset;
+          }
+
+          // X-repeat
+          layer.image.draw(canvas,
+            layer.position.x + position.x + offset.x,
+            layer.position.y + position.y
+          );
+
+          // Y-repeat
+          layer.image.draw(canvas,
+            layer.position.x + position.x,
+            layer.position.y + position.y + offset.y
+          );
+        }
+
+        // TODO: Move to update
+        if(layer.rate) {
+          layer.position.x = (layer.position.x + layer.rate.x) % canvas.width();
+        }
+      });
+    }
+  }
+  
+  return {
+    drawBackgrounds: drawLayersGenerator(backgrounds),
+
+    drawForegrounds: function(position, canvas) {
+      $.each(foregrounds, function(i, foreground) {
+        var offset = canvas.width();
+
+        if(foreground.position > 0) {
+          offset = -offset;
+        }
+
+        foreground.image.draw(canvas, foreground.position, foreground.y);
+        foreground.image.draw(canvas, foreground.position + offset, foreground.y);
+        foreground.position = (foreground.position + foreground.rate) % canvas.width();
+      });
+    }
+  }
+}

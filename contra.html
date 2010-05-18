@@ -58,25 +58,16 @@
   }
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
-    canvas = _canvas; 
+    canvas = _canvas;
+    var position = {
+      x: 0,
+      y: 0
+    };
 
-    var gameObjects = [Dinosaur(), Floor()]; 
+    var gameObjects = [Dinosaur(), Floor()];
 
     dino = gameObjects[0];
     floor = gameObjects[1];
-    
-    var backgrounds = [
-      {
-        image: loadImageTile("images/clouds2.png"),
-        rate: -0.5,
-        position: 0
-      },
-      {
-        image: loadImageTile("images/clouds1.png"),
-        rate: -1,
-        position: 0
-      }
-    ];
 
     var foregrounds = [
       {
@@ -94,7 +85,35 @@
         position: rand(240)
       }
     ];
-    
+
+    var scene = Scene([
+      {
+        image: loadImageTile("images/mountains.png"),
+        position: {
+          x: 0,
+          y: 0
+        }
+      },
+      {
+        image: loadImageTile("images/clouds2.png"),
+        rate: {x: -0.5},
+        position: {
+          x: 0,
+          y: 0
+        },
+        repeat: true
+      },
+      {
+        image: loadImageTile("images/clouds1.png"),
+        rate: {x: -1},
+        position: {
+          x: 0,
+          y: 0
+        },
+        repeat: true
+      }
+    ], foregrounds);
+  
     var healthBar = ProgressBar({
       colorMap: function colorMap(completeness) {
         var r = Math.floor(Math.clamp(1.5 - 2 * completeness, 0, 1) * 255).toString(16);
@@ -122,16 +141,7 @@
       //tiledBackground.draw(canvas, 0, 0);
 
       // Draw Backgrounds
-      $.each(backgrounds, function(i, background) {
-        var offset = canvas.width();
-        if(background.position > 0) {
-          offset = -offset;
-        }
-
-        background.image.draw(canvas, background.position, 0);
-        background.image.draw(canvas, background.position + offset, 0);
-        background.position = (background.position + background.rate) % canvas.width();
-      });
+      scene.drawBackgrounds(position, canvas);
 
       // Gather Input
 
@@ -217,17 +227,7 @@
       enemyBullets = liveEnemyBullets;
       
       // Draw Foregrounds
-      $.each(foregrounds, function(i, foreground) {
-        var offset = canvas.width();
-        
-        if(foreground.position > 0) {
-          offset = -offset;
-        }
-
-        foreground.image.draw(canvas, foreground.position, foreground.y);
-        foreground.image.draw(canvas, foreground.position + offset, foreground.y);
-        foreground.position = (foreground.position + foreground.rate) % canvas.width();
-      });
+      scene.drawForegrounds(position, canvas);
       
       score += bullets.length;
       
