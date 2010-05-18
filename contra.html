@@ -57,7 +57,46 @@
     enemies.push(GameText(text, dino.boundingBox()));
   }
 
+  function generateEnemies() {
+    if (Math.random() < 0.005) {
+      enemies.push(PowerupContainer(Math.PI / 2));
+    }
+
+    if (Math.random() < 0.03) {
+      enemies.push(Enemy());
+    }
+
+    if (Math.random() < 0.01) {
+      enemies.push(Tank({sprite: tankTile}));
+    }
+
+    if (Math.random() < 0.015) {
+      enemies.push(Bomber({
+        x: 600,
+        y: 40
+      }));
+    }
+
+    if (Math.random() < 0.01) {
+      // HAX: Putting this in enemy bullets so it will collide with dino.
+      enemyBullets.push(Powerup({
+        x: rand(canvas.width()),
+        yVelocity: 2
+      }));
+    }
+  }
+
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
+    function drawOverlay() {
+      healthBar.draw(canvas);
+
+      canvas.fillColor("#000");
+      canvas.fillText("Health: ", 10, 14);
+
+      // Score display
+      canvas.fillText("Score: " + score, 225, 14);
+    }
+
     canvas = _canvas;
     var position = {
       x: 0,
@@ -120,19 +159,7 @@
     ]);
   
     var healthBar = ProgressBar({
-      colorMap: function colorMap(completeness) {
-        var r = Math.floor(Math.clamp(1.5 - 2 * completeness, 0, 1) * 255).toString(16);
-        if(r.length == 1) {
-          r = "0" + r;
-        }
-        
-        var g = Math.floor(Math.clamp(completeness * 0.75, 0, 1) * 255).toString(16);
-        if(g.length == 1) {
-          g = "0" + g;
-        }
-        
-        return "#" + r + g + "00";
-      },
+      colorMap: healthColorMap,
       max: dino.health(),
       value: dino.health(),
       x: 50,
@@ -148,34 +175,7 @@
       // Draw Backgrounds
       scene.drawBackgrounds(position, canvas);
 
-      // Gather Input
-
-      if (Math.random() < 0.005) {
-        enemies.push(PowerupContainer(Math.PI / 2));
-      }
-
-      if (Math.random() < 0.03) {
-        enemies.push(Enemy());
-      }
-
-      if (Math.random() < 0.01) {
-        enemies.push(Tank({sprite: tankTile}));
-      }
-
-      if (Math.random() < 0.015) {
-        enemies.push(Bomber({
-          x: 600,
-          y: 40
-        }));
-      }
-      
-      if (Math.random() < 0.01) {
-        // HAX: Putting this in enemy bullets so it will collide with dino.
-        enemyBullets.push(Powerup({
-          x: rand(canvas.width()),
-          yVelocity: 2
-        }));
-      }
+      generateEnemies();
 
       collision(dino,floor);
 
@@ -244,15 +244,10 @@
       score += bullets.length;
       
       healthBar.value(dino.health());
-      healthBar.draw(canvas);
-
-      canvas.fillColor("#000");
-      canvas.fillText("Health: ", 10, 14);
-
-      // Score display
-      canvas.fillText("Score: " + score, 225, 14);
 
       position.x -= 0.2;
+
+      drawOverlay();
 
       // GG
       if (dino.health() <= 0) {
