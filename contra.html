@@ -95,6 +95,13 @@
         }
       },
       {
+        image: loadImageTile("images/fire.png"),
+        position: {
+          x: 640,
+          y: 0
+        }
+      },
+      {
         image: loadImageTile("images/clouds2.png"),
         rate: {x: -0.5},
         position: {
@@ -239,6 +246,8 @@
 
       // Score display
       canvas.fillText("Score: " + score, 225, 14);
+
+      position.x -= 0.2;
 
       // GG
       if (dino.health() <= 0) {
