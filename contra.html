@@ -50,6 +50,8 @@
   var bulletQueue = [];
   var dialogBox = DialogBox("GAME OVER");
 
+  $('audio').hide();
+
   function shoot(bullet) {
     bulletQueue.push(bullet);
   }
@@ -256,6 +258,7 @@
       if (dino.health() <= 0) {
         clearInterval(intervalID);
         dialogBox.draw(canvas);
+        $('audio').remove();
       }
     }, 33);
   }});

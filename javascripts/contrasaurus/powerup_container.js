@@ -33,6 +33,10 @@ function PowerupContainer(theta, I) {
       I.yVelocity = 0;
     },
 
+    addListener: function(other) {
+      other
+    },
+
     after: {
       hit: function() {
         I.active = false;
