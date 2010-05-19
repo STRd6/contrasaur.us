@@ -22,7 +22,7 @@ function Enemy(I) {
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
-        enemyBullets.push(Bullet(
+        enemyShoot(Bullet(
           theta, {
             x: self.midpoint().x,
             y: self.midpoint().y,

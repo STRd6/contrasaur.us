@@ -36,13 +36,13 @@ function Dinosaur() {
     var berserkTheta = theta - Math.PI / 24;
 
     // Machine Gun Fire
-    bullets.push(Bullet(theta, {
+    shoot(Bullet(theta, {
       x: self.midpoint().x,
       y: self.midpoint().y
     }));
 
     if (berserk) {
-      bullets.push(Bullet(berserkTheta, {
+      shoot(Bullet(berserkTheta, {
         x: self.midpoint().x,
         y: self.midpoint().y
       }));
@@ -50,7 +50,7 @@ function Dinosaur() {
 
     // Mortars
     if (rand(20) == 0) {
-      bullets.push(Mortar({
+      shoot(Mortar({
         x: self.midpoint().x,
         y: self.midpoint().y
       }));
@@ -69,7 +69,7 @@ function Dinosaur() {
 
     if (I.weapons.bazooka && rand(100) < I.weapons.bazooka) {
       //Bazooka shot
-      bullets.push(Missile(theta, {
+      shoot(Missile(theta, {
         x: self.midpoint().x,
         y: self.midpoint().y
       }));
@@ -104,7 +104,7 @@ function Dinosaur() {
         var x = I.x + I.width/2 + fuzz();
         var y = I.y + I.height/2 + fuzz() * 2;
 
-        bullets.push(Bullet(direction, { x: x, y: y }));
+        shoot(Bullet(direction, { x: x, y: y }));
       });
     }
   }
@@ -117,7 +117,7 @@ function Dinosaur() {
     var nearest;
     var nearestDistance;
 
-    $.each(enemies, function(i, enemy) {
+    $.each(currentLevel.enemies(), function(i, enemy) {
       var enemyDistance = distance(self.midpoint(), enemy.midpoint());
       if(nearest) {
         if(nearestDistance > enemyDistance) {

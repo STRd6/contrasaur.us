@@ -15,11 +15,6 @@ function Mortar(I) {
       },
       update: function() {
         I.yVelocity += 0.3;
-        bullets.push(Bullet(0, {
-          x: 50,
-          y: 50,
-          color: "#F0F"
-        }));
 
         // Deploy cluster bombs at top
         if (I.yVelocity >= 0) {

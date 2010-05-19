@@ -20,7 +20,7 @@ function Tank(I) {
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
-        enemyBullets.push(Bullet(
+        enemyShoot(Bullet(
           gunAngle, {
             x: self.midpoint().x,
             y: self.midpoint().y,

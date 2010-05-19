@@ -15,7 +15,7 @@ function Bomber(I) {
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
-        enemyBullets.push(Bomb(
+        enemyShoot(Bomb(
           gunAngle, {
             x: self.midpoint().x,
             y: self.midpoint().y

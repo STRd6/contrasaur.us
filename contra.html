@@ -16,8 +16,9 @@
   <script src="javascripts/contrasaurus/enemy.js"></script>
   <script src="javascripts/contrasaurus/floor.js"></script>
   <script src="javascripts/contrasaurus/game_object.js"></script>
-  <script src="javascripts/contrasaurus/mortar.js"></script>
+  <script src="javascripts/contrasaurus/level.js"></script>
   <script src="javascripts/contrasaurus/missile.js"></script>
+  <script src="javascripts/contrasaurus/mortar.js"></script>
   <script src="javascripts/contrasaurus/powerup.js"></script>
   <script src="javascripts/contrasaurus/powerup_container.js"></script>
   <script src="javascripts/contrasaurus/tank.js"></script>
@@ -32,15 +33,12 @@
     <p> Get a better browser</p>
   </canvas>
 
-  <audio src="audio/Dragon Force - My Spirit Will Go On.mp3" autoplay="true" controls="controls">
+  <audio src="audio/Dragon Force - My Spirit Will Go On.mp3" autoplay="true">
     Your browser does not support the audio element.
   </audio>
 
   <script>
   var score = 0;
-  var enemyBullets = [];
-  var bullets = [];
-  var enemies = [];
   var canvas;
   var dino;
   var floor;
@@ -49,18 +47,22 @@
   var tankTile = loadImageTile("images/tank.png");
   var bulletQueue = [];
   var dialogBox = DialogBox("GAME OVER");
-
-  $('audio').hide();
+  var currentLevel;
+  var displayTexts = [];
 
   function shoot(bullet) {
-    bulletQueue.push(bullet);
+    currentLevel.shoot(bullet);
+  }
+
+  function enemyShoot(bullet) {
+    currentLevel.enemyShoot(bullet);
   }
   
   function display(text) {
-    enemies.push(GameText(text, dino.boundingBox()));
+    displayTexts.push(GameText(text, dino.boundingBox()));
   }
 
-  function generateEnemies() {
+  function generateEnemies(enemies) {
     if (Math.random() < 0.005) {
       enemies.push(PowerupContainer(Math.PI / 2));
     }
@@ -82,7 +84,7 @@
 
     if (Math.random() < 0.01) {
       // HAX: Putting this in enemy bullets so it will collide with dino.
-      enemyBullets.push(Powerup({
+      enemyShoot(Powerup({
         x: rand(canvas.width()),
         yVelocity: 2
       }));
@@ -91,6 +93,19 @@
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
     function drawOverlay() {
+      var activeTexts = [];
+      $.each(displayTexts, function(i, displayText) {
+        //TODO: Move update out of draw
+        displayText.update();
+
+        if(displayText.active()) {
+          displayText.draw(canvas);
+          activeTexts.push(displayText);
+        }
+      });
+      displayTexts = activeTexts;
+
+      healthBar.value(dino.health());
       healthBar.draw(canvas);
 
       canvas.fillColor("#000");
@@ -102,15 +117,9 @@
 
     canvas = _canvas;
     canvas.font("bold 1em consolas, 'Courier New', 'andale mono', 'lucida console', monospace");
-    var position = {
-      x: 0,
-      y: 0
-    };
 
-    var gameObjects = [Dinosaur(), Floor()];
-
-    dino = gameObjects[0];
-    floor = gameObjects[1];
+    dino = Dinosaur()
+    floor = Floor();
 
     var scene = Scene([
       {
@@ -172,85 +181,15 @@
       height: 14
     });
 
+    var level1 = Level(canvas, dino, scene, [floor], generateEnemies);
+    currentLevel = level1;
+
     // Main loop
     var intervalID = setInterval(function() {
       canvas.clear().fill('#17E');
       //tiledBackground.draw(canvas, 0, 0);
 
-      // Draw Backgrounds
-      scene.drawBackgrounds(position, canvas);
-
-      generateEnemies();
-
-      collision(dino,floor);
-
-      $.each(enemies, function(i, enemy) {
-        collision(dino, enemy);
-
-      });
-
-      $.each(enemies, function(i, enemy) {
-        collision(floor, enemy);
-      });
-      
-      $.each(gameObjects, function(i, gameObject) {
-        gameObject.update();
-        
-        if (gameObject.active()) {
-          gameObject.draw(canvas);
-        }
-      });
-
-      var liveEnemies = [];
-
-      $.each(enemies, function(i, enemy) {
-        enemy.update();
-
-        $.each(bullets, function(i, bullet) {
-          collision(bullet, enemy);
-        });
-
-        if (enemy.active()) {
-          liveEnemies.push(enemy);
-          enemy.draw(canvas);
-        } else {
-          score += enemy.pointsWorth();
-        }
-      });
-      enemies = liveEnemies;
-
-      var liveBullets = [];
-      var liveEnemyBullets = [];
-
-      $.each(bullets, function(i, bullet) {
-        bullet.update();
-        if (bullet.active()) {
-          bullet.draw(canvas);
-          liveBullets.push(bullet);
-        }
-      });
-      bullets = liveBullets;
-      Array.prototype.push.apply(bullets, bulletQueue);
-      bulletQueue = [];
-
-      $.each(enemyBullets, function(i, bullet) {
-        collision(bullet, dino);
-        bullet.update();
-        if (bullet.active()) {
-          bullet.draw(canvas);
-          liveEnemyBullets.push(bullet);
-        }
-      });
-      enemyBullets = liveEnemyBullets;
-      
-      // Draw Foregrounds
-      scene.drawForegrounds(position, canvas);
-      
-      score += bullets.length;
-      
-      healthBar.value(dino.health());
-
-      position.x -= 0.2;
+      level1.step();
 
       drawOverlay();
 
