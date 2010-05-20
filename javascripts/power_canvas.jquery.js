@@ -22,8 +22,8 @@
         if(options.rotation) {
           var theta = options.rotation;
           context.transform(
-            Math.cos(theta), Math.sin(-theta),
-            Math.sin(theta), Math.cos(theta),
+            Math.cos(theta), Math.sin(theta),
+            -Math.sin(theta), Math.cos(theta),
             0, 0
           );
         }
