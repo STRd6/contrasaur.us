@@ -18,19 +18,25 @@
       update: function() {},
 
       draw: function(canvas, x, y, options) {
-        canvas.drawImage(image,
-          sourceX,
-          sourceY,
-          width,
-          height,
-          x,
-          y,
-          width,
-          height,
-          options
-        );
-      },
+        var registrationPoint = this.registrationPoint;
 
+        canvas.withState(x + registrationPoint.x, y + registrationPoint.y, options, function() {
+            canvas.drawImage(image,
+            sourceX,
+            sourceY,
+            width,
+            height,
+            -registrationPoint.x,
+            -registrationPoint.y,
+            width,
+            height
+          );
+        });
+      },
+      registrationPoint: {
+        x: width/2,
+        y: height/2
+      },
       width: width,
       height: height
     };
@@ -103,10 +109,8 @@
 
     img.onload = function() {
       var tile = Tile(this);
-      proxy.update = tile.update;
-      proxy.draw = tile.draw;
-      proxy.width = tile.width;
-      proxy.height = tile.height;
+
+      $.extend(proxy, tile);
 
       if(loadedCallback) {
         loadedCallback(proxy);
