@@ -33,10 +33,6 @@
     <p> Get a better browser</p>
   </canvas>
 
-  <audio src="audio/Dragon Force - My Spirit Will Go On.mp3" autoplay="true">
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
   var score = 0;
   var canvas;
@@ -184,6 +180,7 @@
     var level1 = Level(canvas, dino, scene, [floor], generateEnemies);
     currentLevel = level1;
 
+    currentLevel.start();
     // Main loop
     var intervalID = setInterval(function() {
       canvas.clear().fill('#17E');
@@ -197,7 +194,8 @@
       if (dino.health() <= 0) {
         clearInterval(intervalID);
         dialogBox.draw(canvas);
-        $('audio').remove();
+
+        currentLevel.stop();
       }
     }, 33);
   }});
