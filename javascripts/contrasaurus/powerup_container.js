@@ -1,6 +1,7 @@
 function PowerupContainer(theta, I) {
   I = I || {};
 
+  var eventListeners = [];
   var initialYVelocity = 5;
 
   var startingX;
@@ -34,12 +35,21 @@ function PowerupContainer(theta, I) {
     },
 
     addListener: function(other) {
-      other
+      eventListeners.push(other);
     },
 
     after: {
-      hit: function() {
-        I.active = false;
+      hit: function(other) {
+        if (!I.active) {
+          // onDestroy
+          currentLevel.enemyShoot(
+            Powerup("mystery", {
+              x: I.x,
+              y: I.y,
+              yVelocity: 2
+            })
+          );
+        }
       },
       update: function() {
         I.yVelocity = initialYVelocity * Math.sin(theta);

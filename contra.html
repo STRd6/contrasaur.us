@@ -62,7 +62,12 @@
 
   function generateEnemies(enemies) {
     if (Math.random() < 0.005) {
-      enemies.push(PowerupContainer(Math.PI / 2));
+      var p = PowerupContainer(Math.PI / 2);
+      p.addListener(Powerup("mystery", {
+          x: rand(canvas.width()),
+          yVelocity: 2
+        }));
+      enemies.push(p);
     }
 
     if (Math.random() < 0.03) {

@@ -17,6 +17,7 @@ function Powerup(kind, I) {
   });
 
   return GameObject(I).extend({
+
     before: {
       update: function() {
         if(kind == "mystery") {
