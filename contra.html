@@ -46,6 +46,8 @@
   var currentLevel;
   var displayTexts = [];
 
+  var GRAVITY = 0.2;
+
   function shoot(bullet) {
     currentLevel.shoot(bullet);
   }
@@ -80,10 +82,17 @@
 
     if (Math.random() < 0.01) {
       // HAX: Putting this in enemy bullets so it will collide with dino.
-      enemyShoot(Powerup({
-        x: rand(canvas.width()),
-        yVelocity: 2
-      }));
+      if(Math.random() < 0.5) {
+        enemyShoot(Powerup("mystery", {
+          x: rand(canvas.width()),
+          yVelocity: 2
+        }));
+      } else {
+        enemyShoot(Powerup("meat", {
+          x: rand(canvas.width()),
+          xVelocity: rand(6) - 3
+        }));
+      }
     }
   }
 

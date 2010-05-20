@@ -1,4 +1,13 @@
-function Powerup(I) {
+function Powerup(kind, I) {
+  if(kind == "meat") {
+    I.sprite = loadImageTile("images/meat.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
+  } else {
+    // Mystery
+  }
+
   $.reverseMerge(I, {
     color: "#F0F",
     symbol: "?",
@@ -10,24 +19,39 @@ function Powerup(I) {
   return GameObject(I).extend({
     before: {
       update: function() {
-        I.xVelocity = Math.sin(I.age/10);
+        if(kind == "mystery") {
+          I.xVelocity = Math.sin(I.age/10);
+        } else if(kind == "meat") {
+          I.yVelocity += GRAVITY;
+        }
       }
     },
+
     after: {
       draw: function(canvas) {
-        canvas.fillColor("#FFF");
-        canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
-      },
-      hit: function(other) {
-        if(other.powerup) {
-          other.powerup([
-            {health: 10},
-            {weapon: {shotgun: 2}},
-            {weapon: {bombs: 1}},
-            {weapon: {bazooka: 1}}
-          ].rand());
+        if(kind == "mystery") {
+          canvas.fillColor("#FFF");
+          canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
         }
       },
+
+      hit: function(other) {
+        if(other.powerup) {
+          if(kind == "mystery") {
+            other.powerup([
+              {health: 10},
+              {weapon: {shotgun: 2}},
+              {weapon: {bombs: 1}},
+              {weapon: {bazooka: 1}}
+            ].rand());
+          } else if(kind == "meat") {
+            other.powerup({health: 50});
+          } else {
+            console.error("Unknown powerup: " + kind);
+          }
+        }
+      },
+
       update: function() {
         // Check Bounds
         if (I.x >= 0 && I.x < canvas.width() &&
