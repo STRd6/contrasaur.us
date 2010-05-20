@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>contra</title>
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="Matthew Diebolt">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="javascripts/power_canvas.jquery.js"></script>
+  <script src="javascripts/sprites.strd6.js"></script>
+  <script src="javascripts/util.js"></script>
+</head>
+<body>
+  <canvas id="gameCanvas" width="640" height="480">
+    <p> Get a better browser</p>
+  </canvas>
+
+  <script>
+    var bombTile = loadImageTile("images/bomb.png", function() {
+      $('#gameCanvas').powerCanvas({init: function(canvas) {
+        bombTile.draw(canvas, 25, 25);
+        bombTile.draw(canvas, 25, 75, {hFlip: true});
+        bombTile.draw(canvas, 25, 125, {vFlip: true});
+
+        (12).times(function(i) {
+          bombTile.draw(canvas, 150, 25 + 50*i, {rotation: (2 * Math.PI * i)/12});
+        });
+      }});
+    });
+  </script>
+</body>
+</html>

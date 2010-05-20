@@ -12,7 +12,7 @@ function Bomb(launchAngle, I) {
 
   var self = Bullet(launchAngle, I).extend({
     draw: function(canvas) {
-      bombTile.draw(canvas, I.x, I.y, {rotation: -Math.atan2(I.yVelocity, I.xVelocity)});
+      bombTile.draw(canvas, I.x, I.y, {rotation: Math.atan2(I.yVelocity, I.xVelocity)});
     },
 
     after: {

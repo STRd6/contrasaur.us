@@ -12,6 +12,12 @@ function Dinosaur() {
   var theta = 0;
   var thetaVelocity = Math.PI / 24;
 
+  var gunWidth = 0;
+  var gunTile = loadImageTile("images/machine_gun.png", function(tile) {
+    gunWidth = tile.width;
+  });
+  var gunDelta = {x: 25, y: 4};
+
   var I = {
     x: x,
     y: y,
@@ -37,14 +43,14 @@ function Dinosaur() {
 
     // Machine Gun Fire
     shoot(Bullet(theta, {
-      x: self.midpoint().x,
-      y: self.midpoint().y
+      x: self.midpoint().x + gunDelta.x + Math.cos(theta) * gunWidth/2,
+      y: self.midpoint().y + gunDelta.y + Math.sin(theta) * gunWidth/2
     }));
 
     if (berserk) {
       shoot(Bullet(berserkTheta, {
-        x: self.midpoint().x,
-        y: self.midpoint().y
+        x: self.midpoint().x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
+        y: self.midpoint().y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
       }));
     }
 
@@ -160,6 +166,17 @@ function Dinosaur() {
 
     draw: function(canvas) {
       dinoTile.draw(canvas, I.x, I.y);
+
+      var midpoint = self.midpoint();
+
+      // Draw Machine Gun
+      gunTile.draw(canvas, 
+        midpoint.x + gunDelta.x - gunTile.registrationPoint.x,
+        midpoint.y + gunDelta.y - gunTile.registrationPoint.y,
+        {
+          rotation: theta
+        }
+      );
     },
     land: function(h) {
       I.y = h - (I.height + 1);
