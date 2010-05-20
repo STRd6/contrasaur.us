@@ -60,10 +60,10 @@ function Dinosaur() {
       // Bomb Blast
       (24).times(function(i) {
         var theta = (i / 12) * Math.PI;
-        Bullet(theta, {
+        shoot(Bullet(theta, {
           x: self.midpoint().x,
           y: self.midpoint().y
-        });
+        }));
       }
     )};
 
