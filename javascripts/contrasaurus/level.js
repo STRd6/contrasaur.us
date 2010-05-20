@@ -18,7 +18,9 @@ function Level(canvas, dino, scene, platforms, generateEnemies) {
     },
 
     stop: function() {
-      backgroundMusic.get(0).pause();
+      backgroundMusic.animate({volume: 0}, 5000, function() {
+        this.pause();
+      });
     },
 
     step: function step() {
