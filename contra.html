@@ -206,26 +206,30 @@
       "Contrasaur! I know the terrible truth behind Reagan's plan!",
       3000,
       function() {
-        currentLevel.start();
-
-        // Main loop
-        var intervalID = setInterval(function() {
-          canvas.clear().fill('#000');
-
-          level1.step();
-
-          drawOverlay();
-
-          // GG
-          if (dino.health() <= 0) {
-            clearInterval(intervalID);
-            dialogBox.draw(canvas);
-
-            currentLevel.stop();
-          }
-        }, MILLISECONDS_PER_FRAME);
+        cutscene2.start(canvas);
       }
     );
+
+    var cutscene2 = Cutscene("images/tyrannosaurus_rex.png", "?!", 1000, function() {
+      currentLevel.start();
+
+      // Main loop
+      var intervalID = setInterval(function() {
+        canvas.clear().fill('#000');
+
+        level1.step();
+
+        drawOverlay();
+
+        // GG
+        if (dino.health() <= 0) {
+          clearInterval(intervalID);
+          dialogBox.draw(canvas);
+
+          currentLevel.stop();
+        }
+      }, MILLISECONDS_PER_FRAME);
+    });
 
     cutscene1.start(canvas);
   }});
