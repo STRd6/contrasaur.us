@@ -4,6 +4,11 @@ function Powerup(kind, I) {
       I.width = tile.width;
       I.height = tile.height;
     });
+  } else if (kind == "bomb") {
+    I.sprite = loadImageTile("images/powerup_bomb.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
   } else {
     // Mystery
   }
@@ -24,6 +29,8 @@ function Powerup(kind, I) {
           I.xVelocity = Math.sin(I.age/10);
         } else if(kind == "meat") {
           I.yVelocity += GRAVITY;
+        } else if (kind == "bomb") {
+          I.xVelocity = Math.sin(I.age/10);
         }
       }
     },
@@ -47,7 +54,11 @@ function Powerup(kind, I) {
             ].rand());
           } else if(kind == "meat") {
             other.powerup({health: 50});
-          } else {
+          } else if(kind == "bomb") {
+            other.powerup({weapon: {bombs: 1}})
+          }
+
+          else {
             console.error("Unknown powerup: " + kind);
           }
         }

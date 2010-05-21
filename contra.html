@@ -88,10 +88,17 @@
     if (Math.random() < 0.01) {
       // HAX: Putting this in enemy bullets so it will collide with dino.
       if(Math.random() < 0.5) {
-        enemyShoot(Powerup("mystery", {
-          x: rand(canvas.width()),
-          yVelocity: 2
-        }));
+        if (Math.random() < 0.5) {
+          enemyShoot(Powerup("mystery", {
+            x: rand(canvas.width()),
+            yVelocity: 2
+          }));
+        } else {
+          enemyShoot(Powerup("bomb", {
+            x: rand(canvas.width()),
+            yVelocity: 2
+          }));
+        }
       } else {
         enemyShoot(Powerup("meat", {
           x: rand(canvas.width()),
