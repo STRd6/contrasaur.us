@@ -21,7 +21,7 @@
         var registrationPoint = this.registrationPoint;
 
         canvas.withState(x + registrationPoint.x, y + registrationPoint.y, options, function() {
-            canvas.drawImage(image,
+          canvas.drawImage(image,
             sourceX,
             sourceY,
             width,

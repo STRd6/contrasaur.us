@@ -12,6 +12,7 @@
   <script src="javascripts/contrasaurus/bomb.js"></script>
   <script src="javascripts/contrasaurus/bomber.js"></script>
   <script src="javascripts/contrasaurus/bullet.js"></script>
+  <script src="javascripts/contrasaurus/cutscene.js"></script>
   <script src="javascripts/contrasaurus/dinosaur.js"></script>
   <script src="javascripts/contrasaurus/enemy.js"></script>
   <script src="javascripts/contrasaurus/floor.js"></script>
@@ -47,6 +48,7 @@
   var displayTexts = [];
 
   var GRAVITY = 0.2;
+  var MILLISECONDS_PER_FRAME = 33;
 
   function shoot(bullet) {
     currentLevel.shoot(bullet);
@@ -200,25 +202,32 @@
 
     var level1 = Level(canvas, dino, scene, [floor], generateEnemies);
     currentLevel = level1;
+    var cutscene1 = Cutscene("images/lincoln_memorial.png",
+      "Contrasaur! I know the terrible truth behind Reagan's plan!",
+      3000,
+      function() {
+        currentLevel.start();
 
-    currentLevel.start();
-    // Main loop
-    var intervalID = setInterval(function() {
-      canvas.clear().fill('#17E');
-      //tiledBackground.draw(canvas, 0, 0);
+        // Main loop
+        var intervalID = setInterval(function() {
+          canvas.clear().fill('#000');
 
-      level1.step();
+          level1.step();
 
-      drawOverlay();
+          drawOverlay();
 
-      // GG
-      if (dino.health() <= 0) {
-        clearInterval(intervalID);
-        dialogBox.draw(canvas);
+          // GG
+          if (dino.health() <= 0) {
+            clearInterval(intervalID);
+            dialogBox.draw(canvas);
 
-        currentLevel.stop();
+            currentLevel.stop();
+          }
+        }, MILLISECONDS_PER_FRAME);
       }
-    }, 33);
+    );
+
+    cutscene1.start(canvas);
   }});
   </script>
 
