@@ -25,7 +25,13 @@ function Bomber(I) {
     }
   });
 
-  var self = Enemy(I);
+  var self = GameObject(I).extend({
+    after: {
+      update: function() {
+        I.shootLogic();
+      }
+    }
+  });
 
   return self;
 }

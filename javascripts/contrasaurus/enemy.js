@@ -30,7 +30,8 @@ function Enemy(I) {
           }
         ));
       }
-    }
+    },
+    sprite: loadImageTile("images/soldier.png")
   });
 
   var self = GameObject(I).extend({
