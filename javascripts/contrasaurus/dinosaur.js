@@ -12,6 +12,9 @@ function Dinosaur() {
   var theta = 0;
   var thetaVelocity = Math.PI / 24;
 
+  var jetpackInactiveTile = loadImageTile("images/jetpack.png");
+  var jetpackActiveTile = loadImageTile("images/jetpack_active.png");
+ 
   var gunWidth = 0;
   var gunTile = loadImageTile("images/machine_gun.png", function(tile) {
     gunWidth = tile.width;
@@ -168,6 +171,19 @@ function Dinosaur() {
       dinoTile.draw(canvas, I.x, I.y);
 
       var midpoint = self.midpoint();
+
+      // Draw Jetpack
+      if (jetpackCounter > 0) {
+        jetpackActiveTile.draw(canvas,
+          I.x,
+          I.y + 35
+        );
+      } else {
+      jetpackInactiveTile.draw(canvas,
+          I.x,
+          I.y + 35
+        );
+      }
 
       // Draw Machine Gun
       gunTile.draw(canvas, 
