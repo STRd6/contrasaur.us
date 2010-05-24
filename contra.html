@@ -171,15 +171,6 @@
           y: 0
         },
         repeat: true
-      },
-      {
-        image: loadImageTile("images/clouds1.png"),
-        rate: {x: -1},
-        position: {
-          x: 0,
-          y: 0
-        },
-        repeat: true
       }
     ], [
       {
@@ -195,6 +186,15 @@
           x: rand(canvas.width() - 116),
           y: canvas.height() - floor.boundingBox().height + 10 + rand(floor.boundingBox().height - 10) - 160,
         }
+      },
+      {
+        image: loadImageTile("images/clouds1.png"),
+        rate: {x: -1},
+        position: {
+          x: 0,
+          y: 0
+        },
+        repeat: true
       }
     ]);
   
