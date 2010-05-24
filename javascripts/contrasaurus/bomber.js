@@ -22,7 +22,8 @@ function Bomber(I) {
           }
         ));
       }
-    }
+    },
+    sprite: loadImageTile("images/bomber.png")
   });
 
   var self = GameObject(I).extend({

@@ -23,7 +23,8 @@ function PowerupContainer(theta, I) {
     yVelocity: 5,
     health: 7,
     color: "#808",
-    pointsWorth: 100
+    pointsWorth: 100,
+    sprite: loadImageTile("images/powerup_container.png")
   });
 
   var self = GameObject(I).extend({

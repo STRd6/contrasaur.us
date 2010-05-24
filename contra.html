@@ -101,6 +101,14 @@
             yVelocity: 2
           }));
         }
+
+        if (Math.random() < 0.4) {
+          enemyShoot(Powerup("shotgun", {
+            x: rand(canvas.width()),
+            yVelocity: 1
+          }));
+        }
+
       } else {
         enemyShoot(Powerup("meat", {
           x: rand(canvas.width()),

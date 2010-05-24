@@ -9,6 +9,11 @@ function Powerup(kind, I) {
       I.width = tile.width;
       I.height = tile.height;
     });
+  } else if (kind == "shotgun") {
+    I.sprite = loadImageTile("images/powerup_shotgun.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
   } else {
     // Mystery
   }
@@ -29,7 +34,7 @@ function Powerup(kind, I) {
           I.xVelocity = Math.sin(I.age/10);
         } else if(kind == "meat") {
           I.yVelocity += GRAVITY;
-        } else if (kind == "bomb") {
+        } else {
           I.xVelocity = Math.sin(I.age/10);
         }
       }
@@ -56,6 +61,8 @@ function Powerup(kind, I) {
             other.powerup({health: 50});
           } else if(kind == "bomb") {
             other.powerup({weapon: {bombs: 1}})
+          } else if (kind == "shotgun") {
+            other.powerup({weapon: {shotgun: 2}})
           }
 
           else {
