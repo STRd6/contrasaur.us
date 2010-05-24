@@ -1,0 +1,78 @@
+/* Main contrasaurus stylesheet
+ * Copyright 2010 StrD6
+ */
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, sans-serif;
+}
+
+#title {
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+#game_container {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	
+	width: 640px;
+}
+
+#game_info {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	padding-top: 4px;
+	background: black;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+#health_label, #score_label {
+	color: #ddd;
+	display: block;
+	font-size: 10pt;
+	font-variant: small-caps;
+	font-weight: bold;
+	margin-bottom: 5px;
+	vertical-align: top;
+}
+
+#progress_bar {
+	position: relative;
+	width: 33%;
+	height: 24px;
+	border: 2px solid white;
+	border-radius: 5px;
+}
+
+#health {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #00BF00;
+}
+
+#score_holder {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: auto;
+	width: auto;
+	margin: 7px;
+	margin-right: 15px;
+	text-align: right;
+}
+
+#score {
+	font-size: 18pt;
+	color: white;
+	font-weight: bold;
+	display: block;
+}

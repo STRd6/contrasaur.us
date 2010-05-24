@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>contra</title>
+  <title>Contrasaurus</title>
   <meta name="generator" content="TextMate http://macromates.com/">
   <meta name="author" content="Matthew Diebolt">
+  
+  <link rel="stylesheet" type="text/css" href="styles/main.css" />
+  
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="javascripts/power_canvas.jquery.js"></script>
   <script src="javascripts/sprites.strd6.js"></script>
@@ -30,10 +33,23 @@
   <!-- Date: 2010-05-08 -->
 </head>
 <body>
+	<div id="title"><h1>Contrasaurus</h1></div>
 
-  <canvas id="gameCanvas" width="640" height="480">
-    <p> Get a better browser</p>
-  </canvas>
+	<div id="game_container">
+		<div id="game_info">
+			<span id="health_label">health</span>
+			<div id="progress_bar">
+				<div id="health"></div>
+			</div>
+			<div id="score_holder">
+				<span id="score_label">score</span>
+				<span id="score">0</span>
+			</div>
+		</div>
+		<canvas id="gameCanvas" width="640" height="480">
+			<p> Get a better browser</p>
+		</canvas>
+  </div>
 
   <script>
   var score = 0;
@@ -137,11 +153,8 @@
       healthBar.value(dino.health());
       healthBar.draw(canvas);
 
-      canvas.fillColor("#000");
-      canvas.fillText("Health: ", 10, 14);
-
       // Score display
-      canvas.fillText("Score: " + score, 225, 14);
+      $("#score").text(score);
     }
 
     canvas = _canvas;
@@ -203,11 +216,7 @@
     var healthBar = ProgressBar({
       colorMap: healthColorMap,
       max: dino.health(),
-      value: dino.health(),
-      x: 85,
-      y: 4,
-      width: 100,
-      height: 14
+      value: dino.health()
     });
 
     var level1 = Level(canvas, dino, scene, [floor], generateEnemies);
@@ -241,6 +250,15 @@
 
           currentLevel.stop();
         }
+        
+				// Stop the game on any click
+				/*
+				$(document).click(function() {
+					clearInterval(intervalID);
+					currentLevel.stop();
+					return true;
+				}); */
+	
       }, MILLISECONDS_PER_FRAME);
     });
 

@@ -10,7 +10,7 @@ function Level(canvas, dino, scene, platforms, generateEnemies) {
   var enemyBulletQueue = [];
   var gameObjects = [];
 
-  var backgroundMusic = $('<audio src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('body');
+  var backgroundMusic = $('<audio controls="true" src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container');
 
   return {
     start: function() {

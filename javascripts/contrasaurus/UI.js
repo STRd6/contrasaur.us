@@ -5,35 +5,19 @@ function ProgressBar(I) {
   
   // Init Defaults
   I = $.extend({
-    backgroundColor: "#000",
-    color: "#0C0",
     colorMap: function() {
       return I.color;
     },
-    borderColor: "#FFF",
-    borderWidth: 2,
-    vertical: false
+    vertical: false,
+    element: $("#health")
   }, I);
   
   var self = {
     draw: function(canvas) {
-      canvas.fillColor(I.borderColor);
-      canvas.fillRect(
-        I.x - I.borderWidth, 
-        I.y - I.borderWidth, 
-        I.width + 2 * I.borderWidth, 
-        I.height + 2 * I.borderWidth
-      );
-      
-      canvas.fillColor(I.backgroundColor);
-      canvas.fillRect(I.x, I.y, I.width, I.height);
-      
-      canvas.fillColor(I.colorMap(completeness()));
-      if(I.vertical) {
-        canvas.fillRect(I.x, I.y - (1 - I.height * completeness()), I.width, I.height * completeness());
-      } else {
-        canvas.fillRect(I.x, I.y, I.width * completeness(), I.height);
-      }
+      I.element.css({
+      	'background-color': I.colorMap(completeness()),
+      	'width': Math.floor(completeness() * 100) + "%"
+      });
     },
 
     value: function(newValue) {
