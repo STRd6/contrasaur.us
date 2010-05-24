@@ -10,6 +10,7 @@
   <script src="javascripts/sprites.strd6.js"></script>
   <script src="javascripts/util.js"></script>
   <script src="javascripts/contrasaurus/bomb.js"></script>
+  <script src="javascripts/contrasaurus/bomb_explosion.js"></script>
   <script src="javascripts/contrasaurus/bomber.js"></script>
   <script src="javascripts/contrasaurus/bullet.js"></script>
   <script src="javascripts/contrasaurus/cutscene.js"></script>
@@ -46,6 +47,7 @@
   var dialogBox = DialogBox("GAME OVER");
   var currentLevel;
   var displayTexts = [];
+  var testExplosion = loadAnimation("explosion.png", 25, 67, 171);
 
   var GRAVITY = 0.2;
   var MILLISECONDS_PER_FRAME = 33;
@@ -226,6 +228,9 @@
         canvas.clear().fill('#000');
 
         level1.step();
+
+        //testExplosion.draw(canvas, 150, 150);
+        //testExplosion.update();
 
         drawOverlay();
 

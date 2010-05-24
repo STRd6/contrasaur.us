@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>contra</title>
-  <meta name="generator" content="TextMate http://macromates.com/">
-  <meta name="author" content="Matthew Diebolt">
+  <title>Drawing Test</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="javascripts/power_canvas.jquery.js"></script>
   <script src="javascripts/sprites.strd6.js"></script>
@@ -16,8 +14,15 @@
   </canvas>
 
   <script>
-    var bombTile = loadImageTile("images/bomb.png", function() {
-      $('#gameCanvas').powerCanvas({init: function(canvas) {
+    var bombTile = loadImageTile("images/bomb.png");
+    var animation = loadAnimation("images/explosion.png", 25, 67, 171);
+
+    console.log(animation);
+
+    $('#gameCanvas').powerCanvas({init: function(canvas) {
+      setInterval(function() {
+        canvas.clear();
+
         bombTile.draw(canvas, 25, 25);
         bombTile.draw(canvas, 25, 75, {hFlip: true});
         bombTile.draw(canvas, 25, 125, {vFlip: true});
@@ -25,8 +30,11 @@
         (12).times(function(i) {
           bombTile.draw(canvas, 150, 25 + 50*i, {rotation: (2 * Math.PI * i)/12});
         });
-      }});
-    });
+
+        animation.update();
+        animation.draw(canvas, 250, 0);
+      }, 33);
+    }});
   </script>
 </body>
 </html>

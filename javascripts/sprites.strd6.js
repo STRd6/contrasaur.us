@@ -103,6 +103,25 @@
     };
   };
 
+  window["loadAnimation"] = function(url, frames, width, height) {
+    var img = new Image();
+    var proxy = LoaderProxy();
+
+    img.onload = function() {
+      var frameData = [];
+
+      frames.times(function(i) {
+        frameData[i] = Tile(img, i * width, 0, width, height);
+      });
+
+      $.extend(proxy, Animation(frameData));
+    };
+
+    img.src = url;
+
+    return proxy;
+  };
+
   window["loadImageTile"] = function(url, loadedCallback) {
     var img = new Image();
     var proxy = LoaderProxy();
