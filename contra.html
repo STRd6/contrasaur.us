@@ -232,7 +232,18 @@
       }
     }
 
+    var timeCounter = 0;
+
     stages = [
+      Cutscene("images/triassic.png", "Thousands of years ago...", 3000, nextStage),
+      Level(canvas, dino, scene, [floor], function() {
+        timeCounter++;
+        if(timeCounter == 180) {
+          currentLevel.stop();
+          dino.powerup({weapon: {machineGun: 6}});
+          dino.powerup({weapon: {jetpack: 6}});
+        }
+      }, overlayUpdate, nextStage),
       Cutscene("images/lincoln_memorial.png",
         "Contrasaur! I know the terrible Truth behind Reagan's plan!",
         3000,

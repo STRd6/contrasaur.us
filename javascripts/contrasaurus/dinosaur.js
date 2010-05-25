@@ -30,9 +30,10 @@ function Dinosaur() {
     health: 500,
     weapons: {
       bombs: 0,
-      machineGun: 1,
-      shotgun: 6,
-      bazooka: 4
+      machineGun: 0,
+      shotgun: 0,
+      bazooka: 0,
+      jetpack: 0
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -45,20 +46,22 @@ function Dinosaur() {
     var berserkTheta = theta - Math.PI / 24;
 
     // Machine Gun Fire
-    shoot(Bullet(theta, {
-      x: self.midpoint().x + gunDelta.x + Math.cos(theta) * gunWidth/2,
-      y: self.midpoint().y + gunDelta.y + Math.sin(theta) * gunWidth/2
-    }));
-
-    if (berserk) {
-      shoot(Bullet(berserkTheta, {
-        x: self.midpoint().x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
-        y: self.midpoint().y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
+    if(I.weapons.machineGun) {
+      shoot(Bullet(theta, {
+        x: self.midpoint().x + gunDelta.x + Math.cos(theta) * gunWidth/2,
+        y: self.midpoint().y + gunDelta.y + Math.sin(theta) * gunWidth/2
       }));
+
+      if (berserk) {
+        shoot(Bullet(berserkTheta, {
+          x: self.midpoint().x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
+          y: self.midpoint().y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
+        }));
+      }
     }
 
     // Mortars
-    if (rand(20) == 0) {
+    if (I.weapons.mortar && rand(20) == 0) {
       shoot(Mortar({
         x: self.midpoint().x,
         y: self.midpoint().y
@@ -170,29 +173,33 @@ function Dinosaur() {
     draw: function(canvas) {
       dinoTile.draw(canvas, I.x, I.y);
 
-      var midpoint = self.midpoint();
-
-      // Draw Jetpack
-      if (jetpackCounter > 0) {
-        jetpackActiveTile.draw(canvas,
-          I.x,
-          I.y + 35
-        );
-      } else {
-      jetpackInactiveTile.draw(canvas,
-          I.x,
-          I.y + 35
-        );
+      if(I.weapons.jetpack) {
+        // Draw Jetpack
+        if (jetpackCounter > 0) {
+          jetpackActiveTile.draw(canvas,
+            I.x,
+            I.y + 35
+          );
+        } else {
+        jetpackInactiveTile.draw(canvas,
+            I.x,
+            I.y + 35
+          );
+        }
       }
 
       // Draw Machine Gun
-      gunTile.draw(canvas, 
-        midpoint.x + gunDelta.x - gunTile.registrationPoint.x,
-        midpoint.y + gunDelta.y - gunTile.registrationPoint.y,
-        {
-          rotation: theta
-        }
-      );
+      if(I.weapons.machineGun) {
+        var midpoint = self.midpoint();
+
+        gunTile.draw(canvas,
+          midpoint.x + gunDelta.x - gunTile.registrationPoint.x,
+          midpoint.y + gunDelta.y - gunTile.registrationPoint.y,
+          {
+            rotation: theta
+          }
+        );
+      }
     },
     land: function(h) {
       I.y = h - (I.height + 1);
@@ -236,21 +243,23 @@ function Dinosaur() {
         fireWeapons();
         updateGunAngle();
 
-        if(Math.random() < 0.01 && jetpackCounter <= 0) {
-          jetpackCounter += 50;
-        }
+        if(I.weapons.jetpack) {
+          if(Math.random() < 0.01 && jetpackCounter <= 0) {
+            jetpackCounter += 50;
+          }
 
-        if (jetpackCounter > 0 && !airborne) {
-          I.yVelocity = -1;
-          airborne = true;
-        }
+          if (jetpackCounter > 0 && !airborne) {
+            I.yVelocity = -1;
+            airborne = true;
+          }
 
-        if (jetpackCounter <= 0 && airborne) {
-          I.yVelocity = 6;
-        }
+          if (jetpackCounter <= 0 && airborne) {
+            I.yVelocity = 6;
+          }
 
-        if (jetpackCounter > 0) {
-          jetpackCounter--;
+          if (jetpackCounter > 0) {
+            jetpackCounter--;
+          }
         }
       }
     }
