@@ -15,6 +15,10 @@ function BombExplosion(I) {
         I.active = true;
       },
       update: function() {
+        if(I.age > 6) {
+          I.collideDamage = 0;
+        }
+
         if(I.age > duration) {
           I.active = false;
         } else {
