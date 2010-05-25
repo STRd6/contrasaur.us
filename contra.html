@@ -219,50 +219,43 @@
       value: dino.health()
     });
 
-    var level1 = Level(canvas, dino, scene, [floor], generateEnemies);
-    currentLevel = level1;
-    var cutscene1 = Cutscene("images/lincoln_memorial.png",
-      "Contrasaur! I know the terrible truth behind Reagan's plan!",
-      3000,
-      function() {
-        cutscene2.start(canvas);
+    var gameOver = false;
+    var currentStage = -1;
+
+    function nextStage() {
+      if(!gameOver) {
+        currentStage++;
+        currentLevel = stages[currentStage];
+        stages[currentStage].start(canvas);
+      } else {
+        // Game Over
       }
-    );
+    }
 
-    var cutscene2 = Cutscene("images/tyrannosaurus_rex.png", "?!", 1000, function() {
-      currentLevel.start();
+    stages = [
+      Cutscene("images/lincoln_memorial.png",
+        "Contrasaur! I know the terrible Truth behind Reagan's plan!",
+        3000,
+        nextStage
+      ), Cutscene("images/tyrannosaurus_rex.png", "?!", 1000, nextStage),
+      Level(
+        canvas, dino, scene, [floor], generateEnemies, overlayUpdate, nextStage
+      )
+    ];
 
-      // Main loop
-      var intervalID = setInterval(function() {
-        canvas.clear().fill('#000');
+    function overlayUpdate(){
+      drawOverlay();
 
-        level1.step();
+      // GG
+      if (dino.health() <= 0) {
+        gameOver = true;
+        currentLevel.stop();
 
-        //testExplosion.draw(canvas, 150, 150);
-        //testExplosion.update();
+        dialogBox.draw(canvas);
+      }
+    }
 
-        drawOverlay();
-
-        // GG
-        if (dino.health() <= 0) {
-          clearInterval(intervalID);
-          dialogBox.draw(canvas);
-
-          currentLevel.stop();
-        }
-        
-				// Stop the game on any click
-				/*
-				$(document).click(function() {
-					clearInterval(intervalID);
-					currentLevel.stop();
-					return true;
-				}); */
-	
-      }, MILLISECONDS_PER_FRAME);
-    });
-
-    cutscene1.start(canvas);
+    nextStage();
   }});
   </script>
 

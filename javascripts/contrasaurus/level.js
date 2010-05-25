@@ -1,4 +1,4 @@
-function Level(canvas, dino, scene, platforms, generateEnemies) {
+function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, completedCallback) {
   var position = {
     x: 0,
     y: 0
@@ -9,21 +9,33 @@ function Level(canvas, dino, scene, platforms, generateEnemies) {
   var enemyBullets = [];
   var enemyBulletQueue = [];
   var gameObjects = [];
+  var backgroundColor = "#000";
+  var intervalId;
 
   var backgroundMusic = $('<audio controls="true" src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container').hide();
 
-  return {
+  var self = {
     start: function() {
       backgroundMusic.get(0).play();
+
+      intervalId = setInterval(function() {
+        self.step();
+        overlayUpdate();
+      }, MILLISECONDS_PER_FRAME);
     },
 
     stop: function() {
       backgroundMusic.animate({volume: 0}, 5000, function() {
         this.pause();
       });
+
+      clearInterval(intervalId);
+      completedCallback();
     },
 
     step: function step() {
+      canvas.fill(backgroundColor);
+
       // Draw Backgrounds
       scene.drawBackgrounds(position, canvas);
 
@@ -117,5 +129,7 @@ function Level(canvas, dino, scene, platforms, generateEnemies) {
     enemies: function() {
       return enemies;
     }
-  }
+  };
+
+  return self;
 }
