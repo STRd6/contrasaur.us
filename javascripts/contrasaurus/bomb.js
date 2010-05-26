@@ -13,7 +13,7 @@ function Bomb(launchAngle, I) {
   function explode() {
     if(I.active) {
       I.active = false;
-      enemyShoot(BombExplosion({x: I.x, y: I.y}));
+      enemyShoot(BombExplosion({x: I.x, y: I.y - 100}));
     }
   }
 
@@ -24,13 +24,13 @@ function Bomb(launchAngle, I) {
 
     after: {
       hit: function() {
-        explode();
+        I.active = true;
       },
 
       update: function() {
         I.yVelocity += 0.4;
 
-        if(I.y > 200) {
+        if(I.y > 300) {
           explode();
         }
       }
