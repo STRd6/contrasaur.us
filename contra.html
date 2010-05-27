@@ -24,6 +24,7 @@
   <script src="javascripts/contrasaurus/level.js"></script>
   <script src="javascripts/contrasaurus/missile.js"></script>
   <script src="javascripts/contrasaurus/mortar.js"></script>
+  <script src="javascripts/contrasaurus/parasoldier.js"></script>
   <script src="javascripts/contrasaurus/powerup.js"></script>
   <script src="javascripts/contrasaurus/powerup_container.js"></script>
   <script src="javascripts/contrasaurus/tank.js"></script>
@@ -91,7 +92,11 @@
     }
 
     if (Math.random() < 0.03) {
-      enemies.push(Enemy());
+      if (Math.random() < 0.5) {
+        enemies.push(Enemy());
+      } else {
+        enemies.push(Parasoldier());
+      }
     }
 
     if (Math.random() < 0.01) {
