@@ -32,13 +32,15 @@ function Dinosaur() {
       bombs: 0,
       machineGun: 0,
       shotgun: 0,
-      bazooka: 0,
+      bazooka: 4,
       jetpack: 0
     },
     xVelocity: 1,
     yVelocity: 6,
     collideDamage: 2
   };
+
+  var lastDirection = I.xVelocity;
 
   var healthMax = I.health;
 
@@ -148,12 +150,11 @@ function Dinosaur() {
   function nearestEnemy2() {
     var enemyDistance = [];
 
-    $.each(currentLevel.enemies(), function(i, enemy) {
-      enemyDistance.push({
+    enemyDistance = $.map(enemyDistance, function(enemy, i) {
+      return {
         enemy: enemy,
         distance: distance(self.midpoint(), enemy.midpoint())
-      })
-    })
+    }})
 
     return enemyDistance;
   }
@@ -184,19 +185,26 @@ function Dinosaur() {
     },
 
     draw: function(canvas) {
-      dinoTile.draw(canvas, I.x, I.y);
+
+      dinoTile.draw(canvas,
+        I.x,
+        I.y,
+        { hFlip: lastDirection <= 0 }
+      );
 
       if(I.weapons.jetpack) {
         // Draw Jetpack
         if (jetpackCounter > 0) {
           jetpackActiveTile.draw(canvas,
             I.x,
-            I.y + 35
+            I.y + 35,
+            { hFlip: lastDirection <= 0 }
           );
         } else {
         jetpackInactiveTile.draw(canvas,
             I.x,
-            I.y + 35
+            I.y + 35,
+            { hFlip: lastDirection <= 0 }
           );
         }
       }
@@ -235,6 +243,10 @@ function Dinosaur() {
     },
     after: {
       update: function() {
+        if (!airborne) {
+          lastDirection = I.xVelocity;
+        }
+
         if(I.health < healthMax / 2) {
           berserk = true;
         } else {

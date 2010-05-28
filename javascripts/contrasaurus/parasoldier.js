@@ -32,7 +32,8 @@ function Parasoldier(I) {
     sprite: parachuteActiveTile
   });
 
-  var self = GameObject(I).extend({
+  var self = Enemy(I).extend({
+
     land: function(h) {
       I.y = h - I.height;
       I.yVelocity = 0;
@@ -47,14 +48,11 @@ function Parasoldier(I) {
       },
       update: function() {
         I.shootLogic();
-      },
-      draw: function() {
-//        if (!airborne) {
-//          I.sprite = soldierTile;
-//        }
       }
     }
   });
+
+  I.hFlip = Math.cos(theta) <= 0;
 
   return self;
 }

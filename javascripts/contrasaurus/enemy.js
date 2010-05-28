@@ -13,6 +13,7 @@ function Enemy(I) {
     height: 40,
     yVelocity: 0,
     health: 3,
+    hFlip: false,
     color: "#F00",
     collideDamage: 1,
     pointsWorth: 1000,
@@ -30,8 +31,20 @@ function Enemy(I) {
     sprite: soldierTile
   });
 
+  I.hFlip = Math.cos(theta) <= 0;
+
   var self = GameObject(I).extend({
     land: function(h) { },
+
+    draw: function(canvas) {
+
+      I.sprite.draw(canvas,
+        I.x,
+        I.y,
+        { hFlip: I.hFlip }
+      );
+    },
+
     after: {
       hit: function(other) {
         if(other.bump) {

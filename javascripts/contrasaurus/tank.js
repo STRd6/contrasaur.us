@@ -32,6 +32,8 @@ function Tank(I) {
     }
   });
 
+  I.hFlip = I.xVelocity <= 0;
+
   var self = Enemy(I);
 
   return self;

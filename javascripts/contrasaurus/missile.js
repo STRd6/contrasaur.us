@@ -12,6 +12,9 @@ function Missile(theta, I) {
   });
 
   var self = Bullet(theta, I).extend({
+    draw: function(canvas) {
+      I.sprite.draw(canvas, I.x, I.y, {rotation: Math.atan2(I.yVelocity, I.xVelocity)});
+    },
     after: {
       update: function() {
         I.xVelocity = I.xVelocity * 1.1;
