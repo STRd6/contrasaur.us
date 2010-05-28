@@ -12,7 +12,7 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
   var backgroundColor = "#000";
   var intervalId;
 
-  var backgroundMusic = $('<audio controls="true" src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container').hide();
+  var backgroundMusic = $('<audio src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container');
 
   var self = {
     start: function() {
