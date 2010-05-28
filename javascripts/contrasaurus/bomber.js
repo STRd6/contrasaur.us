@@ -1,6 +1,21 @@
 function Bomber(I) {
   I = I || {};
 
+  var bombs = 6;
+  var dropPosition = 500;
+  var cooldown = 0;
+
+  function dropBomb() {
+    cooldown += 10;
+    bombs--;
+    enemyShoot(Bomb(
+      I.xVelocity, {
+        x: self.midpoint().x,
+        y: self.midpoint().y
+      }
+    ));
+  }
+
   $.reverseMerge(I, {
     x: 600,
     y: 40,
@@ -13,14 +28,12 @@ function Bomber(I) {
     color: "#088",
     pointsWorth: 3000,
     shootLogic: function() {
+      if (cooldown > 0) {
+        cooldown--;
+      }
       // Shoot
-      if (I.age % 10 == 0) {
-        enemyShoot(Bomb(
-          I.xVelocity, {
-            x: self.midpoint().x,
-            y: self.midpoint().y
-          }
-        ));
+      if (cooldown == 0 && I.x < dropPosition && bombs > 0) {
+        dropBomb();
       }
     },
     sprite: loadImageTile("images/bomber.png")

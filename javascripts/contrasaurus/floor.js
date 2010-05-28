@@ -7,11 +7,11 @@ function Floor() {
     width: canvas.width(),
     height: height,
     color: "#0F0",
-    collideDamage: 0
+    collideDamage: 0,
+    sprite: loadImageTile("images/floor_background.png")
   };
 
   return GameObject(I).extend({
-    draw: $.noop,
     hit: function(other) {
       other.land(I.y);
     }
