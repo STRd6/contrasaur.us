@@ -14,7 +14,7 @@ function Bomber(I) {
     pointsWorth: 3000,
     shootLogic: function() {
       // Shoot
-      if (I.age % 20 == 0) {
+      if (I.age % 10 == 0) {
         enemyShoot(Bomb(
           I.xVelocity, {
             x: self.midpoint().x,

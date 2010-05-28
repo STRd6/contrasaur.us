@@ -26,6 +26,10 @@ function Level(I) {
       if(step === trigger.at) {
         trigger.event(self);
       }
+
+      if(trigger.every && step % trigger.every == 0) {
+        trigger.event(self);
+      }
     });
   }
 

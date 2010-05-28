@@ -81,6 +81,9 @@
     displayTexts.push(GameText(text, dino.boundingBox()));
   }
 
+
+  var bombingRunActive = false;
+  var bombingRunCount = 0;
   function generateEnemies(level) {
     var enemies = level.enemies();
     if (Math.random() < 0.005) {
@@ -104,11 +107,18 @@
       enemies.push(Tank({sprite: tankTile}));
     }
 
-    if (Math.random() < 0.015) {
-      enemies.push(Bomber({
-        x: 600,
-        y: 40
-      }));
+    if (bombingRunActive) {
+      if (bombingRunCount % 15 == 0) {
+        enemies.push(Bomber({
+          x: canvas.width() + 100 - bombingRunCount,
+          y: 40
+        }));
+      }
+      bombingRunCount++;
+      if (bombingRunCount > 100) {
+        bombingRunActive = false;
+        bombingRunCount = 0;
+      }
     }
 
     if (Math.random() < 0.01) {
@@ -284,6 +294,12 @@
         platforms: [floor],
         beforeStep: generateEnemies,
         afterStep: overlayUpdate,
+        triggers: [{
+          every: 500,
+          event: function() {
+            bombingRunActive = true;
+          }
+        }],
         completed: nextStage
       })
     ];
