@@ -1,6 +1,7 @@
 function Tank(I) {
   var gunAngle;
   var xVelocity;
+  var height = 30;
 
   if (Math.random() < 0.5) {
     xVelocity = 0.5;
@@ -11,9 +12,9 @@ function Tank(I) {
   }
 
   $.reverseMerge(I, {
-    y: 350,
+    y: canvas.height() - Floor.LEVEL - height,
     width: 30,
-    height: 30,
+    height: height,
     xVelocity: xVelocity,
     health: 10,
     hFlip: xVelocity <= 0,

@@ -10,7 +10,7 @@ function Parasoldier(I) {
 
   $.reverseMerge(I, {
     x: rand(canvas.width()),
-    y: 40,
+    y: 0,
     width: 10,
     height: startingHeight,
     yVelocity: 4,
@@ -37,7 +37,6 @@ function Parasoldier(I) {
     land: function(h) {
       I.y = h - I.height;
       I.yVelocity = 0;
-      I.y = 300;
       airborne = false;
     },
     after: {

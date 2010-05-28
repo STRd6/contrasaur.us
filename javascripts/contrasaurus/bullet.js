@@ -1,5 +1,7 @@
 function Bullet(theta, I) {
   var speed = 10;
+  var yMax = canvas.height() - Floor.LEVEL;
+  var xMax = canvas.width();
 
   $.reverseMerge(I, {
     collideDamage: 1,
@@ -22,8 +24,8 @@ function Bullet(theta, I) {
     after: {
       update: function() {
         // Check Bounds
-        if (I.x >= 0 && I.x < canvas.width() &&
-          I.y >= 0 && I.y < 380) {
+        if (I.x >= 0 && I.x < xMax &&
+          I.y >= 0 && I.y < yMax) {
           I.active = I.active && true;
         } else {
           I.active = false;
