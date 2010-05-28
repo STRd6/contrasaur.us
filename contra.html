@@ -171,21 +171,32 @@
 
     var scene = Scene([
       {
-        image: loadImageTile("images/mountains.png"),
+        image: loadImageTile("images/background.png"),
+        parallaxRate: 0,
         position: {
           x: 0,
           y: 0
         }
       },
       {
-        image: loadImageTile("images/fire.png"),
+        image: loadImageTile("images/midground.png"),
+        parallaxRate: 0.5,
         position: {
-          x: 640,
+          x: 0,
+          y: 0
+        }
+      },
+      {
+        image: loadImageTile("images/foreground.png"),
+        parallaxRate: 1,
+        position: {
+          x: 0,
           y: 0
         }
       },
       {
         image: loadImageTile("images/clouds2.png"),
+        parallaxRate: 1,
         rate: {x: -0.5},
         position: {
           x: 0,
@@ -196,20 +207,23 @@
     ], [
       {
         image: loadImageTile('images/jungleTree.png'),
+        parallaxRate: 1,
         position: {
           x: rand(canvas.width() - 116),
-          y: canvas.height() - floor.boundingBox().height + 10 + rand(floor.boundingBox().height - 10) - 160,
+          y: 280
         }
       },
       {
         image: loadImageTile('images/jungleTree.png'),
+        parallaxRate: 2,
         position: {
           x: rand(canvas.width() - 116),
-          y: canvas.height() - floor.boundingBox().height + 10 + rand(floor.boundingBox().height - 10) - 160,
+          y: 330
         }
       },
       {
         image: loadImageTile("images/clouds1.png"),
+        parallaxRate: 1,
         rate: {x: -1},
         position: {
           x: 0,
