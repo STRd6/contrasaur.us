@@ -1,4 +1,4 @@
-function Bomb(launchAngle, I) {
+function Bomb(xVelocity, I) {
   I = I || {};
 
   var bombTile = loadImageTile("images/bomb.png");
@@ -7,7 +7,9 @@ function Bomb(launchAngle, I) {
     color: "#000",
     width: 64,
     height: 23,
-    collideDamage: 0
+    collideDamage: 0,
+    xVelocity: xVelocity,
+    yVelocity: 0
   });
 
   function explode() {
@@ -17,7 +19,7 @@ function Bomb(launchAngle, I) {
     }
   }
 
-  var self = Bullet(launchAngle, I).extend({
+  var self = Bullet(null, I).extend({
     draw: function(canvas) {
       bombTile.draw(canvas, I.x, I.y, {rotation: Math.atan2(I.yVelocity, I.xVelocity)});
     },
@@ -28,7 +30,7 @@ function Bomb(launchAngle, I) {
       },
 
       update: function() {
-        I.yVelocity += 0.4;
+        I.yVelocity += GRAVITY;
 
         if(I.y > 300) {
           explode();

@@ -33,7 +33,7 @@ function Powerup(kind, I) {
         if(kind == "mystery") {
           I.xVelocity = Math.sin(I.age/10);
         } else if(kind == "meat") {
-          I.yVelocity += GRAVITY;
+          I.yVelocity += GRAVITY / 4;
         } else {
           I.xVelocity = Math.sin(I.age/10);
         }

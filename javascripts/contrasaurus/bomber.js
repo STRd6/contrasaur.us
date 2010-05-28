@@ -1,6 +1,5 @@
 function Bomber(I) {
   I = I || {};
-  var gunAngle = (5 / 6) * Math.PI;
 
   $.reverseMerge(I, {
     x: 600,
@@ -17,7 +16,7 @@ function Bomber(I) {
       // Shoot
       if (I.age % 20 == 0) {
         enemyShoot(Bomb(
-          gunAngle, {
+          I.xVelocity, {
             x: self.midpoint().x,
             y: self.midpoint().y
           }
