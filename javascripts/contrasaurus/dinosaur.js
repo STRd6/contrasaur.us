@@ -145,6 +145,19 @@ function Dinosaur() {
     return nearest;
   }
 
+  function nearestEnemy2() {
+    var enemyDistance = [];
+
+    $.each(currentLevel.enemies(), function(i, enemy) {
+      enemyDistance.push({
+        enemy: enemy,
+        distance: distance(self.midpoint(), enemy.midpoint())
+      })
+    })
+
+    return enemyDistance;
+  }
+
   // Adjust machine gun angle
   function updateGunAngle() {
     theta += thetaVelocity;
@@ -248,17 +261,17 @@ function Dinosaur() {
             jetpackCounter += 50;
           }
 
-          if (jetpackCounter > 0 && !airborne) {
-            I.yVelocity = -1;
-            airborne = true;
+          if (jetpackCounter > 0) {
+            jetpackCounter--;
+
+            if (!airborne) {
+              I.yVelocity = -1;
+              airborne = true;
+            }
           }
 
           if (jetpackCounter <= 0 && airborne) {
             I.yVelocity = 6;
-          }
-
-          if (jetpackCounter > 0) {
-            jetpackCounter--;
           }
         }
       }

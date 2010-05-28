@@ -6,18 +6,12 @@ function Missile(theta, I) {
     width: 10,
     height: 5,
     collideDamage: 20,
+    sprite: loadImageTile("images/missile.png"),
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
   });
 
   var self = Bullet(theta, I).extend({
-    draw: function(canvas) {
-      canvas.fillColor(I.color);
-      var midpoint = self.midpoint();
-      canvas.fillColor(I.color);
-      canvas.fillRect(midpoint.x, midpoint.y, I.width, I.height);
-    },
-
     after: {
       update: function() {
         I.xVelocity = I.xVelocity * 1.1;

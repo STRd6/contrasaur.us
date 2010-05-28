@@ -36,7 +36,8 @@ function Parasoldier(I) {
     land: function(h) {
       I.y = h - I.height;
       I.yVelocity = 0;
-      I.y = 310;
+      I.y = 300;
+      airborne = false;
     },
     after: {
       hit: function(other) {
@@ -48,9 +49,9 @@ function Parasoldier(I) {
         I.shootLogic();
       },
       draw: function() {
-        if (!airborne) {
-          I.sprite = soldierTile;
-        }
+//        if (!airborne) {
+//          I.sprite = soldierTile;
+//        }
       }
     }
   });
