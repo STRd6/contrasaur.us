@@ -16,6 +16,7 @@ function Tank(I) {
     height: 30,
     xVelocity: xVelocity,
     health: 10,
+    hFlip: xVelocity <= 0,
     color: "#FF7",
     shootLogic: function() {
       // Shoot
@@ -31,8 +32,6 @@ function Tank(I) {
       }
     }
   });
-
-  I.hFlip = I.xVelocity <= 0;
 
   var self = Enemy(I);
 

@@ -13,7 +13,7 @@ function Enemy(I) {
     height: 40,
     yVelocity: 0,
     health: 3,
-    hFlip: false,
+    hFlip: Math.cos(theta) <= 0,
     color: "#F00",
     collideDamage: 1,
     pointsWorth: 1000,
@@ -30,8 +30,6 @@ function Enemy(I) {
     },
     sprite: soldierTile
   });
-
-  I.hFlip = Math.cos(theta) <= 0;
 
   var self = GameObject(I).extend({
     land: function(h) { },
