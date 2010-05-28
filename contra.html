@@ -81,7 +81,8 @@
     displayTexts.push(GameText(text, dino.boundingBox()));
   }
 
-  function generateEnemies(enemies) {
+  function generateEnemies(level) {
+    var enemies = level.enemies();
     if (Math.random() < 0.005) {
       var p = PowerupContainer(Math.PI / 2);
       p.addListener(Powerup("mystery", {
@@ -241,22 +242,36 @@
 
     stages = [
       Cutscene("images/triassic.png", "Thousands of years ago...", 3000, nextStage),
-      Level(canvas, dino, scene, [floor], function() {
-        timeCounter++;
-        if(timeCounter == 180) {
-          currentLevel.stop();
-          dino.powerup({weapon: {machineGun: 6}});
-          dino.powerup({weapon: {jetpack: 6}});
-        }
-      }, overlayUpdate, nextStage),
+      Level({
+        canvas: canvas,
+        dino: dino,
+        scene: scene,
+        platforms: [floor],
+        beforeStep: function(level) {
+          timeCounter++;
+          if(timeCounter == 180) {
+            level.stop();
+            dino.powerup({weapon: {machineGun: 6}});
+            dino.powerup({weapon: {jetpack: 6}});
+          }
+        },
+        afterStep: overlayUpdate,
+        completed: nextStage
+      }),
       Cutscene("images/lincoln_memorial.png",
         "Contrasaur! I know the terrible Truth behind Reagan's plan!",
         3000,
         nextStage
       ), Cutscene("images/tyrannosaurus_rex.png", "?!", 1000, nextStage),
-      Level(
-        canvas, dino, scene, [floor], generateEnemies, overlayUpdate, nextStage
-      )
+      Level({
+        canvas: canvas,
+        dino: dino,
+        scene: scene,
+        platforms: [floor],
+        beforeStep: generateEnemies,
+        afterStep: overlayUpdate,
+        completed: nextStage
+      })
     ];
 
     function overlayUpdate(){

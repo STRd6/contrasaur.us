@@ -1,4 +1,4 @@
-function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, completedCallback) {
+function Level(I) {
   var position = {
     x: 0,
     y: 0
@@ -19,8 +19,9 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
       backgroundMusic.get(0).play();
 
       intervalId = setInterval(function() {
+        I.beforeStep(self);
         self.step();
-        overlayUpdate();
+        I.afterStep(self);
       }, MILLISECONDS_PER_FRAME);
     },
 
@@ -30,14 +31,14 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
       });
 
       clearInterval(intervalId);
-      completedCallback();
+      I.completed();
     },
 
     step: function step() {
-      canvas.fill(backgroundColor);
+      I.canvas.fill(backgroundColor);
 
       // Draw Backgrounds
-      scene.drawBackgrounds(position, canvas);
+      I.scene.drawBackgrounds(position, I.canvas);
 
       Array.prototype.push.apply(bullets, bulletQueue);
       bulletQueue = [];
@@ -45,20 +46,18 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
       Array.prototype.push.apply(enemyBullets, enemyBulletQueue);
       enemyBulletQueue = [];
 
-      generateEnemies(enemies);
+      $.each(I.platforms, function(i, platform) {
+        collision(I.dino, platform);
 
-      $.each(platforms, function(i, platform) {
-        collision(dino, platform);
-
-        platform.draw(canvas);
+        platform.draw(I.canvas);
       });
 
-      dino.update();
-      dino.draw(canvas);
+      I.dino.update();
+      I.dino.draw(I.canvas);
 
       var liveEnemies = [];
       $.each(enemies, function(i, enemy) {
-        $.each(platforms, function(i, platform) {
+        $.each(I.platforms, function(i, platform) {
           collision(platform, enemy);
         });
 
@@ -68,11 +67,11 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
           collision(bullet, enemy);
         });
 
-        collision(dino, enemy);
+        collision(I.dino, enemy);
 
         if (enemy.active()) {
           liveEnemies.push(enemy);
-          enemy.draw(canvas);
+          enemy.draw(I.canvas);
         } else {
           score += enemy.pointsWorth();
         }
@@ -83,7 +82,7 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
         gameObject.update();
 
         if (gameObject.active()) {
-          gameObject.draw(canvas);
+          gameObject.draw(I.canvas);
         }
       });
 
@@ -92,7 +91,7 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
         bullet.update();
 
         if (bullet.active()) {
-          bullet.draw(canvas);
+          bullet.draw(I.canvas);
           liveBullets.push(bullet);
         }
       });
@@ -100,18 +99,18 @@ function Level(canvas, dino, scene, platforms, generateEnemies, overlayUpdate, c
 
       var liveEnemyBullets = [];
       $.each(enemyBullets, function(i, bullet) {
-        collision(bullet, dino);
+        collision(bullet, I.dino);
         bullet.update();
 
         if (bullet.active()) {
-          bullet.draw(canvas);
+          bullet.draw(I.canvas);
           liveEnemyBullets.push(bullet);
         }
       });
       enemyBullets = liveEnemyBullets;
 
       // Draw Foregrounds
-      scene.drawForegrounds(position, canvas);
+      I.scene.drawForegrounds(position, I.canvas);
 
       score += bullets.length;
 
