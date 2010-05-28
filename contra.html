@@ -247,15 +247,15 @@
         dino: dino,
         scene: scene,
         platforms: [floor],
-        beforeStep: function(level) {
-          timeCounter++;
-          if(timeCounter == 180) {
+        afterStep: overlayUpdate,
+        triggers: [{
+          at: 180,
+          event: function(level) {
             level.stop();
             dino.powerup({weapon: {machineGun: 6}});
             dino.powerup({weapon: {jetpack: 6}});
           }
-        },
-        afterStep: overlayUpdate,
+        }],
         completed: nextStage
       }),
       Cutscene("images/lincoln_memorial.png",

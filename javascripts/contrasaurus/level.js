@@ -9,19 +9,36 @@ function Level(I) {
   var enemyBullets = [];
   var enemyBulletQueue = [];
   var gameObjects = [];
-  var backgroundColor = "#000";
+  var backgroundColor = "#A2EEFF";
+  var step = 0;
   var intervalId;
 
+  $.reverseMerge(I, {
+    triggers: [],
+    afterStep: $.noop,
+    beforeStep: $.noop
+  });
+
   var backgroundMusic = $('<audio src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container');
+
+  function activateTriggers() {
+    $.each(I.triggers, function(i, trigger) {
+      if(step === trigger.at) {
+        trigger.event(self);
+      }
+    });
+  }
 
   var self = {
     start: function() {
       backgroundMusic.get(0).play();
 
       intervalId = setInterval(function() {
+        activateTriggers();
         I.beforeStep(self);
         self.step();
         I.afterStep(self);
+        step++;
       }, MILLISECONDS_PER_FRAME);
     },
 
