@@ -15,7 +15,7 @@ function Bomber(I) {
     pointsWorth: 3000,
     shootLogic: function() {
       // Shoot
-      if (Math.random() < 0.05) {
+      if (I.age % 20 == 0) {
         enemyShoot(Bomb(
           gunAngle, {
             x: self.midpoint().x,
