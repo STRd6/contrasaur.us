@@ -21,6 +21,7 @@
   <script src="javascripts/contrasaurus/enemy.js"></script>
   <script src="javascripts/contrasaurus/floor.js"></script>
   <script src="javascripts/contrasaurus/game_object.js"></script>
+  <script src="javascripts/contrasaurus/laser.js"></script>
   <script src="javascripts/contrasaurus/level.js"></script>
   <script src="javascripts/contrasaurus/missile.js"></script>
   <script src="javascripts/contrasaurus/mortar.js"></script>
@@ -88,7 +89,7 @@
     var enemies = level.enemies();
     if (Math.random() < 0.005) {
       var p = PowerupContainer(Math.PI / 2);
-      p.addListener(Powerup("mystery", {
+      p.addListener(Powerup("laser", {
           x: rand(canvas.width()),
           yVelocity: 2
         }));
@@ -125,11 +126,6 @@
       // HAX: Putting this in enemy bullets so it will collide with dino.
       if(Math.random() < 0.5) {
         if (Math.random() < 0.5) {
-          enemyShoot(Powerup("mystery", {
-            x: rand(canvas.width()),
-            yVelocity: 2
-          }));
-        } else {
           enemyShoot(Powerup("bomb", {
             x: rand(canvas.width()),
             yVelocity: 2
@@ -138,6 +134,20 @@
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("shotgun", {
+            x: rand(canvas.width()),
+            yVelocity: 1
+          }));
+        }
+
+        if (Math.random() < 0.4) {
+          enemyShoot(Powerup("missile", {
+            x: rand(canvas.width()),
+            yVelocity: 1
+          }));
+        }
+
+        if (Math.random() < 0.4) {
+          enemyShoot(Powerup("laser", {
             x: rand(canvas.width()),
             yVelocity: 1
           }));

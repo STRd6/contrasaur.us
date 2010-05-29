@@ -44,7 +44,7 @@ function PowerupContainer(theta, I) {
         if (!I.active) {
           // onDestroy
           currentLevel.enemyShoot(
-            Powerup("mystery", {
+            Powerup("laser", {
               x: I.x,
               y: I.y,
               yVelocity: 2

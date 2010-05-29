@@ -32,8 +32,9 @@ function Dinosaur() {
       bombs: 0,
       machineGun: 0,
       shotgun: 0,
-      bazooka: 4,
-      jetpack: 0
+      bazooka: 0,
+      jetpack: 0,
+      laser: 4
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -60,6 +61,14 @@ function Dinosaur() {
           y: self.midpoint().y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
         }));
       }
+    }
+
+    // Laser
+    if (I.weapons.laser && rand(100) < I.weapons.laser) {
+      shoot(Laser(theta, {
+        x: self.midpoint().x,
+        y: self.midpoint().y
+      }));
     }
 
     // Mortars

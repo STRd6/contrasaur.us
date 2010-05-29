@@ -14,8 +14,16 @@ function Powerup(kind, I) {
       I.width = tile.width;
       I.height = tile.height;
     });
-  } else {
-    // Mystery
+  } else if (kind == "missile") {
+    I.sprite = loadImageTile ("images/powerup_missile.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
+  } else if (kind == "laser") {
+    I.sprite = loadImageTile("images/powerup_laser.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
   }
 
   $.reverseMerge(I, {
@@ -50,22 +58,17 @@ function Powerup(kind, I) {
 
       hit: function(other) {
         if(other.powerup) {
-          if(kind == "mystery") {
-            other.powerup([
-              {health: 10},
-              {weapon: {shotgun: 2}},
-              {weapon: {bombs: 1}},
-              {weapon: {bazooka: 1}}
-            ].rand());
-          } else if(kind == "meat") {
+          if(kind == "meat") {
             other.powerup({health: 50});
           } else if(kind == "bomb") {
             other.powerup({weapon: {bombs: 1}})
           } else if (kind == "shotgun") {
             other.powerup({weapon: {shotgun: 2}})
-          }
-
-          else {
+          } else if (kind == "missile") {
+            other.powerup({weapon: {bazooka: 1}})
+          } else if (kind == "laser") {
+            other.powerup({weapon: {laser: 3}})
+          } else {
             console.error("Unknown powerup: " + kind);
           }
         }
