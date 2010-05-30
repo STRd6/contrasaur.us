@@ -19,6 +19,7 @@
   <script src="javascripts/contrasaurus/cutscene.js"></script>
   <script src="javascripts/contrasaurus/dinosaur.js"></script>
   <script src="javascripts/contrasaurus/enemy.js"></script>
+  <script src="javascripts/contrasaurus/flamethrower.js"></script>
   <script src="javascripts/contrasaurus/floor.js"></script>
   <script src="javascripts/contrasaurus/game_object.js"></script>
   <script src="javascripts/contrasaurus/laser.js"></script>
@@ -148,6 +149,13 @@
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("laser", {
+            x: rand(canvas.width()),
+            yVelocity: 1
+          }));
+        }
+
+        if (Math.random() < 0.4) {
+          enemyShoot(Powerup("flame", {
             x: rand(canvas.width()),
             yVelocity: 1
           }));

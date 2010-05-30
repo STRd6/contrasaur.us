@@ -34,7 +34,8 @@ function Dinosaur() {
       shotgun: 0,
       bazooka: 0,
       jetpack: 0,
-      laser: 4
+      laser: 0,
+      flamethrower: 37
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -68,6 +69,14 @@ function Dinosaur() {
       shoot(Laser(theta, {
         x: self.midpoint().x,
         y: self.midpoint().y
+      }));
+    }
+
+    // Flamethrower
+    if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
+      shoot(Flamethrower(I.xVelocity / Math.abs(I.xVelocity), {
+        x: self.midpoint().x + 20,
+        y: self.midpoint().y - 20
       }));
     }
 
@@ -194,33 +203,28 @@ function Dinosaur() {
     },
 
     draw: function(canvas) {
+      var midpoint = self.midpoint();
 
-      dinoTile.draw(canvas,
-        I.x,
-        I.y,
-        { hFlip: lastDirection <= 0 }
-      );
+      canvas.withState(midpoint.x, midpoint.y, { hFlip: lastDirection <= 0 }, function() {
 
-      if(I.weapons.jetpack) {
-        // Draw Jetpack
-        if (jetpackCounter > 0) {
-          jetpackActiveTile.draw(canvas,
-            I.x,
-            I.y + 35,
-            { hFlip: lastDirection <= 0 }
-          );
-        } else {
-        jetpackInactiveTile.draw(canvas,
-            I.x,
-            I.y + 35,
-            { hFlip: lastDirection <= 0 }
+        dinoTile.draw(canvas,
+          -dinoTile.registrationPoint.x,
+          -dinoTile.registrationPoint.y
+        );
+
+        if(I.weapons.jetpack) {
+          var jetpackTile = jetpackCounter > 0 ? jetpackActiveTile : jetpackInactiveTile;
+
+          // Draw Jetpack
+          jetpackTile.draw(canvas,
+            -65,
+            -25
           );
         }
-      }
+      })
 
       // Draw Machine Gun
       if(I.weapons.machineGun) {
-        var midpoint = self.midpoint();
 
         gunTile.draw(canvas,
           midpoint.x + gunDelta.x - gunTile.registrationPoint.x,

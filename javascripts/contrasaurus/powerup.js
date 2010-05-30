@@ -24,6 +24,11 @@ function Powerup(kind, I) {
       I.width = tile.width;
       I.height = tile.height;
     });
+  } else if (kind == "flame") {
+    I.sprite = loadImageTile("images/powerup_flame.png", function(tile) {
+      I.width = tile.width;
+      I.height = tile.height;
+    });
   }
 
   $.reverseMerge(I, {
@@ -68,6 +73,8 @@ function Powerup(kind, I) {
             other.powerup({weapon: {bazooka: 1}})
           } else if (kind == "laser") {
             other.powerup({weapon: {laser: 3}})
+          } else if (kind == "flame") {
+            other.powerup({weapon: {flamethrower: 4}})
           } else {
             console.error("Unknown powerup: " + kind);
           }
