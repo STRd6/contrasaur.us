@@ -26,8 +26,8 @@
             sourceY,
             width,
             height,
-            -registrationPoint.x,
-            -registrationPoint.y,
+            0,
+            0,
             width,
             height
           );
