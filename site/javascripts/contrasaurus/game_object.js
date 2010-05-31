@@ -10,6 +10,7 @@ function GameObject(I) {
     y: 0,
     width: 10,
     height: 10,
+    radius: 5,
     xVelocity: 0,
     yVelocity: 0,
     collideDamage: 1,
@@ -40,14 +41,6 @@ function GameObject(I) {
       return {
         x: I.x + I.width/2,
         y: I.y + I.height/2
-      }
-    },
-
-    boundingBox: function() {
-      if (I.sprite) {
-        return { x: I.x - I.sprite.registrationPoint.x, y: I.y - I.sprite.registrationPoint.y, width: I.sprite.width, height: I.sprite.height };
-      } else {
-        return { x: I.x, y: I.y, width: I.width, height: I.height };
       }
     },
 

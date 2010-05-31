@@ -68,7 +68,7 @@ function Level(I) {
       enemyBulletQueue = [];
 
       $.each(I.platforms, function(i, platform) {
-        collision(I.dino, platform);
+        planeCollision(I.dino, platform);
 
         platform.draw(I.canvas);
       });
@@ -79,16 +79,16 @@ function Level(I) {
       var liveEnemies = [];
       $.each(enemies, function(i, enemy) {
         $.each(I.platforms, function(i, platform) {
-          collision(platform, enemy);
+          planeCollision(enemy, platform);
         });
 
         enemy.update();
 
         $.each(bullets, function(i, bullet) {
-          collision(bullet, enemy);
+          circleCollision(bullet, enemy);
         });
 
-        collision(I.dino, enemy);
+        circleCollision(I.dino, enemy);
 
         if (enemy.active()) {
           liveEnemies.push(enemy);
@@ -120,7 +120,7 @@ function Level(I) {
 
       var liveEnemyBullets = [];
       $.each(enemyBullets, function(i, bullet) {
-        collision(bullet, I.dino);
+        circleCollision(bullet, I.dino);
         bullet.update();
 
         if (bullet.active()) {

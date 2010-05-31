@@ -12,9 +12,13 @@ function Floor() {
   };
 
   return GameObject(I).extend({
+    draw: function() {
+      I.sprite.draw(canvas, I.x, I.y);
+    },
     hit: function(other) {
       other.land(I.y);
-    }
+    },
+    y: I.y
   });
 }
 

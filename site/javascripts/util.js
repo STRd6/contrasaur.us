@@ -80,22 +80,6 @@ jQuery.extend({
   }
 });
 
-function collision(A, B) {
-  var b = A.boundingBox();
-  var t = B.boundingBox();
-
-  var xOverlap = (b.x < t.x && b.x + b.width >= t.x) ||
-    (t.x < b.x && t.x + t.width >= b.x);
-  var yOverlap = (b.y < t.y && b.y + b.height >= t.y) ||
-    (t.y < b.y && t.y + t.height >= b.y);
-  if (A.active() && B.active()) {
-    if(xOverlap && yOverlap) {
-      A.hit(B);
-      B.hit(A);
-    }
-  }
-}
-
 function circleCollision(gameObject1, gameObject2) {
   var c1 = gameObject1.getCircle();
   var c2 = gameObject2.getCircle();
@@ -107,6 +91,15 @@ function circleCollision(gameObject1, gameObject2) {
   if(dx * dx + dy * dy <= dist * dist) {
     gameObject1.hit(gameObject2);
     gameObject2.hit(gameObject1);
+  }
+}
+
+function planeCollision(gameObject, plane) {
+  var circle = gameObject.getCircle();
+
+  if(circle.y + circle.radius >= plane.y) {
+    gameObject.hit(plane);
+    plane.hit(gameObject);
   }
 }
 
