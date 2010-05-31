@@ -2,7 +2,7 @@ function Enemy(I) {
   I = I || {};
 
   var soldierTile = loadImageTile("images/soldier.png");
-  var height = 40;
+  var height = 53;
 
   // TODO: make them not shoot into the ground
   var theta = Math.random() * (Math.PI * 2);
@@ -10,8 +10,9 @@ function Enemy(I) {
   $.reverseMerge(I, {
     x: rand(canvas.width()),
     y: canvas.height() - Floor.LEVEL - height,
-    width: 10,
+    width: 38,
     height: height,
+    radius: 19,
     yVelocity: 0,
     health: 3,
     hFlip: Math.cos(theta) <= 0,

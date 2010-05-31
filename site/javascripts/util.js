@@ -109,3 +109,7 @@ function transformPoint(point, transformMatrix) {
     y: transformMatrix.c * point.x + transformMatrix.d * point.y
   }
 }
+
+var IDENTITY_MATRIX = {a: 1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
+var HORIZONTAL_FLIP_MATRIX = {a: -1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
+var VERTICAL_FLIP_MATRIX = {a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0};

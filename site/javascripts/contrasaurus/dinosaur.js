@@ -233,11 +233,11 @@ function Dinosaur() {
     draw: function(canvas) {
       var midpoint = self.midpoint();
 
-      canvas.withState(midpoint.x, midpoint.y, { transform: getTransform() }, function() {
+      canvas.withState(I.x, I.y, { transform: getTransform() }, function() {
 
         dinoTile.draw(canvas,
-          -dinoTile.registrationPoint.x,
-          -dinoTile.registrationPoint.y
+          -dinoTile.width/2,
+          -dinoTile.height/2
         );
 
         if(I.weapons.jetpack) {
@@ -249,16 +249,16 @@ function Dinosaur() {
             -25
           );
         }
-      })
+      });
 
       // Draw Machine Gun
       if(I.weapons.machineGun) {
-
-        gunTile.draw(canvas,
-          gunDelta.x - gunTile.registrationPoint.x,
-          gunDelta.y - gunTile.registrationPoint.y,
-          {
-            rotation: theta
+        canvas.withState(
+          midpoint.x,
+          midpoint.y,
+          {rotation: theta},
+          function() {
+            gunTile.draw(canvas, -gunTile.registrationPoint.x, -gunTile.registrationPoint.y);
           }
         );
       }
@@ -295,7 +295,7 @@ function Dinosaur() {
         }
 
         // Flip when hitting edges of screen
-        if (I.x + I.width > canvas.width() || I.x < 0) {
+        if (I.x + I.radius > canvas.width() || I.x - I.radius < 0) {
           I.xVelocity = I.xVelocity * -1;
           I.x += I.xVelocity;
         }

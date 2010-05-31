@@ -17,30 +17,27 @@ function GameObject(I) {
     pointsWorth: 1000
   });
 
-  var getTransform = function() {
-    return {
-      a: 1,
-      b: 0,
-      c: 0,
-      d: 1,
-      tx: 0,
-      ty: 0
-    };
-  }
-
   function move() {
     I.x += I.xVelocity;
     I.y += I.yVelocity;
   }
 
   var self = {
-
-    getTransform: getTransform,
+    getTransform: function() {
+      return {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        tx: 0,
+        ty: 0
+      };
+    },
 
     midpoint: function() {
       return {
-        x: I.x + I.width/2,
-        y: I.y + I.height/2
+        x: I.x,
+        y: I.y
       }
     },
 
@@ -85,7 +82,7 @@ function GameObject(I) {
     },
 
     draw: function(canvas) {
-      canvas.withState(I.x, I.y, { transform: getTransform() }, function() {
+      canvas.withState(I.x, I.y, { transform: self.getTransform() }, function() {
         if (I.sprite) {
           I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
         } else {

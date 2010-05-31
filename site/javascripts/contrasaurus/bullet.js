@@ -7,6 +7,7 @@ function Bullet(theta, I) {
     collideDamage: 1,
     width: 4,
     height: 4,
+    radius: 2,
     color: "#000",
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
@@ -15,21 +16,22 @@ function Bullet(theta, I) {
   var self = GameObject(I).extend({
     draw: function(canvas) {
       if (I.sprite) {
-        I.sprite.draw(canvas, I.x, I.y);
+        I.sprite.draw(canvas, I.x - I.radius, I.y - I.radius);
       } else {
-        var midpoint = self.midpoint();
-        canvas.fillCircle(midpoint.x, midpoint.y, I.width/2, I.color);
+        canvas.fillCircle(I.x, I.y, I.radius, I.color);
       }
     },
     after: {
       update: function() {
         // Check Bounds
-        if (I.x >= 0 && I.x < xMax &&
-          I.y >= 0 && I.y < yMax) {
-          I.active = I.active && true;
-        } else {
+        if (I.x < -I.radius || 
+          I.x > xMax + I.radius || 
+          I.y < -I.radius ||
+          I.y > yMax + I.radius
+        ) {
           I.active = false;
         }
+
         return I.active;
       }
     }

@@ -33,12 +33,12 @@ function Parasoldier(I) {
   });
 
   var self = Enemy(I).extend({
-
     land: function(h) {
-      I.y = h - I.height;
+      I.y = h - I.radius;
       I.yVelocity = 0;
       airborne = false;
     },
+
     after: {
       hit: function(other) {
         if(other.bump) {

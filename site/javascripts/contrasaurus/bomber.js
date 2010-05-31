@@ -19,9 +19,10 @@ function Bomber(I) {
   $.reverseMerge(I, {
     x: 600,
     y: 40,
-    width: 50,
-    height: 20,
-    hFlip: false,
+    width: 71,
+    height: 44,
+    radius: 22,
+    hFlip: true,
     xVelocity: I.xVelocity || -5,
     yVelocity: 0,
     health: 5,
@@ -42,13 +43,12 @@ function Bomber(I) {
   I.hFlip = I.xVelocity <= 0;
 
   var self = GameObject(I).extend({
-    draw: function(canvas) {
-
-      I.sprite.draw(canvas,
-        I.x,
-        I.y,
-        { hFlip: true }
-      );
+    getTransform: function() {
+      if(I.hFlip) {
+        return HORIZONTAL_FLIP_MATRIX;
+      } else {
+        return IDENTITY_MATRIX;
+      }
     },
 
     after: {
