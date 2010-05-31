@@ -9,8 +9,8 @@ function Dinosaur() {
   var airborne = true;
   var berserk = false;
   var mouthPoint = {
-    x: 30,
-    y: -30
+    x: 45,
+    y: 20
   }
 
   var getTransform = function() {
