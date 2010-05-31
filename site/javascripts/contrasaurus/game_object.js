@@ -92,14 +92,12 @@ function GameObject(I) {
     },
 
     draw: function(canvas) {
-      var midpoint = self.midpoint();
-
-      canvas.withState(midpoint.x, midpoint.y, { transform: getTransform() }, function() {
+      canvas.withState(I.x, I.y, { transform: getTransform() }, function() {
         if (I.sprite) {
-          I.sprite.draw(canvas, 0, 0);
+          I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
         } else {
           canvas.fillColor(I.color);
-          canvas.fillRect(0, 0, I.width, I.height);
+          canvas.fillRect(-I.sprite.width/2, -I.sprite.height/2, I.width, I.height);
         }
       });
     },

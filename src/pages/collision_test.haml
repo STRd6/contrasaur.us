@@ -19,27 +19,29 @@
     testObject = GameObject({
       x: 250,
       y: 250,
-      sprite: loadImageTile('images/dino1.png') 
+      radius: 64,
+      sprite: loadImageTile('images/dino1.png')
     }).extend({
       after: {
         draw: function(canvas) {
           canvas.fillColor('rgba(255,0,0,0.5)');
-          var bounds = testObject.boundingBox();
-          canvas.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+          var circle = testObject.getCircle();
+          canvas.fillCircle(circle.x, circle.y, circle.radius);
         }
       }
     });
     
     flipObject = GameObject({
-      x: 250,
+      x: 450,
       y: 250,
+      radius: 64,
       sprite: loadImageTile('images/dino1.png') 
     }).extend({
       after: {
         draw: function(canvas) {
           canvas.fillColor('rgba(255,0,0,0.5)');
-          var bounds = testObject.boundingBox();
-          canvas.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+          var circle = flipObject.getCircle();
+          canvas.fillCircle(circle.x, circle.y, circle.radius);
         }
       }
     });
@@ -71,6 +73,7 @@
     setInterval(function() {
       canvas.fill('#000');
       testObject.draw(canvas);
+      flipObject.draw(canvas);
       
       circleCollision(circle1, circle2);
       circleCollision(circle1, circle3);
