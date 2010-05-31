@@ -7,6 +7,7 @@ function Flamethrower(direction, I) {
     color: '#500',
     width: 36,
     height: 78,
+    radius: 18,
     collideDamage: 20,
     sprite: loadImageTile("images/flame.png"),
     xVelocity: 8 * direction,
