@@ -251,6 +251,11 @@ function Dinosaur() {
         }
       });
 
+      if (GameObject.DEBUG_HIT) {
+        var circle = self.getCircle();
+        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+      }
+
       // Draw Machine Gun
       if(I.weapons.machineGun) {
         canvas.withState(

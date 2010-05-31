@@ -14,9 +14,6 @@ function Flamethrower(direction, I) {
   });
 
   var self = Bullet(theta, I).extend({
-    draw: function(canvas) {
-      I.sprite.draw(canvas, I.x, I.y);
-    },
     hit: function(other) { },
     after: {
       update: function() {

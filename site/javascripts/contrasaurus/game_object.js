@@ -87,9 +87,14 @@ function GameObject(I) {
           I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
         } else {
           canvas.fillColor(I.color);
-          canvas.fillRect(-I.sprite.width/2, -I.sprite.height/2, I.width, I.height);
+          canvas.fillRect(-I.width/2, -I.height/2, I.width, I.height);
         }
       });
+
+      if (GameObject.DEBUG_HIT) {
+        var circle = self.getCircle();
+        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+      }
     },
 
     update: function() {
@@ -126,3 +131,5 @@ function GameObject(I) {
 
   return self;
 }
+
+GameObject.DEBUG_HIT = true;

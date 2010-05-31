@@ -14,13 +14,6 @@ function Bullet(theta, I) {
   });
 
   var self = GameObject(I).extend({
-    draw: function(canvas) {
-      if (I.sprite) {
-        I.sprite.draw(canvas, I.x - I.radius, I.y - I.radius);
-      } else {
-        canvas.fillCircle(I.x, I.y, I.radius, I.color);
-      }
-    },
     after: {
       update: function() {
         // Check Bounds
