@@ -3,8 +3,8 @@ function Floor() {
 
   var I = {
     x: 0,
-    y: canvas.height() - height,
-    width: canvas.width(),
+    y: CANVAS_HEIGHT - height,
+    width: CANVAS_WIDTH,
     height: height,
     color: "#0F0",
     collideDamage: 0,
@@ -12,7 +12,7 @@ function Floor() {
   };
 
   return GameObject(I).extend({
-    draw: function() {
+    draw: function(canvas) {
       I.sprite.draw(canvas, I.x, I.y);
     },
     hit: function(other) {

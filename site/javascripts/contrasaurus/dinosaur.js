@@ -3,7 +3,7 @@ function Dinosaur() {
   var height = 128;
   var jetpackCounter = 0;
 
-  var x = (canvas.width() - width) / 2;
+  var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
 
   var airborne = true;
@@ -37,6 +37,8 @@ function Dinosaur() {
 
   var theta = 0;
   var thetaVelocity = Math.PI / 24;
+
+  var dinoTile = loadImageTile("images/dino1.png");
 
   var jetpackInactiveTile = loadImageTile("images/jetpack.png");
   var jetpackActiveTile = loadImageTile("images/jetpack_active.png");
@@ -302,7 +304,7 @@ function Dinosaur() {
         }
 
         // Flip when hitting edges of screen
-        if (I.x + I.radius > canvas.width() || I.x - I.radius < 0) {
+        if (I.x + I.radius > CANVAS_WIDTH || I.x - I.radius < 0) {
           I.xVelocity = I.xVelocity * -1;
           I.x += I.xVelocity;
         }

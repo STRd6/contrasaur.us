@@ -35,6 +35,10 @@ function Level(I) {
   }
 
   var self = {
+    dino: function() {
+      return I.dino;
+    },
+
     changeTiltAmount: function(amount) {
       tiltAmount += amount;
     },
@@ -70,10 +74,10 @@ function Level(I) {
     },
 
     step: function step() {
-      I.canvas.fill(backgroundColor);
+      canvas.fill(backgroundColor);
 
       // Draw Backgrounds
-      I.scene.drawBackgrounds(position, I.canvas);
+      I.scene.drawBackgrounds(position, canvas);
 
       Array.prototype.push.apply(bullets, bulletQueue);
       bulletQueue = [];
@@ -84,11 +88,11 @@ function Level(I) {
       $.each(I.platforms, function(i, platform) {
         planeCollision(I.dino, platform);
 
-        platform.draw(I.canvas);
+        platform.draw(canvas);
       });
 
       I.dino.update();
-      I.dino.draw(I.canvas);
+      I.dino.draw(canvas);
 
       var liveEnemies = [];
       $.each(enemies, function(i, enemy) {
@@ -106,7 +110,7 @@ function Level(I) {
 
         if (enemy.active()) {
           liveEnemies.push(enemy);
-          enemy.draw(I.canvas);
+          enemy.draw(canvas);
         } else {
           score += enemy.pointsWorth();
         }
@@ -117,7 +121,7 @@ function Level(I) {
         gameObject.update();
 
         if (gameObject.active()) {
-          gameObject.draw(I.canvas);
+          gameObject.draw(canvas);
         }
       });
 
@@ -126,7 +130,7 @@ function Level(I) {
         bullet.update();
 
         if (bullet.active()) {
-          bullet.draw(I.canvas);
+          bullet.draw(canvas);
           liveBullets.push(bullet);
         }
       });
@@ -138,14 +142,14 @@ function Level(I) {
         bullet.update();
 
         if (bullet.active()) {
-          bullet.draw(I.canvas);
+          bullet.draw(canvas);
           liveEnemyBullets.push(bullet);
         }
       });
       enemyBullets = liveEnemyBullets;
 
       // Draw Foregrounds
-      I.scene.drawForegrounds(position, I.canvas);
+      I.scene.drawForegrounds(position, canvas);
 
       score += bullets.length;
 

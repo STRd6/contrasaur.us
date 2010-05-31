@@ -15,4 +15,13 @@
       = link "Learn more here", "http://www.google.com/chrome"
 #tilt
 
-= javascripts('contrasaurus/main')
+= javascripts('contrasaurus/main', 'contrasaurus/levels/level1', 'contrasaurus/levels/level2')
+
+:javascript
+  $('#gameCanvas').powerCanvas({init: function(_canvas) {
+
+    canvas = _canvas;
+    canvas.font("bold 1em consolas, 'Courier New', 'andale mono', 'lucida console', monospace");
+
+    nextStage();
+  }});

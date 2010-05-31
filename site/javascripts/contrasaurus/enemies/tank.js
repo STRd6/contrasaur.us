@@ -1,4 +1,6 @@
 function Tank(I) {
+  I = I || {};
+
   var gunAngle;
   var xVelocity;
   var tankTile = loadImageTile("images/tank.png")
