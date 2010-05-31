@@ -12,6 +12,7 @@ function Level(I) {
   var backgroundColor = "#A2EEFF";
   var step = 0;
   var intervalId;
+  var tiltAmount = 0;
 
   $.reverseMerge(I, {
     triggers: [],
@@ -34,6 +35,19 @@ function Level(I) {
   }
 
   var self = {
+    changeTiltAmount: function(amount) {
+      tiltAmount += amount;
+    },
+
+    tiltAmount: function(value) {
+      if (value === undefined) {
+        return tiltAmount
+      } else {
+        tiltAmount = value;
+        return self;
+      }
+    },
+    
     start: function() {
       backgroundMusic.get(0).play();
 
@@ -135,7 +149,7 @@ function Level(I) {
 
       score += bullets.length;
 
-      position.x -= 0.2;
+      position.x -= 0.2 + tiltAmount;
     },
 
     shoot: function(bullet) {

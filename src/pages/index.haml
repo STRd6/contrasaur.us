@@ -13,6 +13,7 @@
     %p 
       HTML5 canvas not supported by your browser.
       = link "Learn more here", "http://www.google.com/chrome"
+#tilt
 
 :javascript
   var score = 0;
@@ -43,6 +44,17 @@
     displayTexts.push(GameText(text, dino.getCircle()));
   }
 
+  $(document).keydown(function(e) {
+    console.log(e);
+
+    if(e.keyCode == 39) {
+      currentLevel.changeTiltAmount(1);
+      $('#tilt').text(currentLevel.tiltAmount());
+    } else if(e.keyCode == 37) {
+      currentLevel.changeTiltAmount(-1);
+      $('#tilt').text(currentLevel.tiltAmount());
+    }
+  });
 
   var bombingRunActive = false;
   var bombingRunCount = 0;
