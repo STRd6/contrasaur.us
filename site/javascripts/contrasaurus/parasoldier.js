@@ -1,9 +1,7 @@
 function Parasoldier(I) {
   I = I || {};
 
-  var soldierTile = loadImageTile("images/soldier.png");
   var parachuteActiveTile = loadImageTile("images/parasoldier.png");
-  var airborne = true;
   var startingHeight = 90;
 
   var theta = Math.random() * (Math.PI * 2);
@@ -11,8 +9,9 @@ function Parasoldier(I) {
   $.reverseMerge(I, {
     x: rand(canvas.width()),
     y: 0,
-    width: 10,
+    width: 38,
     height: startingHeight,
+    radius: 19,
     yVelocity: 4,
     health: 3,
     color: "#F00",
@@ -36,7 +35,6 @@ function Parasoldier(I) {
     land: function(h) {
       I.y = h - I.radius;
       I.yVelocity = 0;
-      airborne = false;
     },
 
     after: {
