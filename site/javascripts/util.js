@@ -110,6 +110,14 @@ function transformPoint(point, transformMatrix) {
   }
 }
 
+function rotationTransform(theta) {
+  return {
+    a: Math.cos(theta), b: Math.sin(theta),
+    c: -Math.sin(theta), d: Math.cos(theta),
+    tx: 0, ty: 0
+  };
+}
+
 var IDENTITY_MATRIX = {a: 1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
 var HORIZONTAL_FLIP_MATRIX = {a: -1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
 var VERTICAL_FLIP_MATRIX = {a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0};

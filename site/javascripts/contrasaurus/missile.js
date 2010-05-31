@@ -5,6 +5,7 @@ function Missile(theta, I) {
     color: '#500',
     width: 35,
     height: 16,
+    radius: 8,
     collideDamage: 20,
     sprite: loadImageTile("images/missile.png"),
     xVelocity: Math.cos(theta)*speed,
@@ -12,8 +13,8 @@ function Missile(theta, I) {
   });
 
   var self = Bullet(theta, I).extend({
-    draw: function(canvas) {
-      I.sprite.draw(canvas, I.x, I.y, {rotation: Math.atan2(I.yVelocity, I.xVelocity)});
+    getTransform: function() {
+      return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
     },
     after: {
       update: function() {

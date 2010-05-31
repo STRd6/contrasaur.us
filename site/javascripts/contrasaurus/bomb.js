@@ -7,9 +7,11 @@ function Bomb(xVelocity, I) {
     color: "#000",
     width: 64,
     height: 23,
+    radius: 12,
     collideDamage: 0,
     xVelocity: xVelocity,
-    yVelocity: 0
+    yVelocity: 0,
+    sprite: bombTile
   });
 
   function explode() {
@@ -20,14 +22,12 @@ function Bomb(xVelocity, I) {
   }
 
   var self = Bullet(null, I).extend({
-    draw: function(canvas) {
-      bombTile.draw(canvas, I.x, I.y, {rotation: Math.atan2(I.yVelocity, I.xVelocity)});
+    getTransform: function() {
+      return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
     },
 
     after: {
-      hit: function() {
-        I.active = true;
-      },
+      hit: $.noop,
 
       update: function() {
         I.yVelocity += GRAVITY;
