@@ -1,5 +1,5 @@
 function Flame(direction, I) {
-  var speed = 5;
+  var speed = 2;
   var theta = Math.PI/4;
   var age = 0;
 
@@ -10,7 +10,7 @@ function Flame(direction, I) {
     radius: 18,
     collideDamage: 20,
     sprite: loadImageTile("images/flame.png"),
-    xVelocity: 2 * direction,
+    xVelocity: speed * direction,
     yVelocity: Math.sin(theta)*speed
   });
 
@@ -24,6 +24,7 @@ function Flame(direction, I) {
           I.active = false;
         }
         I.yVelocity = speed * Math.sin(theta);
+        console.log(I.xVelocity);
       }
     }
   });
