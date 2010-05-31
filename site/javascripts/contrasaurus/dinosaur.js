@@ -91,13 +91,7 @@ function Dinosaur() {
       }
     }
 
-    // Laser
-    if (I.weapons.laser && rand(100) < I.weapons.laser) {
-      shoot(Laser(theta, {
-        x: self.midpoint().x,
-        y: self.midpoint().y
-      }));
-    }
+    LaserGun(self);
 
     // Flamethrower
     if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
@@ -226,6 +220,14 @@ function Dinosaur() {
   }
 
   var self = GameObject(I).extend({
+    getWeapons: function() {
+      return I.weapons;
+    },
+
+    getTheta: function() {
+      return theta;
+    },
+
     bump: function() {
       I.xVelocity = -I.xVelocity;
     },
