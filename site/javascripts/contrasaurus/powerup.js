@@ -3,6 +3,7 @@ function Powerup(kind, I) {
     I.sprite = loadImageTile("images/meat.png", function(tile) {
       I.width = tile.width;
       I.height = tile.height;
+      I.radius = 25
     });
   } else if (kind == "bomb") {
     I.sprite = loadImageTile("images/powerup_bomb.png", function(tile) {
@@ -33,7 +34,7 @@ function Powerup(kind, I) {
 
   $.reverseMerge(I, {
     color: "#F0F",
-    symbol: "?",
+    radius: 10,
     width: 15,
     height: 15,
     pointsWorth: 1000
@@ -43,9 +44,7 @@ function Powerup(kind, I) {
 
     before: {
       update: function() {
-        if(kind == "mystery") {
-          I.xVelocity = Math.sin(I.age/10);
-        } else if(kind == "meat") {
+        if(kind == "meat") {
           I.yVelocity += GRAVITY / 4;
         } else {
           I.xVelocity = Math.sin(I.age/10);
@@ -54,13 +53,6 @@ function Powerup(kind, I) {
     },
 
     after: {
-      draw: function(canvas) {
-        if(kind == "mystery") {
-          canvas.fillColor("#FFF");
-          canvas.fillText(I.symbol, I.x + I.width/2 - 2, I.y + 12);
-        }
-      },
-
       hit: function(other) {
         if(other.powerup) {
           if(kind == "meat") {
