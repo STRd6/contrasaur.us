@@ -15,6 +15,7 @@ function Tank(I) {
     y: canvas.height() - Floor.LEVEL - height,
     width: 30,
     height: height,
+    radius: 25,
     xVelocity: xVelocity,
     health: 10,
     hFlip: xVelocity <= 0,
