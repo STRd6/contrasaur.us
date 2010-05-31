@@ -3,6 +3,7 @@ function Dinosaur() {
   var height = 128;
   var jetpackCounter = 0;
   var laser = LaserGun();
+  var flamethrower = Flamethrower();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -95,6 +96,7 @@ function Dinosaur() {
     }
 
     laser.shoot(self.midpoint(), self.getTransform());
+    flamethrower.shoot(lastDirection, self.midpoint(), self.getTransform());
 
     // Flamethrower
     if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {

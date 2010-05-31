@@ -1,5 +1,5 @@
 function LaserGun() {
-  var power = 30;
+  var power = 0;
   var theta = 0;
 
   var self = {

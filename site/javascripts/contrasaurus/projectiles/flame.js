@@ -10,12 +10,12 @@ function Flame(direction, I) {
     radius: 18,
     collideDamage: 20,
     sprite: loadImageTile("images/flame.png"),
-    xVelocity: 8 * direction,
+    xVelocity: 2 * direction,
     yVelocity: Math.sin(theta)*speed
   });
 
   var self = Bullet(theta, I).extend({
-    hit: function(other) { },
+    hit: $.noop,
     after: {
       update: function() {
         age++;
