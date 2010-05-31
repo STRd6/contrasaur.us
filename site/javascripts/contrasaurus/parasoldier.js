@@ -7,8 +7,8 @@ function Parasoldier(I) {
   var theta = Math.random() * (Math.PI * 2);
 
   $.reverseMerge(I, {
-    x: rand(canvas.width()),
-    y: 0,
+    x: rand(CANVAS_WIDTH),
+    y: 45,
     width: 38,
     height: startingHeight,
     radius: 19,

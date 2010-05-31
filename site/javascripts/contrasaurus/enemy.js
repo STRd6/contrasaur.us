@@ -8,8 +8,8 @@ function Enemy(I) {
   var theta = Math.random() * (Math.PI * 2);
 
   $.reverseMerge(I, {
-    x: rand(canvas.width()),
-    y: canvas.height() - Floor.LEVEL - height,
+    x: rand(CANVAS_WIDTH),
+    y: CANVAS_HEIGHT - Floor.LEVEL - height,
     width: 38,
     height: height,
     radius: 19,
@@ -36,13 +36,12 @@ function Enemy(I) {
   var self = GameObject(I).extend({
     land: function(h) { },
 
-    draw: function(canvas) {
-
-      I.sprite.draw(canvas,
-        I.x,
-        I.y,
-        { hFlip: I.hFlip }
-      );
+    getTransform: function() {
+      if(I.hFlip) {
+        return HORIZONTAL_FLIP_MATRIX;
+      } else {
+        return IDENTITY_MATRIX;
+      }
     },
 
     after: {

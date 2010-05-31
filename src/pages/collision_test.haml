@@ -69,6 +69,16 @@
     circle1 = Circle({x: 50, y: 50});
     circle2 = Circle({x: 100, y: 50});
     circle3 = Circle({x: 36, y: 36});
+
+    parasoldier = Parasoldier().extend({
+      after: {
+        draw: function(canvas) {
+          canvas.fillColor('rgba(255,0,0,0.5)');
+          var circle = parasoldier.getCircle();
+          canvas.fillCircle(circle.x, circle.y, circle.radius);
+        }
+      }
+    });
     
     setInterval(function() {
       canvas.fill('#000');
@@ -81,5 +91,7 @@
       circle1.draw(canvas);
       circle2.draw(canvas);
       circle3.draw(canvas);
+
+      parasoldier.draw(canvas);
     }, 33);
   }});
