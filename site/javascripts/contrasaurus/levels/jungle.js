@@ -74,7 +74,6 @@
   var bombingRunActive = false;
   var bombingRunCount = 0;
   function generateEnemies(level) {
-    debugger;
     var enemies = level.enemies();
     if (Math.random() < 0.005) {
       var p = PowerupContainer(Math.PI / 2);
@@ -169,6 +168,11 @@
     every: 1,
     event: function(level) {
       generateEnemies(level);
+    }
+  }, {
+    at: 4000,
+    event: function(level) {
+      level.stop();
     }
   }];
 

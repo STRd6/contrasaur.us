@@ -15,7 +15,10 @@
       = link "Learn more here", "http://www.google.com/chrome"
 #tilt
 
-= javascripts('contrasaurus/main', 'contrasaurus/levels/level1', 'contrasaurus/levels/level2')
+= javascripts('contrasaurus/main')
+
+- levels = %w[prehistoric area51 jungle].map {|name| "contrasaurus/levels/#{name}" }
+= javascripts(*levels)
 
 :javascript
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
