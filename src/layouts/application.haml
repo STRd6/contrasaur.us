@@ -6,7 +6,12 @@
   
     = stylesheets
   
-    = javascripts('contrasaurus/config', 'jquery-1.4.2.min', 'power_canvas.jquery', 'sprites.strd6', 'power_canvas.jquery', 'sprites.strd6', 'util', 'contrasaurus/bomb', 'contrasaurus/bomb_explosion', 'contrasaurus/bomber', 'contrasaurus/bullet', 'contrasaurus/cutscene', 'contrasaurus/dinosaur', 'contrasaurus/enemy', 'contrasaurus/flamethrower', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/laser', 'contrasaurus/level', 'contrasaurus/missile', 'contrasaurus/mortar', 'contrasaurus/parasoldier', 'contrasaurus/powerup', 'contrasaurus/powerup_container', 'contrasaurus/tank', 'contrasaurus/UI')
-    
+    = javascripts('contrasaurus/config', 'jquery-1.4.2.min', 'power_canvas.jquery', 'sprites.strd6', 'power_canvas.jquery', 'util')
+    - projectile_files = %w[bomb bomb_explosion bullet flame laser missile powerup powerup_container].map { |file_name| "contrasaurus/projectiles/#{file_name}" }
+    = javascripts(*projectile_files)
+    = javascripts('contrasaurus/levels/cutscene', 'contrasaurus/levels/level')
+    = javascripts('contrasaurus/enemies/bomber', 'contrasaurus/enemies/enemy', 'contrasaurus/enemies/parasoldier', 'contrasaurus/enemies/tank')
+    = javascripts('contrasaurus/dinosaur', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/UI')
+
   %body
     = yield

@@ -1,4 +1,4 @@
-function Flamethrower(direction, I) {
+function Flame(direction, I) {
   var speed = 5;
   var theta = Math.PI/4;
   var age = 0;

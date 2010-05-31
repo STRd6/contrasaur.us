@@ -62,7 +62,7 @@ function Dinosaur() {
       bazooka: 0,
       jetpack: 0,
       laser: 0,
-      flamethrower: 37
+      flamethrower: 0
     },
     xVelocity: 1,
     yVelocity: 6,
@@ -102,7 +102,7 @@ function Dinosaur() {
     // Flamethrower
     if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
       var exitPoint = transformPoint(mouthPoint, getTransform());
-      shoot(Flamethrower(I.xVelocity / Math.abs(I.xVelocity), {
+      shoot(Flame(I.xVelocity / Math.abs(I.xVelocity), {
         x: self.midpoint().x + exitPoint.x,
         y: self.midpoint().y + exitPoint.y
       }));
