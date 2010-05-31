@@ -1,7 +1,9 @@
 function Tank(I) {
   var gunAngle;
   var xVelocity;
-  var height = 30;
+  var tankTile = loadImageTile("images/tank.png")
+
+  var height = tankTile.height;
 
   if (Math.random() < 0.5) {
     xVelocity = 0.5;
@@ -20,6 +22,7 @@ function Tank(I) {
     health: 10,
     hFlip: xVelocity <= 0,
     color: "#FF7",
+    sprite: tankTile,
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
