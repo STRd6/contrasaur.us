@@ -1,0 +1,52 @@
+#title 
+  %h1 Collision Test
+
+#game_container
+  #game_info
+    %span#health_label health
+    #progress_bar
+      #health
+    #score_holder
+      %span#score_label score
+      %span#score 0
+  %canvas#gameCanvas{:width => 640, :height => 480}
+    %p 
+      HTML5 canvas not supported by your browser.
+      = link "Learn more here", "http://www.google.com/chrome"
+
+:javascript
+  $('#gameCanvas').powerCanvas({init: function(canvas) {
+    testObject = GameObject({
+      x: 250,
+      y: 250,
+      sprite: loadImageTile('images/dino1.png') 
+    }).extend({
+      after: {
+        draw: function(canvas) {
+          canvas.fillColor('rgba(255,0,0,0.5)');
+          var bounds = testObject.boundingBox();
+          canvas.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        }
+      }
+    });
+    
+    flipObject = GameObject({
+      x: 250,
+      y: 250,
+      sprite: loadImageTile('images/dino1.png') 
+    }).extend({
+      draw: 
+      after: {
+        draw: function(canvas) {
+          canvas.fillColor('rgba(255,0,0,0.5)');
+          var bounds = testObject.boundingBox();
+          canvas.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        }
+      }
+    });    
+    
+    setInterval(function() {
+      canvas.fill('#000');
+      testObject.draw(canvas);
+    }, 33);
+  }});
