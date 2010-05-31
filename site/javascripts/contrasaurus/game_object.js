@@ -51,6 +51,10 @@ function GameObject(I) {
       }
     },
 
+    getCircle: function() {
+      return {x: I.x, y: I.y, radius: I.radius};
+    },
+
     // TODO: Encapsulate these better
     collideDamage: function() { return I.collideDamage },
     pointsWorth: function() { return I.pointsWorth },

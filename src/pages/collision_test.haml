@@ -42,10 +42,41 @@
           canvas.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
         }
       }
-    });    
+    });
+    
+    function Circle(I) {
+      $.reverseMerge(I, {
+        x: 50,
+        y: 50,
+        radius: 10,
+        color: "rgba(0, 0, 255, 0.5)"
+      });
+
+      return GameObject(I).extend({
+        draw: function(canvas) {
+          canvas.fillCircle(I.x, I.y, I.radius, I.color)
+        },
+        after: {
+          hit: function() {
+            I.color = "rgba(255, 0, 0, 0.5)";
+          }
+        }
+      });
+    }
+    
+    circle1 = Circle({x: 50, y: 50});
+    circle2 = Circle({x: 100, y: 50});
+    circle3 = Circle({x: 36, y: 36});
     
     setInterval(function() {
       canvas.fill('#000');
       testObject.draw(canvas);
+      
+      circleCollision(circle1, circle2);
+      circleCollision(circle1, circle3);
+      
+      circle1.draw(canvas);
+      circle2.draw(canvas);
+      circle3.draw(canvas);
     }, 33);
   }});

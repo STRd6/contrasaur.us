@@ -96,6 +96,20 @@ function collision(A, B) {
   }
 }
 
+function circleCollision(gameObject1, gameObject2) {
+  var c1 = gameObject1.getCircle();
+  var c2 = gameObject2.getCircle();
+
+  var dx = c1.x - c2.x;
+  var dy = c1.y - c2.y;
+  var dist = c1.radius + c2.radius;
+
+  if(dx * dx + dy * dy <= dist * dist) {
+    gameObject1.hit(gameObject2);
+    gameObject2.hit(gameObject1);
+  }
+}
+
 function transformPoint(point, transformMatrix) {
   return {
     x: transformMatrix.a * point.x + transformMatrix.b * point.y,
