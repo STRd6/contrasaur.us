@@ -1,8 +1,30 @@
-function LaserGun(dino) {
-  if (dino.getWeapons().laser && rand(100) < dino.getWeapons().laser) {
-    shoot(Laser(dino.getTheta(), {
-      x: dino.midpoint().x,
-      y: dino.midpoint().y
-    }));
+function LaserGun() {
+  var power = 30;
+  var theta = 0;
+
+  var self = {
+    power: function(value) {
+      if (value === undefined) {
+        return power;
+      } else {
+        power += value;
+        return self;
+      }
+    },
+
+    shoot: function(midpoint, transform) {
+      if (rand(100) < power) {
+        shoot(Laser(theta, {
+          x: midpoint.x,
+          y: midpoint.y
+        }));
+      }
+    },
+
+    update: function() {
+      theta += Math.PI / 24;
+    }
   }
+
+  return self;
 }

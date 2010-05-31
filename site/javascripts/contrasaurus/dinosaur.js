@@ -2,6 +2,7 @@ function Dinosaur() {
   var width = 128;
   var height = 128;
   var jetpackCounter = 0;
+  var laser = LaserGun();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -93,7 +94,7 @@ function Dinosaur() {
       }
     }
 
-    LaserGun(self);
+    laser.shoot(self.midpoint(), self.getTransform());
 
     // Flamethrower
     if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
@@ -101,14 +102,6 @@ function Dinosaur() {
       shoot(Flame(I.xVelocity / Math.abs(I.xVelocity), {
         x: self.midpoint().x + exitPoint.x,
         y: self.midpoint().y + exitPoint.y
-      }));
-    }
-
-    // Mortars
-    if (I.weapons.mortar && rand(20) == 0) {
-      shoot(Mortar({
-        x: self.midpoint().x,
-        y: self.midpoint().y
       }));
     }
 
