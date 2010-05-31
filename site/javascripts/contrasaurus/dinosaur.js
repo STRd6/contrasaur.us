@@ -255,8 +255,8 @@ function Dinosaur() {
       if(I.weapons.machineGun) {
 
         gunTile.draw(canvas,
-          midpoint.x + gunDelta.x - gunTile.registrationPoint.x,
-          midpoint.y + gunDelta.y - gunTile.registrationPoint.y,
+          gunDelta.x - gunTile.registrationPoint.x,
+          gunDelta.y - gunTile.registrationPoint.y,
           {
             rotation: theta
           }
