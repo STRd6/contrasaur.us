@@ -1,4 +1,6 @@
 function GameObject(I) {
+  I = I || {};
+
   $.reverseMerge(I, {
     active: true,
     age: 0,
@@ -14,12 +16,25 @@ function GameObject(I) {
     pointsWorth: 1000
   });
 
+  var getTransform = function() {
+    return {
+      a: 1,
+      b: 0,
+      c: 0,
+      d: 1,
+      tx: 0,
+      ty: 0
+    };
+  }
+
   function move() {
     I.x += I.xVelocity;
     I.y += I.yVelocity;
   }
 
   var self = {
+
+    getTransform: getTransform,
 
     midpoint: function() {
       return {
@@ -30,7 +45,7 @@ function GameObject(I) {
 
     boundingBox: function() {
       if (I.sprite) {
-        return { x: I.x - I.sprite.registrationPoint.x, y: I.y - I.sprite.registrationPoint.y, width: I.width, height: I.height };
+        return { x: I.x - I.sprite.registrationPoint.x, y: I.y - I.sprite.registrationPoint.y, width: I.sprite.width, height: I.sprite.height };
       } else {
         return { x: I.x, y: I.y, width: I.width, height: I.height };
       }
@@ -73,12 +88,16 @@ function GameObject(I) {
     },
 
     draw: function(canvas) {
-      if (I.sprite) {
-        I.sprite.draw(canvas, I.x, I.y);
-      } else {
-        canvas.fillColor(I.color);
-        canvas.fillRect(I.x, I.y, I.width, I.height);
-      }
+      var midpoint = self.midpoint();
+
+      canvas.withState(midpoint.x, midpoint.y, { transform: getTransform() }, function() {
+        if (I.sprite) {
+          I.sprite.draw(canvas, 0, 0);
+        } else {
+          canvas.fillColor(I.color);
+          canvas.fillRect(0, 0, I.width, I.height);
+        }
+      });
     },
 
     update: function() {
