@@ -18,9 +18,8 @@ function MachineGun(I) {
   });
 
   var self = Weapon(I).extend({
-
     shoot: function(theta, berserk, midpoint, transform) {
-      if (power > 0) {
+      if (I.power > 0) {
         var berserkTheta = theta - Math.PI / 24;
 
         shoot(Bullet(theta, {
@@ -41,5 +40,4 @@ function MachineGun(I) {
   });
   return self;
 }
-
 
