@@ -17,7 +17,7 @@ function Level(I) {
   $.reverseMerge(I, {
     triggers: [],
     afterStep: $.noop,
-    beforeStep: $.noop,
+    beforeStep: $.noop
   });
 
   if (I.audio) {

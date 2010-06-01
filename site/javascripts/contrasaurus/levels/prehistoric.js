@@ -73,7 +73,7 @@
       var dino = level.dino();
       dino.powerup({weapon: {machineGun: 6}});
       dino.powerup({weapon: {jetpack: 6}});
-    },
+    }
   }, {
     every: 1,
     event: function(level) {
