@@ -58,15 +58,15 @@ function Powerup(kind, I) {
           if(kind == "meat") {
             other.powerup({health: 50});
           } else if(kind == "bomb") {
-            other.powerup({weapon: {bombs: 1}})
+            other.powerupWeapons("primalscream");
           } else if (kind == "shotgun") {
-            other.powerup({weapon: {shotgun: 2}})
+            other.powerupWeapons("shotgun");
           } else if (kind == "missile") {
-            other.powerup({weapon: {bazooka: 1}})
+            other.powerupWeapons("bazooka");
           } else if (kind == "laser") {
-            other.powerup({weapon: {laser: 3}})
+            other.powerupWeapons("lasergun");
           } else if (kind == "flame") {
-            other.powerup({weapon: {flamethrower: 4}})
+            other.powerupWeapons("flamethrower");
           } else {
             console.error("Unknown powerup: " + kind);
           }

@@ -2,10 +2,12 @@ function Dinosaur() {
   var width = 128;
   var height = 128;
   var jetpackCounter = 0;
-  var laser = LaserGun();
+  var laserGun = LaserGun();
   var flamethrower = Flamethrower();
   var bazooka = Bazooka();
   var primalScream = PrimalScream();
+  var shotgun = Shotgun();
+  var machineGun = MachineGun();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -80,60 +82,13 @@ function Dinosaur() {
   var healthMax = I.health;
 
   function fireWeapons() {
-    var berserkTheta = theta - Math.PI / 24;
 
-    // Machine Gun Fire
-    if(I.weapons.machineGun) {
-      shoot(Bullet(theta, {
-        x: self.midpoint().x + gunDelta.x + Math.cos(theta) * gunWidth/2,
-        y: self.midpoint().y + gunDelta.y + Math.sin(theta) * gunWidth/2
-      }));
-
-      if (berserk) {
-        shoot(Bullet(berserkTheta, {
-          x: self.midpoint().x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
-          y: self.midpoint().y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
-        }));
-      }
-    }
-
-    laser.shoot(self.midpoint(), getTransform());
+    machineGun.shoot(theta, berserk, self.midpoint(), getTransform());
+    laserGun.shoot(self.midpoint(), getTransform());
     flamethrower.shoot(lastDirection, self.midpoint(), getTransform());
     bazooka.shoot(theta, self.midpoint(), getTransform());
     primalScream.shoot(self.midpoint(), getTransform());
-
-    if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
-      var target = nearestEnemy();
-      // Shotgun Blast
-      var direction;
-
-      if(target) {
-        var targetMidpoint = target.midpoint();
-        var targetDistance = distance(self.midpoint(), targetMidpoint);
-        var targetVelocity = target.velocity();
-
-        targetMidpoint.y += (targetDistance / 10) * targetVelocity.y;
-        targetMidpoint.x += (targetDistance / 10) * targetVelocity.x;
-
-        direction = Math.atan2(
-          targetMidpoint.y - self.midpoint().y,
-          targetMidpoint.x - self.midpoint().x
-        );
-      } else {
-        direction = Math.atan2(I.yVelocity, I.xVelocity);
-      }
-
-      (3 + rand(I.weapons.shotgun)).times(function() {
-        function fuzz() {
-          return Math.random() * 20 - 10;
-        }
-
-        var x = I.x + I.width/2 + fuzz();
-        var y = I.y + I.height/2 + fuzz() * 2;
-
-        shoot(Bullet(direction, { x: x, y: y }));
-      });
-    }
+    shotgun.shoot(nearestEnemy() , self.midpoint(), getTransform());
   }
 
   function heal(amount) {
@@ -193,6 +148,21 @@ function Dinosaur() {
   }
 
   var self = GameObject(I).extend({
+    
+    powerupWeapons: function(weaponName) {
+      if (weaponName == "bazooka") {
+        bazooka.power(2);
+      } else if (weaponName == "flamethrower") {
+        flamethrower.power(4);
+      } else if (weaponName == "lasergun") {
+        laserGun.power(2);
+      } else if (weaponName == "primalscream") {
+        primalScream.power(2);
+      } else if (weaponName == "shotgun") {
+        shotgun.power(3);
+      }
+    },
+
     getWeapons: function() {
       return I.weapons;
     },
