@@ -71,7 +71,8 @@
       level.complete();
 
       var dino = level.dino();
-      dino.powerup({weapon: {machineGun: 6}});
+      dino.powerupWeapons("machineGun");
+      dino.powerup({weapon: {machineGun: 6}}); // HAX: for image
       dino.powerup({weapon: {jetpack: 6}});
     }
   }, {

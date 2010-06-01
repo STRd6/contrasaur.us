@@ -156,6 +156,8 @@ function Dinosaur() {
         primalScream.power(2);
       } else if (weaponName == "shotgun") {
         shotgun.power(3);
+      } else if (weaponName == "machineGun") {
+        machineGun.power(1);
       }
     },
 
