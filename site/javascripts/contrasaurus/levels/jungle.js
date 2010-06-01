@@ -1,12 +1,4 @@
 (function() {
-  addCutscene(
-    "images/lincoln_memorial.png",
-    "Contrasaur! I know the terrible Truth behind Reagan's plan!",
-    3000
-  );
-
-  addCutscene("images/tyrannosaurus_rex.png", "?!", 1000);
-
   var scene = Scene([
     {
       image: loadImageTile("images/background.png"),
@@ -170,7 +162,7 @@
       generateEnemies(level);
     }
   }, {
-    at: 4000,
+    at: 3000,
     event: function(level) {
       level.stop();
     }
