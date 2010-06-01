@@ -95,17 +95,17 @@ function Dinosaur() {
       }
     }
 
-    laser.shoot(self.midpoint(), self.getTransform());
-    flamethrower.shoot(lastDirection, self.midpoint(), self.getTransform());
+    laser.shoot(self.midpoint(), getTransform());
+    flamethrower.shoot(lastDirection, self.midpoint(), getTransform());
 
     // Flamethrower
-    if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
-      var exitPoint = transformPoint(mouthPoint, getTransform());
-      shoot(Flame(I.xVelocity / Math.abs(I.xVelocity), {
-        x: self.midpoint().x + exitPoint.x,
-        y: self.midpoint().y + exitPoint.y
-      }));
-    }
+//    if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
+//      var exitPoint = transformPoint(mouthPoint, getTransform());
+//      shoot(Flame(lastDirection, {
+//        x: self.midpoint().x + exitPoint.x,
+//        y: self.midpoint().y + exitPoint.y
+//      }));
+//    }
 
     if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
       // Bomb Blast
