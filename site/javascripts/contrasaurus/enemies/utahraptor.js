@@ -11,6 +11,8 @@ function Utahraptor(I) {
 
   $.reverseMerge(I, {
     radius: 10,
+    collideDamage: 0,
+    health: 1,
     shootLogic: $.noop,
     sprite: loadImageTile("images/enemies/utahraptor.png"),
     xVelocity: xVelocity

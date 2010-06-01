@@ -65,6 +65,9 @@
 
   var bombingRunActive = false;
   var bombingRunCount = 0;
+  var maxPlanes = 10;
+  var numPlanes = 1;
+  var planeDelay = 15;
   function generateEnemies(level) {
     var enemies = level.enemies();
     if (Math.random() < 0.005) {
@@ -89,16 +92,19 @@
     }
 
     if (bombingRunActive) {
-      if (bombingRunCount % 15 == 0) {
+      if (bombingRunCount % planeDelay == 0) {
         enemies.push(Bomber({
           x: CANVAS_WIDTH + 100 - bombingRunCount,
           y: 40
         }));
       }
       bombingRunCount++;
-      if (bombingRunCount > 100) {
+      if (bombingRunCount >= planeDelay * numPlanes) {
         bombingRunActive = false;
         bombingRunCount = 0;
+        if (numPlanes < maxPlanes) {
+          numPlanes++;
+        }
       }
     }
 
