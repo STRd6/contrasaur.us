@@ -1,22 +1,20 @@
-function Shotgun() {
-  // TODO: fix the shotgun so that it
-  // doesn't freak out when there are
-  // no enemies on the screen
-  var power = 0;
+function Shotgun(I) {
+  I = I || {};
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
+
+  var self = Weapon(I).extend({
 
     shoot: function(nearestEnemy, midpoint, transform) {
 
-      if(rand(100) < power) {
+      if(rand(100) < I.power) {
         var target = nearestEnemy;
         var direction;
 
@@ -33,10 +31,10 @@ function Shotgun() {
             targetMidpoint.x - midpoint.x
           );
         } else {
-          direction = Math.atan2(I.yVelocity, I.xVelocity);
+          direction = target ? Math.atan2(I.yVelocity, I.xVelocity) : 0;
         }
 
-        (3 + rand(power)).times(function() {
+        (3 + rand(I.power)).times(function() {
           function fuzz() {
             return Math.random() * 20 - 10;
           }
@@ -50,6 +48,7 @@ function Shotgun() {
     },
 
     update: $.noop
-  }
+  });
+
   return self;
 }

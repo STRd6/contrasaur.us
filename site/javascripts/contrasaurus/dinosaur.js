@@ -14,10 +14,6 @@ function Dinosaur() {
 
   var airborne = true;
   var berserk = false;
-  var mouthPoint = {
-    x: 45,
-    y: 20
-  }
 
   var getTransform = function() {
     if (lastDirection <= 0) {
