@@ -1,28 +1,30 @@
-function Bazooka() {
-  var power = 0;
-  var theta = 0;
+function Bazooka(I) {
+  I = I || {};
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
 
-    shoot: function(theta, midpoint, transform) {
+  var self = Weapon(I).extend({
 
-      if (rand(100) < power) {
-        shoot(Missile(theta, {
+    shoot: function(midpoint, transform) {
+
+      if (rand(100) < I.power) {
+        shoot(Missile(I.theta, {
           x: midpoint.x,
           y: midpoint.y
         }));
       }
     },
 
-    update: $.noop
-  }
+    update: function() {
+      I.theta += Math.PI / 24;
+    }
+  });
   return self;
 }

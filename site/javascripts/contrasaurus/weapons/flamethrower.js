@@ -1,23 +1,25 @@
-function Flamethrower() {
-  var power = 0;
+function Flamethrower(I) {
+  I = I || {};
+  
   var mouthPoint = {
     x: 45,
     y: 20
   };
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
+
+  var self = Weapon(I).extend({
 
     shoot: function(direction, midpoint, transform) {
 
-      if (rand(100) < power) {
+      if (rand(100) < I.power) {
         var exitPoint = transformPoint(mouthPoint, transform);
         shoot(Flame(direction, {
           x: midpoint.x + exitPoint.x,
@@ -26,9 +28,7 @@ function Flamethrower() {
       }
     },
 
-    update: function() {
-
-    }
-  }
+    update: $.noop
+  });
   return self;
 }

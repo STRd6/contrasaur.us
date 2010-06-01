@@ -230,6 +230,8 @@ function Dinosaur() {
     },
     after: {
       update: function() {
+        laserGun.update();
+
         if (!airborne) {
           lastDirection = I.xVelocity;
         }

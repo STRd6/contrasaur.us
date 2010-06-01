@@ -1,19 +1,22 @@
-function MachineGun() {
+function MachineGun(I) {
+  I = I || {};
+
   var gunWidth = 0;
   var gunTile = loadImageTile("images/machine_gun.png", function(tile) {
     gunWidth = tile.width;
   });
   var gunDelta = {x: 25, y: 4};
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
+
+  var self = Weapon(I).extend({
 
     shoot: function(theta, berserk, midpoint, transform) {
       var berserkTheta = theta - Math.PI / 24;
@@ -32,7 +35,7 @@ function MachineGun() {
     },
 
     update: $.noop
-  }
+  });
   return self;
 }
 

@@ -1,20 +1,20 @@
-function LaserGun() {
-  var power = 0;
-  var theta = 0;
+function LaserGun(I) {
+  I = I || {};
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
+
+  var self = Weapon(I).extend({
 
     shoot: function(midpoint, transform) {
-      if (rand(100) < power) {
-        shoot(Laser(theta, {
+      if (rand(100) < I.power) {
+        shoot(Laser(I.theta, {
           x: midpoint.x,
           y: midpoint.y
         }));
@@ -22,9 +22,9 @@ function LaserGun() {
     },
 
     update: function() {
-      theta += Math.PI / 24;
+      I.theta += Math.PI / 24;
     }
-  }
+  });
 
   return self;
 }

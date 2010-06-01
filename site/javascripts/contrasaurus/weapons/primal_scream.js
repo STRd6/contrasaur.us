@@ -1,20 +1,20 @@
-function PrimalScream() {
-  var power = 0;
-  var theta = 0;
+function PrimalScream(I) {
+  I = I || {};
 
-  var self = {
-    power: function(value) {
-      if (value === undefined) {
-        return power;
-      } else {
-        power += value;
-        return self;
-      }
-    },
+  $.reverseMerge(I, {
+    age: 0,
+    power: 0,
+    radius: 5,
+    theta: 0,
+    x: 0,
+    y: 0
+  });
+
+  var self = Weapon(I).extend({
 
     shoot: function(midpoint, transform) {
 
-      if (rand(100) < power) {
+      if (rand(100) < I.power) {
         (24).times(function(i) {
           var theta = (i / 12) * Math.PI;
           shoot(Bullet(theta, {
@@ -26,18 +26,6 @@ function PrimalScream() {
     },
 
     update: $.noop
-  }
+  });
   return self;
 }
-
-
-//    if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
-//      // Bomb Blast
-//      (24).times(function(i) {
-//        var theta = (i / 12) * Math.PI;
-//        shoot(Bullet(theta, {
-//          x: self.midpoint().x,
-//          y: self.midpoint().y
-//        }));
-//      }
-//    )};
