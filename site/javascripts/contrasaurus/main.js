@@ -102,5 +102,7 @@ $(document).keydown(function(e) {
   } else if(e.keyCode == 37) {
     currentLevel.changeTiltAmount(-1);
     $('#tilt').text(currentLevel.tiltAmount());
+  } else if(e.keyCode == 48) {
+    GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
   }
 });

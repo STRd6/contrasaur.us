@@ -132,4 +132,4 @@ function GameObject(I) {
   return self;
 }
 
-GameObject.DEBUG_HIT = true;
+GameObject.DEBUG_HIT = false;
