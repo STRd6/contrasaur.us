@@ -82,7 +82,7 @@ function Dinosaur() {
     machineGun.shoot(theta, berserk, self.midpoint(), getTransform());
     laserGun.shoot(self.midpoint(), getTransform());
     flamethrower.shoot(lastDirection, self.midpoint(), getTransform());
-    bazooka.shoot(theta, self.midpoint(), getTransform());
+    bazooka.shoot(self.midpoint(), getTransform());
     primalScream.shoot(self.midpoint(), getTransform());
     shotgun.shoot(nearestEnemy() , self.midpoint(), getTransform());
   }
@@ -233,6 +233,7 @@ function Dinosaur() {
     after: {
       update: function() {
         laserGun.update();
+        bazooka.update();
 
         if (!airborne) {
           lastDirection = I.xVelocity;

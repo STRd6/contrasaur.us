@@ -1,5 +1,5 @@
 function Missile(theta, I) {
-  var speed = 5;
+  var speed = 3;
 
   $.reverseMerge(I, {
     color: '#500',

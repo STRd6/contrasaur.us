@@ -23,7 +23,7 @@ function Bazooka(I) {
     },
 
     update: function() {
-      I.theta += Math.PI / 24;
+      I.theta += Math.PI / 48;
     }
   });
   return self;
