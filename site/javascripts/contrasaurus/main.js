@@ -35,13 +35,23 @@ function drawOverlay() {
   $("#score").text(score);
 }
 
-function nextStage() {
-  if(!gameOver) {
-    currentStage++;
+function nextStage(choice) {
+  if(choice !== undefined) {
+    if(currentLevel && currentLevel.stop) {
+      currentLevel.stop();
+    }
+
+    currentStage = choice;
     currentLevel = stages[currentStage];
     stages[currentStage].start(canvas);
   } else {
-    // Game Over
+    if(!gameOver) {
+      currentStage++;
+      currentLevel = stages[currentStage];
+      stages[currentStage].start(canvas);
+    } else {
+      // Game Over
+    }
   }
 }
 
@@ -105,5 +115,7 @@ $(document).keydown(function(e) {
     $('#tilt').text(currentLevel.tiltAmount());
   } else if(e.keyCode == 48) {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
+  } else if(e.keyCode >= 49 && e.keyCode <= 57) {
+    nextStage(e.keyCode - 48);
   }
 });

@@ -25,5 +25,5 @@
 
   addCutscene("images/tyrannosaurus_rex.png", "?!", 1000);
 
-  addLevel(scene, [floor], triggers, "Dragon Force - My Spirit Will Go On");
+  addLevel(scene, [floor], triggers, "Dragonforce - My Spirit Will Go On");
 }());

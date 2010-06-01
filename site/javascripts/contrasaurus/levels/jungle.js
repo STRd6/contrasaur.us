@@ -164,7 +164,7 @@
   }, {
     at: 3000,
     event: function(level) {
-      level.stop();
+      level.complete();
     }
   }];
 

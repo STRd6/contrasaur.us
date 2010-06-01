@@ -68,7 +68,7 @@
   var triggers = [{
     at: 500,
     event: function(level) {
-      level.stop();
+      level.complete();
 
       var dino = level.dino();
       dino.powerup({weapon: {machineGun: 6}});

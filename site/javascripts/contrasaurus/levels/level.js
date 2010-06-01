@@ -37,6 +37,12 @@ function Level(I) {
   }
 
   var self = {
+    complete: function() {
+      self.stop();
+
+      I.completed();
+    },
+
     dino: function() {
       return I.dino;
     },
@@ -76,7 +82,6 @@ function Level(I) {
       }
 
       clearInterval(intervalId);
-      I.completed();
     },
 
     step: function step() {

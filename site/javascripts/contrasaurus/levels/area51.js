@@ -15,7 +15,7 @@
   var triggers = [{
     at: 200,
     event: function(level) {
-      level.stop();
+      level.complete();
     }
   }];
 
