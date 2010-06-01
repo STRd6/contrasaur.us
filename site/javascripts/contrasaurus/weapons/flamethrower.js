@@ -1,5 +1,5 @@
 function Flamethrower() {
-  var power = 20;
+  var power = 0;
   var mouthPoint = {
     x: 45,
     y: 20

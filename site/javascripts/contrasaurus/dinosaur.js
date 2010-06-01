@@ -4,6 +4,8 @@ function Dinosaur() {
   var jetpackCounter = 0;
   var laser = LaserGun();
   var flamethrower = Flamethrower();
+  var bazooka = Bazooka();
+  var primalScream = PrimalScream();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -97,34 +99,8 @@ function Dinosaur() {
 
     laser.shoot(self.midpoint(), getTransform());
     flamethrower.shoot(lastDirection, self.midpoint(), getTransform());
-
-    // Flamethrower
-//    if (I.weapons.flamethrower && rand(100) < I.weapons.flamethrower) {
-//      var exitPoint = transformPoint(mouthPoint, getTransform());
-//      shoot(Flame(lastDirection, {
-//        x: self.midpoint().x + exitPoint.x,
-//        y: self.midpoint().y + exitPoint.y
-//      }));
-//    }
-
-    if (I.weapons.bombs && rand(100) < I.weapons.bombs) {
-      // Bomb Blast
-      (24).times(function(i) {
-        var theta = (i / 12) * Math.PI;
-        shoot(Bullet(theta, {
-          x: self.midpoint().x,
-          y: self.midpoint().y
-        }));
-      }
-    )};
-
-    if (I.weapons.bazooka && rand(100) < I.weapons.bazooka) {
-      //Bazooka shot
-      shoot(Missile(theta, {
-        x: self.midpoint().x,
-        y: self.midpoint().y
-      }));
-    }
+    bazooka.shoot(theta, self.midpoint(), getTransform());
+    primalScream.shoot(self.midpoint(), getTransform());
 
     if(I.weapons.shotgun && rand(100) < I.weapons.shotgun) {
       var target = nearestEnemy();
