@@ -168,5 +168,6 @@
     }
   }];
 
-  addLevel(scene, [floor], triggers);
+  addCutscene("", "...", 4000);
+  addLevel(scene, [floor], triggers, "Lady Gaga - Telephone");
 }());

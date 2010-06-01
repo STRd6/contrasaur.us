@@ -63,8 +63,9 @@ function overlayUpdate(){
   }
 }
 
-function addLevel(scene, platforms, triggers) {
+function addLevel(scene, platforms, triggers, audio) {
   stages.push(Level({
+    audio: audio,
     canvas: canvas,
     dino: dino,
     scene: scene,

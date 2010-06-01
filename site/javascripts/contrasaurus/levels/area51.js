@@ -20,5 +20,5 @@
   }];
 
   addCutscene("", "By the power of science!", 3000);
-  addLevel(scene, [floor], triggers);
+  addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi");
 }());

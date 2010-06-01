@@ -66,7 +66,7 @@
   var floor = Floor();
   
   var triggers = [{
-    at: 180,
+    at: 500,
     event: function(level) {
       level.stop();
 
@@ -84,5 +84,5 @@
   }];
 
   addCutscene("images/triassic.png", "Thousands of years ago...", 3000);
-  addLevel(scene, [floor], triggers);
+  addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance");
 }());

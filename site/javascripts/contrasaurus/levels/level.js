@@ -17,10 +17,12 @@ function Level(I) {
   $.reverseMerge(I, {
     triggers: [],
     afterStep: $.noop,
-    beforeStep: $.noop
+    beforeStep: $.noop,
   });
 
-  var backgroundMusic = $('<audio src="audio/Dragon Force - My Spirit Will Go On.mp3"></audio>').appendTo('#game_container');
+  if (I.audio) {
+    var backgroundMusic = $('<audio src="audio/' + I.audio + '.mp3"></audio>').appendTo('#game_container');
+  }
 
   function activateTriggers() {
     $.each(I.triggers, function(i, trigger) {
@@ -53,7 +55,9 @@ function Level(I) {
     },
     
     start: function() {
-      backgroundMusic.get(0).play();
+      if (backgroundMusic) {
+        backgroundMusic.get(0).play();
+      }
 
       intervalId = setInterval(function() {
         activateTriggers();
@@ -65,9 +69,11 @@ function Level(I) {
     },
 
     stop: function() {
-      backgroundMusic.animate({volume: 0}, 5000, function() {
-        this.pause();
-      });
+      if (backgroundMusic) {
+        backgroundMusic.animate({volume: 0}, 5000, function() {
+          this.pause();
+        });
+      }
 
       clearInterval(intervalId);
       I.completed();
