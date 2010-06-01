@@ -17,7 +17,7 @@ function Bomb(xVelocity, I) {
   function explode() {
     if(I.active) {
       I.active = false;
-      enemyShoot(BombExplosion({x: I.x, y: I.y - 100}));
+      enemyShoot(BombExplosion({x: I.x, y: I.y - 50}));
     }
   }
 
@@ -26,9 +26,9 @@ function Bomb(xVelocity, I) {
       return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
     },
 
-    after: {
-      hit: $.noop,
+    hit: $.noop,
 
+    after: {
       update: function() {
         I.yVelocity += GRAVITY;
 

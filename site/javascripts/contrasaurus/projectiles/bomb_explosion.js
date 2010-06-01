@@ -5,15 +5,15 @@ function BombExplosion(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     sprite: loadAnimation("images/explosion.png", 25, 67, 171),
+    radius: 20,
     width: 67,
     height: 171
   });
 
   return GameObject(I).extend({
+    hit: $.noop,
+
     after: {
-      hit: function() {
-        I.active = true;
-      },
       update: function() {
         if(I.age > 6) {
           I.collideDamage = 0;

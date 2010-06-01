@@ -107,6 +107,9 @@
     var img = new Image();
     var proxy = LoaderProxy();
 
+    proxy.width = width;
+    proxy.height = height;
+
     img.onload = function() {
       var frameData = [];
 
