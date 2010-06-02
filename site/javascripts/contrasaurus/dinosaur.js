@@ -2,6 +2,7 @@ function Dinosaur() {
   var width = 128;
   var height = 128;
   var jetpackCounter = 0;
+  var jetpackCharge = 0;
   var laserGun = LaserGun();
   var flamethrower = Flamethrower();
   var bazooka = Bazooka();
@@ -169,6 +170,14 @@ function Dinosaur() {
       return theta;
     },
 
+    jetpackCharge: function(value) {
+      if (value === undefined) {
+        return jetpackCharge;
+      } else {
+        jetpackCharge += value;
+      }
+    },
+
     bump: function() {
       I.xVelocity = -I.xVelocity;
     },
@@ -262,8 +271,9 @@ function Dinosaur() {
         updateGunAngle();
 
         if(I.weapons.jetpack) {
-          if(Math.random() < 0.01 && jetpackCounter <= 0) {
-            jetpackCounter += 50;
+          if((Math.random() < 0.01 && jetpackCounter <= 0) || jetpackCharge >= 25) {
+            jetpackCounter += 50 + rand(50);
+            jetpackCharge = 0;
           }
 
           if (jetpackCounter > 0) {
