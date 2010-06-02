@@ -115,7 +115,6 @@ $(document).keydown(function(e) {
     $('#tilt').text(currentLevel.tiltAmount());
   } else if (e.keyCode == 32) {
     dino.jetpackCharge(1);
-    console.log(dino.jetpackCharge());
   } else if(e.keyCode == 48) {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
   } else if(e.keyCode >= 49 && e.keyCode <= 57) {
