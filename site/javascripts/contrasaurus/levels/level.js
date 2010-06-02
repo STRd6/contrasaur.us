@@ -49,6 +49,11 @@ function Level(I) {
 
     changeTiltAmount: function(amount) {
       tiltAmount += amount;
+      if (tiltAmount > 2) {
+        tiltAmount = Math.floor(tiltAmount);
+      } else if (tiltAmount < -2) {
+        tiltAmount = Math.ceil(tiltAmount);
+      }
     },
 
     tiltAmount: function(value) {

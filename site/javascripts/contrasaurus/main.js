@@ -108,10 +108,10 @@ $(document).keydown(function(e) {
   console.log(e);
 
   if(e.keyCode == 39) {
-    currentLevel.changeTiltAmount(1);
+    currentLevel.changeTiltAmount(0.2);
     $('#tilt').text(currentLevel.tiltAmount());
   } else if(e.keyCode == 37) {
-    currentLevel.changeTiltAmount(-1);
+    currentLevel.changeTiltAmount(-0.2);
     $('#tilt').text(currentLevel.tiltAmount());
   } else if(e.keyCode == 48) {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
