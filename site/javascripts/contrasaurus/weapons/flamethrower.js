@@ -8,6 +8,7 @@ function Flamethrower(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    direction: 0,
     power: 0,
     radius: 5,
     theta: 0,
@@ -17,7 +18,11 @@ function Flamethrower(I) {
 
   var self = Weapon(I).extend({
 
-    shoot: function(direction, midpoint, transform) {
+    Direction: function(value) {
+      direction = value;
+    },
+
+    shoot: function(midpoint, transform) {
 
       if (rand(100) < I.power) {
         var exitPoint = transformPoint(mouthPoint, transform);

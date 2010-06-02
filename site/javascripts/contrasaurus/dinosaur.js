@@ -38,19 +38,10 @@ function Dinosaur() {
     }
   }
 
-  var theta = 0;
-  var thetaVelocity = Math.PI / 24;
-
   var dinoTile = loadImageTile("images/dino1.png");
 
   var jetpackInactiveTile = loadImageTile("images/jetpack.png");
   var jetpackActiveTile = loadImageTile("images/jetpack_active.png");
- 
-  var gunWidth = 0;
-  var gunTile = loadImageTile("images/machine_gun.png", function(tile) {
-    gunWidth = tile.width;
-  });
-  var gunDelta = {x: 25, y: 4};
 
   var I = {
     x: x,
@@ -79,10 +70,10 @@ function Dinosaur() {
   var healthMax = I.health;
 
   function fireWeapons() {
-
-    machineGun.shoot(theta, berserk, self.midpoint(), getTransform());
+    // TODO change this over to a generic shoot call on each weapon
+    machineGun.shoot(self.midpoint(), getTransform());
     laserGun.shoot(self.midpoint(), getTransform());
-    flamethrower.shoot(lastDirection, self.midpoint(), getTransform());
+    flamethrower.shoot(self.midpoint(), getTransform());
     bazooka.shoot(self.midpoint(), getTransform());
     primalScream.shoot(self.midpoint(), getTransform());
     shotgun.shoot(nearestEnemy() , self.midpoint(), getTransform());
@@ -124,26 +115,6 @@ function Dinosaur() {
     return enemyDistance;
   }
 
-  // Adjust machine gun angle
-  function updateGunAngle() {
-    theta += thetaVelocity;
-
-    // Change gun rotation direction
-    if(Math.random() < 0.05) {
-      thetaVelocity = thetaVelocity * -1;
-    }
-
-    // Flip target angle 180
-    if(Math.random() < 0.05) {
-      theta += Math.PI;
-    }
-
-    // Don't shoot machine gun into the ground
-    if(Math.sin(-theta) < -0.3 && !airborne) {
-      theta -= thetaVelocity * 2;
-    }
-  }
-
   var self = GameObject(I).extend({
     
     powerupWeapons: function(weaponName) {
@@ -183,7 +154,6 @@ function Dinosaur() {
     },
 
     draw: function(canvas) {
-      var midpoint = self.midpoint();
 
       canvas.withState(I.x, I.y, { transform: getTransform() }, function() {
 
@@ -203,21 +173,12 @@ function Dinosaur() {
         }
       });
 
+      // TO DO call draw on each weapon
+      machineGun.draw(canvas, self.midpoint());
+
       if (GameObject.DEBUG_HIT) {
         var circle = self.getCircle();
         canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
-      }
-
-      // Draw Machine Gun
-      if(I.weapons.machineGun) {
-        canvas.withState(
-          midpoint.x,
-          midpoint.y,
-          {rotation: theta},
-          function() {
-            gunTile.draw(canvas, -gunTile.registrationPoint.x, -gunTile.registrationPoint.y);
-          }
-        );
       }
     },
     land: function(h) {
@@ -239,11 +200,9 @@ function Dinosaur() {
         }
       }
     },
+    
     after: {
       update: function() {
-        laserGun.update();
-        bazooka.update();
-
         if (!airborne) {
           lastDirection = I.xVelocity;
         }
@@ -253,6 +212,15 @@ function Dinosaur() {
         } else {
           berserk = false;
         }
+
+        fireWeapons();
+
+        laserGun.update();
+        bazooka.update();
+        flamethrower.Direction(lastDirection);
+        machineGun.getBerserk(berserk);
+        machineGun.getAirborne(airborne);
+        machineGun.update();
 
         // Flip when hitting edges of screen
         if (I.x + I.radius > CANVAS_WIDTH || I.x - I.radius < 0) {
@@ -265,10 +233,6 @@ function Dinosaur() {
           I.xVelocity += (Math.random() - 0.5) * 3;
           I.xVelocity = I.xVelocity * 0.9;
         }
-
-
-        fireWeapons();
-        updateGunAngle();
 
         if(I.weapons.jetpack) {
           if((Math.random() < 0.01 && jetpackCounter <= 0) || jetpackCharge >= 25) {
