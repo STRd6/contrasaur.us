@@ -73,15 +73,7 @@ function Powerup(kind, I) {
         }
       },
 
-      update: function() {
-        // Check Bounds
-        if (I.x >= 0 && I.x < canvas.width() &&
-          I.y >= 0 && I.y < 380) {
-          I.active = I.active && true;
-        } else {
-          I.active = false;
-        }
-      }
+      update: GameObject.generateCheckBounds(I)
     }
   });
 }

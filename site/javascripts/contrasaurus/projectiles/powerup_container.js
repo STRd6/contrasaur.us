@@ -27,6 +27,8 @@ function PowerupContainer(theta, I) {
     sprite: loadImageTile("images/powerup_container.png")
   });
 
+  var checkBounds = GameObject.generateCheckBounds(I);
+
   var self = GameObject(I).extend({
     health: 7,
 
@@ -55,6 +57,8 @@ function PowerupContainer(theta, I) {
       update: function() {
         I.yVelocity = initialYVelocity * Math.sin(theta);
         theta = theta + (Math.PI / 24 );
+
+        checkBounds.apply(self, arguments);
       }
     }
   });
