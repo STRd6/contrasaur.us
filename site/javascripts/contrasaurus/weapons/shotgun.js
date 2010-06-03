@@ -5,7 +5,7 @@ function Shotgun(I) {
 
   $.reverseMerge(I, {
     age: 0,
-    power: 20,
+    power: 0,
     radius: 5,
     theta: 0,
     x: 0,
