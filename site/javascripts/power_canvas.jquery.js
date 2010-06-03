@@ -40,9 +40,11 @@
         }
       }
 
-      block();
-
-      context.restore();
+      try {
+        block();
+      } finally {
+        context.restore();
+      }
     }
 
     var $canvas = $(canvas).extend({
