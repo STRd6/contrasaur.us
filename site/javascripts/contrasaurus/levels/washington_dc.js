@@ -14,7 +14,9 @@
   var floor = Floor();
 
   var triggers = [
-
+    {at: 1000, event: function(level) {
+      level.complete();
+    }}
   ]
 
   addCutscene(

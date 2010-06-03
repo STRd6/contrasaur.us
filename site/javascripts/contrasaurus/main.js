@@ -47,8 +47,13 @@ function nextStage(choice) {
   } else {
     if(!gameOver) {
       currentStage++;
-      currentLevel = stages[currentStage];
-      stages[currentStage].start(canvas);
+      if(currentStage >= stages.length) {
+        endGame();
+        alert("You Win!");
+      } else {
+        currentLevel = stages[currentStage];
+        stages[currentStage].start(canvas);
+      }
     } else {
       // Game Over
     }
@@ -61,13 +66,17 @@ var healthBar = ProgressBar({
   value: dino.health()
 });
 
+function endGame() {
+  gameOver = true;
+  currentLevel.stop();
+}
+
 function overlayUpdate(){
   drawOverlay();
 
   // GG
   if (dino.health() <= 0) {
-    gameOver = true;
-    currentLevel.stop();
+    endGame();
 
     dialogBox.draw(canvas);
   }
