@@ -14,7 +14,7 @@ function MachineGun(I) {
     power: 0,
     radius: 5,
     theta: 0,
-    thetaVelocity: Math.PI / 24,
+    thetaVelocity: Math.PI / 48,
     x: 0,
     y: 0
   });
@@ -42,10 +42,6 @@ function MachineGun(I) {
   var self = Weapon(I).extend({
     getAirborne: function(value) {
       I.airborne = value;
-    },
-    
-    getTheta: function(value) {
-      I.theta = value
     },
 
     getBerserk: function(value) {
@@ -89,4 +85,3 @@ function MachineGun(I) {
   });
   return self;
 }
-

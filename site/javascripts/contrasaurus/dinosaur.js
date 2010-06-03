@@ -76,7 +76,7 @@ function Dinosaur() {
     flamethrower.shoot(self.midpoint(), getTransform());
     bazooka.shoot(self.midpoint(), getTransform());
     primalScream.shoot(self.midpoint(), getTransform());
-    shotgun.shoot(nearestEnemy() , self.midpoint(), getTransform());
+    shotgun.shoot(self.midpoint(), getTransform());
   }
 
   function heal(amount) {
@@ -221,6 +221,7 @@ function Dinosaur() {
         machineGun.getBerserk(berserk);
         machineGun.getAirborne(airborne);
         machineGun.update();
+        shotgun.nearestEnemy(nearestEnemy());
 
         // Flip when hitting edges of screen
         if (I.x + I.radius > CANVAS_WIDTH || I.x - I.radius < 0) {
