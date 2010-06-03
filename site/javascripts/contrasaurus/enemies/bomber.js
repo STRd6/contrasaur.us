@@ -42,21 +42,7 @@ function Bomber(I) {
 
   I.hFlip = I.xVelocity <= 0;
 
-  var self = GameObject(I).extend({
-    getTransform: function() {
-      if(I.hFlip) {
-        return HORIZONTAL_FLIP_MATRIX;
-      } else {
-        return IDENTITY_MATRIX;
-      }
-    },
-
-    after: {
-      update: function() {
-        I.shootLogic();
-      }
-    }
-  });
+  var self = Enemy(I)
 
   return self;
 }

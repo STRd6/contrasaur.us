@@ -58,8 +58,8 @@ function Scene(backgrounds, foregrounds) {
   function drawLayersGenerator(layers) {
     return function(position, canvas) {
       $.each(layers, function(i, layer) {
-        var xPosition = layer.position.x + position.x * layer.parallaxRate;
-        var yPosition = layer.position.y + position.y * layer.parallaxRate;
+        var xPosition = layer.position.x + -position.x * layer.parallaxRate;
+        var yPosition = layer.position.y + -position.y * layer.parallaxRate;
 
         if(layer.repeat) {
           xPosition = Math.mod(xPosition, canvas.width());

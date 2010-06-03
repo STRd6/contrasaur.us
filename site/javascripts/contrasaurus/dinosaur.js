@@ -202,7 +202,9 @@ function Dinosaur() {
     },
     
     after: {
-      update: function() {
+      update: function(position, velocity) {
+        I.x += velocity.x;
+
         if (!airborne) {
           lastDirection = I.xVelocity;
         }
@@ -223,10 +225,13 @@ function Dinosaur() {
         machineGun.update();
         shotgun.nearestEnemy(nearestEnemy());
 
-        // Flip when hitting edges of screen
-        if (I.x + I.radius > CANVAS_WIDTH || I.x - I.radius < 0) {
-          I.xVelocity = I.xVelocity * -1;
-          I.x += I.xVelocity;
+        // Stay in screen
+        if (I.x < position.x + I.radius) {
+          I.x = position.x + I.radius;
+          I.xVelocity = Math.abs(I.xVelocity);
+        } else if (I.x > position.x + CANVAS_WIDTH - I.radius) {
+          I.x = position.x + CANVAS_WIDTH - I.radius;
+          I.xVelocity = -Math.abs(I.xVelocity);
         }
 
         // Wiggle in the air

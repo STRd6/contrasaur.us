@@ -133,3 +133,20 @@ function GameObject(I) {
 }
 
 GameObject.DEBUG_HIT = false;
+GameObject.generateCheckBounds = function(I, buffer) {
+  buffer = buffer || 0;
+  var yMax = CANVAS_HEIGHT - Floor.LEVEL;
+  return function(position) {
+    var xMax = position.x + CANVAS_WIDTH;
+    // Check Bounds
+    if (I.x + buffer < position.x - I.radius ||
+      I.x - buffer > xMax + I.radius ||
+      I.y + buffer < -I.radius ||
+      I.y - buffer > yMax + I.radius
+    ) {
+      I.active = false;
+    }
+
+    return I.active;
+  };
+};

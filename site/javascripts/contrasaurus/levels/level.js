@@ -47,6 +47,10 @@ function Level(I) {
       return I.dino;
     },
 
+    position: function() {
+      return position;
+    },
+
     changeTiltAmount: function(amount) {
       tiltAmount += amount;
       if (tiltAmount > 2) {
@@ -101,75 +105,78 @@ function Level(I) {
       Array.prototype.push.apply(enemyBullets, enemyBulletQueue);
       enemyBulletQueue = [];
 
-      $.each(I.platforms, function(i, platform) {
-        planeCollision(I.dino, platform);
-
-        platform.draw(canvas);
-      });
-
-      I.dino.update();
-      I.dino.draw(canvas);
-
-      var liveEnemies = [];
-      $.each(enemies, function(i, enemy) {
+      canvas.withState(-position.x, -position.y, {}, function() {
         $.each(I.platforms, function(i, platform) {
-          planeCollision(enemy, platform);
+          planeCollision(I.dino, platform);
+
+          platform.draw(canvas);
         });
 
-        enemy.update();
+        I.dino.update(position, {x: tiltAmount, y: 0});
+        I.dino.draw(canvas);
 
+        var liveEnemies = [];
+        $.each(enemies, function(i, enemy) {
+          $.each(I.platforms, function(i, platform) {
+            planeCollision(enemy, platform);
+          });
+
+          enemy.update(position);
+
+          $.each(bullets, function(i, bullet) {
+            circleCollision(bullet, enemy);
+          });
+
+          circleCollision(I.dino, enemy);
+
+          if (enemy.active()) {
+            liveEnemies.push(enemy);
+            enemy.draw(canvas);
+          } else {
+            // TODO: Move this into an onDestroy event
+            score += enemy.pointsWorth();
+          }
+        });
+        enemies = liveEnemies;
+
+        $.each(gameObjects, function(i, gameObject) {
+          gameObject.update();
+
+          if (gameObject.active()) {
+            gameObject.draw(canvas);
+          }
+        });
+
+        var liveBullets = [];
         $.each(bullets, function(i, bullet) {
-          circleCollision(bullet, enemy);
+          bullet.update(position);
+
+          if (bullet.active()) {
+            bullet.draw(canvas);
+            liveBullets.push(bullet);
+          }
         });
+        bullets = liveBullets;
 
-        circleCollision(I.dino, enemy);
+        var liveEnemyBullets = [];
+        $.each(enemyBullets, function(i, bullet) {
+          circleCollision(bullet, I.dino);
+          bullet.update(position);
 
-        if (enemy.active()) {
-          liveEnemies.push(enemy);
-          enemy.draw(canvas);
-        } else {
-          score += enemy.pointsWorth();
-        }
+          if (bullet.active()) {
+            bullet.draw(canvas);
+            liveEnemyBullets.push(bullet);
+          }
+        });
+        enemyBullets = liveEnemyBullets;
       });
-      enemies = liveEnemies;
-
-      $.each(gameObjects, function(i, gameObject) {
-        gameObject.update();
-
-        if (gameObject.active()) {
-          gameObject.draw(canvas);
-        }
-      });
-
-      var liveBullets = [];
-      $.each(bullets, function(i, bullet) {
-        bullet.update();
-
-        if (bullet.active()) {
-          bullet.draw(canvas);
-          liveBullets.push(bullet);
-        }
-      });
-      bullets = liveBullets;
-
-      var liveEnemyBullets = [];
-      $.each(enemyBullets, function(i, bullet) {
-        circleCollision(bullet, I.dino);
-        bullet.update();
-
-        if (bullet.active()) {
-          bullet.draw(canvas);
-          liveEnemyBullets.push(bullet);
-        }
-      });
-      enemyBullets = liveEnemyBullets;
 
       // Draw Foregrounds
       I.scene.drawForegrounds(position, canvas);
 
       score += bullets.length;
 
-      position.x -= 0.2 + tiltAmount;
+      position.x += tiltAmount;
     },
 
     shoot: function(bullet) {

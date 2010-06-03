@@ -1,7 +1,5 @@
 function Bullet(theta, I) {
   var speed = 10;
-  var yMax = canvas.height() - Floor.LEVEL;
-  var xMax = canvas.width();
 
   $.reverseMerge(I, {
     collideDamage: 1,
@@ -15,18 +13,7 @@ function Bullet(theta, I) {
 
   var self = GameObject(I).extend({
     after: {
-      update: function() {
-        // Check Bounds
-        if (I.x < -I.radius || 
-          I.x > xMax + I.radius || 
-          I.y < -I.radius ||
-          I.y > yMax + I.radius
-        ) {
-          I.active = false;
-        }
-
-        return I.active;
-      }
+      update: GameObject.generateCheckBounds(I)
     }
   });
 

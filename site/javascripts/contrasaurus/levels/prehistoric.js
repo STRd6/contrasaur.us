@@ -79,7 +79,10 @@
     every: 1,
     event: function(level) {
       if (Math.random() < 0.05) {
-        level.enemies().push(Utahraptor());
+        level.enemies().push(Utahraptor([
+          {xVelocity: -3, x: level.position().x + CANVAS_WIDTH + 20},
+          {xVelocity: 3, x: level.position().x - 20}
+        ].rand()));
       }
     }
   }];

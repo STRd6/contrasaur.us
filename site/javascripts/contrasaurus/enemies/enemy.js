@@ -32,6 +32,8 @@ function Enemy(I) {
     sprite: soldierTile
   });
 
+  var checkBounds = GameObject.generateCheckBounds(I, 100);
+
   var self = GameObject(I).extend({
     land: function(h) { },
 
@@ -51,6 +53,7 @@ function Enemy(I) {
       },
       update: function() {
         I.shootLogic();
+        checkBounds.apply(self, arguments);
       }
     }
   });
