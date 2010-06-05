@@ -164,10 +164,11 @@ function Dinosaur() {
           -dinoTile.width/2,
           -dinoTile.height/2
         );
+
+        jetpack.draw(canvas);
       });
 
       // TO DO call draw on each weapon
-      jetpack.draw(canvas, self.midpoint(), getTransform());
       machineGun.draw(canvas, self.midpoint());
 
       if (GameObject.DEBUG_HIT) {

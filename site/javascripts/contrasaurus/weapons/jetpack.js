@@ -24,16 +24,8 @@ function Jetpack(I) {
       }
     },
 
-    draw: function(canvas, midpoint, transform) {
-      // Draw Jetpack
-      canvas.withState(
-        midpoint.x - 65,
-        midpoint.y - 25,
-        {transform: transform},
-        function() {
-          I.sprite.draw(canvas);
-        }
-      );
+    draw: function(canvas) {
+      I.sprite.draw(canvas, -65, -25);
     },
 
     jetpackCharge: function(value) {
