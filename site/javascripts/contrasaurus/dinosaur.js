@@ -9,6 +9,7 @@ function Dinosaur() {
   var primalScream = PrimalScream();
   var shotgun = Shotgun();
   var machineGun = MachineGun();
+  var jetpack = Jetpack();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -39,10 +40,7 @@ function Dinosaur() {
   }
 
   var dinoTile = loadImageTile("images/dino1.png");
-
-  var jetpackInactiveTile = loadImageTile("images/jetpack.png");
-  var jetpackActiveTile = loadImageTile("images/jetpack_active.png");
-
+  
   var I = {
     x: x,
     y: y,
@@ -116,7 +114,7 @@ function Dinosaur() {
   }
 
   var self = GameObject(I).extend({
-    
+
     powerupWeapons: function(weaponName) {
       if (weaponName == "bazooka") {
         bazooka.power(2);
@@ -133,6 +131,15 @@ function Dinosaur() {
       }
     },
 
+    yVelocity: function(value) {
+      if (value === undefined) {
+        return I.yVelocity;
+      } else {
+        I.yVelocity = value;
+        return self;
+      }
+    },
+
     getWeapons: function() {
       return I.weapons;
     },
@@ -141,12 +148,8 @@ function Dinosaur() {
       return theta;
     },
 
-    jetpackCharge: function(value) {
-      if (value === undefined) {
-        return jetpackCharge;
-      } else {
-        jetpackCharge += value;
-      }
+    jetpack: function() {
+      return jetpack;
     },
 
     bump: function() {
@@ -161,19 +164,10 @@ function Dinosaur() {
           -dinoTile.width/2,
           -dinoTile.height/2
         );
-
-        if(I.weapons.jetpack) {
-          var jetpackTile = jetpackCounter > 0 ? jetpackActiveTile : jetpackInactiveTile;
-
-          // Draw Jetpack
-          jetpackTile.draw(canvas,
-            -65,
-            -25
-          );
-        }
       });
 
       // TO DO call draw on each weapon
+      jetpack.draw(canvas, self.midpoint(), getTransform());
       machineGun.draw(canvas, self.midpoint());
 
       if (GameObject.DEBUG_HIT) {
@@ -203,6 +197,20 @@ function Dinosaur() {
     
     after: {
       update: function(position, velocity) {
+        jetpack.update();
+
+        if (jetpack.active()) {
+          airborne = true;
+        } 
+
+        if (airborne && jetpack.active()) {
+          I.yVelocity = -1;
+        }
+
+        if (!(jetpack.active()) && airborne) {
+          I.yVelocity = 6;
+        }
+
         I.x += velocity.x;
 
         if (!airborne) {
@@ -238,26 +246,6 @@ function Dinosaur() {
         if (airborne) {
           I.xVelocity += (Math.random() - 0.5) * 3;
           I.xVelocity = I.xVelocity * 0.9;
-        }
-
-        if(I.weapons.jetpack) {
-          if((Math.random() < 0.01 && jetpackCounter <= 0) || jetpackCharge >= 25) {
-            jetpackCounter += 50 + rand(50);
-            jetpackCharge = 0;
-          }
-
-          if (jetpackCounter > 0) {
-            jetpackCounter--;
-
-            if (!airborne) {
-              I.yVelocity = -1;
-              airborne = true;
-            }
-          }
-
-          if (jetpackCounter <= 0 && airborne) {
-            I.yVelocity = 6;
-          }
         }
       }
     }

@@ -123,7 +123,7 @@ $(document).keydown(function(e) {
     currentLevel.changeTiltAmount(-0.2);
     $('#tilt').text(currentLevel.tiltAmount());
   } else if (e.keyCode == 32) {
-    dino.jetpackCharge(1);
+    dino.jetpack().jetpackCharge(1);
   } else if(e.keyCode == 48) {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
   } else if(e.keyCode >= 49 && e.keyCode <= 57) {
