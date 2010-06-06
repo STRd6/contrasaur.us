@@ -79,23 +79,25 @@
       enemies.push(p);
     }
 
-    if (Math.random() < 0.05) {
-      enemies.push(Enemy([
-        {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
-        {xVelocity: 0, x: level.position().x - 20}
-      ].rand()));
-    }
-
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
-        enemies.push(Enemy());
+        enemies.push(Enemy([
+          {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
+          {xVelocity: 0, x: level.position().x - 20}
+        ].rand()));
       } else {
-        enemies.push(Parasoldier());
+        enemies.push(Parasoldier([
+          {xVelocity: 0, x: level.position().x + rand(CANVAS_WIDTH) + 20 },
+          {xVelocity: 0, x: level.position().x - 20}
+        ].rand()));
       }
     }
 
     if (Math.random() < 0.01) {
-      enemies.push(Tank());
+      enemies.push(Tank([
+        {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
+        {xVelocity: 0, x: level.position().x - 20}
+      ].rand()));
     }
 
     if (bombingRunActive) {
