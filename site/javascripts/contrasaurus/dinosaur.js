@@ -10,6 +10,8 @@ function Dinosaur() {
   var shotgun = Shotgun();
   var machineGun = MachineGun();
   var jetpack = Jetpack();
+  var weaponsArray = [];
+  weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 0;
@@ -49,15 +51,6 @@ function Dinosaur() {
     color: "#00F",
     health: 500,
     radius: 64,
-    weapons: {
-      bombs: 0,
-      machineGun: 0,
-      shotgun: 0,
-      bazooka: 0,
-      jetpack: 0,
-      laser: 0,
-      flamethrower: 0
-    },
     xVelocity: 1,
     yVelocity: 6,
     collideDamage: 2
@@ -69,12 +62,9 @@ function Dinosaur() {
 
   function fireWeapons() {
     // TODO change this over to a generic shoot call on each weapon
-    machineGun.shoot(self.midpoint(), getTransform());
-    laserGun.shoot(self.midpoint(), getTransform());
-    flamethrower.shoot(self.midpoint(), getTransform());
-    bazooka.shoot(self.midpoint(), getTransform());
-    primalScream.shoot(self.midpoint(), getTransform());
-    shotgun.shoot(self.midpoint(), getTransform());
+    $.each(weaponsArray, function(i, weapon) {
+      weapon.shoot(self.midpoint(), getTransform());
+    });
   }
 
   function heal(amount) {
@@ -140,10 +130,6 @@ function Dinosaur() {
       }
     },
 
-    getWeapons: function() {
-      return I.weapons;
-    },
-
     getTheta: function() {
       return theta;
     },
@@ -191,7 +177,6 @@ function Dinosaur() {
       if(powerup.weapon) {
         for(var weapon in powerup.weapon) {
           display(weapon + "!");
-          I.weapons[weapon] += powerup.weapon[weapon];
         }
       }
     },
@@ -226,13 +211,14 @@ function Dinosaur() {
 
         fireWeapons();
 
-        laserGun.update();
-        bazooka.update();
         flamethrower.Direction(lastDirection);
         machineGun.getBerserk(berserk);
         machineGun.getAirborne(airborne);
-        machineGun.update();
         shotgun.nearestEnemy(nearestEnemy());
+
+        $.each(weaponsArray, function(i, weapon) {
+          weapon.update();
+        });
 
         // Stay in screen
         if (I.x < position.x + I.radius) {
