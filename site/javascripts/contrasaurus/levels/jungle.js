@@ -79,6 +79,13 @@
       enemies.push(p);
     }
 
+    if (Math.random() < 0.05) {
+      enemies.push(Enemy([
+        {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
+        {xVelocity: 0, x: level.position().x - 20}
+      ].rand()));
+    }
+
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
         enemies.push(Enemy());
