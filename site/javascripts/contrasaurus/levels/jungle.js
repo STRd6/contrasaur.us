@@ -103,7 +103,7 @@
     if (bombingRunActive) {
       if (bombingRunCount % planeDelay == 0) {
         enemies.push(Bomber({
-          x: CANVAS_WIDTH + 100 - bombingRunCount,
+          x: level.position().x + CANVAS_WIDTH + 100 - bombingRunCount,
           y: 40
         }));
       }
