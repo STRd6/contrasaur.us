@@ -122,42 +122,42 @@
       if(Math.random() < 0.5) {
         if (Math.random() < 0.5) {
           enemyShoot(Powerup("bomb", {
-            x: rand(CANVAS_WIDTH),
+            x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 2
           }));
         }
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("shotgun", {
-            x: rand(CANVAS_WIDTH),
+            x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("missile", {
-            x: rand(CANVAS_WIDTH),
+            x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("laser", {
-            x: rand(CANVAS_WIDTH),
+            x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
           enemyShoot(Powerup("flame", {
-            x: rand(CANVAS_WIDTH),
+            x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
       } else {
         enemyShoot(Powerup("meat", {
-          x: rand(CANVAS_WIDTH),
+          x: level.position().x + rand(CANVAS_WIDTH),
           xVelocity: rand(6) - 3
         }));
       }
