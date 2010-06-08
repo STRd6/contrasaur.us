@@ -95,8 +95,8 @@
 
     if (Math.random() < 0.01) {
       enemies.push(Tank([
-        {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
-        {xVelocity: 0, x: level.position().x - 20}
+        {xVelocity: -0.5, x: level.position().x + CANVAS_WIDTH + 20},
+        {xVelocity: 0.5, x: level.position().x - 20}
       ].rand()));
     }
 
