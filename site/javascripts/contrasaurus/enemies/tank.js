@@ -2,27 +2,18 @@ function Tank(I) {
   I = I || {};
 
   var gunAngle;
-  var xVelocity;
   var tankTile = loadImageTile("images/tank.png")
 
   var height = tankTile.height;
-
-  if (Math.random() < 0.5) {
-    xVelocity = 0.5;
-    gunAngle = - Math.PI / 12;
-  } else {
-    xVelocity = -0.5;
-    gunAngle = 13 * Math.PI / 12;
-  }
 
   $.reverseMerge(I, {
     y: canvas.height() - Floor.LEVEL - height,
     width: 30,
     height: height,
     radius: 25,
-    xVelocity: xVelocity,
+    xVelocity: I.xVelocity || 0.5,
     health: 10,
-    hFlip: xVelocity <= 0,
+    hFlip: I.xVelocity <= 0,
     color: "#FF7",
     sprite: tankTile,
     shootLogic: function() {
@@ -39,6 +30,12 @@ function Tank(I) {
       }
     }
   });
+
+  if (I.xVelocity == 0.5) {
+    gunAngle = - Math.PI / 12;
+  } else {
+    gunAngle = 13 * Math.PI / 12;
+  }
 
   var self = Enemy(I).extend({
     bulletHitEffect: function(bullet) {
