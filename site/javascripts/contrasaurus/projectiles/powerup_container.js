@@ -46,7 +46,7 @@ function PowerupContainer(theta, I) {
       hit: function(other) {
         if (!I.active) {
           // onDestroy
-          currentLevel.enemyShoot(
+          addGameObject(
             Powerup("laser", {
               x: I.x,
               y: I.y,

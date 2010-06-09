@@ -15,7 +15,7 @@ function Floor() {
   return GameObject(I).extend({
     bulletHitEffect: function(bullet) {
       var effect = Effect(bullet.velocity(), 8, $.extend(bullet.getCircle(), {
-        sprite: loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 16, 16)
+        sprite: loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8)
       }));
 
       addGameObject(effect);
