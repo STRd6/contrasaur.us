@@ -8,6 +8,8 @@ function Level(I) {
   var bulletQueue = [];
   var enemyBullets = [];
   var enemyBulletQueue = [];
+  var effects = [];
+  var effectsQueue = [];
   var gameObjects = [];
   var backgroundColor = "#A2EEFF";
   var step = 0;
@@ -105,6 +107,18 @@ function Level(I) {
       Array.prototype.push.apply(enemyBullets, enemyBulletQueue);
       enemyBulletQueue = [];
 
+      Array.prototype.push.apply(effects, effectsQueue);
+      effectsQueue = [];
+
+      var liveEffects = [];
+      $.each(effects, function(i, effect) {
+        effect.update();
+        if(effect.active()) {
+          liveEffects.push(effect);
+        }
+      });
+      effects = liveEffects;
+
       canvas.withState(-position.x, -position.y, {}, function() {
         $.each(I.platforms, function(i, platform) {
           planeCollision(I.dino, platform);
@@ -169,6 +183,10 @@ function Level(I) {
           }
         });
         enemyBullets = liveEnemyBullets;
+
+        $.each(effects, function(i, effect) {
+          effect.draw(canvas);
+        });
       });
 
       // Draw Foregrounds
@@ -185,6 +203,10 @@ function Level(I) {
 
     enemyShoot: function(bullet) {
       enemyBulletQueue.push(bullet);
+    },
+
+    addEffect: function(effect) {
+      effectsQueue.push(effect);
     },
 
     enemies: function() {

@@ -104,6 +104,13 @@ function Dinosaur() {
   }
 
   var self = GameObject(I).extend({
+    bulletHitEffect: function(bullet) {
+      var effect = Effect(bullet.velocity(), 9, $.extend(bullet.getCircle(), {
+        sprite: loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16)
+      }));
+
+      addEffect(effect);
+    },
 
     powerupWeapons: function(weaponName) {
       if (weaponName == "bazooka") {

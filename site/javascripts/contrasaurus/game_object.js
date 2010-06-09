@@ -13,7 +13,7 @@ function GameObject(I) {
     radius: 5,
     xVelocity: 0,
     yVelocity: 0,
-    collideDamage: 1,
+    collideDamage: 0,
     pointsWorth: 1000
   });
 
@@ -100,6 +100,10 @@ function GameObject(I) {
     update: function() {
       I.age++;
       move();
+
+      if(I.sprite) {
+        I.sprite.update();
+      }
     },
 
     extend: function(options) {

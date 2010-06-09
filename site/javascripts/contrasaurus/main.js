@@ -109,6 +109,10 @@ function enemyShoot(bullet) {
   currentLevel.enemyShoot(bullet);
 }
 
+function addEffect(effect) {
+  currentLevel.addEffect(effect);
+}
+
 function display(text) {
   displayTexts.push(GameText(text, dino.getCircle()));
 }

@@ -103,6 +103,7 @@ function planeCollision(gameObject, plane) {
   }
 }
 
+// TODO: Verify math on b and c
 function transformPoint(point, transformMatrix) {
   return {
     x: transformMatrix.a * point.x + transformMatrix.b * point.y,
@@ -112,9 +113,9 @@ function transformPoint(point, transformMatrix) {
 
 function rotationTransform(theta) {
   return {
-    a: Math.cos(theta), b: Math.sin(theta),
-    c: -Math.sin(theta), d: Math.cos(theta),
-    tx: 0, ty: 0
+    a: Math.cos(theta), c: -Math.sin(theta), tx: 0,
+    b: Math.sin(theta), d:  Math.cos(theta), ty: 0
+//  u: 0,               v:  0,                w: 1
   };
 }
 

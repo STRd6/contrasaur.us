@@ -24,7 +24,7 @@ function Enemy(I) {
           theta, {
             x: self.midpoint().x,
             y: self.midpoint().y,
-            color: '#C00'
+            sprite: loadImageTile("images/effects/enemybullet1_small.png")
           }
         ));
       }

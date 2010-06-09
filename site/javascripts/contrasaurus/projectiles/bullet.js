@@ -7,12 +7,23 @@ function Bullet(theta, I) {
     height: 4,
     radius: 2,
     color: "#000",
+    sprite: loadImageTile("images/effects/playerbullet1_small.png"),
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
   });
 
+  var transform = rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
+
   var self = GameObject(I).extend({
+    getTransform: function() {
+      return transform;
+    },
     after: {
+      hit: function(other) {
+        if(other.bulletHitEffect) {
+          other.bulletHitEffect(self);
+        }
+      },
       update: GameObject.generateCheckBounds(I)
     }
   });
