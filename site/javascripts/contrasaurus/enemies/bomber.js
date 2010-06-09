@@ -8,7 +8,7 @@ function Bomber(I) {
   function dropBomb() {
     cooldown += 10;
     bombs--;
-    enemyShoot(Bomb(
+    addGameObject(Bomb(
       I.xVelocity, {
         x: self.midpoint().x,
         y: self.midpoint().y

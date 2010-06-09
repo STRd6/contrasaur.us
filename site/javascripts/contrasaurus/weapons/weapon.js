@@ -49,7 +49,7 @@ function Weapon(I) {
     shoot: function(theta, midpoint, transform) {
 
       if (rand(100) < I.power) {
-        shoot(Bullet(theta, {
+        addGameObject(Bullet(theta, {
           x: midpoint.x,
           y: midpoint.y
         }));

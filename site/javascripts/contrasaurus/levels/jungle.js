@@ -69,24 +69,23 @@
   var numPlanes = 1;
   var planeDelay = 15;
   function generateEnemies(level) {
-    var enemies = level.enemies();
     if (Math.random() < 0.005) {
       var p = PowerupContainer(Math.PI / 2);
       p.addListener(Powerup("laser", {
           x: rand(CANVAS_WIDTH),
           yVelocity: 2
         }));
-      enemies.push(p);
+      level.addGameObject(p);
     }
 
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
-        enemies.push(Enemy([
+        level.addGameObject(Enemy([
           {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
           {xVelocity: 0, x: level.position().x - 20}
         ].rand()));
       } else {
-        enemies.push(Parasoldier([
+        level.addGameObject(Parasoldier([
           {xVelocity: 0, x: level.position().x + rand(CANVAS_WIDTH) + 20 },
           {xVelocity: 0, x: level.position().x - 20}
         ].rand()));
@@ -94,7 +93,7 @@
     }
 
     if (Math.random() < 0.01) {
-      enemies.push(Tank([
+      level.addGameObject(Tank([
         {xVelocity: -0.5, x: level.position().x + CANVAS_WIDTH + 20},
         {xVelocity: 0.5, x: level.position().x - 20}
       ].rand()));
@@ -102,7 +101,7 @@
 
     if (bombingRunActive) {
       if (bombingRunCount % planeDelay == 0) {
-        enemies.push(Bomber({
+        level.addGameObject(Bomber({
           x: level.position().x + CANVAS_WIDTH + 100 - bombingRunCount,
           y: 40
         }));
@@ -121,42 +120,42 @@
       // HAX: Putting this in enemy bullets so it will collide with dino.
       if(Math.random() < 0.5) {
         if (Math.random() < 0.5) {
-          enemyShoot(Powerup("bomb", {
+          addGameObject(Powerup("bomb", {
             x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 2
           }));
         }
 
         if (Math.random() < 0.4) {
-          enemyShoot(Powerup("shotgun", {
+          addGameObject(Powerup("shotgun", {
             x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
-          enemyShoot(Powerup("missile", {
+          addGameObject(Powerup("missile", {
             x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
-          enemyShoot(Powerup("laser", {
+          addGameObject(Powerup("laser", {
             x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
         if (Math.random() < 0.4) {
-          enemyShoot(Powerup("flame", {
+          addGameObject(Powerup("flame", {
             x: level.position().x + rand(CANVAS_WIDTH),
             yVelocity: 1
           }));
         }
 
       } else {
-        enemyShoot(Powerup("meat", {
+        addGameObject(Powerup("meat", {
           x: level.position().x + rand(CANVAS_WIDTH),
           xVelocity: rand(6) - 3
         }));

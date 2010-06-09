@@ -3,14 +3,10 @@ function Level(I) {
     x: 0,
     y: 0
   };
-  var enemies = [];
-  var bullets = [];
-  var bulletQueue = [];
-  var enemyBullets = [];
-  var enemyBulletQueue = [];
-  var effects = [];
-  var effectsQueue = [];
+
   var gameObjects = [];
+  var gameObjectsQueue = [];
+  var collidables;
   var backgroundColor = "#A2EEFF";
   var step = 0;
   var intervalId;
@@ -38,15 +34,89 @@ function Level(I) {
     });
   }
 
+  function draw(canvas) {
+    // Draw Backgrounds
+    canvas.fill(backgroundColor);
+
+    I.scene.drawBackgrounds(position, canvas);
+
+    canvas.withState(-position.x, -position.y, {}, function() {
+      $.each(gameObjects, function(i, gameObject) {
+        gameObject.draw(canvas);
+      });
+    });
+
+    // Draw Foregrounds
+    I.scene.drawForegrounds(position, canvas);
+  }
+
+  function resetCollidables() {
+    collidables = {
+      platform: [],
+      enemy: [],
+      enemyBullet: [],
+      dino: [],
+      dinoBullet: []
+    };
+  }
+
+  function handleCollisions(collidables) {
+    // Most things can hit platforms
+    $.each(collidables.platform, function(i, platform) {
+      $.each(collidables.enemyBullet, function(j, bullet) {
+        planeCollision(bullet, platform);
+      });
+
+      $.each(collidables.dinoBullet, function(j, bullet) {
+        planeCollision(bullet, platform);
+      });
+
+      $.each(collidables.enemy, function(j, enemy) {
+        planeCollision(enemy, platform);
+      });
+
+      $.each(collidables.dino, function(j, dino) {
+        planeCollision(dino, platform);
+      });
+    });
+
+    // Enemy bullets can hit dinos
+    $.each(collidables.enemyBullet, function(i, bullet) {
+      $.each(collidables.dino, function(j, dino) {
+        circleCollision(bullet, dino);
+      });
+    });
+
+    // Dino bullets can hit enemies
+    $.each(collidables.dinoBullet, function(i, bullet) {
+      $.each(collidables.enemy, function(j, enemy) {
+        circleCollision(bullet, enemy);
+      });
+    });
+
+    // Enemies can hit dinos
+    $.each(collidables.dino, function(i, dino) {
+      $.each(collidables.enemy, function(j, enemy) {
+        circleCollision(dino, enemy);
+      });
+    });
+  }
+
+  resetCollidables();
+
   var self = {
+    addGameObject: function(gameObject) {
+      gameObjectsQueue.push(gameObject);
+    },
+
     complete: function() {
       self.stop();
 
       I.completed();
     },
 
-    dino: function() {
-      return I.dino;
+    enemies: function() {
+      return collidables.enemy;
     },
 
     position: function() {
@@ -96,121 +166,35 @@ function Level(I) {
     },
 
     step: function step() {
-      canvas.fill(backgroundColor);
+      resetCollidables();
 
-      // Draw Backgrounds
-      I.scene.drawBackgrounds(position, canvas);
+      var liveGameObjects = [];
+      $.each(gameObjects, function(i, gameObject) {
+        gameObject.update(position);
 
-      Array.prototype.push.apply(bullets, bulletQueue);
-      bulletQueue = [];
+        if(gameObject.active()) {
+          liveGameObjects.push(gameObject);
 
-      Array.prototype.push.apply(enemyBullets, enemyBulletQueue);
-      enemyBulletQueue = [];
-
-      Array.prototype.push.apply(effects, effectsQueue);
-      effectsQueue = [];
-
-      var liveEffects = [];
-      $.each(effects, function(i, effect) {
-        effect.update();
-        if(effect.active()) {
-          liveEffects.push(effect);
+          // Add to hit detection queues
+          if(collidables[gameObject.collisionType()]) {
+            collidables[gameObject.collisionType()].push(gameObject);
+          }
         }
       });
-      effects = liveEffects;
+      gameObjects = liveGameObjects;
 
-      canvas.withState(-position.x, -position.y, {}, function() {
-        $.each(I.platforms, function(i, platform) {
-          planeCollision(I.dino, platform);
+      handleCollisions(collidables);
 
-          platform.draw(canvas);
-        });
+      // Add Queued Game Objects
+      Array.prototype.push.apply(gameObjects, gameObjectsQueue);
+      gameObjectsQueue = [];
 
-        I.dino.update(position, {x: tiltAmount, y: 0});
-        I.dino.draw(canvas);
+      draw(canvas);
 
-        var liveEnemies = [];
-        $.each(enemies, function(i, enemy) {
-          $.each(I.platforms, function(i, platform) {
-            planeCollision(enemy, platform);
-          });
-
-          enemy.update(position);
-
-          $.each(bullets, function(i, bullet) {
-            circleCollision(bullet, enemy);
-          });
-
-          circleCollision(I.dino, enemy);
-
-          if (enemy.active()) {
-            liveEnemies.push(enemy);
-            enemy.draw(canvas);
-          } else {
-            // TODO: Move this into an onDestroy event
-            score += enemy.pointsWorth();
-          }
-        });
-        enemies = liveEnemies;
-
-        $.each(gameObjects, function(i, gameObject) {
-          gameObject.update();
-
-          if (gameObject.active()) {
-            gameObject.draw(canvas);
-          }
-        });
-
-        var liveBullets = [];
-        $.each(bullets, function(i, bullet) {
-          bullet.update(position);
-
-          if (bullet.active()) {
-            bullet.draw(canvas);
-            liveBullets.push(bullet);
-          }
-        });
-        bullets = liveBullets;
-
-        var liveEnemyBullets = [];
-        $.each(enemyBullets, function(i, bullet) {
-          circleCollision(bullet, I.dino);
-          bullet.update(position);
-
-          if (bullet.active()) {
-            bullet.draw(canvas);
-            liveEnemyBullets.push(bullet);
-          }
-        });
-        enemyBullets = liveEnemyBullets;
-
-        $.each(effects, function(i, effect) {
-          effect.draw(canvas);
-        });
-      });
-
-      // Draw Foregrounds
-      I.scene.drawForegrounds(position, canvas);
-
-      score += bullets.length;
+      // TODO: Move this somewhere
+      score += collidables.dinoBullet.length;
 
       position.x += tiltAmount;
-    },
-
-    shoot: function(bullet) {
-      bulletQueue.push(bullet);
-    },
-
-    enemyShoot: function(bullet) {
-      enemyBulletQueue.push(bullet);
-    },
-
-    addEffect: function(effect) {
-      effectsQueue.push(effect);
-    },
-
-    enemies: function() {
-      return enemies;
     }
   };
 

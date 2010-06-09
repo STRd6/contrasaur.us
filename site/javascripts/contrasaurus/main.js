@@ -83,34 +83,31 @@ function overlayUpdate(){
 }
 
 function addLevel(scene, platforms, triggers, audio) {
-  stages.push(Level({
+  var level = Level({
     audio: audio,
     canvas: canvas,
-    dino: dino,
     scene: scene,
-    platforms: platforms,
     afterStep: overlayUpdate,
     triggers: triggers,
     completed: nextStage
-  }));
+  });
+
+  $.each(platforms, function(i, platform) {
+    level.addGameObject(platform);
+  });
+  level.addGameObject(dino);
+
+  stages.push(level);
 }
 
 function addCutscene(image, text, duration) {
   stages.push(Cutscene(image, text, duration, nextStage));
 }
 
-function shoot(bullet) {
-  if(currentLevel) {
-    currentLevel.shoot(bullet);
+function addGameObject(gameObject) {
+  if(currentLevel.addGameObject) {
+    currentLevel.addGameObject(gameObject);
   }
-}
-
-function enemyShoot(bullet) {
-  currentLevel.enemyShoot(bullet);
-}
-
-function addEffect(effect) {
-  currentLevel.addEffect(effect);
 }
 
 function display(text) {

@@ -26,7 +26,7 @@ function Flamethrower(I) {
 
       if (rand(100) < I.power) {
         var exitPoint = transformPoint(mouthPoint, transform);
-        shoot(Flame(direction, {
+        addGameObject(Flame(direction, {
           x: midpoint.x + exitPoint.x,
           y: midpoint.y + exitPoint.y
         }));

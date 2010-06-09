@@ -7,7 +7,8 @@ function BombExplosion(I) {
     sprite: loadAnimation("images/explosion.png", 25, 67, 171),
     radius: 20,
     width: 67,
-    height: 171
+    height: 171,
+    collisionType: "enemyBullet"
   });
 
   return GameObject(I).extend({
@@ -21,8 +22,6 @@ function BombExplosion(I) {
 
         if(I.age > duration) {
           I.active = false;
-        } else {
-          I.sprite.update();
         }
       }
     }

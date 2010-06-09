@@ -48,7 +48,7 @@ function Shotgun(I) {
           var x = midpoint.x + fuzz();
           var y = midpoint.y + fuzz() * 2;
 
-          shoot(Bullet(direction, { x: x, y: y }));
+          addGameObject(Bullet(direction, { x: x, y: y }));
         });
       }
     },

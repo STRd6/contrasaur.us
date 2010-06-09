@@ -19,13 +19,13 @@ function Parasoldier(I) {
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
-        enemyShoot(Bullet(
+        self.shoot(
           theta, {
             x: self.midpoint().x,
             y: self.midpoint().y,
             sprite: loadImageTile("images/effects/enemybullet1_small.png")
           }
-        ));
+        );
       }
     },
     sprite: parachuteActiveTile

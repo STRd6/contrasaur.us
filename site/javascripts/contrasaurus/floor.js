@@ -8,6 +8,7 @@ function Floor() {
     height: height,
     color: "#0F0",
     collideDamage: 0,
+    collisionType: "platform",
     sprite: loadImageTile("images/floor_background.png")
   };
 
@@ -17,13 +18,15 @@ function Floor() {
         sprite: loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 16, 16)
       }));
 
-      addEffect(effect);
+      addGameObject(effect);
     },
     draw: function(canvas) {
       I.sprite.draw(canvas, I.x, I.y);
     },
     hit: function(other) {
-      other.land(I.y);
+      if(other.land) {
+        other.land(I.y);
+      }
     },
     y: I.y
   });

@@ -14,6 +14,7 @@ function GameObject(I) {
     xVelocity: 0,
     yVelocity: 0,
     collideDamage: 0,
+    collisionType: "none",
     pointsWorth: 1000
   });
 
@@ -56,6 +57,10 @@ function GameObject(I) {
       } else {
         return I.active;
       }
+    },
+
+    collisionType: function() {
+      return I.collisionType;
     },
 
     health: function(newHealth) {

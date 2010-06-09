@@ -17,7 +17,7 @@ function PrimalScream(I) {
       if (rand(100) < I.power) {
         (24).times(function(i) {
           var theta = (i / 12) * Math.PI;
-          shoot(Bullet(theta, {
+          addGameObject(Bullet(theta, {
             x: midpoint.x,
             y: midpoint.y
           }));

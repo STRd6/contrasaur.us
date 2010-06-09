@@ -14,7 +14,7 @@ function LaserGun(I) {
 
     shoot: function(midpoint, transform) {
       if (rand(100) < I.power) {
-        shoot(Laser(I.theta, {
+        addGameObject(Laser(I.theta, {
           x: midpoint.x,
           y: midpoint.y
         }));

@@ -15,7 +15,7 @@ function Bazooka(I) {
     shoot: function(midpoint, transform) {
 
       if (rand(100) < I.power) {
-        shoot(Missile(I.theta, {
+        addGameObject(Missile(I.theta, {
           x: midpoint.x,
           y: midpoint.y
         }));

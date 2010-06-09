@@ -28,14 +28,14 @@ function Tank(I) {
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
-        enemyShoot(Bullet(
+        self.shoot(
           gunAngle, {
             x: self.midpoint().x,
             y: self.midpoint().y,
             sprite: loadImageTile("images/blast_small.png"),
             collideDamage: 7
           }
-        ));
+        );
       }
     }
   });
@@ -46,7 +46,7 @@ function Tank(I) {
         sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16)
       }));
 
-      addEffect(effect);
+      addGameObject(effect);
     }
   });
 

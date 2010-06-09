@@ -52,13 +52,13 @@ function MachineGun(I) {
       if (I.power > 0) {
         var berserkTheta = I.theta - Math.PI / 24;
 
-        shoot(Bullet(I.theta, {
+        addGameObject(Bullet(I.theta, {
           x: midpoint.x + gunDelta.x + Math.cos(I.theta) * gunWidth/2,
           y: midpoint.y + gunDelta.y + Math.sin(I.theta) * gunWidth/2
         }));
 
         if (I.berserk) {
-          shoot(Bullet(berserkTheta, {
+          addGameObject(Bullet(berserkTheta, {
             x: midpoint.x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
             y: midpoint.y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
           }));

@@ -53,7 +53,8 @@ function Dinosaur() {
     radius: 64,
     xVelocity: 1,
     yVelocity: 6,
-    collideDamage: 2
+    collideDamage: 2,
+    collisionType: "dino"
   };
 
   var lastDirection = I.xVelocity;
@@ -114,7 +115,7 @@ function Dinosaur() {
         ].rand()
       }));
 
-      addEffect(effect);
+      addGameObject(effect);
     },
 
     powerupWeapons: function(weaponName) {
@@ -194,7 +195,7 @@ function Dinosaur() {
     },
     
     after: {
-      update: function(position, velocity) {
+      update: function(position) {
         jetpack.update();
 
         if (jetpack.active()) {
@@ -208,8 +209,6 @@ function Dinosaur() {
         if (!(jetpack.active()) && airborne) {
           I.yVelocity = 6;
         }
-
-        I.x += velocity.x;
 
         if (!airborne) {
           lastDirection = I.xVelocity;

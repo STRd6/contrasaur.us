@@ -17,16 +17,15 @@ function Enemy(I) {
     hFlip: Math.cos(theta) <= 0,
     color: "#F00",
     collideDamage: 1,
+    collisionType: "enemy",
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
-        enemyShoot(Bullet(
-          theta, {
-            x: self.midpoint().x,
-            y: self.midpoint().y,
-            sprite: loadImageTile("images/effects/enemybullet1_small.png")
-          }
-        ));
+        self.shoot(theta, {
+          x: self.midpoint().x,
+          y: self.midpoint().y,
+          sprite: loadImageTile("images/effects/enemybullet1_small.png")
+        });
       }
     },
     sprite: soldierTile
@@ -36,6 +35,13 @@ function Enemy(I) {
 
   var self = GameObject(I).extend({
     land: function(h) { },
+
+    shoot: function(angle, bulletData) {
+      var bullet = Bullet(angle, $.extend(bulletData, {
+        collisionType: "enemyBullet"
+      }))
+      addGameObject(bullet);
+    },
 
     getTransform: function() {
       if(I.hFlip) {

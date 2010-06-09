@@ -37,7 +37,8 @@ function Powerup(kind, I) {
     radius: 10,
     width: 15,
     height: 15,
-    pointsWorth: 1000
+    pointsWorth: 1000,
+    collisionType: "enemyBullet"
   });
 
   return GameObject(I).extend({

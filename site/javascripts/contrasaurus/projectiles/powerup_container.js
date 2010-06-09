@@ -24,6 +24,7 @@ function PowerupContainer(theta, I) {
     health: 7,
     color: "#808",
     pointsWorth: 100,
+    collisionType: "enemy",
     sprite: loadImageTile("images/powerup_container.png")
   });
 
