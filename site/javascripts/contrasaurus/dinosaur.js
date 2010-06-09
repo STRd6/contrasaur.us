@@ -105,8 +105,13 @@ function Dinosaur() {
 
   var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), 9, $.extend(bullet.getCircle(), {
-        sprite: loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16)
+      var effect = Effect(bullet.velocity(), 10, $.extend(bullet.getCircle(), {
+        sprite: [
+          loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
+          loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
+          loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
+          loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
+        ].rand()
       }));
 
       addEffect(effect);
@@ -244,6 +249,5 @@ function Dinosaur() {
       }
     }
   });
-
   return self;
 }
