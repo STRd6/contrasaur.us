@@ -15,11 +15,12 @@
       = link "Learn more here", "http://www.google.com/chrome"
 
 :javascript
+  var theta = 0;
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
   var circles = [{"x":-44,"y":1,"radius":14},{"x":45,"y":-4,"radius":13},{"x":20,"y":11,"radius":13},{"x":29,"y":-9,"radius":17},{"x":-10,"y":13,"radius":28}];
-  
+
   $('#gameCanvas').powerCanvas({init: function(canvas) {
     var character = GameObject({
       x: 320,
@@ -35,7 +36,7 @@
         var midpoint = this.midpoint();
 
         return $.map(circles, function(circle) {
-          var point = transformPoint(circle, transform);
+          var point = transform.transformPoint(circle);
           return {
             x: point.x + midpoint.x,
             y: point.y + midpoint.y,
@@ -46,7 +47,7 @@
       },
 
       getTransform: function() {
-        return IDENTITY_MATRIX;
+        return Matrix.rotation(theta).concat(Matrix.HORIZONTAL_FLIP);
       },
 
       after: {

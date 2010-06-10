@@ -106,8 +106,8 @@ function planeCollision(gameObject, plane) {
 // TODO: Verify math on b and c
 function transformPoint(point, transformMatrix) {
   return {
-    x: transformMatrix.a * point.x + transformMatrix.b * point.y,
-    y: transformMatrix.c * point.x + transformMatrix.d * point.y
+    x: transformMatrix.a * point.x + transformMatrix.c * point.y,
+    y: transformMatrix.b * point.x + transformMatrix.d * point.y
   }
 }
 
