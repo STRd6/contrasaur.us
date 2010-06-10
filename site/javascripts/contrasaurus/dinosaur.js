@@ -14,12 +14,14 @@ function Dinosaur() {
   weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
 
   var x = (CANVAS_WIDTH - width) / 2;
-  var y = 0;
+  var y = 150;
 
+  var parasailing = false;
   var airborne = true;
   var berserk = false;
 
   var dinoTile = loadImageTile("images/dino1.png");
+  var parasailTile = loadImageTile("images/parasail.png");
   
   var I = {
     x: x,
@@ -123,7 +125,7 @@ function Dinosaur() {
     },
 
     getTransform: function () {
-      if (lastDirection <= 0) {
+      if (lastDirection <= 0 && !parasailing) {
         return Matrix.HORIZONTAL_FLIP;
       } else {
         return Matrix.IDENTITY;
@@ -145,13 +147,18 @@ function Dinosaur() {
     draw: function(canvas) {
 
       canvas.withState(I.x, I.y, { transform: self.getTransform() }, function() {
+        if(parasailing) {
+          parasailTile.draw(canvas, -100, -100);
+        }
 
         dinoTile.draw(canvas,
           -dinoTile.width/2,
           -dinoTile.height/2
         );
 
-        jetpack.draw(canvas);
+        if(!parasailing) {
+          jetpack.draw(canvas);
+        }
       });
 
       // TO DO call draw on each weapon
@@ -179,25 +186,43 @@ function Dinosaur() {
         }
       }
     },
+
+    parasailing: function(newValue) {
+      if(newValue != undefined) {
+        parasailing = newValue;
+        if(parasailing == true) {
+          I.x = (CANVAS_WIDTH - width) / 2;
+          I.y = 150;
+        }
+        return self;
+      } else {
+        return parasailing;
+      }
+    },
     
     after: {
       update: function(position) {
         jetpack.update();
 
-        if (jetpack.active()) {
-          airborne = true;
-        } 
+        if(parasailing) {
+          I.xVelocity = Math.sin(I.age);
+          I.yVelocity = Math.cos(I.age/2);
+        } else {
+          if (jetpack.active()) {
+            airborne = true;
+          }
 
-        if (airborne && jetpack.active()) {
-          I.yVelocity = -1;
-        }
+          if (airborne && jetpack.active()) {
+            I.yVelocity = -1;
+          }
 
-        if (!(jetpack.active()) && airborne) {
-          I.yVelocity = 6;
-        }
+          if (!(jetpack.active()) && airborne) {
+            I.yVelocity = 6;
+          }
 
-        if (!airborne) {
-          lastDirection = I.xVelocity;
+          if (!airborne) {
+            lastDirection = I.xVelocity;
+          }
         }
 
         if(I.health < healthMax / 2) {
