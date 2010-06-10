@@ -1,16 +1,13 @@
 function Parasoldier(I) {
   I = I || {};
 
-  var parachuteActiveTile = loadImageTile("images/parasoldier.png");
-  var startingHeight = 90;
-
   var theta = Math.random() * (Math.PI * 2);
 
   $.reverseMerge(I, {
     x: rand(CANVAS_WIDTH),
     y: 45,
     width: 38,
-    height: startingHeight,
+    height: 90,
     radius: 19,
     yVelocity: 4,
     health: 3,
@@ -28,7 +25,7 @@ function Parasoldier(I) {
         );
       }
     },
-    sprite: parachuteActiveTile
+    sprite: loadImageTile("images/parasoldier.png")
   });
 
   var self = Enemy(I).extend({
@@ -49,7 +46,15 @@ function Parasoldier(I) {
     }
   });
 
-  I.hFlip = Math.cos(theta) <= 0;
+  I.hFlip = (I.x >= CANVAS_WIDTH / 2 ? true : false);
+
+  if (I.hFlip && Math.cos(theta) > 0) {
+    theta -= Math.PI;
+  }
+
+  if (!I.hFlip && Math.cos(theta) <= 0) {
+    theta += Math.PI;
+  }
 
   return self;
 }
