@@ -81,8 +81,8 @@
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
         level.addGameObject(Enemy([
-          {xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 20},
-          {xVelocity: 0, x: level.position().x - 20}
+          {theta: -Math.random() * (Math.PI), hFlip: true, x: level.position().x + CANVAS_WIDTH + 20},
+          {theta: -Math.random() * (Math.PI), hFlip: false, x: level.position().x - 20}
         ].rand()));
       } else {
         level.addGameObject(Parasoldier([

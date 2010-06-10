@@ -14,7 +14,11 @@ function Utahraptor(I) {
     collideDamage: 0,
     health: 1,
     shootLogic: $.noop,
-    sprite: loadImageTile("images/enemies/utahraptor.png"),
+    sprite: [
+      loadImageTile("images/enemies/dinofodder1.png"),
+      loadImageTile("images/enemies/dinofodder2.png"),
+      loadImageTile("images/enemies/dinofodder3.png")
+    ].rand(),
     xVelocity: xVelocity
   });
 

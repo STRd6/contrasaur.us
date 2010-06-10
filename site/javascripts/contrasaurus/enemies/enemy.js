@@ -3,9 +3,6 @@ function Enemy(I) {
 
   var soldierTile = loadImageTile("images/soldier.png");
 
-  // TODO: make them not shoot into the ground
-  var theta = Math.random() * (Math.PI * 2);
-
   $.reverseMerge(I, {
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - soldierTile.height,
@@ -14,14 +11,15 @@ function Enemy(I) {
     radius: 19,
     yVelocity: 0,
     health: 3,
-    hFlip: Math.cos(theta) <= 0,
+    hFlip: I.hFlip || false,
+    theta: I.theta || 0,
     color: "#F00",
     collideDamage: 1,
     collisionType: "enemy",
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
-        self.shoot(theta, {
+        self.shoot(I.theta, {
           x: self.midpoint().x,
           y: self.midpoint().y,
           sprite: loadImageTile("images/effects/enemybullet1_small.png")
@@ -30,6 +28,14 @@ function Enemy(I) {
     },
     sprite: soldierTile
   });
+
+  if (Math.cos(I.theta <= 0) && !I.hFlip) {
+    I.theta += Math.PI/2;
+  }
+
+  if (Math.cos(I.theta > 0) && I.hFlip) {
+    I.theta -= Math.PI/2;
+  }
 
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 
