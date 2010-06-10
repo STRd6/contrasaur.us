@@ -40,6 +40,19 @@ function Enemy(I) {
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 
   var self = GameObject(I).extend({
+    bulletHitEffect: function(bullet) {
+      var effect = Effect(bullet.velocity(), 10, $.extend(bullet.position(), {
+        sprite: [
+          loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
+          loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
+          loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
+          loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
+        ].rand()
+      }));
+
+      addGameObject(effect);
+    },
+
     land: function(h) { },
 
     shoot: function(angle, bulletData) {
