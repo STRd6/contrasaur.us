@@ -19,15 +19,15 @@
       tx: tx || 0,
       ty: ty || 0,
 
-      // TODO: Check the math!!
+      // TODO: Check the math on tx and ty!!
       concat: function(matrix) {
         return Matrix(
-          a * matrix.a + c * matrix.b,
-          b * matrix.a + d * matrix.b,
-          a * matrix.c + c * matrix.d,
-          b * matrix.c + d * matrix.d,
-          a * matrix.tx + c * matrix.ty + tx,
-          b * matrix.tx + d * matrix.ty + ty
+          this.a * matrix.a + this.c * matrix.b,
+          this.b * matrix.a + this.d * matrix.b,
+          this.a * matrix.c + this.c * matrix.d,
+          this.b * matrix.c + this.d * matrix.d,
+          this.a * matrix.tx + this.c * matrix.ty + this.tx,
+          this.b * matrix.tx + this.d * matrix.ty + this.ty
         );
       },
 
@@ -41,7 +41,10 @@
 
       // TODO: Include tx and ty
       transformPoint: function(point) {
-        return Point(a * point.x + c * point.y, b * point.x + d * point.y);
+        return Point(
+          this.a * point.x + this.c * point.y,
+          this.b * point.x + this.d * point.y
+        );
       },
 
       translate: function(tx, ty) {

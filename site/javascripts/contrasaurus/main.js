@@ -111,7 +111,7 @@ function addGameObject(gameObject) {
 }
 
 function display(text) {
-  displayTexts.push(GameText(text, dino.getCircle()));
+  displayTexts.push(GameText(text, dino.position()));
 }
 
 $(document).keydown(function(e) {

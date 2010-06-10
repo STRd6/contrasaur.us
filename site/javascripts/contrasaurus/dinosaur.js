@@ -19,28 +19,6 @@ function Dinosaur() {
   var airborne = true;
   var berserk = false;
 
-  var getTransform = function() {
-    if (lastDirection <= 0) {
-      return {
-        a: -1,
-        b: 0,
-        c: 0,
-        d: 1,
-        tx: 0,
-        ty: 0
-      };
-    } else {
-      return {
-        a: 1,
-        b: 0,
-        c: 0,
-        d: 1,
-        tx: 0,
-        ty: 0
-      };
-    }
-  }
-
   var dinoTile = loadImageTile("images/dino1.png");
   
   var I = {
@@ -54,7 +32,8 @@ function Dinosaur() {
     xVelocity: 1,
     yVelocity: 6,
     collideDamage: 2,
-    collisionType: "dino"
+    collisionType: "dino",
+    hitCircles: [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
   };
 
   var lastDirection = I.xVelocity;
@@ -64,7 +43,7 @@ function Dinosaur() {
   function fireWeapons() {
     // TODO change this over to a generic shoot call on each weapon
     $.each(weaponsArray, function(i, weapon) {
-      weapon.shoot(self.midpoint(), getTransform());
+      weapon.shoot(self.midpoint(), self.getTransform());
     });
   }
 
@@ -106,7 +85,7 @@ function Dinosaur() {
 
   var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), 10, $.extend(bullet.getCircle(), {
+      var effect = Effect(bullet.velocity(), 10, $.extend(bullet.position(), {
         sprite: [
           loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
           loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
@@ -143,6 +122,14 @@ function Dinosaur() {
       }
     },
 
+    getTransform: function () {
+      if (lastDirection <= 0) {
+        return Matrix.HORIZONTAL_FLIP;
+      } else {
+        return Matrix.IDENTITY;
+      }
+    },
+
     getTheta: function() {
       return theta;
     },
@@ -157,7 +144,7 @@ function Dinosaur() {
 
     draw: function(canvas) {
 
-      canvas.withState(I.x, I.y, { transform: getTransform() }, function() {
+      canvas.withState(I.x, I.y, { transform: self.getTransform() }, function() {
 
         dinoTile.draw(canvas,
           -dinoTile.width/2,
@@ -171,8 +158,7 @@ function Dinosaur() {
       machineGun.draw(canvas, self.midpoint());
 
       if (GameObject.DEBUG_HIT) {
-        var circle = self.getCircle();
-        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+        self.drawHitCircles(canvas);
       }
     },
     land: function(h) {

@@ -81,26 +81,56 @@ jQuery.extend({
 });
 
 function circleCollision(gameObject1, gameObject2) {
-  var c1 = gameObject1.getCircle();
-  var c2 = gameObject2.getCircle();
+  var hit = false;
 
-  var dx = c1.x - c2.x;
-  var dy = c1.y - c2.y;
-  var dist = c1.radius + c2.radius;
+  $.each(gameObject1.getCircles(), function(i, c1) {
+    if(hit) {
+      return;
+    }
 
-  if(dx * dx + dy * dy <= dist * dist) {
+    $.each(gameObject2.getCircles(), function(i, c2) {
+      if(hit) {
+        return;
+      }
+
+      var dx = c1.x - c2.x;
+      var dy = c1.y - c2.y;
+      var dist = c1.radius + c2.radius;
+
+      if(dx * dx + dy * dy <= dist * dist) {
+        hit = true;
+      }
+    });
+  });
+
+  if(hit) {
     gameObject1.hit(gameObject2);
     gameObject2.hit(gameObject1);
   }
+
+  return hit;
 }
 
 function planeCollision(gameObject, plane) {
-  var circle = gameObject.getCircle();
+  var circles = gameObject.getCircles();
+  var hit = false;
 
-  if(circle.y + circle.radius >= plane.y) {
+  $.each(circles, function(i, circle) {
+    if(hit) {
+      return;
+    }
+
+    if(circle.y + circle.radius >= plane.y) {
+      hit = true;
+    }
+  });
+
+  if(hit) {
     gameObject.hit(plane);
     plane.hit(gameObject);
   }
+
+  return hit;
 }
 
 // TODO: Verify math on b and c

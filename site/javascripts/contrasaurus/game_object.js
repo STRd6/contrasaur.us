@@ -25,14 +25,7 @@ function GameObject(I) {
 
   var self = {
     getTransform: function() {
-      return {
-        a: 1,
-        b: 0,
-        c: 0,
-        d: 1,
-        tx: 0,
-        ty: 0
-      };
+      return Matrix.IDENTITY;
     },
 
     midpoint: function() {
@@ -42,8 +35,27 @@ function GameObject(I) {
       }
     },
 
-    getCircle: function() {
-      return {x: I.x, y: I.y, radius: I.radius};
+    position: function() {
+      return {
+        x: I.x,
+        y: I.y
+      }
+    },
+
+    getCircles: function() {
+      if(I.hitCircles) {
+        var position = self.position();
+        return $.map(I.hitCircles, function(circle) {
+          var point = self.getTransform().transformPoint(circle);
+          return {
+            x: point.x + position.x,
+            y: point.y + position.y,
+            radius: circle.radius
+          };
+        });
+      } else {
+        return [{x: I.x, y: I.y, radius: I.radius}];
+      }
     },
 
     // TODO: Encapsulate these better
@@ -97,9 +109,14 @@ function GameObject(I) {
       });
 
       if (GameObject.DEBUG_HIT) {
-        var circle = self.getCircle();
-        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+        self.drawHitCircles(canvas);
       }
+    },
+
+    drawHitCircles: function(canvas) {
+      $.each(self.getCircles(), function(i, circle) {
+        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+      });
     },
 
     update: function() {

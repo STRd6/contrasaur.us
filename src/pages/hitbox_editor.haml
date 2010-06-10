@@ -19,7 +19,7 @@
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
-  var circles = [{"x":-44,"y":1,"radius":14},{"x":45,"y":-4,"radius":13},{"x":20,"y":11,"radius":13},{"x":29,"y":-9,"radius":17},{"x":-10,"y":13,"radius":28}];
+  var circles = [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
 
   $('#gameCanvas').powerCanvas({init: function(canvas) {
     var character = GameObject({
@@ -47,7 +47,7 @@
       },
 
       getTransform: function() {
-        return Matrix.rotation(theta).concat(Matrix.HORIZONTAL_FLIP);
+        return Matrix.rotation(theta);
       },
 
       after: {
