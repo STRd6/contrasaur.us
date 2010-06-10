@@ -46,13 +46,9 @@ function Weapon(I) {
       }
     },
 
-    shoot: function(theta, midpoint, transform) {
-
+    shoot: function(theta, position, transform) {
       if (rand(100) < I.power) {
-        addGameObject(Bullet(theta, {
-          x: midpoint.x,
-          y: midpoint.y
-        }));
+        addGameObject(Bullet(theta, position));
       }
     }
   }

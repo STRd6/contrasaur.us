@@ -9,10 +9,8 @@ function Bomber(I) {
     cooldown += 10;
     bombs--;
     addGameObject(Bomb(
-      I.xVelocity, {
-        x: self.midpoint().x,
-        y: self.midpoint().y
-      }
+      I.xVelocity, 
+      self.position()
     ));
   }
 

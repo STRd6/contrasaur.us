@@ -43,7 +43,7 @@ function Dinosaur() {
   function fireWeapons() {
     // TODO change this over to a generic shoot call on each weapon
     $.each(weaponsArray, function(i, weapon) {
-      weapon.shoot(self.midpoint(), self.getTransform());
+      weapon.shoot(self.position(), self.getTransform());
     });
   }
 
@@ -56,7 +56,7 @@ function Dinosaur() {
     var nearestDistance;
 
     $.each(currentLevel.enemies(), function(i, enemy) {
-      var enemyDistance = distance(self.midpoint(), enemy.midpoint());
+      var enemyDistance = distance(self.position(), enemy.position());
       if(nearest) {
         if(nearestDistance > enemyDistance) {
           nearest = enemy;
@@ -77,7 +77,7 @@ function Dinosaur() {
     enemyDistance = $.map(enemyDistance, function(enemy, i) {
       return {
         enemy: enemy,
-        distance: distance(self.midpoint(), enemy.midpoint())
+        distance: distance(self.position(), enemy.position())
     }})
 
     return enemyDistance;
@@ -155,7 +155,7 @@ function Dinosaur() {
       });
 
       // TO DO call draw on each weapon
-      machineGun.draw(canvas, self.midpoint());
+      machineGun.draw(canvas, self.position());
 
       if (GameObject.DEBUG_HIT) {
         self.drawHitCircles(canvas);

@@ -20,8 +20,8 @@ function Enemy(I) {
     shootLogic: function() {
       if (Math.random() < 0.3) {
         self.shoot(I.theta, {
-          x: self.midpoint().x,
-          y: self.midpoint().y,
+          x: self.position().x,
+          y: self.position().y,
           sprite: loadImageTile("images/effects/enemybullet1_small.png")
         });
       }
