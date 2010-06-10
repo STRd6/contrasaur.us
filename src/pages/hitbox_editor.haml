@@ -1,0 +1,165 @@
+#title
+  %h1 Hitbox Editor
+
+#game_container
+  #game_info
+    %span#health_label health
+    #progress_bar
+      #health
+    #score_holder
+      %span#score_label score
+      %span#score 0
+  %canvas#gameCanvas{:width => 640, :height => 480}
+    %p
+      HTML5 canvas not supported by your browser.
+      = link "Learn more here", "http://www.google.com/chrome"
+
+:javascript
+  var activeCircle;
+  var activeColor = "rgba(255, 0, 255, 0.5)";
+  var circleColor = "rgba(255, 0, 0, 0.5)";
+  var circles = [{"x":-44,"y":1,"radius":14},{"x":45,"y":-4,"radius":13},{"x":20,"y":11,"radius":13},{"x":29,"y":-9,"radius":17},{"x":-10,"y":13,"radius":28}];
+  
+  $('#gameCanvas').powerCanvas({init: function(canvas) {
+    var character = GameObject({
+      x: 320,
+      y: 240,
+      sprite: loadImageTile("images/dino1.png")
+    }).extend({
+      setCircles: function(newCircles) {
+        circles = newCircles;
+      },
+
+      getCircles: function() {
+        var transform = this.getTransform();
+        var midpoint = this.midpoint();
+
+        return $.map(circles, function(circle) {
+          var point = transformPoint(circle, transform);
+          return {
+            x: point.x + midpoint.x,
+            y: point.y + midpoint.y,
+            radius: circle.radius,
+            circle: circle
+          };
+        });
+      },
+
+      getTransform: function() {
+        return IDENTITY_MATRIX;
+      },
+
+      after: {
+        draw: function(canvas) {
+          $.each(this.getCircles(), function(i, circle) {
+            var color = (circle.circle == activeCircle ? activeColor : circleColor);
+            canvas.fillCircle(circle.x, circle.y, circle.radius, color);
+          });
+        }
+      }
+    });
+
+    setInterval(function() {
+      canvas.fill('#000');
+      character.draw(canvas);
+    }, 33);
+
+    canvas.click(function(e) {
+      var point = {
+        x: event.offsetX,
+        y: event.offsetY
+      };
+
+      console.log(point);
+
+      var set = false;
+
+      // Check which circle was hit
+      $.each(character.getCircles(), function(i, circle) {
+        if(set) {
+          return;
+        }
+
+        console.log(circle);
+        var dx = point.x - circle.x;
+        var dy = point.y - circle.y;
+        var dist = circle.radius;
+
+        console.log(dx);
+        console.log(dy);
+        console.log(dist);
+
+        if(dx * dx + dy * dy < dist * dist) {
+          activeCircle = circle.circle;
+          set = true;
+        }
+
+        console.log(activeCircle);
+      });
+
+      if(!set) {
+        activeCircle = undefined;
+      }
+    });
+
+  }});
+
+  function move(x, y) {
+    console.log("MOVE");
+    if(activeCircle) {
+      activeCircle.x += x;
+      activeCircle.y += y;
+    }
+  }
+
+  function grow(delta) {
+    console.log("GROW");
+    if(activeCircle) {
+      activeCircle.radius = Math.clamp(delta + activeCircle.radius, 1, 1000);
+    }
+  }
+
+  keyEvents = {
+    "left": function() {
+      move(-1, 0);
+    },
+    "right": function() {
+      move(1, 0);
+    },
+    "up": function() {
+      move(0, -1);
+    },
+    "down": function() {
+      move(0, 1);
+    },
+    "+": function() {
+      grow(1);
+    },
+    "-": function() {
+      grow(-1);
+    },
+    "shift+left": function() {
+      move(-10, 0);
+    },
+    "shift+right": function() {
+      move(10, 0);
+    },
+    "shift+up": function() {
+      move(0, -10);
+    },
+    "shift+down": function() {
+      move(0, 10);
+    },
+    "shift++": function() {
+      grow(10);
+    },
+    "shift+-": function() {
+      grow(-10);
+    },
+  }
+
+  $.each(keyEvents, function(key, fn) {
+    console.log(key);
+    console.log(fn);
+    $(document).bind('keydown', key, fn);
+  });

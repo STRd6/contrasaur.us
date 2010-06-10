@@ -7,7 +7,7 @@ function Bullet(theta, I) {
     height: 4,
     radius: 2,
     color: "#000",
-    sprite: loadImageTile("images/effects/playerbullet1_small.png"),
+    sprite: loadImageTile("images/projectiles/playerbullet4.png"),
     collisionType: "dinoBullet",
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
