@@ -2,7 +2,7 @@ function Bomber(I) {
   I = I || {};
 
   var bombs = 6;
-  var dropPosition = 500;
+  var age = 0;
   var cooldown = 0;
 
   function dropBomb() {
@@ -15,7 +15,7 @@ function Bomber(I) {
   }
 
   $.reverseMerge(I, {
-    x: 600,
+    x: 650,
     y: 40,
     width: 71,
     height: 44,
@@ -31,7 +31,7 @@ function Bomber(I) {
         cooldown--;
       }
       // Shoot
-      if (cooldown == 0 && I.x < dropPosition && bombs > 0) {
+      if (cooldown == 0 && age > 20 && bombs > 0) {
         dropBomb();
       }
     },
