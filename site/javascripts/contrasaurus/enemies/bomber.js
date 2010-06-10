@@ -40,7 +40,15 @@ function Bomber(I) {
 
   I.hFlip = I.xVelocity <= 0;
 
-  var self = Enemy(I)
+  var self = Enemy(I).extend({
+    bulletHitEffect: function(bullet) {
+      var effect = Effect(bullet.velocity(), 9, $.extend(bullet.position(), {
+        sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16)
+      }));
+
+      addGameObject(effect);
+    }
+  });
 
   return self;
 }
