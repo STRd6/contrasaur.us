@@ -6,6 +6,7 @@ function Level(I) {
 
   var gameObjects = [];
   var gameObjectsQueue = [];
+  var oldEnemies = [];
   var collidables;
   var backgroundColor = "#A2EEFF";
   var step = 0;
@@ -116,7 +117,7 @@ function Level(I) {
     },
 
     enemies: function() {
-      return collidables.enemy;
+      return oldEnemies;
     },
 
     position: function() {
@@ -130,6 +131,25 @@ function Level(I) {
       } else if (tiltAmount < -2) {
         tiltAmount = Math.ceil(tiltAmount);
       }
+    },
+
+    nearestEnemy: function(currentPosition) {
+      var nearest;
+      var nearestDistance;
+
+      $.each(self.enemies(), function(i, enemy) {
+        var enemyDistance = distance(currentPosition, enemy.position());
+        if(nearest) {
+          if(nearestDistance > enemyDistance) {
+            nearest = enemy;
+            nearestDistance = enemyDistance;
+          }
+        } else {
+          nearest = enemy;
+          nearestDistance = enemyDistance;
+        }
+      });
+      return nearest;
     },
 
     tiltAmount: function(value) {
@@ -195,6 +215,8 @@ function Level(I) {
       score += collidables.dinoBullet.length;
 
       position.x += tiltAmount;
+
+      oldEnemies = collidables.enemy;
     }
   };
 

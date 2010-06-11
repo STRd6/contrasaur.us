@@ -1,13 +1,11 @@
 function Dinosaur() {
   var width = 128;
   var height = 128;
-  var jetpackCounter = 0;
-  var jetpackCharge = 0;
   var laserGun = LaserGun();
   var flamethrower = Flamethrower();
   var bazooka = Bazooka();
   var primalScream = PrimalScream();
-  var shotgun = Shotgun();
+  var shotgun = Shotgun(this);
   var machineGun = MachineGun();
   var jetpack = Jetpack();
   var weaponsArray = [];
@@ -51,38 +49,6 @@ function Dinosaur() {
 
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
-  }
-
-  function nearestEnemy() {
-    var nearest;
-    var nearestDistance;
-
-    $.each(currentLevel.enemies(), function(i, enemy) {
-      var enemyDistance = distance(self.position(), enemy.position());
-      if(nearest) {
-        if(nearestDistance > enemyDistance) {
-          nearest = enemy;
-          nearestDistance = enemyDistance;
-        }
-      } else {
-        nearest = enemy;
-        nearestDistance = enemyDistance
-      }
-    });
-
-    return nearest;
-  }
-
-  function nearestEnemy2() {
-    var enemyDistance = [];
-
-    enemyDistance = $.map(enemyDistance, function(enemy, i) {
-      return {
-        enemy: enemy,
-        distance: distance(self.position(), enemy.position())
-    }})
-
-    return enemyDistance;
   }
 
   var self = GameObject(I).extend({
@@ -236,7 +202,6 @@ function Dinosaur() {
         flamethrower.Direction(lastDirection);
         machineGun.getBerserk(berserk);
         machineGun.getAirborne(airborne);
-        shotgun.nearestEnemy(nearestEnemy());
 
         $.each(weaponsArray, function(i, weapon) {
           weapon.update();

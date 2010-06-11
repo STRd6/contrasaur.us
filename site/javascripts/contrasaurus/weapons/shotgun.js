@@ -1,27 +1,22 @@
 function Shotgun(I) {
   I = I || {};
 
-  var nearestEnemy;
-
   $.reverseMerge(I, {
     age: 0,
     power: 0,
     radius: 5,
     theta: 0,
-    x: 0,
-    y: 0
+    dino: I.dino,
+    x: I.x || 0,
+    y: I.y || 0
   });
 
   var self = Weapon(I).extend({
 
-    nearestEnemy: function(value) {
-      nearestEnemy = value;
-    },
-
     shoot: function(midpoint, transform) {
 
       if(rand(100) < I.power) {
-        var target = nearestEnemy;
+        var target = currentLevel.nearestEnemy(I.dino.position());
         var direction;
 
         if(target) {
