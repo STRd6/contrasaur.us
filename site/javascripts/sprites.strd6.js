@@ -64,13 +64,20 @@
     return self;
   };
 
-  window["Animation"] = function(frameData) {
+  window["Animation"] = function(frameData, delay) {
+    var count = 0;
     var currentFrame = 0;
     var frameCount = frameData.length;
+    delay = delay || 1;
 
     return {
       update: function() {
-        currentFrame = (currentFrame + 1) % frameCount;
+        count++;
+
+        if(count % delay == 0) {
+          currentFrame = (currentFrame + 1) % frameCount;
+          count = 0;
+        }
       },
 
       draw: function(canvas, x, y, options) {
@@ -103,7 +110,7 @@
     };
   };
 
-  window["loadAnimation"] = function(url, frames, width, height) {
+  window["loadAnimation"] = function(url, frames, width, height, delay) {
     var img = new Image();
     var proxy = LoaderProxy();
 
@@ -117,7 +124,7 @@
         frameData[i] = Tile(img, i * width, 0, width, height);
       });
 
-      $.extend(proxy, Animation(frameData));
+      $.extend(proxy, Animation(frameData, delay));
     };
 
     img.src = url;
