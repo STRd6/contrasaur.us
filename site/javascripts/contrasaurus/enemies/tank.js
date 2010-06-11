@@ -15,6 +15,7 @@ function Tank(I) {
     health: 10,
     hFlip: I.xVelocity <= 0,
     color: "#FF7",
+    pointsWorth: 5000,
     sprite: tankTile,
     shootLogic: function() {
       // Shoot

@@ -15,7 +15,7 @@ function GameObject(I) {
     yVelocity: 0,
     collideDamage: 0,
     collisionType: "none",
-    pointsWorth: 1000
+    pointsWorth: 0
   });
 
   function move() {
@@ -95,6 +95,7 @@ function GameObject(I) {
       I.health = I.health - other.collideDamage();
       if (I.health <= 0) {
         I.active = false;
+        addScore(I.pointsWorth);
       }
     },
 

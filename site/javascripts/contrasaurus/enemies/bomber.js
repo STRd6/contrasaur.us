@@ -24,7 +24,7 @@ function Bomber(I) {
     yVelocity: 0,
     health: 5,
     color: "#088",
-    pointsWorth: 3000,
+    pointsWorth: 5000,
     shootLogic: function() {
       if (cooldown > 0) {
         cooldown--;

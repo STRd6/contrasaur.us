@@ -15,6 +15,10 @@ var stages = [];
 var gameOver = false;
 var currentStage = -1;
 
+function addScore(points) {
+  score += points;
+}
+
 function drawOverlay() {
   var activeTexts = [];
   $.each(displayTexts, function(i, displayText) {
