@@ -4,9 +4,9 @@ function Utahraptor(I) {
   var xVelocity;
 
   if (Math.random() < 0.5) {
-    xVelocity = 3;
+    xVelocity = 2;
   } else {
-    xVelocity = -3;
+    xVelocity = -2;
   }
 
   $.reverseMerge(I, {
