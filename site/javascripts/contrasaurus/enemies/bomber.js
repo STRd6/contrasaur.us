@@ -2,7 +2,6 @@ function Bomber(I) {
   I = I || {};
 
   var bombs = 6;
-  var age = 0;
   var cooldown = 0;
 
   function dropBomb() {
@@ -31,7 +30,7 @@ function Bomber(I) {
         cooldown--;
       }
       // Shoot
-      if (cooldown == 0 && age > 20 && bombs > 0) {
+      if (cooldown == 0 && I.age > 20 && bombs > 0) {
         dropBomb();
       }
     },
