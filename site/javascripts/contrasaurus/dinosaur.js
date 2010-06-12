@@ -94,10 +94,6 @@ function Dinosaur() {
       }
     },
 
-    getTheta: function() {
-      return theta;
-    },
-
     jetpack: function() {
       return jetpack;
     },

@@ -1,7 +1,7 @@
 function HomingMissile(I) {
   I = I || {};
 
-  var speed = 5;
+  var direction = 0;
 
   $.reverseMerge(I, {
     color: '#500',
@@ -9,9 +9,8 @@ function HomingMissile(I) {
     height: 19,
     radius: 4.5,
     collideDamage: 5,
+    speed: 5,
     sprite: loadImageTile("images/projectiles/homing_missile.png"),
-    xVelocity: speed,
-    yVelocity: 0
   });
 
   function getDirection() {
@@ -31,7 +30,7 @@ function HomingMissile(I) {
     if(isNaN(direction)) {
       debugger;
     }
-      //console.log(direction);
+
     return direction;
   }
 
