@@ -1,45 +1,39 @@
 function HomingMissile(I) {
   I = I || {};
 
-  var speed = 2;
-  var direction = 0;
+  var speed = 5;
 
   $.reverseMerge(I, {
     color: '#500',
-    width: 35,
-    height: 16,
-    radius: 8,
+    width: 24,
+    height: 19,
+    radius: 4.5,
     collideDamage: 5,
     sprite: loadImageTile("images/projectiles/homing_missile.png"),
-    xVelocity: Math.cos(direction)*speed,
-    yVelocity: Math.sin(direction)*speed
+    xVelocity: speed,
+    yVelocity: 0
   });
 
-//  var target = currentLevel.nearestEnemy(I.dino.position());
-//  var midpoint = I.dino.midpoint();
-//
-//  function getDirection() {
-//    target = currentLevel.nearestEnemy(I.dino.position());
-//    midpoint = I.dino.midpoint();
-//
-//    if(target) {
-//      var targetMidpoint = target.midpoint();
-//      var targetDistance = distance(midpoint, targetMidpoint);
-//      var targetVelocity = target.velocity();
-//
-//      targetMidpoint.y += (targetDistance / 10) * targetVelocity.y;
-//      targetMidpoint.x += (targetDistance / 10) * targetVelocity.x;
-//
-//      direction = Math.atan2(
-//        targetMidpoint.y - midpoint.y,
-//        targetMidpoint.x - midpoint.x
-//      );
-//    } else {
-//      direction = target ? Math.atan2(I.yVelocity, I.xVelocity) : 0;
-//    }
-//
-//    return direction;
-//  }
+  function getDirection() {
+    var direction;
+    var target = currentLevel.nearestEnemy(self.position());
+    if(target) {
+      var targetPosition = target.position();
+
+      direction = Math.atan2(
+        targetPosition.y - I.y,
+        targetPosition.x - I.x
+      );
+    } else {
+      direction = Math.atan2(I.yVelocity, I.xVelocity);
+    }
+
+    if(isNaN(direction)) {
+      debugger;
+    }
+      //console.log(direction);
+    return direction;
+  }
 
   var self = Bullet(direction, I).extend({
     getTransform: function() {
@@ -47,7 +41,11 @@ function HomingMissile(I) {
     },
     after: {
       update: function() {
-//        getDirection();
+        var direction = getDirection();
+        if(direction) {
+          I.xVelocity = (I.xVelocity * 0.9) + Math.cos(direction);
+          I.yVelocity = (I.yVelocity * 0.9) + Math.sin(direction);
+        }
       }
     }
   });

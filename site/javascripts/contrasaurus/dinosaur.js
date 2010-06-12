@@ -221,9 +221,10 @@ function Dinosaur() {
     }
   });
   var shotgun = Shotgun(self);
-  var bazooka = Bazooka(self);
+  var bazooka = Bazooka();
   var weaponsArray = [];
   weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
+
 
   return self;
 }
