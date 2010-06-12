@@ -3,13 +3,9 @@ function Dinosaur() {
   var height = 128;
   var laserGun = LaserGun();
   var flamethrower = Flamethrower();
-  var bazooka = Bazooka();
   var primalScream = PrimalScream();
-  var shotgun = Shotgun(this);
   var machineGun = MachineGun();
   var jetpack = Jetpack();
-  var weaponsArray = [];
-  weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 150;
@@ -55,7 +51,7 @@ function Dinosaur() {
     bulletHitEffect: function(bullet) {
       var effect = Effect(bullet.velocity(), 10, $.extend(bullet.position(), {
         sprite: [
-          loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
+          loadAnimation("images/effects/bloodEffect3_16x16 flip.png", 9, 16, 16),
           loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
           loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
           loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
@@ -224,5 +220,10 @@ function Dinosaur() {
       }
     }
   });
+  var shotgun = Shotgun(self);
+  var bazooka = Bazooka(self);
+  var weaponsArray = [];
+  weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
+
   return self;
 }
