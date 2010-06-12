@@ -119,8 +119,6 @@ function display(text) {
 }
 
 $(document).keydown(function(e) {
-  console.log(e);
-
   if(e.keyCode == 39) {
     currentLevel.changeTiltAmount(0.2);
     $('#tilt').text(currentLevel.tiltAmount());
