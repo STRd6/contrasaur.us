@@ -141,6 +141,7 @@ function Dinosaur() {
         }
 
         chainsaw.draw(canvas);
+        laserGun.draw(canvas);
       });
 
       // TO DO call draw on each weapon
