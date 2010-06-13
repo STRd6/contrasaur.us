@@ -1,4 +1,4 @@
-function BombExplosion(I) {
+function Explosion(I) {
   var duration = 25;
   I = I || {};
 

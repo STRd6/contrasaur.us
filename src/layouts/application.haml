@@ -8,7 +8,7 @@
     %link{ :rel => "shortcut icon", :href => "favicon.ico", :type => "image/x-icon"}
 
     = javascripts('contrasaurus/config', 'jquery-1.4.2.min', 'jquery.hotkeys', 'power_canvas.jquery', 'sprites.strd6', 'power_canvas.jquery', 'util', 'matrix')
-    - projectile_files = %w[bomb bomb_explosion bullet effect flame grenade homing_missile laser missile powerup powerup_container].map { |file_name| "contrasaurus/projectiles/#{file_name}" }
+    - projectile_files = %w[bomb explosion bullet effect flame grenade homing_missile laser missile powerup powerup_container].map { |file_name| "contrasaurus/projectiles/#{file_name}" }
     = javascripts(*projectile_files)
     = javascripts('contrasaurus/levels/cutscene', 'contrasaurus/levels/level')
     - enemy_files = %w[bomber enemy parasoldier tank utahraptor].map { |name| "contrasaurus/enemies/#{name}" }

@@ -17,7 +17,7 @@ function Bomb(xVelocity, I) {
   function explode() {
     if(I.active) {
       I.active = false;
-      addGameObject(BombExplosion({x: I.x, y: I.y - 50}));
+      addGameObject(Explosion({x: I.x, y: I.y - 50}));
     }
   }
 

@@ -18,7 +18,7 @@ function Grenade(theta, I) {
   function detonate() {
     if(I.active) {
       I.active = false;
-      addGameObject(BombExplosion({
+      addGameObject(Explosion({
         x: I.x,
         y: I.y - 50
       }));

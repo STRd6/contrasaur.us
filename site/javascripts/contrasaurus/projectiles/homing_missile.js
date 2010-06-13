@@ -10,7 +10,7 @@ function HomingMissile(I) {
     radius: 4.5,
     collideDamage: 5,
     speed: 5,
-    sprite: loadImageTile("images/projectiles/homing_missile.png"),
+    sprite: loadImageTile("images/projectiles/homing_missile.png")
   });
 
   function getDirection() {
@@ -34,9 +34,25 @@ function HomingMissile(I) {
     return direction;
   }
 
+  function explode() {
+    if(I.active) {
+      I.active = false;
+      addGameObject(Explosion({
+        x: I.x,
+        y: I.y,
+        collisionType: "dinoBullet",
+        duration: 10, 
+        sprite: loadAnimation("images/effects/explosion_46x46.png", 5, 46, 46, 2)
+      }));
+    }
+  }
+
   var self = Bullet(direction, I).extend({
     getTransform: function() {
       return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
+    },
+    hit: function() {
+      explode();
     },
     after: {
       update: function() {
