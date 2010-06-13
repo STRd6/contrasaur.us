@@ -7,7 +7,7 @@ function Dinosaur() {
   var machineGun = MachineGun();
   var chainsaw = Chainsaw();
   var jetpack = Jetpack();
-  var shield = Shield();
+  //var shield = Shield();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 150;
@@ -143,7 +143,7 @@ function Dinosaur() {
 
         chainsaw.draw(canvas);
         laserGun.draw(canvas);
-        shield.draw(canvas);
+        //shield.draw(canvas);
       });
 
       // TO DO call draw on each weapon
