@@ -1,9 +1,14 @@
 function LaserGun(I) {
   I = I || {};
 
+  var eyePoint = {
+    x: 45,
+    y: -11
+  };
+
   $.reverseMerge(I, {
     age: 0,
-    power: 0,
+    power: 10,
     radius: 5,
     theta: 0,
     x: 0,
@@ -13,10 +18,11 @@ function LaserGun(I) {
   var self = Weapon(I).extend({
 
     shoot: function(midpoint, transform) {
+      var exitPoint = transformPoint(eyePoint, transform);
       if (rand(100) < I.power) {
         addGameObject(Laser(I.theta, {
-          x: midpoint.x,
-          y: midpoint.y
+          x: midpoint.x + exitPoint.x,
+          y: midpoint.y + exitPoint.y
         }));
       }
     },
