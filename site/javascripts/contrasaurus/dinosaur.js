@@ -33,6 +33,8 @@ function Dinosaur() {
     hitCircles: [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
   };
 
+  var accessories = [];
+
   var lastDirection = I.xVelocity;
 
   var healthMax = I.health;
@@ -49,6 +51,10 @@ function Dinosaur() {
   }
 
   var self = GameObject(I).extend({
+    addAccessory: function(accessory) {
+      accessories.push(accessory);
+    },
+
     bulletHitEffect: function(bullet) {
       var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
         duration: 10,
@@ -115,6 +121,10 @@ function Dinosaur() {
           -dinoTile.width/2,
           -dinoTile.height/2
         );
+
+        $.each(accessories, function(i, accessory) {
+          accessory.draw(canvas);
+        });
 
         if(!parasailing) {
           jetpack.draw(canvas);

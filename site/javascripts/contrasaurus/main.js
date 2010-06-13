@@ -133,3 +133,14 @@ $(document).keydown(function(e) {
     nextStage(e.keyCode - 48);
   }
 });
+
+
+var tophat = GameObject({
+  x: 30,
+  y: -32,
+  sprite: loadImageTile("images/accessories/tophat.png")
+});
+
+if(rand() < 0.25) {
+  dino.addAccessory(tophat);
+}
