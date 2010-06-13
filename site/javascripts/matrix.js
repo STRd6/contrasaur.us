@@ -6,7 +6,10 @@
   function Point(x, y) {
     return {
       x: x || 0,
-      y: y || 0
+      y: y || 0,
+      add: function(other) {
+        return Point(this.x + other.x, this.y + other.y);
+      }
     }
   }
 

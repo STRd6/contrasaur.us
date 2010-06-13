@@ -36,10 +36,7 @@ function GameObject(I) {
     },
 
     position: function() {
-      return {
-        x: I.x,
-        y: I.y
-      }
+      return Point(I.x, I.y);
     },
 
     getCircles: function() {

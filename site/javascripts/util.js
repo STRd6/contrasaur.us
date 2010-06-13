@@ -1,5 +1,9 @@
 function rand(n) {
-  return Math.floor(Math.random() * n);
+  if(n !== undefined) {
+    return Math.floor(Math.random() * n);
+  } else {
+    return Math.random();
+  }
 }
 
 function distance(p1, p2) {

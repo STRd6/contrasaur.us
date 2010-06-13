@@ -25,6 +25,13 @@ function Enemy(I) {
           sprite: loadImageTile("images/effects/enemybullet1_small.png")
         });
       }
+
+      // throw grenades
+      if (rand() < 0.05) {
+        var throwDirection = - Math.PI / 4;
+        var grenade = Grenade(throwDirection, self.position().add(Point(0, -20)));
+        addGameObject(grenade);
+      }
     },
     sprite: soldierTile
   });
