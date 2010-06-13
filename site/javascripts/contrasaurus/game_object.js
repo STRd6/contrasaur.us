@@ -5,6 +5,7 @@ function GameObject(I) {
     active: true,
     age: 0,
     color: "#880",
+    duration: -1,
     health: 1,
     x: 0,
     y: 0,
@@ -123,6 +124,10 @@ function GameObject(I) {
 
       if(I.sprite) {
         I.sprite.update();
+      }
+
+      if(I.duration != -1 && I.age > I.duration) {
+        I.active = false;
       }
     },
 

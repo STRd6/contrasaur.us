@@ -5,6 +5,7 @@ function Bullet(theta, I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
+    duration: -1,
     width: 4,
     height: 4,
     radius: 2,
@@ -20,6 +21,9 @@ function Bullet(theta, I) {
   var self = GameObject(I).extend({
     getTransform: function() {
       return transform;
+    },
+    land: function() {
+      I.active = false;
     },
     after: {
       hit: function(other) {

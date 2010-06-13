@@ -9,6 +9,19 @@ function Chainsaw(I) {
     theta: 0
   });
 
+  var exitPoints = [Point(60, 20), Point(90, 20)];
+
+  function generateBulletData(globalPosition, localPosition) {
+    return {
+      duration: 1,
+      speed: 0,
+      sprite: Tile.EMPTY,
+      radius: 10,
+      x: localPosition.x + globalPosition.x,
+      y: localPosition.y + globalPosition.y
+    };
+  }
+
   var self = Weapon(I).extend({
 
     draw: function(canvas) {
@@ -29,15 +42,11 @@ function Chainsaw(I) {
     },
 
     shoot: function(position, transform) {
-      var bulletPosition = transform.concat(self.getTransform()).transformPoint(50, 0);
-      console.log(bulletPosition);
-      addGameObject(Bullet(0,
-        {
-          x: bulletPosition.x + position.x,
-          y: bulletPosition.y + position.y,
-          speed: 0
-        }
-      ));
+      $.each(exitPoints, function(i, exitPoint) {
+        var localPosition = transform.concat(self.getTransform()).transformPoint(exitPoint);
+
+        addGameObject(Bullet(0, generateBulletData(position, localPosition)));
+      });
     },
 
     update: function() {

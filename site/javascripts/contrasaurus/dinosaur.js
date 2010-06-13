@@ -50,7 +50,8 @@ function Dinosaur() {
 
   var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), 10, $.extend(bullet.position(), {
+      var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
+        duration: 10,
         sprite: [
           loadAnimation("images/effects/bloodEffect3_16x16 flip.png", 9, 16, 16),
           loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),

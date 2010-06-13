@@ -1,9 +1,10 @@
-function Effect(velocity, maxAge, I) {
+function Effect(velocity, I) {
   $.reverseMerge(I, {
     width: 8,
     height: 8,
     radius: 4,
     color: "#000",
+    duration: 33,
     xVelocity: 1,
     yVelocity: 0
   });
@@ -13,13 +14,6 @@ function Effect(velocity, maxAge, I) {
   var self = GameObject(I).extend({
     getTransform: function() {
       return transform;
-    },
-    after: {
-      update: function() {
-        if(I.age > maxAge) {
-          I.active = false;
-        }
-      }
     }
   });
 

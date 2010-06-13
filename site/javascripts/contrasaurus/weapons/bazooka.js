@@ -3,7 +3,7 @@ function Bazooka(I) {
 
   $.reverseMerge(I, {
     age: 0,
-    power: 50,
+    power: 0,
     radius: 5,
     theta: 0,
     x: 0,
@@ -12,7 +12,7 @@ function Bazooka(I) {
 
   var self = Weapon(I).extend({
     shoot: function(midpoint, transform) {
-      if (rand(100) < 10) {
+      if (rand(100) < I.power) {
         addGameObject(HomingMissile(midpoint));
       }
     },

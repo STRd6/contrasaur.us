@@ -6,6 +6,7 @@ function Utahraptor(I) {
     collideDamage: 0,
     health: 1,
     pointsWorth: 1000,
+    radius: 20,
     shootLogic: $.noop,
     sprite: [
       loadImageTile("images/enemies/dinofodder1.png"),

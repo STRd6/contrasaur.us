@@ -22,7 +22,8 @@ function Floor(I) {
       } else {
         sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
       }
-      var effect = Effect(Point(), 8, $.extend(bullet.position(), {
+      var effect = Effect(Point(), $.extend(bullet.position(), {
+        duration: 8,
         sprite: sprite
       }));
 

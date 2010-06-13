@@ -1,14 +1,14 @@
 (function(){
   function LoaderProxy() {
     return {
-      draw: function() {},
-      update: function(){},
+      draw: $.noop,
+      update: $.noop,
       width: null,
       height: null
     };
   }
 
-  window["Tile"] = function(image, sourceX, sourceY, width, height) {
+  var Tile = function(image, sourceX, sourceY, width, height) {
     sourceX = sourceX || 0;
     sourceY = sourceY || 0;
     width = width || image.width;
@@ -41,6 +41,9 @@
       height: height
     };
   };
+
+  window["Tile"] = Tile;
+  Tile.EMPTY = LoaderProxy();
 
   window["Composite"] = function(tileData) {
     var tileCount = tileData.length;
