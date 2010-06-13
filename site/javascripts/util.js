@@ -14,6 +14,12 @@ function isNaN(x) {
   return typeof(x) === "number" && !(x <= 0) && !(x >= 0);
 }
 
+function warning(message) {
+  if(console && console.warn) {
+    console.warn(message);
+  }
+}
+
 /**
  * Randomly select an element from the array.
  *

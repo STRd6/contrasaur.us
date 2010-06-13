@@ -8,6 +8,14 @@
     };
   }
 
+  var brokenImageWarning = function(url) {
+    return function() {
+      if(warning) {
+        warning("Could not load: " + url);
+      }
+    }
+  }
+
   var Tile = function(image, sourceX, sourceY, width, height) {
     sourceX = sourceX || 0;
     sourceY = sourceY || 0;
@@ -148,6 +156,8 @@
         loadedCallback(proxy);
       }
     };
+
+    img.onerror = brokenImageWarning(url);
 
     img.src = url;
 
