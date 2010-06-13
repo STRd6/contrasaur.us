@@ -5,13 +5,14 @@ function Bullet(theta, I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
+    collisionType: "dinoBullet",
+    color: "#000",
     duration: -1,
+    effectCount: 1,
     width: 4,
     height: 4,
     radius: 2,
-    color: "#000",
     sprite: loadImageTile("images/projectiles/playerbullet4.png"),
-    collisionType: "dinoBullet",
     xVelocity: Math.cos(theta)*I.speed,
     yVelocity: Math.sin(theta)*I.speed
   });
@@ -28,7 +29,9 @@ function Bullet(theta, I) {
     after: {
       hit: function(other) {
         if(other.bulletHitEffect) {
-          other.bulletHitEffect(self);
+          I.effectCount.times(function() {
+            other.bulletHitEffect(self);
+          });
         }
       },
       update: GameObject.generateCheckBounds(I)
