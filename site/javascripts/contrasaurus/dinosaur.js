@@ -15,6 +15,8 @@ function Dinosaur() {
   var airborne = true;
   var berserk = false;
 
+  var pitchAngle = 0;
+
   var dinoTile = loadImageTile("images/dino1.png");
   var parasailTile = loadImageTile("images/parasail.png");
   
@@ -95,11 +97,19 @@ function Dinosaur() {
     },
 
     getTransform: function () {
+      var transform;
+
       if (lastDirection <= 0 && !parasailing) {
-        return Matrix.HORIZONTAL_FLIP;
+        transform = Matrix.HORIZONTAL_FLIP;
       } else {
-        return Matrix.IDENTITY;
+        transform = Matrix.IDENTITY;
       }
+      
+      if(airborne) {
+        transform = transform.concat(Matrix.rotation(pitchAngle));
+      }
+
+      return transform;
     },
 
     jetpack: function() {
@@ -165,6 +175,7 @@ function Dinosaur() {
         if(parasailing == true) {
           I.x = (CANVAS_WIDTH - width) / 2;
           I.y = 150;
+          pitchAngle = 0;
         }
         return self;
       } else {
@@ -194,6 +205,8 @@ function Dinosaur() {
 
           if (!airborne) {
             lastDirection = I.xVelocity;
+          } else {
+            pitchAngle += Math.PI / 24;
           }
         }
 
