@@ -1,5 +1,7 @@
 function Bullet(theta, I) {
-  var speed = 10;
+   $.reverseMerge(I, {
+     speed: 10
+   });
 
   $.reverseMerge(I, {
     collideDamage: 1,
@@ -9,8 +11,8 @@ function Bullet(theta, I) {
     color: "#000",
     sprite: loadImageTile("images/projectiles/playerbullet4.png"),
     collisionType: "dinoBullet",
-    xVelocity: Math.cos(theta)*speed,
-    yVelocity: Math.sin(theta)*speed
+    xVelocity: Math.cos(theta)*I.speed,
+    yVelocity: Math.sin(theta)*I.speed
   });
 
   var transform = rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));

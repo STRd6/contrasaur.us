@@ -42,8 +42,8 @@ function HomingMissile(I) {
       update: function() {
         var direction = getDirection();
         if(direction) {
-          I.xVelocity = (I.xVelocity * 0.9) + Math.cos(direction);
-          I.yVelocity = (I.yVelocity * 0.9) + Math.sin(direction);
+          I.xVelocity = (I.xVelocity * 0.95) + Math.cos(direction);
+          I.yVelocity = (I.yVelocity * 0.95) + Math.sin(direction);
         }
       }
     }

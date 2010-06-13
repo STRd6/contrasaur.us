@@ -5,6 +5,7 @@ function Dinosaur() {
   var flamethrower = Flamethrower();
   var primalScream = PrimalScream();
   var machineGun = MachineGun();
+  var chainsaw = Chainsaw();
   var jetpack = Jetpack();
 
   var x = (CANVAS_WIDTH - width) / 2;
@@ -117,6 +118,8 @@ function Dinosaur() {
         if(!parasailing) {
           jetpack.draw(canvas);
         }
+
+        chainsaw.draw(canvas);
       });
 
       // TO DO call draw on each weapon
@@ -166,15 +169,15 @@ function Dinosaur() {
           I.xVelocity = Math.sin(I.age);
           I.yVelocity = Math.cos(I.age/2);
         } else {
-          if (jetpack.active()) {
+          if (jetpack.engaged()) {
             airborne = true;
           }
 
-          if (airborne && jetpack.active()) {
+          if (airborne && jetpack.engaged()) {
             I.yVelocity = -1;
           }
 
-          if (!(jetpack.active()) && airborne) {
+          if (!(jetpack.engaged()) && airborne) {
             I.yVelocity = 6;
           }
 
@@ -219,7 +222,7 @@ function Dinosaur() {
   var shotgun = Shotgun(self);
   var bazooka = Bazooka();
   var weaponsArray = [];
-  weaponsArray.push(laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
+  weaponsArray.push(chainsaw, laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
 
 
   return self;

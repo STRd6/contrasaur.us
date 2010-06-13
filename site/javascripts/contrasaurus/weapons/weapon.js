@@ -3,6 +3,7 @@ function Weapon(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    duration: 200,
     power: 0,
     radius: 5,
     theta: 0,
@@ -24,6 +25,13 @@ function Weapon(I) {
       if (rand(100) < I.power) {
         addGameObject(Bullet(theta, position));
       }
+      if (I.duration < 0) {
+        self.active = false;
+      }
+    },
+
+    update: function() {
+      I.duration--;
     }
   });
   return self;

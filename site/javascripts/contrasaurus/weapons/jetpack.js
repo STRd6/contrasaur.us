@@ -6,20 +6,20 @@ function Jetpack(I) {
   var activeTile = loadImageTile("images/jetpack_active.png");
 
   $.reverseMerge(I, {
-    active: false,
     age: 0,
+    engaged: false,
     jetpackCharge: 0,
     jetpackCounter: 0,
-    sprite: loadImageTile("images/jetpack.png"),
+    sprite: loadImageTile("images/jetpack.png")
   });
 
   var self = Weapon(I).extend({
 
-    active: function(value) {
+    engaged: function(value) {
       if (value === undefined) {
-        return I.active;
+        return I.engaged;
       } else {
-        I.active = value;
+        I.engaged = value;
         return self;
       }
     },
@@ -47,12 +47,12 @@ function Jetpack(I) {
 
       if (I.jetpackCounter > 0) {
         I.jetpackCounter--;
-        I.active = true;
+        I.engaged = true;
       } else {
-        I.active = false;
+        I.engaged = false;
       }
 
-      I.sprite = I.active ? activeTile : jetpackTile;
+      I.sprite = I.engaged ? activeTile : jetpackTile;
     },
 
     yVelocity: function(value) {
