@@ -154,11 +154,6 @@
           }));
         }
 
-      } else {
-        addGameObject(Powerup("meat", {
-          x: level.position().x + rand(CANVAS_WIDTH),
-          xVelocity: rand(6) - 3
-        }));
       }
     }
   }

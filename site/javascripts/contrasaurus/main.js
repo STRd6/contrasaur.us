@@ -134,7 +134,6 @@ $(document).keydown(function(e) {
   }
 });
 
-
 var tophat = GameObject({
   x: 30,
   y: -32,
@@ -144,3 +143,11 @@ var tophat = GameObject({
 if(rand() < 0.25) {
   dino.addAccessory(tophat);
 }
+
+$("#meat").click(function() {
+  console.log("Meat!");
+  addGameObject(Powerup("meat", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: rand(6) - 3
+  }));
+});
