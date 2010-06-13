@@ -12,6 +12,12 @@ function Weapon(I) {
   });
 
   var self = GameObject(I).extend({
+    draw: function(canvas) {
+      if (I.active) {
+        I.sprite.draw(canvas);
+      }
+    },
+
     power: function(value) {
         if (value === undefined) {
           return I.power;

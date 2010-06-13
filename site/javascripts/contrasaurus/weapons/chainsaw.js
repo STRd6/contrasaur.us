@@ -12,14 +12,16 @@ function Chainsaw(I) {
   var self = Weapon(I).extend({
 
     draw: function(canvas) {
-      canvas.withState( 
-        0,
-        0, 
-        { transform: self.getTransform() },
-        function() {
-          I.sprite.draw(canvas);
-        }
-      )
+      if (I.active) {
+        canvas.withState(
+          0,
+          0,
+          { transform: self.getTransform() },
+          function() {
+            I.sprite.draw(canvas);
+          }
+        )
+      }
     },
 
     getTransform: function() {
@@ -28,6 +30,7 @@ function Chainsaw(I) {
 
     shoot: function(position, transform) {
       var bulletPosition = transform.concat(self.getTransform()).transformPoint(50, 0);
+      console.log(bulletPosition);
       addGameObject(Bullet(0,
         {
           x: bulletPosition.x + position.x,
@@ -38,8 +41,9 @@ function Chainsaw(I) {
     },
 
     update: function() {
+      I.duration--;
       I.age++;
-      I.theta = Math.sin(I.age / 4) * Math.PI / 6;
+      I.theta = Math.sin(I.age / 4) * (Math.PI / 6);
     }
   })
   return self;
