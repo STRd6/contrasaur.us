@@ -1,22 +1,15 @@
 function Enemy(I) {
   I = I || {};
 
-  var soldierTile = loadImageTile("images/soldier.png");
-
   $.reverseMerge(I, {
-    x: rand(CANVAS_WIDTH),
-    y: CANVAS_HEIGHT - Floor.LEVEL - soldierTile.height,
-    width: 38,
-    height: soldierTile.height,
-    radius: 19,
-    yVelocity: 0,
-    health: 3,
-    hFlip: I.hFlip || false,
-    theta: I.theta || 0,
-    color: "#F00",
     collideDamage: 1,
     collisionType: "enemy",
+    color: "#F00",
+    health: 3,
+    height: 51,
+    hFlip: I.hFlip || false,
     pointsWorth: 1000,
+    radius: 18,
     shootLogic: function() {
       if (Math.random() < 0.3) {
         self.shoot(I.theta, {
@@ -33,7 +26,12 @@ function Enemy(I) {
         addGameObject(grenade);
       }
     },
-    sprite: soldierTile
+    sprite: loadImageTile("images/enemies/sandinista_stand.png"),
+    theta: I.theta || 0,
+    width: 33,
+    x: rand(CANVAS_WIDTH),
+    y: CANVAS_HEIGHT - Floor.LEVEL - 20,
+    yVelocity: 0
   });
 
   if (Math.cos(I.theta <= 0) && !I.hFlip) {
