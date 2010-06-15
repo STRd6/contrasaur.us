@@ -45,8 +45,8 @@
       // TODO: Include tx and ty
       transformPoint: function(point) {
         return Point(
-          this.a * point.x + this.c * point.y,
-          this.b * point.x + this.d * point.y
+          this.a * point.x + this.c * point.y + this.tx,
+          this.b * point.x + this.d * point.y + this.ty
         );
       },
 

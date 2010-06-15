@@ -5,8 +5,8 @@ function Chainsaw(I) {
     age: 0,
     collideDamage: 7,
     effectCount: 3,
-    exitPoints: [Point(60, 20), Point(90, 20)],
-    radius: 5.5,
+    exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
+    radius: 5,
     sprite: loadImageTile("images/weapons/chainsaw.png"),
     theta: 0
   });
@@ -14,7 +14,7 @@ function Chainsaw(I) {
   var self = Weapon(I).extend({
     getTransform: function() {
       //TODO: Clean up this rotation business
-      return Matrix.translation(57, 15).concat(Matrix.translation(-52, -15)).concat(Matrix.rotation(I.theta)).concat(Matrix.translation(52, 15));
+      return Matrix.translation(57, 15).concat(Matrix.translation(-52, -15).concat(Matrix.rotation(I.theta)).concat(Matrix.translation(52, 15)));
     },
 
     generateBulletData: function(globalPosition, localPosition) {

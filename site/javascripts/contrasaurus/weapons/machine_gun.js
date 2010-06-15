@@ -5,10 +5,7 @@ function MachineGun(I) {
 
   $.reverseMerge(I, {
     airborne: true,
-    age: 0,
-    berserk: 0,
     exitPoints: [Point(25, 4)],
-    power: 0,
     radius: 5,
     sprite: gunTile,
     theta: 0,

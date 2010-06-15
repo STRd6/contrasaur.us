@@ -12,12 +12,6 @@ function Weapon(I) {
   });
 
   var self = GameObject(I).extend({
-    draw: function(canvas) {
-      canvas.withState(0, 0, {transform: self.getTransform()}, function() {
-        I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
-      });
-    },
-
     generateBulletData: function(globalPosition, localPosition) {
       return {
         x: localPosition.x + globalPosition.x,
@@ -42,11 +36,6 @@ function Weapon(I) {
 
         addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
       });
-    },
-
-    update: function() {
-      I.duration--;
-      I.age++;
     }
   });
   return self;
