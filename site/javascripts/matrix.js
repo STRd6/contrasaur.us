@@ -42,7 +42,6 @@
         return this.concat(Matrix.scale(sx, sy));
       },
 
-      // TODO: Include tx and ty
       transformPoint: function(point) {
         return Point(
           this.a * point.x + this.c * point.y + this.tx,
