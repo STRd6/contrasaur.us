@@ -1,18 +1,16 @@
 function MachineGun(I) {
   I = I || {};
 
-  var gunWidth = 0;
-  var gunTile = loadImageTile("images/machine_gun.png", function(tile) {
-    gunWidth = tile.width;
-  });
-  var gunDelta = {x: 25, y: 4};
+  var gunTile = loadImageTile("images/machine_gun.png");
 
   $.reverseMerge(I, {
     airborne: true,
     age: 0,
     berserk: 0,
+    exitPoints: [Point(25, 4)],
     power: 0,
     radius: 5,
+    sprite: gunTile,
     theta: 0,
     thetaVelocity: Math.PI / 48,
     x: 0,
@@ -40,47 +38,12 @@ function MachineGun(I) {
   }
 
   var self = Weapon(I).extend({
-    getAirborne: function(value) {
-      I.airborne = value;
+    getTransform: function() {
+      return Matrix.rotation(I.theta);
     },
 
-    getBerserk: function(value) {
-      I.berserk = value;
-    },
-
-    shoot: function(midpoint, transform) {
-      if (I.power > 0) {
-        var berserkTheta = I.theta - Math.PI / 24;
-
-        addGameObject(Bullet(I.theta, {
-          x: midpoint.x + gunDelta.x + Math.cos(I.theta) * gunWidth/2,
-          y: midpoint.y + gunDelta.y + Math.sin(I.theta) * gunWidth/2
-        }));
-
-        if (I.berserk) {
-          addGameObject(Bullet(berserkTheta, {
-            x: midpoint.x + gunDelta.x + Math.cos(berserkTheta) * gunWidth/2,
-            y: midpoint.y + gunDelta.y + Math.sin(berserkTheta) * gunWidth/2
-          }));
-        }
-      }
-    },
-
-    update: function() {
-      I.theta += I.thetaVelocity;
-      updateGunAngle();
-    },
-
-    draw: function(canvas, midpoint) {
-      // Draw Machine Gun
-      canvas.withState(
-        midpoint.x,
-        midpoint.y,
-        {rotation: I.theta},
-        function() {
-          gunTile.draw(canvas, -gunTile.registrationPoint.x, -gunTile.registrationPoint.y);
-        }
-      );
+    after: {
+      update: updateGunAngle,
     }
   });
   return self;

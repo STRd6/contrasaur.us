@@ -12,26 +12,41 @@ function Weapon(I) {
   });
 
   var self = GameObject(I).extend({
-    power: function(value) {
-        if (value === undefined) {
-          return I.power;
-        } else {
-          I.power += value;
-          return self;
-        }
-      },
+    draw: function(canvas) {
+      canvas.withState(0, 0, {transform: self.getTransform()}, function() {
+        I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
+      });
+    },
 
-    shoot: function(theta, position, transform) {
-      if (rand(100) < I.power) {
-        addGameObject(Bullet(theta, position));
+    generateBulletData: function(globalPosition, localPosition) {
+      return {
+        x: localPosition.x + globalPosition.x,
+        y: localPosition.y + globalPosition.y
+      };
+    },
+
+    power: function(value) {
+      if (value === undefined) {
+        return I.power;
+      } else {
+        I.power += value;
+        return self;
       }
-      if (I.duration < 0) {
-        self.active = false;
-      }
+    },
+
+    shoot: function(position, transform) {
+      $.each(I.exitPoints, function(i, exitPoint) {
+        var localPosition = transform.concat(self.getTransform()).transformPoint(exitPoint);
+        // Assumes direction follows line from center of dino to exit point
+        var direction = Math.atan2(localPosition.y, localPosition.x);
+
+        addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
+      });
     },
 
     update: function() {
       I.duration--;
+      I.age++;
     }
   });
   return self;

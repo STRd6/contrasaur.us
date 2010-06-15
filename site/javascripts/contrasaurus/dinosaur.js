@@ -1,20 +1,16 @@
 function Dinosaur() {
   var width = 128;
   var height = 128;
-  var laserGun = LaserGun();
-  var flamethrower = Flamethrower();
-  var primalScream = PrimalScream();
-  var machineGun = MachineGun();
-  var chainsaw = Chainsaw();
+
   var jetpack = Jetpack();
-  //var shield = Shield();
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 150;
 
   var parasailing = false;
   var airborne = true;
-  var berserk = false;
+
+  var weapons = [Chainsaw(), MachineGun()];
 
   var pitchAngle = 0;
 
@@ -43,8 +39,7 @@ function Dinosaur() {
   var healthMax = I.health;
 
   function fireWeapons() {
-    // TODO change this over to a generic shoot call on each weapon
-    $.each(weaponsArray, function(i, weapon) {
+    $.each(weapons, function(i, weapon) {
       weapon.shoot(self.position(), self.getTransform());
     });
   }
@@ -56,6 +51,10 @@ function Dinosaur() {
   var self = GameObject(I).extend({
     addAccessory: function(accessory) {
       accessories.push(accessory);
+    },
+
+    addWeapon: function(weapon) {
+      weapons.push(weapon);
     },
 
     bulletHitEffect: function(bullet) {
@@ -70,22 +69,6 @@ function Dinosaur() {
       }));
 
       addGameObject(effect);
-    },
-
-    powerupWeapons: function(weaponName) {
-      if (weaponName == "bazooka") {
-        bazooka.power(2);
-      } else if (weaponName == "flamethrower") {
-        flamethrower.power(4);
-      } else if (weaponName == "lasergun") {
-        laserGun.power(2);
-      } else if (weaponName == "primalscream") {
-        primalScream.power(2);
-      } else if (weaponName == "shotgun") {
-        shotgun.power(3);
-      } else if (weaponName == "machineGun") {
-        machineGun.power(1);
-      }
     },
 
     yVelocity: function(value) {
@@ -113,10 +96,6 @@ function Dinosaur() {
       return transform;
     },
 
-    jetpack: function() {
-      return jetpack;
-    },
-
     bump: function() {
       I.xVelocity = -I.xVelocity;
     },
@@ -141,35 +120,21 @@ function Dinosaur() {
           jetpack.draw(canvas);
         }
 
-        chainsaw.draw(canvas);
-        laserGun.draw(canvas);
-        //shield.draw(canvas);
+        $.each(weapons, function(i, weapon) {
+          weapon.draw(canvas);
+        });
       });
-
-      // TO DO call draw on each weapon
-      machineGun.draw(canvas, self.position());
 
       if (GameObject.DEBUG_HIT) {
         self.drawHitCircles(canvas);
       }
     },
+
     land: function(h) {
       I.y = h - (I.radius + 1);
       I.yVelocity = 0;
       I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
       airborne = false;
-    },
-    powerup: function(powerup) {
-      if(powerup.health) {
-        display("FOOD!");
-        heal(powerup.health);
-      }
-
-      if(powerup.weapon) {
-        for(var weapon in powerup.weapon) {
-          display(weapon + "!");
-        }
-      }
     },
 
     parasailing: function(newValue) {
@@ -213,21 +178,11 @@ function Dinosaur() {
           }
         }
 
-        if(I.health < healthMax / 2) {
-          berserk = true;
-        } else {
-          berserk = false;
-        }
-
-        fireWeapons();
-
-        flamethrower.Direction(lastDirection);
-        machineGun.getBerserk(berserk);
-        machineGun.getAirborne(airborne);
-
-        $.each(weaponsArray, function(i, weapon) {
+        $.each(weapons, function(i, weapon) {
           weapon.update();
         });
+
+        fireWeapons();
 
         // Stay in screen
         if (I.x < position.x + I.radius) {
@@ -246,11 +201,6 @@ function Dinosaur() {
       }
     }
   });
-  var shotgun = Shotgun(self);
-  var bazooka = Bazooka();
-  var weaponsArray = [];
-  weaponsArray.push(chainsaw, laserGun, flamethrower, bazooka, primalScream, shotgun, machineGun, jetpack);
-
 
   return self;
 }
