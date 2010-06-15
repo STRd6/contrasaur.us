@@ -10,7 +10,7 @@ function Dinosaur() {
   var parasailing = false;
   var airborne = true;
 
-  var weapons = [Chainsaw(), LaserGun(), MachineGun()];
+  var weapons = [Flamethrower()];
 
   var pitchAngle = 0;
 
@@ -67,15 +67,6 @@ function Dinosaur() {
       }));
 
       addGameObject(effect);
-    },
-
-    yVelocity: function(value) {
-      if (value === undefined) {
-        return I.yVelocity;
-      } else {
-        I.yVelocity = value;
-        return self;
-      }
     },
 
     getTransform: function () {

@@ -1,31 +1,23 @@
 function Flamethrower(I) {
   I = I || {};
-  
-  var mouthPoint = {
-    x: 45,
-    y: 20
-  };
 
   $.reverseMerge(I, {
-    power: 0,
-    radius: 5,
-    theta: 0,
+    direction: 2,
+    exitPoints: [Point(45, 20)],
+    power: 10,
     sprite: Tile.EMPTY
   });
 
   var self = Weapon(I).extend({
-    shoot: function(midpoint, transform) {
-
-      if (rand(100) < I.power) {
-        var exitPoint = transformPoint(mouthPoint, transform);
-        addGameObject(Flame(direction, {
-          x: midpoint.x + exitPoint.x,
-          y: midpoint.y + exitPoint.y
-        }));
-      }
+    generateProjectile: function(direction, position) {
+      return Flame(I.direction, position);
     },
 
-    update: $.noop
+    before: {
+      update: function(dino) {
+        I.direction = dino.velocity().x / Math.abs(dino.velocity().x);
+      }
+    }
   });
   return self;
 }

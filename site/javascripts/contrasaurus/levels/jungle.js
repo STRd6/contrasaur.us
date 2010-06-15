@@ -68,16 +68,8 @@
   var maxPlanes = 10;
   var numPlanes = 1;
   var planeDelay = 15;
-  function generateEnemies(level) {
-    if (Math.random() < 0.005) {
-      var p = PowerupContainer(Math.PI / 2);
-      p.addListener(Powerup("laser", {
-          x: rand(CANVAS_WIDTH),
-          yVelocity: 2
-        }));
-      level.addGameObject(p);
-    }
 
+  function generateEnemies(level) {
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
         level.addGameObject(Enemy([
@@ -112,46 +104,6 @@
         bombingRunCount = 0;
         if (numPlanes < maxPlanes) {
           numPlanes++;
-        }
-      }
-    }
-
-    if (Math.random() < 0.01) {
-      // HAX: Putting this in enemy bullets so it will collide with dino.
-      if(Math.random() < 0.5) {
-        if (Math.random() < 0.5) {
-          addGameObject(Powerup("bomb", {
-            x: level.position().x + rand(CANVAS_WIDTH),
-            yVelocity: 2
-          }));
-        }
-
-        if (Math.random() < 0.4) {
-          addGameObject(Powerup("shotgun", {
-            x: level.position().x + rand(CANVAS_WIDTH),
-            yVelocity: 1
-          }));
-        }
-
-        if (Math.random() < 0.4) {
-          addGameObject(Powerup("missile", {
-            x: level.position().x + rand(CANVAS_WIDTH),
-            yVelocity: 1
-          }));
-        }
-
-        if (Math.random() < 0.4) {
-          addGameObject(Powerup("laser", {
-            x: level.position().x + rand(CANVAS_WIDTH),
-            yVelocity: 1
-          }));
-        }
-
-        if (Math.random() < 0.4) {
-          addGameObject(Powerup("flame", {
-            x: level.position().x + rand(CANVAS_WIDTH),
-            yVelocity: 1
-          }));
         }
       }
     }
