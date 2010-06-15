@@ -10,7 +10,7 @@ function Dinosaur() {
   var parasailing = false;
   var airborne = true;
 
-  var weapons = [Flamethrower()];
+  var weapons = [Bazooka()];
 
   var pitchAngle = 0;
 

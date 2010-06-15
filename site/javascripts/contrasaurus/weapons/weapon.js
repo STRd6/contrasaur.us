@@ -4,6 +4,7 @@ function Weapon(I) {
   $.reverseMerge(I, {
     age: 0,
     duration: 200,
+    exitPoints: [Point(0, 0)],
     power: 100,
     radius: 5,
     theta: 0,
