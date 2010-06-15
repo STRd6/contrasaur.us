@@ -19,9 +19,12 @@ function Enemy(I) {
         });
       }
 
+      var throwDirection = - Math.PI / 4
       // throw grenades
       if (rand() < 0.05) {
-        var throwDirection = - Math.PI / 4;
+        if (Math.cos(I.theta) < 0) {
+          throwDirection = - (3/4) * Math.PI;
+        }
         var grenade = Grenade(throwDirection, self.position().add(Point(0, -20)));
         addGameObject(grenade);
       }
