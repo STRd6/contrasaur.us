@@ -10,7 +10,7 @@ function Grenade(theta, I) {
     width: 35,
     height: 16,
     radius: 8,
-    speed: 3,
+    speed: 5,
     collideDamage: 0,
     sprite: loadImageTile("images/projectiles/grenade.png")
   });

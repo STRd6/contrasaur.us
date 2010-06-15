@@ -151,3 +151,43 @@ $("#meat").click(function() {
     xVelocity: rand(6) - 3
   }));
 });
+
+$("#shotgun").click(function() {
+  console.log("Shotgun!");
+  addGameObject(Powerup("shotgun", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: 2
+  }));
+});
+
+$("#bomb").click(function() {
+  console.log("Bombs!");
+  addGameObject(Powerup("bomb", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: 2
+  }));
+});
+
+$("#missile").click(function() {
+  console.log("Missiles!");
+  addGameObject(Powerup("missile", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: 2
+  }));
+});
+
+$("#laser").click(function() {
+  console.log("Laser!");
+  addGameObject(Powerup("laser", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: 2
+  }));
+});
+
+$("#flame").click(function() {
+  console.log("Flamethrower!");
+  addGameObject(Powerup("flame", {
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    xVelocity: 2
+  }));
+});

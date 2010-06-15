@@ -8,11 +8,7 @@ function Utahraptor(I) {
     pointsWorth: 1000,
     radius: 20,
     shootLogic: $.noop,
-    sprite: [
-      loadImageTile("images/enemies/dinofodder1.png"),
-      loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3),
-      loadImageTile("images/enemies/dinofodder3.png")
-    ].rand()
+    sprite: loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3)
   });
 
   var self = Tank(I).extend({
