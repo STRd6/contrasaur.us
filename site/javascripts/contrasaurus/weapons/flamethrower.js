@@ -2,7 +2,6 @@ function Flamethrower(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    direction: 2,
     exitPoints: [Point(45, 20)],
     power: 10,
     sprite: Tile.EMPTY
