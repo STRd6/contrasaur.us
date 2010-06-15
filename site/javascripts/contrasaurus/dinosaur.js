@@ -85,6 +85,8 @@ function Dinosaur() {
       return transform;
     },
 
+    heal: heal,
+
     bump: function() {
       I.xVelocity = -I.xVelocity;
     },

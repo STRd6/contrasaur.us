@@ -1,38 +1,6 @@
-function Powerup(kind, I) {
-  if(kind == "meat") {
-    I.sprite = loadImageTile("images/meat.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-      I.radius = 25
-    });
-  } else if (kind == "bomb") {
-    I.sprite = loadImageTile("images/powerup_bomb.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-    });
-  } else if (kind == "shotgun") {
-    I.sprite = loadImageTile("images/powerup_shotgun.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-    });
-  } else if (kind == "missile") {
-    I.sprite = loadImageTile ("images/powerup_missile.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-    });
-  } else if (kind == "laser") {
-    I.sprite = loadImageTile("images/powerup_laser.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-    });
-  } else if (kind == "flame") {
-    I.sprite = loadImageTile("images/powerup_flame.png", function(tile) {
-      I.width = tile.width;
-      I.height = tile.height;
-    });
-  }
-
+function Powerup(I) {
   $.reverseMerge(I, {
+    callback: $.noop,
     color: "#F0F",
     radius: 10,
     width: 15,
@@ -42,41 +10,15 @@ function Powerup(kind, I) {
   });
 
   return GameObject(I).extend({
-
     before: {
       update: function() {
-        if(kind == "meat") {
-          I.yVelocity += GRAVITY / 4;
-        } else {
-          I.xVelocity = Math.sin(I.age/10);
-        }
+        I.yVelocity += GRAVITY / 4;
       }
     },
 
     after: {
       hit: function(other) {
-        if(other.powerup) {
-          if(kind == "meat") {
-            other.powerup({health: 50});
-          } else if(kind == "bomb") {
-            other.powerupWeapons("primalscream");
-            other.powerup({weapon: {bomb: 6}});
-          } else if (kind == "shotgun") {
-            other.powerupWeapons("shotgun");
-            other.powerup({weapon: {shotgun: 6}});
-          } else if (kind == "missile") {
-            other.powerupWeapons("bazooka");
-            other.powerup({weapon: {bazooka: 6}});
-          } else if (kind == "laser") {
-            other.powerupWeapons("lasergun");
-            other.powerup({weapon: {laser: 6}});
-          } else if (kind == "flame") {
-            other.powerupWeapons("flamethrower");
-            other.powerup({weapon: {flamethrower: 6}});
-          } else {
-            console.error("Unknown powerup: " + kind);
-          }
-        }
+        I.callback(other);
       },
 
       update: GameObject.generateCheckBounds(I)

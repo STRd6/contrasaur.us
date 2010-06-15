@@ -146,7 +146,13 @@ if(rand() < 0.25) {
 
 $("#meat").click(function() {
   console.log("Meat!");
-  addGameObject(Powerup("meat", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.heal) {
+        hitTarget.heal(50);
+      }
+    },
+    sprite: loadImageTile("images/meat.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     xVelocity: rand(6) - 3
   }));
