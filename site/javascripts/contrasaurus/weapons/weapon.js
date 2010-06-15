@@ -29,20 +29,26 @@ function Weapon(I) {
     },
 
     shoot: function(position, transform) {
-      // TODO: Figure out a better way to manage weapon shooting frequency
-      if(rand(100) < I.power) {
-        var t = transform.concat(self.getTransform());
-        var center = t.transformPoint(Point(0, 0));
+      var t = transform.concat(self.getTransform());
+      var center = t.transformPoint(Point(0, 0));
 
-        $.each(I.exitPoints, function(i, exitPoint) {
-          var localPosition = t.transformPoint(exitPoint);
+      $.each(I.exitPoints, function(i, exitPoint) {
+        var localPosition = t.transformPoint(exitPoint);
 
-          // TODO: Better direction specification
-          // Assumes direction follows line from center of weapon to exit point
-          var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
+        // TODO: Better direction specification
+        // Assumes direction follows line from center of weapon to exit point
+        var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
 
-          addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
-        });
+        addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
+      });
+    },
+
+    after: {
+      update: function(dino) {
+        // TODO: Figure out a better way to manage weapon shooting frequency
+        if(rand(100) < I.power) {
+          self.shoot(dino.position(), dino.getTransform());
+        }
       }
     }
   });

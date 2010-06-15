@@ -4,7 +4,6 @@ function MachineGun(I) {
   var gunTile = loadImageTile("images/machine_gun.png");
 
   $.reverseMerge(I, {
-    airborne: true,
     exitPoints: [Point(25, 4)],
     radius: 5,
     sprite: gunTile,
@@ -13,7 +12,7 @@ function MachineGun(I) {
   });
 
   // Adjust machine gun angle
-  function updateGunAngle() {
+  function updateGunAngle(dino) {
     I.theta += I.thetaVelocity;
 
     // Change gun rotation direction
@@ -27,7 +26,7 @@ function MachineGun(I) {
     }
 
     // Don't shoot machine gun into the ground
-    if(Math.sin(-I.theta) < -0.3 && !I.airborne) {
+    if(Math.sin(-I.theta) < -0.3 && !dino.airborne()) {
       I.theta -= I.thetaVelocity * 2;
     }
   }

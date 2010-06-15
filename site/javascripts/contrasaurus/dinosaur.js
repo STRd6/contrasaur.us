@@ -38,12 +38,6 @@ function Dinosaur() {
 
   var healthMax = I.health;
 
-  function fireWeapons() {
-    $.each(weapons, function(i, weapon) {
-      weapon.shoot(self.position(), self.getTransform());
-    });
-  }
-
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
@@ -55,6 +49,10 @@ function Dinosaur() {
 
     addWeapon: function(weapon) {
       weapons.push(weapon);
+    },
+
+    airborne: function() {
+      return airborne;
     },
 
     bulletHitEffect: function(bullet) {
@@ -144,6 +142,7 @@ function Dinosaur() {
           I.x = (CANVAS_WIDTH - width) / 2;
           I.y = 150;
           pitchAngle = 0;
+          airborne = true;
         }
         return self;
       } else {
@@ -179,10 +178,8 @@ function Dinosaur() {
         }
 
         $.each(weapons, function(i, weapon) {
-          weapon.update();
+          weapon.update(self);
         });
-
-        fireWeapons();
 
         // Stay in screen
         if (I.x < position.x + I.radius) {

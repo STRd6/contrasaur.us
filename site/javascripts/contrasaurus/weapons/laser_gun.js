@@ -10,8 +10,7 @@ function LaserGun(I) {
     exitPoints: [Point(10, 2)],
     power: 10,
     radius: 5,
-    sprite: monocle,
-    theta: 0
+    sprite: monocle
   });
 
   var self = Weapon(I).extend({
@@ -33,10 +32,12 @@ function LaserGun(I) {
     after: {
       shoot: function() {
         I.sprite = monocleRed;
-      },
+        redCount = 3;
+      }
+    },
 
+    before: {
       update: function() {
-        I.theta += Math.PI / 24;
         redCount--;
 
         if (redCount < 0) {
