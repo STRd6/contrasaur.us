@@ -4,7 +4,7 @@ function Weapon(I) {
   $.reverseMerge(I, {
     age: 0,
     duration: 200,
-    power: 0,
+    power: 100,
     radius: 5,
     theta: 0,
     x: 0,
@@ -29,13 +29,21 @@ function Weapon(I) {
     },
 
     shoot: function(position, transform) {
-      $.each(I.exitPoints, function(i, exitPoint) {
-        var localPosition = transform.concat(self.getTransform()).transformPoint(exitPoint);
-        // Assumes direction follows line from center of dino to exit point
-        var direction = Math.atan2(localPosition.y, localPosition.x);
+      // TODO: Figure out a better way to manage weapon shooting frequency
+      if(rand(100) < I.power) {
+        var t = transform.concat(self.getTransform());
+        var center = t.transformPoint(Point(0, 0));
 
-        addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
-      });
+        $.each(I.exitPoints, function(i, exitPoint) {
+          var localPosition = t.transformPoint(exitPoint);
+
+          // TODO: Better direction specification
+          // Assumes direction follows line from center of weapon to exit point
+          var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
+
+          addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
+        });
+      }
     }
   });
   return self;

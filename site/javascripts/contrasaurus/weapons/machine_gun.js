@@ -9,9 +9,7 @@ function MachineGun(I) {
     radius: 5,
     sprite: gunTile,
     theta: 0,
-    thetaVelocity: Math.PI / 48,
-    x: 0,
-    y: 0
+    thetaVelocity: Math.PI / 48
   });
 
   // Adjust machine gun angle

@@ -7,7 +7,7 @@ function LaserGun(I) {
 
   $.reverseMerge(I, {
     age: 0,
-    exitPoints: [Point(0, 0)],
+    exitPoints: [Point(10, 2)],
     power: 10,
     radius: 5,
     sprite: monocle,
@@ -19,7 +19,22 @@ function LaserGun(I) {
       return Matrix.translation(39, -12);
     },
 
+    generateBulletData: function(globalPosition, localPosition) {
+      return {
+        speed: 13,
+        collideDamage: 3,
+        radius: 2,
+        sprite: loadImageTile("images/laser.png"),
+        x: localPosition.x + globalPosition.x,
+        y: localPosition.y + globalPosition.y
+      }
+    },
+
     after: {
+      shoot: function() {
+        I.sprite = monocleRed;
+      },
+
       update: function() {
         I.theta += Math.PI / 24;
         redCount--;

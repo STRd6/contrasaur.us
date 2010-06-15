@@ -2,9 +2,6 @@ function Chainsaw(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    age: 0,
-    collideDamage: 7,
-    effectCount: 3,
     exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
     radius: 5,
     sprite: loadImageTile("images/weapons/chainsaw.png"),
