@@ -12,11 +12,8 @@ function Weapon(I) {
   });
 
   var self = GameObject(I).extend({
-    generateBulletData: function(globalPosition, localPosition) {
-      return {
-        x: localPosition.x + globalPosition.x,
-        y: localPosition.y + globalPosition.y
-      };
+    generateProjectile: function(direction, position) {
+      return Bullet(direction, position);
     },
 
     power: function(value) {
@@ -39,7 +36,7 @@ function Weapon(I) {
         // Assumes direction follows line from center of weapon to exit point
         var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
 
-        addGameObject(Bullet(direction, self.generateBulletData(position, localPosition)));
+        addGameObject(self.generateProjectile(direction, position.add(localPosition)));
       });
     },
 

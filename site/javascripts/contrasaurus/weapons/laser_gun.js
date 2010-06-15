@@ -18,15 +18,15 @@ function LaserGun(I) {
       return Matrix.translation(39, -12);
     },
 
-    generateBulletData: function(globalPosition, localPosition) {
-      return {
+    generateProjectile: function(direction, position) {
+      return Bullet(direction, {
         speed: 13,
         collideDamage: 3,
         radius: 2,
         sprite: loadImageTile("images/laser.png"),
-        x: localPosition.x + globalPosition.x,
-        y: localPosition.y + globalPosition.y
-      }
+        x: position.x,
+        y: position.y
+      });
     },
 
     after: {

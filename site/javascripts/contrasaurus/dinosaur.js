@@ -10,7 +10,7 @@ function Dinosaur() {
   var parasailing = false;
   var airborne = true;
 
-  var weapons = [Chainsaw(), LaserGun()];
+  var weapons = [Chainsaw(), LaserGun(), MachineGun()];
 
   var pitchAngle = 0;
 

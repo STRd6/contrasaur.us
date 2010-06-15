@@ -14,15 +14,15 @@ function Chainsaw(I) {
       return Matrix.translation(57, 15).concat(Matrix.translation(-52, -15).concat(Matrix.rotation(I.theta)).concat(Matrix.translation(52, 15)));
     },
 
-    generateBulletData: function(globalPosition, localPosition) {
-      return {
+    generateProjectile: function(direction, position) {
+      return Bullet(direction, {
         duration: 1,
         speed: 0,
         sprite: Tile.EMPTY,
         radius: 10,
-        x: localPosition.x + globalPosition.x,
-        y: localPosition.y + globalPosition.y
-      };
+        x: position.x,
+        y: position.y
+      });
     },
 
     after: {
