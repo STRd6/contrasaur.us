@@ -160,7 +160,13 @@ $("#meat").click(function() {
 
 $("#shotgun").click(function() {
   console.log("Shotgun!");
-  addGameObject(Powerup("shotgun", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(Shotgun());
+      }
+    },
+    sprite: loadImageTile("images/powerup_shotgun.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
@@ -168,7 +174,13 @@ $("#shotgun").click(function() {
 
 $("#bomb").click(function() {
   console.log("Bombs!");
-  addGameObject(Powerup("bomb", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon(PrimalScream())) {
+        hitTarget.addWeapon(PrimalScream());
+      }
+    },
+    sprite: loadImageTile("images/powerup_bomb.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
@@ -176,7 +188,13 @@ $("#bomb").click(function() {
 
 $("#missile").click(function() {
   console.log("Missiles!");
-  addGameObject(Powerup("missile", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(Bazooka());
+      }
+    },
+    sprite: loadImageTile("images/powerup_missile.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
@@ -184,7 +202,13 @@ $("#missile").click(function() {
 
 $("#laser").click(function() {
   console.log("Laser!");
-  addGameObject(Powerup("laser", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(LaserGun());
+      }
+    },
+    sprite: loadImageTile("images/powerup_laser.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
@@ -192,7 +216,13 @@ $("#laser").click(function() {
 
 $("#flame").click(function() {
   console.log("Flamethrower!");
-  addGameObject(Powerup("flame", {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(Flamethrower());
+      }
+    },
+    sprite: loadImageTile("images/powerup_flame.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
