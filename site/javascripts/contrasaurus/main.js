@@ -144,125 +144,60 @@ if(rand() < 0.25) {
   dino.addAccessory(tophat);
 }
 
-$("#meat").click(function() {
-  console.log("Meat!");
+function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.heal) {
-        hitTarget.heal(50);
-      }
-    },
-    sprite: loadImageTile("images/meat.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    xVelocity: rand(6) - 3
+    callback: callback,
+    sprite: loadImageTile("images/" + imgFile),
+    x: dino.position().x,
+    xVelocity: dino.velocity().x,
+    yVelocity: 0
   }));
+}
+
+function dropWeaponPowerup(imgFile, weaponClass) {
+  dropPowerup(imgFile, function(hitTarget) {
+    if(hitTarget.addWeapon) {
+      hitTarget.addWeapon(weaponClass());
+    }
+  });
+}
+
+$("#meat").click(function() {
+  dropPowerup("meat.png", function(hitTarget) {
+    if(hitTarget.heal) {
+      hitTarget.heal(50);
+    }
+  });
 });
 
 $("#shotgun").click(function() {
-  console.log("Shotgun!");
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(Shotgun());
-      }
-    },
-    sprite: loadImageTile("images/powerup_shotgun.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("powerup_shotgun.png", Shotgun);
 });
 
 $("#bomb").click(function() {
-  console.log("Bombs!");
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(PrimalScream());
-      }
-    },
-    sprite: loadImageTile("images/powerup_bomb.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("powerup_bomb.png", PrimalScream);
 });
 
 $("#missile").click(function() {
-  console.log("Missiles!");
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(Bazooka());
-      }
-    },
-    sprite: loadImageTile("images/powerup_missile.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("powerup_missile.png", Bazooka);
 });
 
 $("#laser").click(function() {
-  console.log("Laser!");
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(LaserGun());
-      }
-    },
-    sprite: loadImageTile("images/powerup_laser.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("powerup_laser.png", LaserGun);
 });
 
 $("#flame").click(function() {
-  console.log("Flamethrower!");
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(Flamethrower());
-      }
-    },
-    sprite: loadImageTile("images/powerup_flame.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("powerup_flame.png", Flamethrower);
 });
 
 $("#machineGun").click(function() {
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(MachineGun());
-      }
-    },
-    sprite: loadImageTile("images/machine_gun.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("machine_gun.png", MachineGun);
 });
 
 $("#chainsaw").click(function() {
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(Chainsaw());
-      }
-    },
-    sprite: loadImageTile("images/weapons/chainsaw.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("weapons/chainsaw.png", Chainsaw);
 });
 
 $("#battleAxe").click(function() {
-  addGameObject(Powerup({
-    callback: function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(BattleAxe());
-      }
-    },
-    sprite: loadImageTile("images/weapons/battle_axe.png"),
-    x: currentLevel.position().x + rand(CANVAS_WIDTH),
-    yVelocity: 2
-  }));
+  dropWeaponPowerup("weapons/battle_axe.png", BattleAxe);
 });
