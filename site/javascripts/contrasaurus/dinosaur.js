@@ -11,6 +11,7 @@ function Dinosaur() {
   var airborne = true;
 
   var weapons = [Bazooka()];
+  var activeWeapons = [];
 
   var pitchAngle = 0;
 
@@ -172,7 +173,14 @@ function Dinosaur() {
 
         $.each(weapons, function(i, weapon) {
           weapon.update(self);
+
+          if(weapon.active()) {
+            activeWeapons.push(weapon);
+          }
         });
+
+        weapons = activeWeapons;
+        activeWeapons = [];
 
         // Stay in screen
         if (I.x < position.x + I.radius) {
