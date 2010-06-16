@@ -14,7 +14,8 @@
     - enemy_files = %w[bomber enemy parasoldier tank utahraptor].map { |name| "contrasaurus/enemies/#{name}" }
     = javascripts(*enemy_files)
     = javascripts('contrasaurus/dinosaur', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/UI')
-    = javascripts('contrasaurus/weapons/bazooka', 'contrasaurus/weapons/chainsaw', 'contrasaurus/weapons/flamethrower', 'contrasaurus/weapons/jetpack', 'contrasaurus/weapons/laser_gun', 'contrasaurus/weapons/machine_gun', 'contrasaurus/weapons/primal_scream', 'contrasaurus/weapons/shield', 'contrasaurus/weapons/shotgun', 'contrasaurus/weapons/weapon')
+    - weapon_files = %w[battle_axe bazooka chainsaw flamethrower jetpack laser_gun machine_gun primal_scream shield shotgun weapon].map {|file_name| "contrasaurus/weapons/#{file_name}" }
+    = javascripts(*weapon_files)
 
   %body
     = yield

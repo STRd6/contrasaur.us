@@ -176,7 +176,7 @@ $("#bomb").click(function() {
   console.log("Bombs!");
   addGameObject(Powerup({
     callback: function(hitTarget) {
-      if(hitTarget.addWeapon(PrimalScream())) {
+      if(hitTarget.addWeapon) {
         hitTarget.addWeapon(PrimalScream());
       }
     },
@@ -223,6 +223,45 @@ $("#flame").click(function() {
       }
     },
     sprite: loadImageTile("images/powerup_flame.png"),
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    yVelocity: 2
+  }));
+});
+
+$("#machineGun").click(function() {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(MachineGun());
+      }
+    },
+    sprite: loadImageTile("images/machine_gun.png"),
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    yVelocity: 2
+  }));
+});
+
+$("#chainsaw").click(function() {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(Chainsaw());
+      }
+    },
+    sprite: loadImageTile("images/weapons/chainsaw.png"),
+    x: currentLevel.position().x + rand(CANVAS_WIDTH),
+    yVelocity: 2
+  }));
+});
+
+$("#battleAxe").click(function() {
+  addGameObject(Powerup({
+    callback: function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(BattleAxe());
+      }
+    },
+    sprite: loadImageTile("images/weapons/battle_axe.png"),
     x: currentLevel.position().x + rand(CANVAS_WIDTH),
     yVelocity: 2
   }));
