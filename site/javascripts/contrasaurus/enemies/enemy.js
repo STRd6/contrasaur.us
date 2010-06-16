@@ -1,17 +1,19 @@
 function Enemy(I) {
   I = I || {};
 
+  var standSprite = loadImageTile("images/enemies/sandinista/stand.png");
+  var runSprite = loadAnimation("images/enemies/sandinista/run.png", 8, 38, 52, 3);
+
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "enemy",
     color: "#F00",
     health: 3,
-    height: 51,
-    hFlip: I.hFlip || false,
+    hFlip: false,
     pointsWorth: 1000,
     radius: 18,
     shootLogic: function() {
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.075) {
         self.shoot(I.theta, {
           x: self.position().x,
           y: self.position().y,
@@ -19,31 +21,22 @@ function Enemy(I) {
         });
       }
 
-      var throwDirection = - Math.PI / 4
-      // throw grenades
-      if (rand() < 0.05) {
-        if (Math.cos(I.theta) < 0) {
-          throwDirection = - (3/4) * Math.PI;
-        }
-        var grenade = Grenade(throwDirection, self.position().add(Point(0, -20)));
-        addGameObject(grenade);
-      }
+//      var throwDirection = - Math.PI / 4
+//      // throw grenades
+//      if (rand() < 0.05) {
+//        if (Math.cos(I.theta) < 0) {
+//          throwDirection = - (3/4) * Math.PI;
+//        }
+//        var grenade = Grenade(throwDirection, self.position().add(Point(0, -20)));
+//        addGameObject(grenade);
+//      }
     },
-    sprite: loadImageTile("images/enemies/sandinista_stand.png"),
-    theta: I.theta || 0,
-    width: 33,
+    sprite: runSprite,
+    theta: 0,
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
-
-  if (Math.cos(I.theta <= 0) && !I.hFlip) {
-    I.theta += Math.PI/2;
-  }
-
-  if (Math.cos(I.theta > 0) && I.hFlip) {
-    I.theta -= Math.PI/2;
-  }
 
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 

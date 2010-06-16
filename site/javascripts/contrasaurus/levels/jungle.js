@@ -72,15 +72,17 @@
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
-        level.addGameObject(Enemy([
-          {theta: -Math.random() * (Math.PI), hFlip: true, x: level.position().x + CANVAS_WIDTH + 20},
-          {theta: -Math.random() * (Math.PI), hFlip: false, x: level.position().x - 20}
-        ].rand()));
+        level.addGameObject(Enemy({
+          theta: - 5 * Math.PI / 6,
+          hFlip: true,
+          x: level.position().x + CANVAS_WIDTH + 20,
+          xVelocity: -2
+        }));
       } else {
-        level.addGameObject(Parasoldier([
-          {xVelocity: 0, x: level.position().x + rand(CANVAS_WIDTH) + 20 },
-          {xVelocity: 0, x: level.position().x - 20}
-        ].rand()));
+        level.addGameObject(Parasoldier({
+          xVelocity: 0, 
+          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20
+        }));
       }
     }
 
