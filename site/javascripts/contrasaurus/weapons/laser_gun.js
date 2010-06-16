@@ -8,7 +8,7 @@ function LaserGun(I) {
   $.reverseMerge(I, {
     age: 0,
     exitPoints: [Point(10, 2)],
-    power: 0,
+    power: 10,
     radius: 5,
     sprite: monocle
   });

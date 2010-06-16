@@ -9,12 +9,6 @@ function Shield(I) {
     sprite: loadImageTile("images/weapons/shield.png")
   });
 
-  var self = Weapon(I).extend({
-
-    update: function() {
-      I.duration--;
-      I.age++;
-    }
-  })
+  var self = Weapon(I).extend({ });
   return self;
 }

@@ -3,7 +3,7 @@ function PrimalScream(I) {
 
   $.reverseMerge(I, {
     age: 0,
-    power: 0,
+    power: 10,
     radius: 5,
     theta: 0,
     x: 0,
