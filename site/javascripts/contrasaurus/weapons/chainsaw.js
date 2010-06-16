@@ -10,8 +10,7 @@ function Chainsaw(I) {
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      //TODO: Clean up this rotation business
-      return Matrix.translation(57, 15).concat(Matrix.translation(-52, -15).concat(Matrix.rotation(I.theta)).concat(Matrix.translation(52, 15)));
+      return Matrix.translation(57, 15).rotate(I.theta, Point(-52, -12));
     },
 
     generateProjectile: function(direction, position) {

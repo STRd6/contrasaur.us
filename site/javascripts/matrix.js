@@ -34,8 +34,8 @@
         );
       },
 
-      rotate: function(theta) {
-        return this.concat(Matrix.rotation(theta));
+      rotate: function(theta, aboutPoint) {
+        return this.concat(Matrix.rotation(theta, aboutPoint));
       },
 
       scale: function(sx, sy) {
@@ -55,13 +55,24 @@
     }
   }
 
-  Matrix.rotation = function(theta) {
-    return Matrix(
+  Matrix.rotation = function(theta, aboutPoint) {
+    var rotationMatrix = Matrix(
       Math.cos(theta),
       Math.sin(theta),
       -Math.sin(theta),
       Math.cos(theta)
     );
+
+    if(aboutPoint) {
+      rotationMatrix =
+        Matrix.translation(aboutPoint.x, aboutPoint.y).concat(
+          rotationMatrix
+        ).concat(
+          Matrix.translation(-aboutPoint.x, -aboutPoint.y)
+        );
+    }
+
+    return rotationMatrix;
   };
 
   Matrix.scale = function(sx, sy) {

@@ -41,7 +41,7 @@
         var t = 0;
         object.extend({
           getTransform: function() {
-            return rotationTransform(this.angle);
+            return Matrix.rotation(this.angle, Point(50, 0));
           },
           after: {
             update: function() {
