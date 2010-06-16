@@ -4,19 +4,27 @@ function Enemy(I) {
   var standSprite = loadImageTile("images/enemies/sandinista/stand.png");
   var runSprite = loadAnimation("images/enemies/sandinista/run.png", 8, 38, 52, 3);
 
+  var exitPoint = Point(15, -20);
+  var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
+
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "enemy",
-    color: "#F00",
     health: 3,
     hFlip: false,
     pointsWorth: 1000,
     radius: 18,
     shootLogic: function() {
+      var transform = self.getTransform();
+
+      var p = transform.transformPoint(exitPoint);
+      var d = transform.transformPoint(exitDirection);
+      var theta = Math.atan2(d.y, d.x);
+
       if (Math.random() < 0.075) {
-        self.shoot(I.theta, {
-          x: self.position().x,
-          y: self.position().y,
+        self.shoot(theta, {
+          x: self.position().x + p.x,
+          y: self.position().y + p.y,
           sprite: loadImageTile("images/effects/enemybullet1_small.png")
         });
       }
@@ -66,9 +74,9 @@ function Enemy(I) {
 
     getTransform: function() {
       if(I.hFlip) {
-        return HORIZONTAL_FLIP_MATRIX;
+        return Matrix.HORIZONTAL_FLIP;
       } else {
-        return IDENTITY_MATRIX;
+        return Matrix.IDENTITY;
       }
     },
 

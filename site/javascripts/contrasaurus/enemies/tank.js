@@ -4,14 +4,10 @@ function Tank(I) {
   var gunAngle;
   var tankTile = loadImageTile("images/tank.png")
 
-  var height = tankTile.height;
-
   $.reverseMerge(I, {
-    y: canvas.height() - Floor.LEVEL - height,
-    width: 30,
-    height: height,
+    y: CANVAS_HEIGHT - Floor.LEVEL,
     radius: 25,
-    xVelocity: I.xVelocity || 0.5,
+    xVelocity: 0.5,
     health: 10,
     hFlip: I.xVelocity <= 0,
     color: "#FF7",

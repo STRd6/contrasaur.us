@@ -6,11 +6,8 @@ function Bullet(theta, I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "dinoBullet",
-    color: "#000",
     duration: -1,
     effectCount: 1,
-    width: 4,
-    height: 4,
     radius: 2,
     sprite: loadImageTile("images/projectiles/playerbullet4.png"),
     xVelocity: Math.cos(theta)*I.speed,
