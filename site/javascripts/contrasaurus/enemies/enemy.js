@@ -55,7 +55,7 @@ function Enemy(I) {
       addGameObject(effect);
     },
 
-    land: function(h) { },
+    land: $.noop,
 
     shoot: function(angle, bulletData) {
       var bullet = Bullet(angle, $.extend(bulletData, {

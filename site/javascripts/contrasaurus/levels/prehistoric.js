@@ -69,10 +69,6 @@
     at: 500,
     event: function(level) {
       level.complete();
-
-      dino.powerupWeapons("machineGun");
-      dino.powerup({weapon: {machineGun: 6}}); // HAX: for image
-      dino.powerup({weapon: {jetpack: 6}});
     }
   }, {
     every: 1,
