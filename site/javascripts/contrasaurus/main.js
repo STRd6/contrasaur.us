@@ -162,6 +162,23 @@ function dropWeaponPowerup(imgFile, weaponClass) {
   });
 }
 
+// TODO add grayout effect until weapon is available
+function addRandomWeapon() {
+  var weapon = [
+    "meat",
+    "shotgun",
+    "bomb",
+    "bazooka",
+    "laserGun",
+    "flamethrower",
+    "machineGun",
+    "chainsaw",
+    "battleAxe",
+    "shield"
+  ].rand();
+  return '<div class="menu" id="' + weapon + '"><img alt="' + weapon + '" src="images/menu/' + weapon + '.png"/></div>';
+}
+
 $("#meat").click(function() {
   $("#meat").unbind("click");
   dropPowerup("meat.png", function(hitTarget) {
@@ -171,6 +188,7 @@ $("#meat").click(function() {
   });
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -179,6 +197,7 @@ $("#shotgun").click(function() {
   dropWeaponPowerup("powerup_shotgun.png", Shotgun);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -187,30 +206,34 @@ $("#bomb").click(function() {
   dropWeaponPowerup("powerup_bomb.png", PrimalScream);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
-$("#missile").click(function() {
-  $("#missile").unbind("click");
+$("#bazooka").click(function() {
+  $("#bazooka").unbind("click");
   dropWeaponPowerup("powerup_missile.png", Bazooka);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
-$("#laser").click(function() {
-  $("#laser").unbind("click");
+$("#laserGun").click(function() {
+  $("#laserGun").unbind("click");
   dropWeaponPowerup("powerup_laser.png", LaserGun);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
-$("#flame").click(function() {
-  $("#flame").unbind("click");
+$("#flamethrower").click(function() {
+  $("#flamethrower").unbind("click");
   dropWeaponPowerup("powerup_flame.png", Flamethrower);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -219,6 +242,7 @@ $("#machineGun").click(function() {
   dropWeaponPowerup("machine_gun.png", MachineGun);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -227,6 +251,7 @@ $("#chainsaw").click(function() {
   dropWeaponPowerup("weapons/chainsaw.png", Chainsaw);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -235,6 +260,7 @@ $("#battleAxe").click(function() {
   dropWeaponPowerup("weapons/battle_axe.png", BattleAxe);
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
 
@@ -243,5 +269,6 @@ $("#shield").click(function() {
   //Get an icon to drop for the shield
   $(this).fadeOut("slow", function() {
     $(this).remove();
+    $("body").append(addRandomWeapon());
   });
 });
