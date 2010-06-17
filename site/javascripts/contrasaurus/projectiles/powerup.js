@@ -8,7 +8,7 @@ function Powerup(I) {
     pointsWorth: 1000,
     collisionType: "enemyBullet",
     rotationVelocity: Math.PI / 24,
-    rotation: 0
+    rotation: rand() * Math.PI
   });
 
   return GameObject(I).extend({
