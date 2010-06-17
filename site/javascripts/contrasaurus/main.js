@@ -163,41 +163,85 @@ function dropWeaponPowerup(imgFile, weaponClass) {
 }
 
 $("#meat").click(function() {
+  $("#meat").unbind("click");
   dropPowerup("meat.png", function(hitTarget) {
     if(hitTarget.heal) {
       hitTarget.heal(50);
     }
   });
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#shotgun").click(function() {
+  $("#shotgun").unbind("click");
   dropWeaponPowerup("powerup_shotgun.png", Shotgun);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#bomb").click(function() {
+  $("#bomb").unbind("click");
   dropWeaponPowerup("powerup_bomb.png", PrimalScream);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#missile").click(function() {
+  $("#missile").unbind("click");
   dropWeaponPowerup("powerup_missile.png", Bazooka);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#laser").click(function() {
+  $("#laser").unbind("click");
   dropWeaponPowerup("powerup_laser.png", LaserGun);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#flame").click(function() {
+  $("#flame").unbind("click");
   dropWeaponPowerup("powerup_flame.png", Flamethrower);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#machineGun").click(function() {
+  $("#machineGun").unbind("click");
   dropWeaponPowerup("machine_gun.png", MachineGun);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#chainsaw").click(function() {
+  $("#chainsaw").unbind("click");
   dropWeaponPowerup("weapons/chainsaw.png", Chainsaw);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
 
 $("#battleAxe").click(function() {
+  $("#battleAxe").unbind("click");
   dropWeaponPowerup("weapons/battle_axe.png", BattleAxe);
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
+});
+
+$("#shield").click(function() {
+  $("#shield").unbind("click");
+  //Get an icon to drop for the shield
+  $(this).fadeOut("slow", function() {
+    $(this).remove();
+  });
 });
