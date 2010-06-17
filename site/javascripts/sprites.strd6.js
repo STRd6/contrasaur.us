@@ -138,6 +138,8 @@
       $.extend(proxy, Animation(frameData, delay));
     };
 
+    img.onerror = brokenImageWarning(url);
+
     img.src = url;
 
     return proxy;
