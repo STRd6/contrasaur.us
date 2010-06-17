@@ -72,7 +72,7 @@
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
-        level.addGameObject(Enemy({
+        level.addGameObject(Soldier({
           theta: - 5 * Math.PI / 6,
           hFlip: true,
           x: level.position().x + CANVAS_WIDTH + 20,
