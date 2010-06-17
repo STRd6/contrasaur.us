@@ -26,8 +26,6 @@
       update: function() {},
 
       draw: function(canvas, x, y, options) {
-        var registrationPoint = this.registrationPoint;
-
         canvas.withState(x, y, options, function() {
           canvas.drawImage(image,
             sourceX,
@@ -40,10 +38,6 @@
             height
           );
         });
-      },
-      registrationPoint: {
-        x: width/2,
-        y: height/2
       },
       width: width,
       height: height
