@@ -28,6 +28,12 @@ function Powerup(I) {
         I.callback(other);
       },
 
+      land: function(h) {
+        I.y = h - (I.radius + 1);
+        I.yVelocity = 0;
+        I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+      },
+
       update: GameObject.generateCheckBounds(I)
     }
   });
