@@ -46,22 +46,7 @@ function Soldier(I) {
     yVelocity: 0
   });
 
-  var self = Enemy(I).extend({
-// TO DO: figure out why this does not trigger death animation
-//    after: {
-//      bulletHitEffect: function(bullet) {
-//
-//
-//        if (I.health <= 1) {
-//          var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
-//            duration: 12,
-//            sprite: loadAnimation("images/effects/sandinista_die_61x61.png", 12, 61, 61)
-//          }));
-//          addGameObject(effect);
-//        }
-//      }
-//    }
-  });
+  var self = Enemy(I).extend({ });
 
   return self;
 }
