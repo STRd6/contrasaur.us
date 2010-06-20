@@ -192,12 +192,15 @@ function weaponDisposal(object) {
 }
 
 $(".menu").live("click", function() {
-  $(this).unbind("click");
-  dropWeaponPowerup(
-    "" + $(this).attr("data-iconName"),
-    weaponMap[$(this).attr("data-weaponClass")]
-  );
-  weaponDisposal($(this));
-  $("div.menu:last").after(addRandomWeapon());
-  $("div.menu:last").hide().fadeIn(2000);
+  if ($(this).attr("data-used") == 'false') {
+    dropWeaponPowerup(
+      "" + $(this).attr("data-iconName"),
+      weaponMap[$(this).attr("data-weaponClass")]
+    );
+    weaponDisposal($(this));
+    $("div.menu:last").after(addRandomWeapon());
+    $("div.menu:last").hide().fadeIn(2000);
+    
+    $(this).attr("data-used", 'true');
+  }
 });
