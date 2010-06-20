@@ -173,7 +173,7 @@ function dropWeaponPowerup(imgFile, weaponClass) {
 }
 
 function addRandomWeapon() {
-  return "blah";
+  return '<div class="menu" data-iconname="chainsaw.png" data-weaponclass="chainsaw" id="chainsaw"><img alt="chainsaw" src="images/menu/chainsaw.png"></div>'
 }
 
 function weaponDisposal(object) {
@@ -182,142 +182,12 @@ function weaponDisposal(object) {
  });
 }
 
-   //$("div.menu:last").after(addRandomWeapon());
-
-$(".menu").click(function() {
+$(".menu").live("click", function() {
   $(this).unbind("click");
   dropWeaponPowerup(
     "" + $(this).attr("data-iconName"),
     weaponMap[$(this).attr("data-weaponClass")]
   );
   weaponDisposal($(this));
+  $("div.menu:last").after(addRandomWeapon());
 });
-
-//  $("#Shotgun").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("powerup_shotgun.png", Shotgun);
-//    weaponDisposal("Shotgun");
-//  });
-//
-//  $("#Bomb").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("powerup_bomb.png", PrimalScream);
-//    weaponDisposal("Bomb");
-//  });
-//
-//  $("#Bazooka").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("powerup_missile.png", Bazooka);
-//    weaponDisposal("Bazooka");
-//  });
-//
-//  $("#LaserGun").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("powerup_laser.png", LaserGun);
-//    weaponDisposal("LaserGun");
-//  });
-//
-//  $("#Flamethrower").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("powerup_flame.png", Flamethrower);
-//    weaponDisposal("Flamethrower");
-//  });
-//
-//  $("#MachineGun").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("machine_gun.png", MachineGun);
-//    weaponDisposal("MachineGun");
-//  });
-//
-//  $("#Chainsaw").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("weapons/chainsaw.png", Chainsaw);
-//    weaponDisposal("Chainsaw");
-//  });
-//
-//  $("#BattleAxe").click(function() {
-//    $(this).unbind("click");
-//    dropWeaponPowerup("weapons/battle_axe.png", BattleAxe);
-//    weaponDisposal("BattleAxe");
-//  });
-//}
-//
-//// TODO add grayout effect until weapon is available
-//function addRandomWeapon() {
-//  var weapon = weapons.rand();
-//  return '<div class="menu" id="' + weapon + '"><img alt="' + weapon + '" src="images/menu/' + weapon + '.png"/></div>';
-//}
-//
-//$("#meat").click(function() {
-//  $(this).unbind("click");
-//  dropPowerup("menu/meat.png", function(hitTarget) {
-//    if(hitTarget.heal) {
-//      hitTarget.heal(50);
-//    }
-//  });
-//  weaponDisposal("meat");
-//  weaponsBind();
-//});
-//
-//$("#Shotgun").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("powerup_shotgun.png", Shotgun);
-//  weaponDisposal("Shotgun");
-//  weaponsBind();
-//});
-//
-//$("#Bomb").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("powerup_bomb.png", PrimalScream);
-//  weaponDisposal("Bomb");
-//  weaponsBind();
-//});
-//
-//$("#Bazooka").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("powerup_missile.png", Bazooka);
-//  weaponDisposal("Bazooka");
-//  weaponsBind();
-//});
-//
-//$("#LaserGun").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("powerup_laser.png", LaserGun);
-//  weaponDisposal("LaserGun");
-//  weaponsBind();
-//});
-//
-//$("#Flamethrower").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("powerup_flame.png", Flamethrower);
-//  weaponDisposal("Flamethrower");
-//  weaponsBind();
-//});
-//
-//$("#MachineGun").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("machine_gun.png", MachineGun);
-//  weaponDisposal("MachineGun");
-//  weaponsBind();
-//});
-//
-//$("#Chainsaw").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("weapons/chainsaw.png", Chainsaw);
-//  weaponDisposal("Chainsaw");
-//  weaponsBind();
-//});
-//
-//$("#BattleAxe").click(function() {
-//  $(this).unbind("click");
-//  dropWeaponPowerup("weapons/battle_axe.png", BattleAxe);
-//  weaponDisposal("BattleAxe");
-//  weaponsBind();
-//});
-//
-//$("#Shield").click(function() {
-//  $(this).unbind("click");
-//  //Get an icon to drop for the shield
-//  weaponDisposal("Shield");
-//  weaponsBind();
-//});
