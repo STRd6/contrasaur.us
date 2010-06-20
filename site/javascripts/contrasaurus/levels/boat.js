@@ -60,8 +60,15 @@
     event: function(level) {
       dino.parasailing(true);
     }
-  },
-  {
+  }, {
+    every: 30,
+    event: function(level) {
+      level.addGameObject(Parasoldier({
+          xVelocity: 0,
+          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20
+        }));
+    }
+  }, {
     at: 500,
     event: function(level) {
       level.complete();

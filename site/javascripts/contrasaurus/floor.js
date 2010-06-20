@@ -16,18 +16,17 @@ function Floor(I) {
 
   return GameObject(I).extend({
     bulletHitEffect: function(bullet) {
-      var sprite;
-      if(I.water) {
-        sprite = loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16);
-      } else {
+      if(!I.water) {
+        var sprite;
         sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
-      }
-      var effect = Effect(Point(), $.extend(bullet.position(), {
-        duration: 8,
-        sprite: sprite
-      }));
+      
+        var effect = Effect(Point(), $.extend(bullet.position(), {
+          duration: 8,
+          sprite: sprite
+        }));
 
-      addGameObject(effect);
+        addGameObject(effect);
+      }
     },
     draw: function(canvas) {
       if (I.sprite) {
@@ -35,8 +34,19 @@ function Floor(I) {
       }
     },
     hit: function(other) {
-      if(other.land) {
-        other.land(I.y);
+      if(I.water) {
+        var effect = Effect(Point(), $.extend(other.position(), {
+          duration: 8,
+          sprite: loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16)
+        }));
+
+        addGameObject(effect);
+
+        other.active(false);
+      } else {
+        if(other.land) {
+          other.land(I.y);
+        }
       }
     },
     y: I.y
