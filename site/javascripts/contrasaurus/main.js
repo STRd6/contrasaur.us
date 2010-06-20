@@ -174,14 +174,14 @@ function dropWeaponPowerup(imgFile, weaponClass) {
 
 function addRandomWeapon() {
   return [
-    '<div class="menu" data-iconname="battle_axe.png" data-weaponclass="battleAxe"><img alt="battleAxe" src="images/menu/battleAxe.png"></div>',
-    '<div class="menu" data-iconname="placeholder_bazooka.png" data-weaponclass="bazooka"><img alt="bazooka" src="images/menu/bazooka.png"></div>',
-    '<div class="menu" data-iconname="placeholder_bomb.png" data-weaponclass="bomb"><img alt="bomb" src="images/menu/bomb.png"></div>',
-    '<div class="menu" data-iconname="chainsaw.png" data-weaponclass="chainsaw"><img alt="chainsaw" src="images/menu/chainsaw.png"></div>',
-    '<div class="menu" data-iconname="placeholder_flamethrower.png" data-weaponclass="flamethrower"><img alt="flamethrower" src="images/menu/flamethrower.png"></div>',
-    '<div class="menu" data-iconname="placeholder_laserGun.png" data-weaponclass="laser"><img alt="laser" src="images/menu/laserGun.png"></div>',
-    '<div class="menu" data-iconname="machine_gun.png" data-weaponclass="machineGun"><img alt="machineGun" src="images/menu/machineGun.png"></div>',
-    '<div class="menu" data-iconname="placeholder_shotgun.png" data-weaponclass="shotgun"><img alt="shotgun" src="images/menu/shotgun.png"></div>'
+    '<div class="menu" data-iconname="battle_axe.png" data-weaponclass="battleAxe" data-used="false"><img alt="battleAxe" src="images/menu/battleAxe.png"></div>',
+    '<div class="menu" data-iconname="placeholder_bazooka.png" data-weaponclass="bazooka" data-used="false"><img alt="bazooka" src="images/menu/bazooka.png"></div>',
+    '<div class="menu" data-iconname="placeholder_bomb.png" data-weaponclass="bomb" data-used="false"><img alt="bomb" src="images/menu/bomb.png"></div>',
+    '<div class="menu" data-iconname="chainsaw.png" data-weaponclass="chainsaw" data-used="false"><img alt="chainsaw" src="images/menu/chainsaw.png"></div>',
+    '<div class="menu" data-iconname="placeholder_flamethrower.png" data-weaponclass="flamethrower" data-used="false"><img alt="flamethrower" src="images/menu/flamethrower.png"></div>',
+    '<div class="menu" data-iconname="placeholder_laserGun.png" data-weaponclass="laser" data-used="false"><img alt="laser" src="images/menu/laserGun.png"></div>',
+    '<div class="menu" data-iconname="machine_gun.png" data-weaponclass="machineGun" data-used="false"><img alt="machineGun" src="images/menu/machineGun.png"></div>',
+    '<div class="menu" data-iconname="placeholder_shotgun.png" data-weaponclass="shotgun" data-used="false"><img alt="shotgun" src="images/menu/shotgun.png"></div>'
   ].rand();
 }
 
