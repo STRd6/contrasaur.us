@@ -199,4 +199,5 @@ $(".menu").live("click", function() {
   );
   weaponDisposal($(this));
   $("div.menu:last").after(addRandomWeapon());
+  $("div.menu:last").hide().fadeIn(2000);
 });
