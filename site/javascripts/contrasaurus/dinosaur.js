@@ -154,6 +154,10 @@ function Dinosaur() {
         } else {
           if (jetpack.engaged()) {
             airborne = true;
+            currentLevel.tiltAmount(6);
+            I.xVelocity = 7;
+          } else {
+            currentLevel.tiltAmount(1);
           }
 
           if (airborne && jetpack.engaged()) {
