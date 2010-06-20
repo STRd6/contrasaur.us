@@ -23,7 +23,7 @@ function LaserGun(I) {
         speed: 13,
         collideDamage: 3,
         radius: 2,
-        sprite: loadImageTile("images/laser.png"),
+        sprite: loadImageTile("images/projectiles/laser.png"),
         x: position.x,
         y: position.y
       });

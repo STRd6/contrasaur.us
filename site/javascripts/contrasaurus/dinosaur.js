@@ -15,8 +15,8 @@ function Dinosaur() {
 
   var pitchAngle = 0;
 
-  var dinoTile = loadImageTile("images/dino1.png");
-  var parasailTile = loadImageTile("images/parasail.png");
+  var dinoTile = loadImageTile("images/levels/dino1.png");
+  var parasailTile = loadImageTile("images/levels/parasail/parasail.png");
   
   var I = {
     x: x,

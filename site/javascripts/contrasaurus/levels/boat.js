@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: loadImageTile("images/levels/coast.png"),
+      image: loadImageTile("images/levels/parasail/coast.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -9,7 +9,7 @@
       }
     },
     {
-      image: loadImageTile("images/clouds2.png"),
+      image: loadImageTile("images/levels/clouds2.png"),
       parallaxRate: 1,
       rate: {x: -0.5},
       position: {
@@ -20,7 +20,7 @@
     }
   ], [
     {
-      image: loadImageTile("images/clouds1.png"),
+      image: loadImageTile("images/levels/clouds1.png"),
       parallaxRate: 1,
       rate: {x: -1},
       position: {
@@ -30,7 +30,7 @@
       repeat: true
     },
     {
-      image: loadImageTile("images/speed-boat.png"),
+      image: loadImageTile("images/levels/parasail/speed-boat.png"),
       parallaxRate: 0,
       position: {
         x: 320,
@@ -39,7 +39,7 @@
       repeat: true
     },
     {
-      image: loadImageTile("images/levels/ocean.png"),
+      image: loadImageTile("images/levels/parasail/ocean.png"),
       parallaxRate: 1,
       rate: {x: -3},
       position: {

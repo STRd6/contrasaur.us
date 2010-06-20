@@ -25,7 +25,7 @@ function Parasoldier(I) {
         );
       }
     },
-    sprite: loadImageTile("images/parasoldier.png")
+    sprite: loadImageTile("images/enemies/parasoldier.png")
   });
 
   var self = Enemy(I).extend({

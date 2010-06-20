@@ -47,6 +47,5 @@ function Soldier(I) {
   });
 
   var self = Enemy(I).extend({ });
-
   return self;
 }

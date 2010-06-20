@@ -2,15 +2,15 @@ function Jetpack(I) {
 
   I = I || {};
 
-  var jetpackTile = loadImageTile("images/jetpack.png");
-  var activeTile = loadImageTile("images/jetpack_active.png");
+  var jetpackTile = loadImageTile("images/weapons/jetpack.png");
+  var activeTile = loadImageTile("images/weapons/jetpack_active.png");
 
   $.reverseMerge(I, {
     age: 0,
     engaged: false,
     jetpackCharge: 0,
     jetpackCounter: 0,
-    sprite: loadImageTile("images/jetpack.png")
+    sprite: loadImageTile("images/weapons/jetpack.png")
   });
 
   var self = Weapon(I).extend({

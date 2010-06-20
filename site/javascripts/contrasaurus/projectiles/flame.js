@@ -6,7 +6,7 @@ function Flame(direction, I) {
     duration: 20,
     radius: 18,
     collideDamage: 20,
-    sprite: loadImageTile("images/flame.png"),
+    sprite: loadImageTile("images/projectiles/flame.png"),
     xVelocity: direction * 5,
     yVelocity: Math.sin(theta) * speed
   });

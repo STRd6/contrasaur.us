@@ -2,7 +2,7 @@ function Tank(I) {
   I = I || {};
 
   var gunAngle;
-  var tankTile = loadImageTile("images/tank.png")
+  var tankTile = loadImageTile("images/enemies/tank.png")
 
   $.reverseMerge(I, {
     y: CANVAS_HEIGHT - Floor.LEVEL,
@@ -20,7 +20,7 @@ function Tank(I) {
           gunAngle, {
             x: self.midpoint().x,
             y: self.midpoint().y,
-            sprite: loadImageTile("images/blast_small.png"),
+            sprite: loadImageTile("images/projectiles/blast_small.png"),
             collideDamage: 7
           }
         );

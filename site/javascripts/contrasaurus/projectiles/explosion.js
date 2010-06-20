@@ -4,7 +4,7 @@ function Explosion(I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
-    sprite: loadAnimation("images/explosion.png", 25, 67, 171),
+    sprite: loadAnimation("images/effects/explosion.png", 25, 67, 171),
     radius: 20,
     width: 67,
     height: 171,

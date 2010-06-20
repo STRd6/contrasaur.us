@@ -7,7 +7,7 @@ function Missile(theta, I) {
     height: 16,
     radius: 8,
     collideDamage: 20,
-    sprite: loadImageTile("images/missile.png"),
+    sprite: loadImageTile("images/projectiles/missile.png"),
     xVelocity: Math.cos(theta)*speed,
     yVelocity: Math.sin(theta)*speed
   });

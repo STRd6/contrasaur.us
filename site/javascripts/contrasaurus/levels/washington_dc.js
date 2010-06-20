@@ -20,12 +20,12 @@
   ]
 
   addCutscene(
-    "images/lincoln_memorial.png",
+    "images/levels/cutscenes/lincoln_memorial.png",
     "Contrasaur! I know the terrible Truth behind Reagan's plan!",
     3000
   );
 
-  addCutscene("images/tyrannosaurus_rex.png", "?!", 1000);
+  addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1000);
 
   addLevel(scene, [floor], triggers, "Dragonforce - My Spirit Will Go On");
 }());

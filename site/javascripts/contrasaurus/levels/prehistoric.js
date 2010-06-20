@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: loadImageTile("images/background.png"),
+      image: loadImageTile("images/levels/jungle/background.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -9,7 +9,7 @@
       }
     },
     {
-      image: loadImageTile("images/midground.png"),
+      image: loadImageTile("images/levels/jungle/midground.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
@@ -17,7 +17,7 @@
       }
     },
     {
-      image: loadImageTile("images/foreground.png"),
+      image: loadImageTile("images/levels/jungle/foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
@@ -25,7 +25,7 @@
       }
     },
     {
-      image: loadImageTile("images/clouds2.png"),
+      image: loadImageTile("images/levels/clouds2.png"),
       parallaxRate: 1,
       rate: {x: -0.5},
       position: {
@@ -36,7 +36,7 @@
     }
   ], [
     {
-      image: loadImageTile('images/jungleTree.png'),
+      image: loadImageTile('images/levels/jungle/tree.png'),
       parallaxRate: 1,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -44,7 +44,7 @@
       }
     },
     {
-      image: loadImageTile('images/jungleTree.png'),
+      image: loadImageTile('images/levels/jungle/tree.png'),
       parallaxRate: 2,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -52,7 +52,7 @@
       }
     },
     {
-      image: loadImageTile("images/clouds1.png"),
+      image: loadImageTile("images/levels/clouds1.png"),
       parallaxRate: 1,
       rate: {x: -1},
       position: {
@@ -82,6 +82,6 @@
     }
   }];
 
-  addCutscene("images/triassic.png", "Thousands of years ago...", 3000);
+  addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
   addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance");
 }());
