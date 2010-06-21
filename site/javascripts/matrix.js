@@ -22,7 +22,6 @@
       tx: tx || 0,
       ty: ty || 0,
 
-      // TODO: Check the math on tx and ty!!
       concat: function(matrix) {
         return Matrix(
           this.a * matrix.a + this.c * matrix.b,
@@ -34,12 +33,24 @@
         );
       },
 
+      inverse: function() {
+        var determinant = this.a * this.d - this.b * this.c;
+        return Matrix(
+          this.d / determinant,
+          -this.b / determinant,
+          -this.c / determinant,
+          this.a / determinant,
+          (this.c * this.ty - this.d * this.tx) / determinant,
+          (this.b * this.tx - this.a * this.ty) / determinant
+        );
+      },
+
       rotate: function(theta, aboutPoint) {
-        return this.concat(Matrix.rotation(theta, aboutPoint));
+        return Matrix.rotation(theta, aboutPoint).concat(this);
       },
 
       scale: function(sx, sy) {
-        return this.concat(Matrix.scale(sx, sy));
+        return Matrix.scale(sx, sy).concat(this);
       },
 
       transformPoint: function(point) {
@@ -50,7 +61,7 @@
       },
 
       translate: function(tx, ty) {
-        return this.concat(Matrix.translation(tx, ty));
+        return Matrix.translation(tx, ty).concat(this);
       }
     }
   }

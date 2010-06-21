@@ -11,7 +11,7 @@ function Chainsaw(I) {
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.translation(57, 15).rotate(I.theta, Point(-52, -12));
+      return Matrix.rotation(I.theta, Point(-52, -12)).translate(57, 15);
     },
 
     generateProjectile: function(direction, position) {

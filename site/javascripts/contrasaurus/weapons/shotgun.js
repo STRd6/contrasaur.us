@@ -4,6 +4,7 @@ function Shotgun(I) {
   var gunTile = loadImageTile("images/weapons/placeholder_shotgun.png");
 
   $.reverseMerge(I, {
+    duration: 10000,
     exitPoints: [Point(25, 4)],
     power: 10,
     radius: 5,
@@ -11,6 +12,7 @@ function Shotgun(I) {
   });
 
   var target, direction;
+  var dinoTransform = Matrix.IDENTITY;
 
   var self = Weapon(I).extend({
 
@@ -19,12 +21,13 @@ function Shotgun(I) {
     },
 
     getTransform: function() {
-      return Matrix.rotation(direction);
+      return dinoTransform.inverse().concat(Matrix.rotation(direction));
     },
 
     before: {
       update: function (dino) {
         var position = dino.position();
+        dinoTransform = dino.getTransform();
 
         if(target && target.active()) {
           var targetMidpoint = target.midpoint();
