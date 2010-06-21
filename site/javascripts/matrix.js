@@ -1,5 +1,7 @@
 /**
- * Matrix, loosely based on flash.
+ * Matrix v0.9.0
+ * 
+ * Loosely based on flash:
  * http://www.adobe.com/livedocs/flash/9.0/ActionScriptLangRefV3/flash/geom/Matrix.html
  */
 (function() {
@@ -17,6 +19,18 @@
     return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
   };
 
+  /**
+   * Creates a matrix for 2d affine transformations.
+   *  _        _
+   * | a  c tx  |
+   * | b  d ty  |
+   * |_0  0  1 _|
+   *
+   * concat, inverse, rotate, scale and translate return new matrices with the
+   * transformations applied. The matrix is not modified in place.
+   *
+   * Returns the identity matrix when called with no arguments.
+   */
   function Matrix(a, b, c, d, tx, ty) {
     return {
       a: a || 1,
@@ -70,6 +84,11 @@
     }
   }
 
+  /**
+   * Returns a matrix that corresponds to a rotation of angle theta in radians.
+   * If optional aboutPoint argument is given, the rotation takes place about
+   * that point.
+   */
   Matrix.rotation = function(theta, aboutPoint) {
     var rotationMatrix = Matrix(
       Math.cos(theta),
@@ -90,10 +109,16 @@
     return rotationMatrix;
   };
 
+  /**
+   * Returns a matrix that corresponds to a scaling by factors of sx, sy.
+   */
   Matrix.scale = function(sx, sy) {
     return Matrix(sx, 0, 0, sy);
   };
 
+  /**
+   * Returns a matrix that corresponds to a translation of tx, ty.
+   */
   Matrix.translation = function(tx, ty) {
     return Matrix(1, 0, 0, 1, tx, ty);
   };
@@ -102,6 +127,7 @@
   Matrix.HORIZONTAL_FLIP = Matrix(-1, 0, 0, 1);
   Matrix.VERTICAL_FLIP = Matrix(1, 0, 0, -1);
 
+  // Export to window
   window['Matrix'] = Matrix;
   window['Point'] = Point;
 }());
