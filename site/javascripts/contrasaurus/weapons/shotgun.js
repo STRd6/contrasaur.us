@@ -31,7 +31,7 @@ function Shotgun(I) {
 
         if(target && target.active()) {
           var targetMidpoint = target.midpoint();
-          var targetDistance = distance(position, targetMidpoint);
+          var targetDistance = Point.distance(position, targetMidpoint);
           var targetVelocity = target.velocity();
 
           targetMidpoint.y += (targetDistance / 10) * targetVelocity.y;

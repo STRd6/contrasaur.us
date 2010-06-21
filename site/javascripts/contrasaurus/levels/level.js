@@ -138,7 +138,7 @@ function Level(I) {
       var nearestDistance;
 
       $.each(self.enemies(), function(i, enemy) {
-        var enemyDistance = distance(currentPosition, enemy.position());
+        var enemyDistance = Point.distance(currentPosition, enemy.position());
         if(nearest) {
           if(nearestDistance > enemyDistance) {
             nearest = enemy;
