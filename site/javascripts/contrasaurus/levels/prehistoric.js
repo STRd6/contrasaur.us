@@ -52,6 +52,54 @@
       }
     },
     {
+      image: loadImageTile('images/levels/prehistoric/grass3.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 90,
+        y: 310
+      }
+    },
+    {
+      image: loadImageTile('images/levels/prehistoric/grass2.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 120,
+        y: 310
+      }
+    },
+    {
+      image: loadImageTile('images/levels/prehistoric/grass1.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 160,
+        y: 310
+      }
+    },
+    {
+      image: loadImageTile('images/levels/prehistoric/grass3.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 540,
+        y: 310
+      }
+    },
+    {
+      image: loadImageTile('images/levels/prehistoric/grass2.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 570,
+        y: 310
+      }
+    },
+    {
+      image: loadImageTile('images/levels/prehistoric/grass1.png'),
+      parallaxRate: 1,
+      position: {
+        x: CANVAS_WIDTH + 545,
+        y: 310
+      }
+    },
+    {
       image: loadImageTile("images/levels/clouds1.png"),
       parallaxRate: 1,
       rate: {x: -1},
@@ -70,16 +118,26 @@
     event: function(level) {
       level.complete();
     }
-//  }, {
-//    every: 100,
-//    event: function(level) {
-//      if (Math.random() < 0.05) {
-//        level.addGameObject(Utahraptor([
-//          {xVelocity: -3, x: level.position().x + CANVAS_WIDTH + 20},
-//          {xVelocity: 3, x: level.position().x - 20}
-//        ].rand()));
-//      }
-//    }
+  }, {
+    every: 1,
+    event: function(level) {
+      if (Math.random() < 0.03) {
+        level.addGameObject(Meteor({
+          x: level.position().x + rand(CANVAS_WIDTH)
+        }));
+      }
+    }
+  }, {
+    every: 100,
+    event: function(level) {
+      if (Math.random() < 0.5) {
+        level.addGameObject(GameObject({
+          sprite: loadImageTile("images/levels/prehistoric/grass1.png"),
+          x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
+          y: 310
+        }));
+      }
+    }
   }, {
     at: 50,
     event: function(level) {
