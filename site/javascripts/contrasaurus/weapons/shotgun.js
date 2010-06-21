@@ -1,25 +1,32 @@
 function Shotgun(I) {
   I = I || {};
 
+  var gunTile = loadImageTile("images/weapons/placeholder_shotgun.png");
+
   $.reverseMerge(I, {
-    age: 0,
+    exitPoints: [Point(25, 4)],
     power: 10,
     radius: 5,
-    theta: 0,
-    dino: I.dino,
-    x: I.x || 0,
-    y: I.y || 0
+    sprite: gunTile
   });
+
+  var target, direction;
 
   var self = Weapon(I).extend({
 
-    shoot: function(position, transform) {
+    generateProjectile: function(unused, position) {
+      return Bullet(direction, { x: position.x, y: position.y });
+    },
 
-      if(rand(100) < I.power) {
-        var target = currentLevel.nearestEnemy(position);
-        var direction;
+    getTransform: function() {
+      return Matrix.rotation(direction);
+    },
 
-        if(target) {
+    before: {
+      update: function (dino) {
+        var position = dino.position();
+
+        if(target && target.active()) {
           var targetMidpoint = target.midpoint();
           var targetDistance = distance(position, targetMidpoint);
           var targetVelocity = target.velocity();
@@ -27,28 +34,20 @@ function Shotgun(I) {
           targetMidpoint.y += (targetDistance / 10) * targetVelocity.y;
           targetMidpoint.x += (targetDistance / 10) * targetVelocity.x;
 
-          direction = Math.atan2(
+          var directionTowardsTarget = Math.atan2(
             targetMidpoint.y - position.y,
             targetMidpoint.x - position.x
           );
+
+          // TODO: Apply the inverse transform of the dino's matrix so that the
+          // gun points in the correct direction when the dino is spinning/flipped.
+          direction = directionTowardsTarget;
         } else {
-          direction = target ? Math.atan2(I.yVelocity, I.xVelocity) : 0;
+          target = currentLevel.nearestEnemy(position);
         }
-
-        (3 + rand(I.power)).times(function() {
-          function fuzz() {
-            return Math.random() * 20 - 10;
-          }
-
-          var x = position.x + fuzz();
-          var y = position.y + fuzz() * 2;
-
-          addGameObject(Bullet(direction, { x: x, y: y }));
-        });
       }
-    },
+    }
 
-    update: $.noop
   });
 
   return self;
