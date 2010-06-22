@@ -32,15 +32,16 @@ function Meteor(I) {
     hit: function(other) {
       I.health = I.health - other.collideDamage();
       if (I.health <= 0) {
+        self.trigger('destroy');
         I.active = false;
-        if (I.eventCallbacks.length > 0) {
-          self.trigger('destroy');
-        }
         addScore(I.pointsWorth);
       }
     },
 
     after: {
+      land: function() {
+        self.explode();
+      },
       update: function() {
         I.sprite = I.xVelocity < 0 ? meteor1Tile: meteor2Tile;
         I.yVelocity += GRAVITY;

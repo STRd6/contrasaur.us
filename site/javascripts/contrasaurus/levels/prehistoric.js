@@ -127,7 +127,6 @@
       meteor.bind('destroy', function() { 
         meteor.explode();
       });
-      console.log(meteor.getEventCallbacks().length);
 
       if (Math.random() < 0.03) {
         level.addGameObject(meteor);

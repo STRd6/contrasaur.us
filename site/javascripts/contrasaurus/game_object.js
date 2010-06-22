@@ -7,7 +7,7 @@ function GameObject(I) {
     color: "#880",
     duration: -1,
     eventCallbacks: {
-      'destroy': $.noop
+      'destroy': function() { alert("Destroyed"); }
     },
     health: 1,
     x: 0,
@@ -123,7 +123,7 @@ function GameObject(I) {
     },
 
     trigger: function(event) {
-      I.eventCallbacks[event];
+      I.eventCallbacks[event]();
     },
 
     update: function() {
