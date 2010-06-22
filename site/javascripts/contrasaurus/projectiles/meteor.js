@@ -10,6 +10,7 @@ function Meteor(I) {
     height: 36,
     radius: 12,
     collideDamage: 10,
+    collisionType: "enemyBullet",
     xVelocity: [
       3,
       -3
@@ -29,18 +30,12 @@ function Meteor(I) {
       }));
     },
 
-    hit: function(other) {
-      I.health = I.health - other.collideDamage();
-      if (I.health <= 0) {
-        self.trigger('destroy');
-        I.active = false;
-        addScore(I.pointsWorth);
-      }
-    },
-
     after: {
+      hit: function(other) {
+        self.trigger('destroy');
+      },
       land: function() {
-        self.explode();
+        self.trigger('destroy');
       },
       update: function() {
         I.sprite = I.xVelocity < 0 ? meteor1Tile: meteor2Tile;
