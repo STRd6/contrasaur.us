@@ -6,6 +6,9 @@ function GameObject(I) {
     age: 0,
     color: "#880",
     duration: -1,
+    eventCallbacks: {
+      'destroy': $.noop
+    },
     health: 1,
     x: 0,
     y: 0,
@@ -25,41 +28,6 @@ function GameObject(I) {
   }
 
   var self = {
-    getTransform: function() {
-      return Matrix.translation(I.x, I.y);
-    },
-
-    midpoint: function() {
-      return {
-        x: I.x,
-        y: I.y
-      }
-    },
-
-    position: function() {
-      return Point(I.x, I.y);
-    },
-
-    getCircles: function() {
-      if(I.hitCircles) {
-        var transform = self.getTransform();
-        return $.map(I.hitCircles, function(circle) {
-          var point = transform.transformPoint(circle);
-          return {
-            x: point.x,
-            y: point.y,
-            radius: circle.radius
-          };
-        });
-      } else {
-        return [{x: I.x, y: I.y, radius: I.radius}];
-      }
-    },
-
-    // TODO: Encapsulate these better
-    collideDamage: function() { return I.collideDamage },
-    pointsWorth: function() { return I.pointsWorth },
-
     active: function(newActive) {
       if(newActive != undefined) {
         I.active = newActive;
@@ -69,32 +37,14 @@ function GameObject(I) {
       }
     },
 
+    bind: function(event, callback) {
+      I.eventCallbacks[event] = callback;
+    },
+
+    collideDamage: function() { return I.collideDamage },
+
     collisionType: function() {
       return I.collisionType;
-    },
-
-    health: function(newHealth) {
-      if(newHealth != undefined) {
-        I.health = newHealth;
-        return this;
-      } else {
-        return I.health;
-      }
-    },
-
-    velocity: function() {
-      return {
-        x: I.xVelocity,
-        y: I.yVelocity
-      }
-    },
-
-    hit: function(other) {
-      I.health = I.health - other.collideDamage();
-      if (I.health <= 0) {
-        I.active = false;
-        addScore(I.pointsWorth);
-      }
     },
 
     draw: function(canvas) {
@@ -118,6 +68,64 @@ function GameObject(I) {
       });
     },
 
+    getCircles: function() {
+      if(I.hitCircles) {
+        var transform = self.getTransform();
+        return $.map(I.hitCircles, function(circle) {
+          var point = transform.transformPoint(circle);
+          return {
+            x: point.x,
+            y: point.y,
+            radius: circle.radius
+          };
+        });
+      } else {
+        return [{x: I.x, y: I.y, radius: I.radius}];
+      }
+    },
+
+    getTransform: function() {
+      return Matrix.translation(I.x, I.y);
+    },
+
+    health: function(newHealth) {
+      if(newHealth != undefined) {
+        I.health = newHealth;
+        return this;
+      } else {
+        return I.health;
+      }
+    },
+
+    hit: function(other) {
+      I.health = I.health - other.collideDamage();
+      if (I.health <= 0) {
+        I.active = false;
+        if (I.eventCallbacks.length > 0) {
+          self.trigger('destroy');
+        }
+        addScore(I.pointsWorth);
+      }
+    },
+
+    midpoint: function() {
+      return {
+        x: I.x,
+        y: I.y
+      }
+    },
+
+    // TODO: Encapsulate these better
+    pointsWorth: function() { return I.pointsWorth },
+
+    position: function() {
+      return Point(I.x, I.y);
+    },
+
+    trigger: function(event) {
+      I.eventCallbacks[event];
+    },
+
     update: function() {
       I.age++;
       move();
@@ -128,6 +136,13 @@ function GameObject(I) {
 
       if(I.duration != -1 && I.age > I.duration) {
         I.active = false;
+      }
+    },
+
+    velocity: function() {
+      return {
+        x: I.xVelocity,
+        y: I.yVelocity
       }
     },
 

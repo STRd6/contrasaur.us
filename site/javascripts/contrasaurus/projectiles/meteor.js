@@ -6,6 +6,7 @@ function Meteor(I) {
 
   $.reverseMerge(I, {
     width: 42,
+    health: 1,
     height: 36,
     radius: 12,
     collideDamage: 10,
@@ -15,11 +16,10 @@ function Meteor(I) {
     ].rand(),
     yVelocity: 5,
     sprite: meteor1Tile
-  });
+  })
 
-  function explode() {
-    if(I.active) {
-      I.active = false;
+  var self = Bullet(null, I).extend({
+    explode: function() {
       addGameObject(Explosion({
         x: I.x,
         y: I.y,
@@ -27,14 +27,19 @@ function Meteor(I) {
         duration: 10,
         sprite: loadAnimation("images/effects/explosion_46x46.png", 5, 46, 46, 2)
       }));
-    }
-  }
-
-  var self = Bullet(null, I).extend({
-
-    hit: function() {
-      explode();
     },
+
+    hit: function(other) {
+      I.health = I.health - other.collideDamage();
+      if (I.health <= 0) {
+        I.active = false;
+        if (I.eventCallbacks.length > 0) {
+          self.trigger('destroy');
+        }
+        addScore(I.pointsWorth);
+      }
+    },
+
     after: {
       update: function() {
         I.sprite = I.xVelocity < 0 ? meteor1Tile: meteor2Tile;

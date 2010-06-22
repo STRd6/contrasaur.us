@@ -121,10 +121,16 @@
   }, {
     every: 1,
     event: function(level) {
-      if (Math.random() < 0.03) {
-        level.addGameObject(Meteor({
+      var meteor = Meteor({
           x: level.position().x + rand(CANVAS_WIDTH)
-        }));
+        });
+      meteor.bind('destroy', function() { 
+        meteor.explode();
+      });
+      console.log(meteor.getEventCallbacks().length);
+
+      if (Math.random() < 0.03) {
+        level.addGameObject(meteor);
       }
     }
   }, {
