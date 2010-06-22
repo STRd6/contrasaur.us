@@ -1,31 +1,23 @@
 function PrimalScream(I) {
   I = I || {};
 
+  var radius = 5;
+
+  var exitPoints = [];
+
+  (24).times(function(i) {
+    var theta = (i / 12) * Math.PI;
+    exitPoints.push(Point(Math.cos(theta) * radius, Math.sin(theta) * radius));
+  });
+
   $.reverseMerge(I, {
-    age: 0,
-    power: 10,
-    radius: 5,
-    theta: 0,
-    x: 0,
-    y: 0
+    exitPoints: exitPoints,
+    power: 2
   });
 
   var self = Weapon(I).extend({
-
-    shoot: function(midpoint, transform) {
-
-      if (rand(100) < I.power) {
-        (24).times(function(i) {
-          var theta = (i / 12) * Math.PI;
-          addGameObject(Bullet(theta, {
-            x: midpoint.x,
-            y: midpoint.y
-          }));
-        }
-      )}
-    },
-
-    update: $.noop
+    draw: $.noop
   });
+
   return self;
 }
