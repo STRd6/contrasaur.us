@@ -2,7 +2,6 @@ function Utahraptor(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    radius: 10,
     collideDamage: 0,
     health: 1,
     pointsWorth: 1000,
@@ -22,14 +21,6 @@ function Utahraptor(I) {
       }));
 
       addGameObject(effect);
-    },
-
-    getTransform: function() {
-      if(I.xVelocity < 0) {
-        return HORIZONTAL_FLIP_MATRIX;
-      } else {
-        return IDENTITY_MATRIX;
-      }
     }
   });
 

@@ -22,9 +22,7 @@ function Bomb(xVelocity, I) {
   }
 
   var self = Bullet(null, I).extend({
-    getTransform: function() {
-      return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
-    },
+    getTransform: GameObject.velocityGetTransform(I),
 
     hit: $.noop,
 

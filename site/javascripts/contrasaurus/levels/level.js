@@ -35,13 +35,17 @@ function Level(I) {
     });
   }
 
+  function getTransform() {
+    return Matrix.translation(-position.x, -position.y);
+  }
+
   function draw(canvas) {
     // Draw Backgrounds
     canvas.fill(backgroundColor);
 
     I.scene.drawBackgrounds(position, canvas);
 
-    canvas.withState(-position.x, -position.y, {}, function() {
+    canvas.withTransform(getTransform(), function() {
       $.each(gameObjects, function(i, gameObject) {
         gameObject.draw(canvas);
       });

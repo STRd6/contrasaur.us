@@ -12,9 +12,7 @@ function Powerup(I) {
   });
 
   return GameObject(I).extend({
-    getTransform: function() {
-      return Matrix.rotation(I.rotation);
-    },
+    getTransform: GameObject.rotationGetTransform(I),
 
     before: {
       update: function() {

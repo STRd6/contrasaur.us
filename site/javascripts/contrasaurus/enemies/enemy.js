@@ -40,11 +40,13 @@ function Enemy(I) {
     },
 
     getTransform: function() {
+      var t;
       if(I.hFlip) {
-        return Matrix.HORIZONTAL_FLIP;
+        t =  Matrix.HORIZONTAL_FLIP;
       } else {
-        return Matrix.IDENTITY;
+        t = Matrix.IDENTITY;
       }
+      return t.translate(I.x, I.y);
     },
 
     after: {

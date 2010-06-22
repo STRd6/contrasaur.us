@@ -48,9 +48,6 @@ function HomingMissile(I) {
   }
 
   var self = Bullet(direction, I).extend({
-    getTransform: function() {
-      return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
-    },
     hit: function() {
       explode();
     },

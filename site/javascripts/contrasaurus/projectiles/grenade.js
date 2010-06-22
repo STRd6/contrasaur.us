@@ -2,16 +2,13 @@ function Grenade(theta, I) {
   I = I || {};
 
   var fuse = 45;
-  var rotationSpeed = Math.PI / 32;
-  var rotation = 0;
 
   $.reverseMerge(I, {
-    color: '#500',
-    width: 35,
-    height: 16,
-    radius: 8,
-    speed: 5,
     collideDamage: 0,
+    radius: 8,
+    rotation: 0,
+    rotationVelocity: Math.PI / 32,
+    speed: 5,
     sprite: loadImageTile("images/projectiles/grenade.png")
   });
 
@@ -26,9 +23,7 @@ function Grenade(theta, I) {
   }
 
   var self = Bullet(theta, I).extend({
-    getTransform: function() {
-      return rotationTransform(rotation);
-    },
+    getTransform: GameObject.rotationGetTransform(I),
 
     land: function() {
       detonate();
@@ -38,7 +33,7 @@ function Grenade(theta, I) {
 
     after: {
       update: function() {
-        rotation += rotationSpeed;
+        I.rotation += I.rotationSpeed;
         I.yVelocity += GRAVITY;
 
         if(I.age > fuse) {

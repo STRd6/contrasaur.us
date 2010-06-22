@@ -37,7 +37,7 @@ function Weapon(I) {
         // Assumes direction follows line from center of weapon to exit point
         var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
 
-        addGameObject(self.generateProjectile(direction, position.add(localPosition)));
+        addGameObject(self.generateProjectile(direction, localPosition));
       });
     },
 

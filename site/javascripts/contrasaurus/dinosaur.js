@@ -83,7 +83,7 @@ function Dinosaur() {
         transform = transform.concat(Matrix.rotation(pitchAngle));
       }
 
-      return transform;
+      return transform.translate(I.x, I.y);
     },
 
     heal: heal,
@@ -94,7 +94,7 @@ function Dinosaur() {
 
     draw: function(canvas) {
 
-      canvas.withState(I.x, I.y, { transform: self.getTransform() }, function() {
+      canvas.withTransform(self.getTransform(), function() {
         if(parasailing) {
           parasailTile.draw(canvas, -100, -100);
         }

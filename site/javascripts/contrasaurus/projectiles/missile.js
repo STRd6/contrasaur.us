@@ -13,9 +13,7 @@ function Missile(theta, I) {
   });
 
   var self = Bullet(theta, I).extend({
-    getTransform: function() {
-      return rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
-    },
+    getTransform: GameObject.velocityGetTransform(I),
     after: {
       update: function() {
         I.xVelocity = I.xVelocity * 1.1;

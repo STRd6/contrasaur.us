@@ -14,12 +14,8 @@ function Bullet(theta, I) {
     yVelocity: Math.sin(theta)*I.speed
   });
 
-  var transform = rotationTransform(Math.atan2(I.yVelocity, I.xVelocity));
-
   var self = GameObject(I).extend({
-    getTransform: function() {
-      return transform;
-    },
+    getTransform: GameObject.velocityGetTransform(I),
     land: function() {
       I.active = false;
     },

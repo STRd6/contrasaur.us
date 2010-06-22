@@ -9,12 +9,8 @@ function Effect(velocity, I) {
     yVelocity: 0
   });
 
-  var transform = rotationTransform(Math.atan2(velocity.y, velocity.x));
-
   var self = GameObject(I).extend({
-    getTransform: function() {
-      return transform;
-    }
+    getTransform: GameObject.velocityGetTransform(I)
   });
 
   return self;

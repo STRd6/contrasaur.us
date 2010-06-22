@@ -69,10 +69,23 @@
         return this;
       },
 
-      transform: function(m11, m12, m21, m22, dx, dy) {
-        context.transform(m11, m12, m21, m22, dx, dy);
+      withTransform: function(matrix, block) {
+        context.save();
 
-        return this;
+        context.transform(
+          matrix.a,
+          matrix.b,
+          matrix.c,
+          matrix.d,
+          matrix.tx,
+          matrix.ty
+        );
+
+        try {
+          block();
+        } finally {
+          context.restore();
+        }
       },
 
       clear: function() {

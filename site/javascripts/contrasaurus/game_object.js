@@ -26,7 +26,7 @@ function GameObject(I) {
 
   var self = {
     getTransform: function() {
-      return Matrix.IDENTITY;
+      return Matrix.translation(I.x, I.y);
     },
 
     midpoint: function() {
@@ -42,12 +42,12 @@ function GameObject(I) {
 
     getCircles: function() {
       if(I.hitCircles) {
-        var position = self.position();
+        var transform = self.getTransform();
         return $.map(I.hitCircles, function(circle) {
-          var point = self.getTransform().transformPoint(circle);
+          var point = transform.transformPoint(circle);
           return {
-            x: point.x + position.x,
-            y: point.y + position.y,
+            x: point.x,
+            y: point.y,
             radius: circle.radius
           };
         });
@@ -98,7 +98,7 @@ function GameObject(I) {
     },
 
     draw: function(canvas) {
-      canvas.withState(I.x, I.y, { transform: self.getTransform() }, function() {
+      canvas.withTransform(self.getTransform(), function() {
         if (I.sprite) {
           I.sprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
         } else {
@@ -177,5 +177,17 @@ GameObject.generateCheckBounds = function(I, buffer) {
     }
 
     return I.active;
+  };
+};
+
+GameObject.velocityGetTransform = function(I) {
+  return function() {
+    return Matrix.rotation(Math.atan2(I.yVelocity, I.xVelocity)).translate(I.x, I.y);
+  };
+};
+
+GameObject.rotationGetTransform = function(I) {
+  return function() {
+    return Matrix.rotation(I.rotation).translate(I.x, I.y);
   };
 };

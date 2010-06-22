@@ -15,31 +15,30 @@
       = link "Learn more here", "http://www.google.com/chrome"
 
 :javascript
-  var theta = 0;
+  var transform = Matrix();
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
   var circles = [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
 
   $('#gameCanvas').powerCanvas({init: function(canvas) {
-    var character = GameObject({
-      x: 320,
-      y: 240,
+    var I = {
       sprite: loadImageTile("images/levels/dino1.png")
-    }).extend({
+    };
+
+    var character = GameObject(I).extend({
       setCircles: function(newCircles) {
         circles = newCircles;
       },
 
       getCircles: function() {
         var transform = this.getTransform();
-        var midpoint = this.midpoint();
 
         return $.map(circles, function(circle) {
           var point = transform.transformPoint(circle);
           return {
-            x: point.x + midpoint.x,
-            y: point.y + midpoint.y,
+            x: point.x,
+            y: point.y,
             radius: circle.radius,
             circle: circle
           };
@@ -47,16 +46,21 @@
       },
 
       getTransform: function() {
-        return Matrix.rotation(theta);
+        return transform;
       },
 
-      after: {
-        draw: function(canvas) {
-          $.each(this.getCircles(), function(i, circle) {
-            var color = (circle.circle == activeCircle ? activeColor : circleColor);
-            canvas.fillCircle(circle.x, circle.y, circle.radius, color);
-          });
-        }
+      draw: function(canvas) {
+        canvas.withTransform(this.getTransform(), function() {
+          I.sprite.draw(canvas,
+            -I.sprite.width / 2,
+            -I.sprite.height / 2
+          );
+        });
+
+        $.each(this.getCircles(), function(i, circle) {
+          var color = (circle.circle == activeCircle ? activeColor : circleColor);
+          canvas.fillCircle(circle.x, circle.y, circle.radius, color);
+        });
       }
     });
 
@@ -106,7 +110,6 @@
   }});
 
   function move(x, y) {
-    console.log("MOVE");
     if(activeCircle) {
       activeCircle.x += x;
       activeCircle.y += y;
@@ -114,7 +117,6 @@
   }
 
   function grow(delta) {
-    console.log("GROW");
     if(activeCircle) {
       activeCircle.radius = Math.clamp(delta + activeCircle.radius, 1, 1000);
     }
@@ -160,7 +162,5 @@
   }
 
   $.each(keyEvents, function(key, fn) {
-    console.log(key);
-    console.log(fn);
     $(document).bind('keydown', key, fn);
   });
