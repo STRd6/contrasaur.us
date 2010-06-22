@@ -4,7 +4,6 @@ function Shotgun(I) {
   var gunTile = loadImageTile("images/weapons/placeholder_shotgun.png");
 
   $.reverseMerge(I, {
-    duration: 10000,
     exitPoints: [Point(25, 4)],
     power: 10,
     radius: 5,
