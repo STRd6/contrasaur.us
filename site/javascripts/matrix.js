@@ -1,5 +1,5 @@
 /**
- * Matrix v0.9.0
+ * Matrix v0.9.1
  * 
  * Loosely based on flash:
  * http://www.adobe.com/livedocs/flash/9.0/ActionScriptLangRefV3/flash/geom/Matrix.html
@@ -48,6 +48,13 @@
           this.b * matrix.c + this.d * matrix.d,
           this.a * matrix.tx + this.c * matrix.ty + this.tx,
           this.b * matrix.tx + this.d * matrix.ty + this.ty
+        );
+      },
+
+      deltaTransformPoint: function(point) {
+        return Point(
+          this.a * point.x + this.c * point.y,
+          this.b * point.x + this.d * point.y
         );
       },
 

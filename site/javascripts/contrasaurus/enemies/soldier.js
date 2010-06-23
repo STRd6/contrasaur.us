@@ -30,12 +30,12 @@ function Soldier(I) {
         var transform = self.getTransform();
 
         var p = transform.transformPoint(exitPoint);
-        var d = transform.transformPoint(exitDirection);
+        var d = transform.deltaTransformPoint(exitDirection);
         var theta = Math.atan2(d.y, d.x);
 
         self.shoot(theta, {
-          x: self.position().x + p.x,
-          y: self.position().y + p.y,
+          x: p.x,
+          y: p.y,
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
       }
