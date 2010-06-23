@@ -21,6 +21,13 @@ function Utahraptor(I) {
       }));
 
       addGameObject(effect);
+    },
+    after: {
+      update: function() {
+        if (Math.random() < 0.5 && I.xVelocity > 0) {
+          I.xVelocity += Math.random() * 0.1;
+        }
+      }
     }
   });
 

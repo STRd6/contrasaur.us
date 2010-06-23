@@ -230,6 +230,16 @@
         }
       ));
     }
+  }, {
+    at: 1500,
+    event: function(level) {
+      level.addGameObject(
+        Brontosaurus({
+          x: level.position().x + CANVAS_WIDTH - 40,
+          y: 170
+        })
+      );
+    }
   }];
 
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
