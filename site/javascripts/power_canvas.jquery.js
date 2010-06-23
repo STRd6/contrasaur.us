@@ -61,10 +61,8 @@
         context.stroke();
       },
 
-      drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight, options) {
-        withState(dx, dy, options, function() {
-          context.drawImage(image, sx, sy, sWidth, sHeight, 0, 0, dWidth, dHeight);
-        });
+      drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
+        context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
         return this;
       },

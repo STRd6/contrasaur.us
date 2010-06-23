@@ -25,7 +25,7 @@
     return {
       update: $.noop,
 
-      draw: function(canvas, x, y, options) {
+      draw: function(canvas, x, y) {
         canvas.drawImage(image,
           sourceX,
           sourceY,
