@@ -6,7 +6,7 @@ function Shield(I) {
     collideDamage: 0,
     effectCount: 3,
     radius: 72,
-    sprite: loadImageTile("images/weapons/shield.png")
+    sprite: Sprite.load("images/weapons/shield.png")
   });
 
   var self = Weapon(I).extend({ });

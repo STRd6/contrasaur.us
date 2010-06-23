@@ -16,36 +16,57 @@
     }
   }
 
-  var Tile = function(image, sourceX, sourceY, width, height) {
+  var Sprite = function(image, sourceX, sourceY, width, height) {
     sourceX = sourceX || 0;
     sourceY = sourceY || 0;
     width = width || image.width;
     height = height || image.height;
 
     return {
-      update: function() {},
+      update: $.noop,
 
       draw: function(canvas, x, y, options) {
-        canvas.withState(x, y, options, function() {
-          canvas.drawImage(image,
-            sourceX,
-            sourceY,
-            width,
-            height,
-            0,
-            0,
-            width,
-            height
-          );
-        });
+        canvas.drawImage(image,
+          sourceX,
+          sourceY,
+          width,
+          height,
+          x,
+          y,
+          width,
+          height
+        );
       },
       width: width,
       height: height
     };
   };
 
-  window["Tile"] = Tile;
-  Tile.EMPTY = LoaderProxy();
+  Sprite.load = function(url, loadedCallback) {
+    var img = new Image();
+    var proxy = LoaderProxy();
+
+    img.onload = function() {
+      var tile = Sprite(this);
+
+      $.extend(proxy, tile);
+
+      if(loadedCallback) {
+        loadedCallback(proxy);
+      }
+    };
+
+    img.onerror = brokenImageWarning(url);
+
+    img.src = url;
+
+    return proxy;
+  };
+
+  Sprite.EMPTY = LoaderProxy();
+
+  window["Sprite"] = Sprite;
+  
 
   window["Composite"] = function(tileData) {
     var tileCount = tileData.length;
@@ -126,31 +147,10 @@
       var frameData = [];
 
       frames.times(function(i) {
-        frameData[i] = Tile(img, i * width, 0, width, height);
+        frameData[i] = Sprite(img, i * width, 0, width, height);
       });
 
       $.extend(proxy, Animation(frameData, delay));
-    };
-
-    img.onerror = brokenImageWarning(url);
-
-    img.src = url;
-
-    return proxy;
-  };
-
-  window["loadImageTile"] = function(url, loadedCallback) {
-    var img = new Image();
-    var proxy = LoaderProxy();
-
-    img.onload = function() {
-      var tile = Tile(this);
-
-      $.extend(proxy, tile);
-
-      if(loadedCallback) {
-        loadedCallback(proxy);
-      }
     };
 
     img.onerror = brokenImageWarning(url);

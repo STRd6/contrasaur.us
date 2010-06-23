@@ -3,7 +3,7 @@ function Bazooka(I) {
 
   $.reverseMerge(I, {
     power: 0,
-    sprite: Tile.EMPTY
+    sprite: Sprite.EMPTY
   });
 
   var self = Weapon(I).extend({

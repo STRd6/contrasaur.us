@@ -1,7 +1,7 @@
 function Bomb(xVelocity, I) {
   I = I || {};
 
-  var bombTile = loadImageTile("images/projectiles/bomb.png");
+  var bombTile = Sprite.load("images/projectiles/bomb.png");
 
   $.reverseMerge(I, {
     color: "#000",

@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: loadImageTile("images/levels/jungle/background.png"),
+      image: Sprite.load("images/levels/jungle/background.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -9,7 +9,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/jungle/midground.png"),
+      image: Sprite.load("images/levels/jungle/midground.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
@@ -17,7 +17,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/jungle/foreground.png"),
+      image: Sprite.load("images/levels/jungle/foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
@@ -25,7 +25,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/clouds2.png"),
+      image: Sprite.load("images/levels/clouds2.png"),
       parallaxRate: 1,
       rate: {x: -0.5},
       position: {
@@ -36,7 +36,7 @@
     }
   ], [
     {
-      image: loadImageTile('images/levels/jungle/tree.png'),
+      image: Sprite.load('images/levels/jungle/tree.png'),
       parallaxRate: 1,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -44,7 +44,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/jungle/tree.png'),
+      image: Sprite.load('images/levels/jungle/tree.png'),
       parallaxRate: 2,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -52,7 +52,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass3.png'),
+      image: Sprite.load('images/levels/prehistoric/grass3.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 90,
@@ -60,7 +60,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass2.png'),
+      image: Sprite.load('images/levels/prehistoric/grass2.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 120,
@@ -68,7 +68,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass1.png'),
+      image: Sprite.load('images/levels/prehistoric/grass1.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 160,
@@ -76,7 +76,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass3.png'),
+      image: Sprite.load('images/levels/prehistoric/grass3.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 540,
@@ -84,7 +84,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass2.png'),
+      image: Sprite.load('images/levels/prehistoric/grass2.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 570,
@@ -92,7 +92,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/prehistoric/grass1.png'),
+      image: Sprite.load('images/levels/prehistoric/grass1.png'),
       parallaxRate: 1,
       position: {
         x: CANVAS_WIDTH + 545,
@@ -100,7 +100,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/clouds1.png"),
+      image: Sprite.load("images/levels/clouds1.png"),
       parallaxRate: 1,
       rate: {x: -1},
       position: {
@@ -137,7 +137,7 @@
     event: function(level) {
       if (Math.random() < 0.5) {
         level.addGameObject(GameObject({
-          sprite: loadImageTile("images/levels/prehistoric/grass1.png"),
+          sprite: Sprite.load("images/levels/prehistoric/grass1.png"),
           x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
           y: 310
         }));
@@ -149,20 +149,20 @@
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       // to do add plant for them to be eating in the middle
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
     }
@@ -172,32 +172,32 @@
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 45,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 70,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
       // to do add plant for them to be eating in the middle
       level.addGameObject(
         Utahraptor({
           xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
-          sprite: loadImageTile("images/enemies/dinofodder2.png")
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
     }

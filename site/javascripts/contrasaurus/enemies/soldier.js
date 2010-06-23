@@ -36,7 +36,7 @@ function Soldier(I) {
         self.shoot(theta, {
           x: self.position().x + p.x,
           y: self.position().y + p.y,
-          sprite: loadImageTile("images/effects/enemybullet1_small.png")
+          sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
       }
     },

@@ -1,7 +1,7 @@
 (function(){
   var scene = Scene(
     [{
-      image: loadImageTile("images/levels/washington_dc/background.png"),
+      image: Sprite.load("images/levels/washington_dc/background.png"),
       parallaxRate: 0,
       position: {
         x: 0,

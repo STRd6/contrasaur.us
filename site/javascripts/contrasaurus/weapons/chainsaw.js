@@ -5,7 +5,7 @@ function Chainsaw(I) {
     duration: 1000,
     exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
     radius: 5,
-    sprite: loadImageTile("images/weapons/chainsaw.png"),
+    sprite: Sprite.load("images/weapons/chainsaw.png"),
     theta: 0
   });
 
@@ -18,7 +18,7 @@ function Chainsaw(I) {
       return Bullet(direction, {
         duration: 1,
         speed: 0,
-        sprite: Tile.EMPTY,
+        sprite: Sprite.EMPTY,
         radius: 10,
         x: position.x,
         y: position.y

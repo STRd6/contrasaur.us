@@ -10,7 +10,7 @@ function HomingMissile(I) {
     radius: 4.5,
     collideDamage: 5,
     speed: 5,
-    sprite: loadImageTile("images/projectiles/homing_missile.png")
+    sprite: Sprite.load("images/projectiles/homing_missile.png")
   });
 
   function getDirection() {

@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: loadImageTile("images/levels/area51/background.png"),
+      image: Sprite.load("images/levels/area51/background.png"),
       parallaxRate: 0,
       position: {
         x: 0,

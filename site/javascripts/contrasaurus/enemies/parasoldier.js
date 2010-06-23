@@ -20,12 +20,12 @@ function Parasoldier(I) {
           theta, {
             x: self.midpoint().x,
             y: self.midpoint().y,
-            sprite: loadImageTile("images/effects/enemybullet1_small.png")
+            sprite: Sprite.load("images/effects/enemybullet1_small.png")
           }
         );
       }
     },
-    sprite: loadImageTile("images/enemies/parasoldier.png")
+    sprite: Sprite.load("images/enemies/parasoldier.png")
   });
 
   var self = Enemy(I).extend({

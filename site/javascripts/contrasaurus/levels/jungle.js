@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: loadImageTile("images/levels/jungle/background.png"),
+      image: Sprite.load("images/levels/jungle/background.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -9,7 +9,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/jungle/midground.png"),
+      image: Sprite.load("images/levels/jungle/midground.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
@@ -17,7 +17,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/jungle/foreground.png"),
+      image: Sprite.load("images/levels/jungle/foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
@@ -25,7 +25,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/clouds2.png"),
+      image: Sprite.load("images/levels/clouds2.png"),
       parallaxRate: 1,
       rate: {x: -0.5},
       position: {
@@ -36,7 +36,7 @@
     }
   ], [
     {
-      image: loadImageTile('images/levels/jungle/tree.png'),
+      image: Sprite.load('images/levels/jungle/tree.png'),
       parallaxRate: 1,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -44,7 +44,7 @@
       }
     },
     {
-      image: loadImageTile('images/levels/jungle/tree.png'),
+      image: Sprite.load('images/levels/jungle/tree.png'),
       parallaxRate: 2,
       position: {
         x: rand(CANVAS_WIDTH - 116),
@@ -52,7 +52,7 @@
       }
     },
     {
-      image: loadImageTile("images/levels/clouds1.png"),
+      image: Sprite.load("images/levels/clouds1.png"),
       parallaxRate: 1,
       rate: {x: -1},
       position: {

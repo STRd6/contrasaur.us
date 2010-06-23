@@ -1,8 +1,8 @@
 function LaserGun(I) {
   I = I || {};
 
-  var monocle = loadImageTile("images/weapons/monocle.png");
-  var monocleRed = loadImageTile("images/weapons/monocle_red.png");
+  var monocle = Sprite.load("images/weapons/monocle.png");
+  var monocleRed = Sprite.load("images/weapons/monocle_red.png");
   var redCount = 0;
 
   $.reverseMerge(I, {
@@ -23,7 +23,7 @@ function LaserGun(I) {
         speed: 13,
         collideDamage: 3,
         radius: 2,
-        sprite: loadImageTile("images/projectiles/laser.png"),
+        sprite: Sprite.load("images/projectiles/laser.png"),
         x: position.x,
         y: position.y
       });

@@ -2,9 +2,9 @@ var score = 0;
 var canvas;
 var dino = Dinosaur();
 var floor;
-var bulletTile = loadImageTile("images/projectiles/blast_small.png");
-var dinoTile = loadImageTile("images/levels/dino1.png");
-var tankTile = loadImageTile("images/enemies/tank.png");
+var bulletTile = Sprite.load("images/projectiles/blast_small.png");
+var dinoTile = Sprite.load("images/levels/dino1.png");
+var tankTile = Sprite.load("images/enemies/tank.png");
 var bulletQueue = [];
 var dialogBox = DialogBox("GAME OVER");
 var currentLevel;
@@ -147,7 +147,7 @@ $(document).keydown(function(e) {
 var tophat = GameObject({
   x: 30,
   y: -32,
-  sprite: loadImageTile("images/accessories/tophat.png")
+  sprite: Sprite.load("images/accessories/tophat.png")
 });
 
 if(rand() < 0.25) {
@@ -157,7 +157,7 @@ if(rand() < 0.25) {
 function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
     callback: callback,
-    sprite: loadImageTile("images/weapons/" + imgFile),
+    sprite: Sprite.load("images/weapons/" + imgFile),
     x: dino.position().x,
     xVelocity: dino.velocity().x,
     yVelocity: 0

@@ -9,7 +9,7 @@ function Grenade(theta, I) {
     rotation: 0,
     rotationVelocity: Math.PI / 32,
     speed: 5,
-    sprite: loadImageTile("images/projectiles/grenade.png")
+    sprite: Sprite.load("images/projectiles/grenade.png")
   });
 
   function detonate() {

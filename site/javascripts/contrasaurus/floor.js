@@ -11,7 +11,7 @@ function Floor(I) {
     collideDamage: 0,
     collisionType: "platform",
     water: false,
-    sprite: loadImageTile("images/levels/floor_background.png")
+    sprite: Sprite.load("images/levels/floor_background.png")
   });
 
   return GameObject(I).extend({

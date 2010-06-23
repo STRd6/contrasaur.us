@@ -9,7 +9,7 @@ function Bullet(theta, I) {
     duration: -1,
     effectCount: 1,
     radius: 2,
-    sprite: loadImageTile("images/projectiles/playerbullet4.png"),
+    sprite: Sprite.load("images/projectiles/playerbullet4.png"),
     xVelocity: Math.cos(theta)*I.speed,
     yVelocity: Math.sin(theta)*I.speed
   });

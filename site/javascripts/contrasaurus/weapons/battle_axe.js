@@ -4,7 +4,7 @@ function BattleAxe(I) {
   $.reverseMerge(I, {
     exitPoints: [Point(10, -30)],
     radius: 5,
-    sprite: loadImageTile("images/weapons/battle_axe.png"),
+    sprite: Sprite.load("images/weapons/battle_axe.png"),
     theta: 0
   });
 
@@ -18,7 +18,7 @@ function BattleAxe(I) {
       return Bullet(direction, {
         duration: 1,
         speed: 0,
-        sprite: Tile.EMPTY,
+        sprite: Sprite.EMPTY,
         radius: 15,
         x: position.x,
         y: position.y

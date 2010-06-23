@@ -1,8 +1,8 @@
 function Meteor(I) {
   I = I || {};
 
-  var meteor1Tile = loadImageTile("images/levels/prehistoric/meteor1.png");
-  var meteor2Tile = loadImageTile("images/levels/prehistoric/meteor2.png");
+  var meteor1Tile = Sprite.load("images/levels/prehistoric/meteor1.png");
+  var meteor2Tile = Sprite.load("images/levels/prehistoric/meteor2.png");
 
   $.reverseMerge(I, {
     width: 42,
