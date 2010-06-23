@@ -235,6 +235,7 @@
 
       brontosaurus.bind('destroy', function() {
         currentLevel.complete();
+        dino.boss(false);
       });
 
       level.addGameObject(brontosaurus);
