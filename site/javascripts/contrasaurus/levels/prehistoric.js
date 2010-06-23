@@ -235,10 +235,11 @@
     event: function(level) {
       level.addGameObject(
         Brontosaurus({
-          x: level.position().x + CANVAS_WIDTH - 40,
+          x: level.position().x + CANVAS_WIDTH - 100,
           y: 170
         })
       );
+      dino.boss(true);
     }
   }];
 

@@ -8,6 +8,7 @@ function Dinosaur() {
   var y = 150;
 
   var parasailing = false;
+  var boss = false;
   var airborne = true;
 
   var weapons = [Bazooka()];
@@ -54,6 +55,15 @@ function Dinosaur() {
 
     airborne: function() {
       return airborne;
+    },
+
+    boss: function(newValue) {
+      if(newValue != undefined) {
+        boss = newValue;
+      } else {
+        return boss;
+      }
+      return self;
     },
 
     bulletHitEffect: function(bullet) {
@@ -143,7 +153,7 @@ function Dinosaur() {
         return parasailing;
       }
     },
-    
+
     after: {
       update: function(position) {
         jetpack.update();
@@ -158,6 +168,11 @@ function Dinosaur() {
             I.xVelocity = 7;
           } else {
             currentLevel.tiltAmount(1);
+          }
+
+          if (boss) {
+            currentLevel.tiltAmount(0);
+            I.xVelocity = 1;
           }
 
           if (airborne && jetpack.engaged()) {
