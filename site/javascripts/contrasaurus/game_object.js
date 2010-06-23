@@ -7,7 +7,7 @@ function GameObject(I) {
     color: "#880",
     duration: -1,
     eventCallbacks: {
-      'destroy': function() { alert("Destroyed"); }
+      'destroy': $.noop
     },
     health: 1,
     x: 0,
@@ -45,6 +45,13 @@ function GameObject(I) {
 
     collisionType: function() {
       return I.collisionType;
+    },
+
+    destroy: function() {
+      if (I.active == true) {
+        I.active = false;
+        self.trigger('destroy');
+      }
     },
 
     draw: function(canvas) {
@@ -100,10 +107,7 @@ function GameObject(I) {
     hit: function(other) {
       I.health = I.health - other.collideDamage();
       if (I.health <= 0) {
-        I.active = false;
-        if (I.eventCallbacks.length > 0) {
-          self.trigger('destroy');
-        }
+        self.destroy();
         addScore(I.pointsWorth);
       }
     },

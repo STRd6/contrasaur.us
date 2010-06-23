@@ -2,7 +2,7 @@ function Bazooka(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    power: 0,
+    power: 10,
     sprite: Sprite.EMPTY
   });
 

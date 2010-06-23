@@ -3,9 +3,8 @@ function Brontosaurus(I) {
 
   $.reverseMerge(I, {
     y: CANVAS_HEIGHT - Floor.LEVEL,
-    radius: 25,
     xVelocity: 0,
-    health: 5000,
+    health: 3000,
     hFlip: true,
     pointsWorth: 50000,
     radius: 90,
@@ -26,6 +25,10 @@ function Brontosaurus(I) {
       }));
 
       addGameObject(effect);
+    },
+
+    health: function() {
+      return I.health;
     }
   });
 

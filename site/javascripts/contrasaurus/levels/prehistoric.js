@@ -112,13 +112,8 @@
   ]);
 
   var floor = Floor();
-  
+
   var triggers = [{
-    at: 2000,
-    event: function(level) {
-      level.complete();
-    }
-  }, {
     every: 1,
     event: function(level) {
       var meteor = Meteor({
@@ -233,12 +228,20 @@
   }, {
     at: 1500,
     event: function(level) {
-      level.addGameObject(
-        Brontosaurus({
-          x: level.position().x + CANVAS_WIDTH - 100,
-          y: 170
-        })
-      );
+      var brontosaurus = Brontosaurus({
+        x: level.position().x + CANVAS_WIDTH - 50,
+        y: 170
+      });
+
+      brontosaurus.bind('destroy', function() {
+        currentLevel.complete();
+      });
+
+      level.addGameObject(brontosaurus);
+    }
+  }, {
+    at: 1550,
+    event: function() {
       dino.boss(true);
     }
   }];
