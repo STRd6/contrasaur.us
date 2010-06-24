@@ -11,17 +11,7 @@ function Utahraptor(I) {
   });
 
   var self = Tank(I).extend({
-    bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
-        duration: 10,
-        sprite: [
-          loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
-          loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
-        ].rand()
-      }));
-
-      addGameObject(effect);
-    },
+    bulletHitEffect: Enemy.bloodSprayEffect,
     after: {
       update: function() {
         if (Math.random() < 0.5 && I.xVelocity > 0) {

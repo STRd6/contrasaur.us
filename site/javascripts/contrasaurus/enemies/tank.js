@@ -35,14 +35,7 @@ function Tank(I) {
   }
 
   var self = Enemy(I).extend({
-    bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
-        duration: 9,
-        sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16)
-      }));
-
-      addGameObject(effect);
-    }
+    bulletHitEffect: Enemy.sparkSprayEffect
   });
 
   return self;
