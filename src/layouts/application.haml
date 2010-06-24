@@ -14,7 +14,7 @@
     - enemy_files = %w[bomber brontosaurus enemy parasoldier soldier tank utahraptor].map { |name| "contrasaurus/enemies/#{name}" }
     = javascripts(*enemy_files)
     = javascripts('contrasaurus/dinosaur', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/UI')
-    - weapon_files = %w[battle_axe bazooka chainsaw flamethrower jetpack laser_gun machine_gun primal_scream shield shotgun weapon].map {|file_name| "contrasaurus/weapons/#{file_name}" }
+    - weapon_files = %w[battle_axe bazooka chainsaw flamethrower jetpack laser_gun machine_gun meat primal_scream shield shotgun weapon].map {|file_name| "contrasaurus/weapons/#{file_name}" }
     = javascripts(*weapon_files)
 
   %body

@@ -19,6 +19,7 @@ var weaponMap = {
   "flamethrower": Flamethrower,
   "laser": LaserGun,
   "machineGun": MachineGun,
+  "meat": Meat,
   "shotgun": Shotgun
 }
 
@@ -181,7 +182,8 @@ function addRandomWeapon() {
     '<div class="menu" data-iconname="placeholder_flamethrower.png" data-weaponclass="flamethrower" data-used="false"><img alt="flamethrower" src="images/menu/flamethrower.png"></div>',
     '<div class="menu" data-iconname="placeholder_laserGun.png" data-weaponclass="laser" data-used="false"><img alt="laser" src="images/menu/laserGun.png"></div>',
     '<div class="menu" data-iconname="machine_gun.png" data-weaponclass="machineGun" data-used="false"><img alt="machineGun" src="images/menu/machineGun.png"></div>',
-    '<div class="menu" data-iconname="placeholder_shotgun.png" data-weaponclass="shotgun" data-used="false"><img alt="shotgun" src="images/menu/shotgun.png"></div>'
+    '<div class="menu" data-iconname="placeholder_shotgun.png" data-weaponclass="shotgun" data-used="false"><img alt="shotgun" src="images/menu/shotgun.png"></div>',
+    '<div class="menu" data-iconname="meat.png" data-weaponclass="meat" data-used="false"><img alt="meat" src="images/menu/meat.png"></div>'
   ].rand();
 }
 
