@@ -4,22 +4,22 @@ function GameObject(I) {
   $.reverseMerge(I, {
     active: true,
     age: 0,
+    collideDamage: 0,
+    collisionType: "none",
     color: "#880",
     duration: -1,
     eventCallbacks: {
       'destroy': $.noop
     },
     health: 1,
-    x: 0,
-    y: 0,
-    width: 10,
     height: 10,
+    pointsWorth: 0,
     radius: 5,
+    width: 10,
+    x: 0,
     xVelocity: 0,
-    yVelocity: 0,
-    collideDamage: 0,
-    collisionType: "none",
-    pointsWorth: 0
+    y: 0,
+    yVelocity: 0
   });
 
   function move() {
@@ -126,8 +126,17 @@ function GameObject(I) {
       return Point(I.x, I.y);
     },
 
+    sprite: function(value) {
+      if (value === undefined) {
+        return I.sprite;
+      } else {
+        I.sprite = value;
+        return self;
+      }
+    },
+
     trigger: function(event) {
-      I.eventCallbacks[event]();
+      I.eventCallbacks[event](self);
     },
 
     update: function() {

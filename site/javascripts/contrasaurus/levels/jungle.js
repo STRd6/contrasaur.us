@@ -72,12 +72,26 @@
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
-        level.addGameObject(Soldier({
+        var soldier = Soldier({
           theta: - 5 * Math.PI / 6,
           hFlip: true,
           x: level.position().x + CANVAS_WIDTH + 20,
           xVelocity: -2
-        }));
+        });
+
+        // HACK: fix the soldier so that the position from
+        // self.position() lines up with the effect
+        soldier.bind('destroy', function(self) {
+          var effect = Effect({ x: 0, y: 0 }, $.extend({ x: self.position().x - 2, y: self.position().y - 6 }, {
+            duration: 35,
+            hFlip: true,
+            sprite: loadAnimation("images/effects/sandinista_die_61x61.png", 12, 61, 61, 3)
+          }));
+
+          addGameObject(effect);
+        });
+
+        level.addGameObject(soldier);
       } else {
         level.addGameObject(Parasoldier({
           xVelocity: 0, 

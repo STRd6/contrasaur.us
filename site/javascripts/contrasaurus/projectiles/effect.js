@@ -5,7 +5,15 @@ function Effect(velocity, I) {
   });
 
   var self = GameObject(I).extend({
-    getTransform: GameObject.rotationGetTransform(I)
+    getTransform: function() {
+      var t;
+      if(I.hFlip) {
+        t =  Matrix.HORIZONTAL_FLIP;
+      } else {
+        t = Matrix.IDENTITY;
+      }
+      return t.translate(I.x, I.y);
+    }
   });
 
   return self;
