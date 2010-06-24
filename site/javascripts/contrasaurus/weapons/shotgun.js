@@ -1,7 +1,7 @@
 function Shotgun(I) {
   I = I || {};
 
-  var gunTile = Sprite.load("images/weapons/placeholder_shotgun.png");
+  var gunTile = Sprite.load("images/weapons/shotgun.png");
 
   $.reverseMerge(I, {
     exitPoints: [Point(25, 4)],

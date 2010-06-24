@@ -14,6 +14,11 @@ function Powerup(I) {
   return GameObject(I).extend({
     getTransform: GameObject.rotationGetTransform(I),
 
+    land: function(h) {
+      I.yVelocity = -I.yVelocity/2;
+      I.y += I.yVelocity;
+    },
+
     before: {
       update: function() {
         I.yVelocity += GRAVITY;
@@ -24,12 +29,6 @@ function Powerup(I) {
     after: {
       hit: function(other) {
         I.callback(other);
-      },
-
-      land: function(h) {
-        I.y = h - (I.radius + 1);
-        I.yVelocity = 0;
-        I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
       },
 
       update: GameObject.generateCheckBounds(I)

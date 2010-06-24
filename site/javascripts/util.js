@@ -142,23 +142,3 @@ function planeCollision(gameObject, plane) {
 
   return hit;
 }
-
-// TODO: Verify math on b and c
-function transformPoint(point, transformMatrix) {
-  return {
-    x: transformMatrix.a * point.x + transformMatrix.c * point.y,
-    y: transformMatrix.b * point.x + transformMatrix.d * point.y
-  }
-}
-
-function rotationTransform(theta) {
-  return {
-    a: Math.cos(theta), c: -Math.sin(theta), tx: 0,
-    b: Math.sin(theta), d:  Math.cos(theta), ty: 0
-//  u: 0,               v:  0,                w: 1
-  };
-}
-
-var IDENTITY_MATRIX = {a: 1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
-var HORIZONTAL_FLIP_MATRIX = {a: -1, b: 0, c: 0, d: 1, tx: 0, ty: 0};
-var VERTICAL_FLIP_MATRIX = {a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0};
