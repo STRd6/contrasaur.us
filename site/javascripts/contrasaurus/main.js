@@ -17,9 +17,10 @@ var weaponMap = {
   "bomb": PrimalScream,
   "chainsaw": Chainsaw,
   "flamethrower": Flamethrower,
-  "laser": LaserGun,
+  "laserGun": LaserGun,
   "machineGun": MachineGun,
   "meat": Meat,
+  "shield": Shield,
   "shotgun": Shotgun
 }
 
@@ -158,7 +159,7 @@ if(rand() < 0.25) {
 function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
     callback: callback,
-    sprite: Sprite.load("images/weapons/" + imgFile),
+    sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
     x: dino.position().x,
     xVelocity: dino.velocity().x,
     yVelocity: 0
@@ -174,17 +175,11 @@ function dropWeaponPowerup(imgFile, weaponClass) {
 }
 
 function addRandomWeapon() {
-  return [
-    '<div class="menu" data-iconname="battle_axe.png" data-weaponclass="battleAxe" data-used="false"><img alt="battleAxe" src="images/menu/battleAxe.png"></div>',
-    '<div class="menu" data-iconname="placeholder_bazooka.png" data-weaponclass="bazooka" data-used="false"><img alt="bazooka" src="images/menu/bazooka.png"></div>',
-    '<div class="menu" data-iconname="placeholder_bomb.png" data-weaponclass="bomb" data-used="false"><img alt="bomb" src="images/menu/bomb.png"></div>',
-    '<div class="menu" data-iconname="chainsaw.png" data-weaponclass="chainsaw" data-used="false"><img alt="chainsaw" src="images/menu/chainsaw.png"></div>',
-    '<div class="menu" data-iconname="placeholder_flamethrower.png" data-weaponclass="flamethrower" data-used="false"><img alt="flamethrower" src="images/menu/flamethrower.png"></div>',
-    '<div class="menu" data-iconname="placeholder_laserGun.png" data-weaponclass="laser" data-used="false"><img alt="laser" src="images/menu/laserGun.png"></div>',
-    '<div class="menu" data-iconname="machine_gun.png" data-weaponclass="machineGun" data-used="false"><img alt="machineGun" src="images/menu/machineGun.png"></div>',
-    '<div class="menu" data-iconname="placeholder_shotgun.png" data-weaponclass="shotgun" data-used="false"><img alt="shotgun" src="images/menu/shotgun.png"></div>',
-    '<div class="menu" data-iconname="meat.png" data-weaponclass="meat" data-used="false"><img alt="meat" src="images/menu/meat.png"></div>'
-  ].rand();
+  return $.map(["battleAxe", "bazooka", "bomb", "chainsaw", "flamethrower", "laserGun", "machineGun", "meat", "shotgun"], function(weaponClass) {
+    var div = $("<div />").addClass("menu").attr("data-weaponClass", weaponClass);
+    div.append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"));
+    return div;
+  }).rand();
 }
 
 function weaponDisposal(object) {
@@ -194,10 +189,11 @@ function weaponDisposal(object) {
 }
 
 $(".menu").live("click", function() {
-  if ($(this).attr("data-used") == 'false') {
+  if (!$(this).attr("data-used")) {
+    var weaponClass = $(this).attr("data-weaponClass");
     dropWeaponPowerup(
-      "" + $(this).attr("data-iconName"),
-      weaponMap[$(this).attr("data-weaponClass")]
+      weaponClass,
+      weaponMap[weaponClass]
     );
     weaponDisposal($(this));
     $("div.menu:last").after(addRandomWeapon());
