@@ -11,7 +11,7 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [Bazooka()];
+  var weapons = [Chainsaw()];
   var activeWeapons = [];
 
   var pitchAngle = 0;

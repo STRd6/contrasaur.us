@@ -16,8 +16,14 @@ function Enemy(I) {
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 
   var self = GameObject(I).extend({
-    bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
+    bulletHitEffect: function(bullet, offset) {
+      var point = bullet.position();
+
+      if(offset) {
+        point = point.add(offset);
+      }
+
+      var effect = Effect(bullet.velocity(), $.extend(point, {
         duration: 10,
         sprite: [
           loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),

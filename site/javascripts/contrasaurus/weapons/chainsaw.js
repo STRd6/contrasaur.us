@@ -16,7 +16,9 @@ function Chainsaw(I) {
 
     generateProjectile: function(direction, position) {
       return Bullet(direction, {
+        dispersion: 30,
         duration: 1,
+        effectCount: 13,
         speed: 0,
         sprite: Sprite.EMPTY,
         radius: 10,

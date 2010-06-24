@@ -23,7 +23,13 @@ function Bullet(theta, I) {
       hit: function(other) {
         if(other.bulletHitEffect) {
           I.effectCount.times(function() {
-            other.bulletHitEffect(self);
+            var p;
+            if(I.dispersion) {
+              p = Circle(0, 0, I.dispersion).randomPoint();
+            } else {
+              p = Point(0, 0);
+            }
+            other.bulletHitEffect(self, p);
           });
         }
       },
