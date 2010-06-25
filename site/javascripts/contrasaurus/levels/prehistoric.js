@@ -229,7 +229,7 @@
     at: 1500,
     event: function(level) {
       var brontosaurus = Brontosaurus({
-        x: level.position().x + CANVAS_WIDTH,
+        x: level.position().x + CANVAS_WIDTH + 100,
         y: 170
       });
 
@@ -241,7 +241,7 @@
       level.addGameObject(brontosaurus);
     }
   }, {
-    at: 1650,
+    at: 1550,
     event: function() {
       dino.boss(true);
     }
