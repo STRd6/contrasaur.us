@@ -14,16 +14,23 @@
       HTML5 canvas not supported by your browser.
       = link "Learn more here", "http://www.google.com/chrome"
 
+%input{:class => 'ui', :id => 'increase', :type => 'button', :value => 'increase'}
+%input{:class => 'ui', :id => 'decrease', :type => 'button', :value => 'decrease'}
+%input{:class => 'ui', :id => 'left', :type => 'button', :value => 'left'}
+%input{:class => 'ui', :id => 'right', :type => 'button', :value => 'right'}
+%input{:class => 'ui', :id => 'up', :type => 'button', :value => 'up'}
+%input{:class => 'ui', :id => 'down', :type => 'button', :value => 'down'}
+
 :javascript
   var transform = Matrix.translation(320, 240);
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
-  var circles = [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
+  var circles = [{"x":84,"y":124,"radius":13},{"x":93,"y":59,"radius":20},{"x":97,"y":143,"radius":11},{"x":79,"y":90,"radius":21},{"x":6,"y":27,"radius":74},{"x":172,"y":-18,"radius":31},{"x":107,"y":159,"radius":10},{"x":209,"y":-64,"radius":28},{"x":123,"y":22,"radius":34}];
 
   $('#gameCanvas').powerCanvas({init: function(canvas) {
     var I = {
-      sprite: loadImageTile("images/levels/dino1.png")
+      sprite: Sprite.load("images/enemies/brontosaurus.png")
     };
 
     var character = GameObject(I).extend({
@@ -163,4 +170,25 @@
 
   $.each(keyEvents, function(key, fn) {
     $(document).bind('keydown', key, fn);
+  });
+
+  $('.ui').bind('click', function() {
+    if ($(this).attr('value') === 'increase') {
+      grow(1);
+    }
+    if ($(this).attr('value') === 'decrease') {
+      grow(-1);
+    }
+    if ($(this).attr('value') === 'up') {
+      move(0,-1);
+    }
+    if ($(this).attr('value') === 'down') {
+      move(0,1);
+    }
+    if ($(this).attr('value') === 'left') {
+      move(-1,0);
+    }
+    if ($(this).attr('value') === 'right') {
+      move(1,0);
+    }
   });
