@@ -17,6 +17,10 @@ function Utahraptor(I) {
         if (Math.random() < 0.5 && I.xVelocity > 0) {
           I.xVelocity += Math.random() * 0.1;
         }
+        if (Math.random() < 0.01) {
+          I.xVelocity = I.xVelocity * -1;
+        }
+        I.hFlip = I.xVelocity <= 0;
       }
     }
   });

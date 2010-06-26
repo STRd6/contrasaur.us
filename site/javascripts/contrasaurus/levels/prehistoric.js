@@ -137,6 +137,13 @@
           y: 310
         }));
       }
+      if (dino.boss()) {
+        level.addGameObject(
+        Utahraptor({
+          xVelocity: -6, x: level.position().x + CANVAS_WIDTH + 30
+        }
+      ));
+      }
     }
   }, {
     at: 50,
@@ -201,27 +208,86 @@
     event: function(level) {
       level.addGameObject(
         Utahraptor({
-          xVelocity: 2, x: level.position().x + CANVAS_WIDTH + 30
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
         }
       ));
       level.addGameObject(
         Utahraptor({
-          xVelocity: 2.1, x: level.position().x + CANVAS_WIDTH + 30
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
         }
       ));
       level.addGameObject(
         Utahraptor({
-          xVelocity: 1.6, x: level.position().x + CANVAS_WIDTH + 60
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
         }
       ));
       level.addGameObject(
         Utahraptor({
-          xVelocity: 1.7, x: level.position().x + CANVAS_WIDTH + 60
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
         }
       ));
       level.addGameObject(
         Utahraptor({
-          xVelocity: 1.3, x: level.position().x + CANVAS_WIDTH + 90
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 90
+        }
+      ));
+    }
+  }, {
+    at: 700,
+    event: function(level) {
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
+        }
+      ));
+    }
+  }, {
+    at: 1200,
+    event: function(level) {
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 45,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
+        }
+      ));
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 70,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
+        }
+      ));
+      // to do add plant for them to be eating in the middle
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
         }
       ));
     }
