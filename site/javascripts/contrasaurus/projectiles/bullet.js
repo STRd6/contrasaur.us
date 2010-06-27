@@ -6,6 +6,7 @@ function Bullet(theta, I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "dinoBullet",
+    dispersion: 0,
     duration: -1,
     effectCount: 1,
     radius: 2,
@@ -15,6 +16,12 @@ function Bullet(theta, I) {
   });
 
   var self = GameObject(I).extend({
+    dispersion: function() {
+      return I.dispersion;
+    },
+    effectCount: function() {
+      return I.effectCount;
+    },
     getTransform: GameObject.velocityGetTransform(I),
     land: function() {
       I.active = false;
@@ -22,15 +29,7 @@ function Bullet(theta, I) {
     after: {
       hit: function(other) {
         if(other.bulletHitEffect) {
-          I.effectCount.times(function() {
-            var p;
-            if(I.dispersion) {
-              p = Circle(0, 0, I.dispersion).randomPoint();
-            } else {
-              p = Point(0, 0);
-            }
-            other.bulletHitEffect(self, p);
-          });
+          other.bulletHitEffect(self);
         }
       },
       update: GameObject.generateCheckBounds(I)

@@ -6,6 +6,7 @@ function Enemy(I) {
     collisionType: "enemy",
     health: 3,
     hFlip: false,
+    onFire: false,
     pointsWorth: 1000,
     radius: 18,
     x: rand(CANVAS_WIDTH),
@@ -16,6 +17,10 @@ function Enemy(I) {
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 
   var self = GameObject(I).extend({
+    burn: function(flame) {
+      I.onFire = true;
+    },
+
     bulletHitEffect: Enemy.bloodSprayEffect,
 
     land: $.noop,
@@ -46,6 +51,13 @@ function Enemy(I) {
       update: function() {
         I.shootLogic();
         checkBounds.apply(self, arguments);
+
+        if(I.onFire && rand(2)) {
+          //Smoke/flame
+          addGameObject(Effect(Point(0, 0), $.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
+            sprite: Sprite.load("images/effects/smoke.png")
+          })));
+        }
       }
     }
   });
@@ -53,24 +65,27 @@ function Enemy(I) {
   return self;
 }
 
-Enemy.bloodSprayEffect = function(bullet, offset) {
-  var point = bullet.position();
+Enemy.bloodSprayEffect = function(bullet) {
+  bullet.effectCount().times(function() {
+    var point = bullet.position();
+    var offset = Circle(0, 0, bullet.dispersion()).randomPoint();
 
-  if(offset) {
-    point = point.add(offset);
-  }
+    if(offset) {
+      point = point.add(offset);
+    }
 
-  var effect = Effect(bullet.velocity(), $.extend(point, {
-    duration: 10,
-    sprite: [
-      loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
-      loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
-      loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
-      loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
-    ].rand()
-  }));
+    var effect = Effect(bullet.velocity(), $.extend(point, {
+      duration: 10,
+      sprite: [
+        loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
+        loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
+        loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
+        loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
+      ].rand()
+    }));
 
-  addGameObject(effect);
+    addGameObject(effect);
+  });
 };
 
 Enemy.sparkSprayEffect = function(bullet) {

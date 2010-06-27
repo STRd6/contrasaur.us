@@ -11,7 +11,7 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [Chainsaw()];
+  var weapons = [Flamethrower()];
   var activeWeapons = [];
 
   var pitchAngle = 0;
@@ -66,19 +66,7 @@ function Dinosaur() {
       return self;
     },
 
-    bulletHitEffect: function(bullet) {
-      var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
-        duration: 10,
-        sprite: [
-          loadAnimation("images/effects/bloodEffect3_16x16_flip.png", 9, 16, 16),
-          loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
-          loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
-          loadAnimation("images/effects/bloodEffect4_16x16_flip.png", 10, 16, 16)
-        ].rand()
-      }));
-
-      addGameObject(effect);
-    },
+    bulletHitEffect: Enemy.bloodSprayEffect,
 
     getTransform: function () {
       var transform;
