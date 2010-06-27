@@ -131,7 +131,9 @@ function display(text) {
 }
 
 $(document).keydown(function(e) {
-  if(e.keyCode == 39) {
+  if(e.keyCode == 27) {
+    currentLevel.stop();
+  } else if(e.keyCode == 39) {
     currentLevel.changeTiltAmount(0.5);
     $('#tilt').text(currentLevel.tiltAmount());
   } else if(e.keyCode == 37) {

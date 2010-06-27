@@ -92,6 +92,8 @@ jQuery.extend({
 
 function circleCollision(gameObject1, gameObject2) {
   var hit = false;
+  var component1;
+  var component2;
 
   $.each(gameObject1.getCircles(), function(i, c1) {
     if(hit) {
@@ -109,13 +111,15 @@ function circleCollision(gameObject1, gameObject2) {
 
       if(dx * dx + dy * dy <= dist * dist) {
         hit = true;
+        component1 = c1.component;
+        component2 = c2.component;
       }
     });
   });
 
   if(hit) {
-    gameObject1.hit(gameObject2);
-    gameObject2.hit(gameObject1);
+    component1.hit(component2);
+    component2.hit(component1);
   }
 
   return hit;
@@ -124,6 +128,7 @@ function circleCollision(gameObject1, gameObject2) {
 function planeCollision(gameObject, plane) {
   var circles = gameObject.getCircles();
   var hit = false;
+  var component;
 
   $.each(circles, function(i, circle) {
     if(hit) {
@@ -132,12 +137,13 @@ function planeCollision(gameObject, plane) {
 
     if(circle.y + circle.radius >= plane.y) {
       hit = true;
+      component = circle.component;
     }
   });
 
   if(hit) {
-    gameObject.hit(plane);
-    plane.hit(gameObject);
+    component.hit(plane);
+    plane.hit(component);
   }
 
   return hit;

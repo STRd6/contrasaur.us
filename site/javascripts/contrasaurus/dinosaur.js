@@ -11,7 +11,7 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [Flamethrower()];
+  var weapons = [];
   var activeWeapons = [];
 
   var pitchAngle = 0;
@@ -26,7 +26,7 @@ function Dinosaur() {
     height: height,
     color: "#00F",
     health: 500,
-    radius: 64,
+    radius: 72,
     xVelocity: 1,
     yVelocity: 6,
     collideDamage: 2,
@@ -50,7 +50,7 @@ function Dinosaur() {
     },
 
     addWeapon: function(weapon) {
-      weapons.push(weapon);
+      weapons.push(weapon.dino(self));
     },
 
     airborne: function() {
@@ -68,7 +68,11 @@ function Dinosaur() {
 
     bulletHitEffect: Enemy.bloodSprayEffect,
 
-    getTransform: function () {
+    components: function() {
+      return weapons;
+    },
+
+    getTransform: function() {
       var transform;
 
       if (lastDirection <= 0 && !parasailing) {
@@ -206,6 +210,8 @@ function Dinosaur() {
       }
     }
   });
+
+  self.addWeapon(Shield());
 
   return self;
 }

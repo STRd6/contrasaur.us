@@ -47,6 +47,10 @@ function GameObject(I) {
       return I.collisionType;
     },
 
+    components: function() {
+      return [];
+    },
+
     destroy: function() {
       if (I.active == true) {
         I.active = false;
@@ -76,19 +80,46 @@ function GameObject(I) {
     },
 
     getCircles: function() {
+      var componentCircles = $.map(self.components(), function(component) {
+        var transform = component.getTransform();
+        return $.map(component.getCircles(), function(circle) {
+          var point = transform.transformPoint(component.position());
+          return {
+            radius: circle.radius,
+            x: point.x,
+            y: point.y,
+            component: component
+          };
+        });
+      });
+
+      var objectCircles;
+
       if(I.hitCircles) {
-        var transform = self.getTransform();
-        return $.map(I.hitCircles, function(circle) {
+        objectCircles = I.hitCircles;
+      } else {
+        objectCircles = [{
+          radius: I.radius,
+          x: 0,
+          y: 0,
+          component: self
+        }];
+      }
+
+      var circles = componentCircles.concat(objectCircles);
+
+      var transform = self.getTransform();
+        return $.map(circles, function(circle) {
           var point = transform.transformPoint(circle);
           return {
             x: point.x,
             y: point.y,
-            radius: circle.radius
+            radius: circle.radius,
+            component: circle.component || self
           };
         });
-      } else {
-        return [{x: I.x, y: I.y, radius: I.radius}];
-      }
+
+      return circles;
     },
 
     getTransform: function() {

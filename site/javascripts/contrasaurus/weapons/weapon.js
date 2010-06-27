@@ -5,6 +5,7 @@ function Weapon(I) {
     age: 0,
     duration: 400,
     exitPoints: [Point(0, 0)],
+    hitCircles: [],
     power: 100,
     radius: 5,
     theta: 0,
@@ -13,6 +14,15 @@ function Weapon(I) {
   });
 
   var self = GameObject(I).extend({
+    dino: function(newDino) {
+      if(newDino !== undefined) {
+        I.dino = newDino;
+        return self;
+      } else {
+        return I.dino;
+      }
+    },
+
     generateProjectile: function(direction, position) {
       return Bullet(direction, position);
     },
