@@ -130,20 +130,18 @@ function display(text) {
   displayTexts.push(GameText(text, dino.position()));
 }
 
+// Keyboard Bindings
+$(document).bind('keydown', "esc", function() {
+  currentLevel.stop();
+});
+
+$(document).bind('keydown', "0", function() {
+  GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
+});
+
+// Level select
 $(document).keydown(function(e) {
-  if(e.keyCode == 27) {
-    currentLevel.stop();
-  } else if(e.keyCode == 39) {
-    currentLevel.changeTiltAmount(0.5);
-    $('#tilt').text(currentLevel.tiltAmount());
-  } else if(e.keyCode == 37) {
-    currentLevel.changeTiltAmount(-0.5);
-    $('#tilt').text(currentLevel.tiltAmount());
-  } else if (e.keyCode == 32) {
-    dino.jetpack().jetpackCharge(1);
-  } else if(e.keyCode == 48) {
-    GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
-  } else if(e.keyCode >= 49 && e.keyCode <= 57) {
+  if(e.keyCode >= 49 && e.keyCode <= 57) {
     nextStage(e.keyCode - 48);
   }
 });

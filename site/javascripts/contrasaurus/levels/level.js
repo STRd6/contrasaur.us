@@ -128,15 +128,6 @@ function Level(I) {
       return position;
     },
 
-    changeTiltAmount: function(amount) {
-      tiltAmount += amount;
-      if (tiltAmount > 2) {
-        tiltAmount = Math.floor(tiltAmount);
-      } else if (tiltAmount < -2) {
-        tiltAmount = Math.ceil(tiltAmount);
-      }
-    },
-
     nearestEnemy: function(currentPosition) {
       var nearest;
       var nearestDistance;
@@ -190,6 +181,8 @@ function Level(I) {
     },
 
     step: function step() {
+      I.scene.update();
+
       resetCollidables();
 
       var liveGameObjects = [];

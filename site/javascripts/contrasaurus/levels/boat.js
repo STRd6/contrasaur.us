@@ -11,7 +11,7 @@
     {
       image: Sprite.load("images/levels/clouds2.png"),
       parallaxRate: 1,
-      rate: {x: -0.5},
+      velocity: Point(-0.5, 0),
       position: {
         x: 0,
         y: 0
@@ -23,7 +23,7 @@
     {
       image: Sprite.load("images/levels/clouds1.png"),
       parallaxRate: 1,
-      rate: {x: -1},
+      velocity: Point(-1, 0),
       position: {
         x: 0,
         y: 0
@@ -42,7 +42,7 @@
     {
       image: Sprite.load("images/levels/parasail/ocean.png"),
       parallaxRate: 1,
-      rate: {x: -3},
+      velocity: Point(-3, 0),
       position: {
         x: 0,
         y: 320

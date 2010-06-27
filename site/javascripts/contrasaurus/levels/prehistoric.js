@@ -25,7 +25,6 @@
         image: Sprite.load('images/levels/jungle/tree.png'),
         parallaxRate: 1,
         position: {
-          width: 640,
           x: rand(CANVAS_WIDTH - rand(200)),
           y: 280
         },
@@ -39,7 +38,6 @@
         image: Sprite.load('images/levels/jungle/tree.png'),
         parallaxRate: 2,
         position: {
-          width: 640,
           x: rand(CANVAS_WIDTH - rand(400)),
           y: 330
         },
@@ -47,6 +45,8 @@
         width: 640
       });
     });
+
+    console.log(foregrounds);
 
     return foregrounds;
   }
@@ -58,7 +58,9 @@
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 640
     },
     {
       image: Sprite.load("images/levels/jungle/midground.png"),
