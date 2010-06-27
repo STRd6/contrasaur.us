@@ -19,7 +19,12 @@
 
   %body
     = yield
-    = partial 'analytics'
+    .clear
 
-  #footer
-    = link "Request more chainsaws", "http://www.facebook.com/#!/topic.php?uid=101113043274821&topic=7", :target => "_blank"
+    #footer
+      %center
+        = link "Feedback", "http://www.facebook.com/#!/topic.php?uid=101113043274821&topic=7", :target => "_blank"
+        = " | "
+        = link "Email STRd6", "mailto:daniel@strd6.com"
+
+    = partial 'analytics'

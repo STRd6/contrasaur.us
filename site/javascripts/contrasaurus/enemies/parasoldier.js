@@ -4,13 +4,10 @@ function Parasoldier(I) {
   var theta = Math.random() * (Math.PI * 2);
 
   $.reverseMerge(I, {
-    x: rand(CANVAS_WIDTH),
-    y: 45,
-    width: 38,
-    height: 90,
-    radius: 19,
-    yVelocity: 4,
     health: 3,
+    hitCircles: [{"x":-1,"y":36,"radius":13},{"x":-1,"y":10,"radius":14}],
+    radius: 40,
+    yVelocity: 4,
     color: "#F00",
     collideDamage: 1,
     pointsWorth: 1000,
@@ -25,7 +22,9 @@ function Parasoldier(I) {
         );
       }
     },
-    sprite: Sprite.load("images/enemies/parasoldier.png")
+    sprite: Sprite.load("images/enemies/parasoldier.png"),
+    x: rand(CANVAS_WIDTH),
+    y: 45
   });
 
   var self = Enemy(I).extend({

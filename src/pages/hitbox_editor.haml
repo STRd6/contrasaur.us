@@ -26,11 +26,11 @@
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
-  var circles = [{"x":84,"y":124,"radius":13},{"x":93,"y":59,"radius":20},{"x":97,"y":143,"radius":11},{"x":79,"y":90,"radius":21},{"x":6,"y":27,"radius":74},{"x":172,"y":-18,"radius":31},{"x":107,"y":159,"radius":10},{"x":209,"y":-64,"radius":28},{"x":123,"y":22,"radius":34}];
+  var circles = [{"x":84,"y":124,"radius":13}, {"x":50,"y":70,"radius":13}];
 
   $('#gameCanvas').powerCanvas({init: function(canvas) {
     var I = {
-      sprite: Sprite.load("images/enemies/brontosaurus.png")
+      sprite: Sprite.load("images/enemies/parasoldier.png")
     };
 
     var character = GameObject(I).extend({
