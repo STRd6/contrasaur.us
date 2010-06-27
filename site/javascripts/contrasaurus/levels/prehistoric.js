@@ -1,4 +1,23 @@
 (function() {
+  function generateStandingEnemies(level, count) {
+    count.times(function() {
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + count*20,
+          sprite: Sprite.load("images/enemies/dinofodder2.png")
+        })
+      );
+    });
+  }
+
+  function generateRunningEnemies(level, count) {
+    level.addGameObject(
+      Utahraptor({
+        xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + count*20
+      }
+    ));
+  }
+
   var scene = Scene([
     {
       image: Sprite.load("images/levels/jungle/background.png"),
@@ -148,148 +167,27 @@
   }, {
     at: 50,
     event: function(level) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      // to do add plant for them to be eating in the middle
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
+      generateStandingEnemies(level, 4);
     }
   }, {
     at: 150,
     event: function(level) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 45,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 70,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      // to do add plant for them to be eating in the middle
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
+      generateRunningEnemies(level, 5);
     }
   }, {
     at: 400,
     event: function(level) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 90
-        }
-      ));
+      generateStandingEnemies(level, 6);
     }
   }, {
     at: 700,
     event: function(level) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 30
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + 60
-        }
-      ));
+      generateRunningEnemies(level, 3);
     }
   }, {
     at: 1200,
     event: function(level) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 30,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 45,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 60,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 70,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
-      // to do add plant for them to be eating in the middle
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + 90,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
-        }
-      ));
+      generateStandingEnemies(level, 3);
     }
   }, {
     at: 1500,
