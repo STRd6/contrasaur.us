@@ -10,7 +10,7 @@
     = javascripts('contrasaurus/config', 'jquery-1.4.2.min', 'jquery.hotkeys', 'power_canvas.jquery', 'sprites.strd6', 'util', 'matrix')
     - projectile_files = %w[bomb explosion bullet effect flame grenade homing_missile laser meteor missile powerup].map { |file_name| "contrasaurus/projectiles/#{file_name}" }
     = javascripts(*projectile_files)
-    = javascripts('contrasaurus/levels/cutscene', 'contrasaurus/levels/level')
+    = javascripts('contrasaurus/levels/cutscene', 'contrasaurus/levels/level', 'contrasaurus/levels/scene')
     - enemy_files = %w[bomber brontosaurus enemy parasoldier soldier tank utahraptor].map { |name| "contrasaurus/enemies/#{name}" }
     = javascripts(*enemy_files)
     = javascripts('contrasaurus/dinosaur', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/UI')

@@ -16,7 +16,8 @@
         x: 0,
         y: 0
       },
-      repeat: true
+      repeat: true,
+      width: 640
     }
   ], [
     {
@@ -27,7 +28,8 @@
         x: 0,
         y: 0
       },
-      repeat: true
+      repeat: true,
+      width: 640
     },
     {
       image: Sprite.load("images/levels/parasail/speed-boat.png"),
@@ -35,8 +37,7 @@
       position: {
         x: 320,
         y: 285
-      },
-      repeat: true
+      }
     },
     {
       image: Sprite.load("images/levels/parasail/ocean.png"),
@@ -46,7 +47,8 @@
         x: 0,
         y: 320
       },
-      repeat: true
+      repeat: true,
+      width: 640
     }
   ]);
 

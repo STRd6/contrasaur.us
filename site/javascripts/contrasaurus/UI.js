@@ -54,60 +54,6 @@ function GameText(text, I) {
   });
 }
 
-function Scene(backgrounds, foregrounds) {
-  function drawLayersGenerator(layers) {
-    return function(position, canvas) {
-      $.each(layers, function(i, layer) {
-        var xPosition = layer.position.x + -position.x * layer.parallaxRate;
-        var yPosition = layer.position.y + -position.y * layer.parallaxRate;
-
-        if(layer.repeat) {
-          xPosition = Math.mod(xPosition, canvas.width());
-          yPosition = Math.mod(yPosition, canvas.height());
-
-          layer.image.draw(canvas,
-            xPosition,
-            yPosition
-          );
-
-          // X-repeat
-          layer.image.draw(canvas,
-            xPosition - canvas.width(),
-            yPosition
-          );
-
-          // Y-repeat
-          layer.image.draw(canvas,
-            xPosition,
-            yPosition - canvas.height()
-          );
-
-          // XY-repeat
-          layer.image.draw(canvas,
-            xPosition - canvas.width(),
-            yPosition - canvas.height()
-          );
-        } else {
-          layer.image.draw(canvas,
-            xPosition,
-            yPosition
-          );
-        }
-
-        // TODO: Move to update
-        if(layer.rate) {
-          layer.position.x += layer.rate.x;
-        }
-      });
-    }
-  }
-
-  return {
-    drawBackgrounds: drawLayersGenerator(backgrounds),
-    drawForegrounds: drawLayersGenerator(foregrounds)
-  }
-}
-
 function healthColorMap(completeness) {
   var r = Math.floor(Math.clamp(1.5 - 2 * completeness, 0, 1) * 255).toString(16);
   if(r.length == 1) {

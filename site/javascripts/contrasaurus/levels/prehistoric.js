@@ -42,16 +42,6 @@
         x: 0,
         y: 0
       }
-    },
-    {
-      image: Sprite.load("images/levels/clouds2.png"),
-      parallaxRate: 1,
-      rate: {x: -0.5},
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true
     }
   ], [
     {
@@ -117,16 +107,6 @@
         x: CANVAS_WIDTH + 545,
         y: 310
       }
-    },
-    {
-      image: Sprite.load("images/levels/clouds1.png"),
-      parallaxRate: 1,
-      rate: {x: -1},
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true
     }
   ]);
 

@@ -87,7 +87,7 @@ function Dinosaur() {
     heal: heal,
 
     bump: function() {
-      I.xVelocity = -I.xVelocity;
+      //I.xVelocity = -I.xVelocity;
     },
 
     draw: function(canvas) {
