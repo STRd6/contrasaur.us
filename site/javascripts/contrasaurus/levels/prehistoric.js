@@ -18,6 +18,39 @@
     ));
   }
 
+  function generateForgroundScenary() {
+    var foregrounds = [];
+    (10).times(function() {
+      foregrounds.push({
+        image: Sprite.load('images/levels/jungle/tree.png'),
+        parallaxRate: 1,
+        position: {
+          width: 640,
+          x: rand(CANVAS_WIDTH - rand(200)),
+          y: 280
+        },
+        repeat: true,
+        width: 640
+      });
+    });
+
+    (10).times(function() {
+      foregrounds.push({
+        image: Sprite.load('images/levels/jungle/tree.png'),
+        parallaxRate: 2,
+        position: {
+          width: 640,
+          x: rand(CANVAS_WIDTH - rand(400)),
+          y: 330
+        },
+        repeat: true,
+        width: 640
+      });
+    });
+
+    return foregrounds;
+  }
+
   var scene = Scene([
     {
       image: Sprite.load("images/levels/jungle/background.png"),
@@ -33,7 +66,9 @@
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 1280
     },
     {
       image: Sprite.load("images/levels/jungle/foreground.png"),
@@ -41,74 +76,11 @@
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 1920
     }
-  ], [
-    {
-      image: Sprite.load('images/levels/jungle/tree.png'),
-      parallaxRate: 1,
-      position: {
-        x: rand(CANVAS_WIDTH - 116),
-        y: 280
-      }
-    },
-    {
-      image: Sprite.load('images/levels/jungle/tree.png'),
-      parallaxRate: 2,
-      position: {
-        x: rand(CANVAS_WIDTH - 116),
-        y: 330
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass3.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 90,
-        y: 310
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass2.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 120,
-        y: 310
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass1.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 160,
-        y: 310
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass3.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 540,
-        y: 310
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass2.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 570,
-        y: 310
-      }
-    },
-    {
-      image: Sprite.load('images/levels/prehistoric/grass1.png'),
-      parallaxRate: 1,
-      position: {
-        x: CANVAS_WIDTH + 545,
-        y: 310
-      }
-    }
-  ]);
+  ], generateForgroundScenary());
 
   var floor = Floor();
 
