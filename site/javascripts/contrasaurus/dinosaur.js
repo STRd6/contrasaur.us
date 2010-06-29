@@ -16,7 +16,7 @@ function Dinosaur() {
 
   var pitchAngle = 0;
 
-  var dinoTile = Sprite.load("images/levels/dino1.png");
+  var walkTile = loadAnimation("images/contrasaurus/walk.png", 8, 283, 163, 3);
   var parasailTile = Sprite.load("images/levels/parasail/parasail.png");
   
   var I = {
@@ -31,7 +31,8 @@ function Dinosaur() {
     yVelocity: 6,
     collideDamage: 2,
     collisionType: "dino",
-    hitCircles: [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}]
+    hitCircles: [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}],
+    sprite: walkTile
   };
 
   var accessories = [];
@@ -101,9 +102,9 @@ function Dinosaur() {
           parasailTile.draw(canvas, -100, -100);
         }
 
-        dinoTile.draw(canvas,
-          -dinoTile.width/2,
-          -dinoTile.height/2
+        walkTile.draw(canvas,
+          -walkTile.width/2,
+          -walkTile.height/2
         );
 
         $.each(accessories, function(i, accessory) {
