@@ -108,13 +108,30 @@
     return self;
   };
 
-  window["Animation"] = function(frameData, delay) {
+  var Animation = function(frameData, delay) {
     var count = 0;
     var currentFrame = 0;
     var frameCount = frameData.length;
     delay = delay || 1;
 
     return {
+      draw: function(canvas, x, y, options) {
+        frameData[currentFrame].draw(canvas, x, y, options);
+      },
+
+      frame: function(newFrame) {
+        if(newFrame !== undefined) {
+          currentFrame = newFrame % frameCount;
+          return this;
+        } else {
+          return currentFrame;
+        }
+      },
+
+      frameCount: function() {
+        return frameCount;
+      },
+
       update: function() {
         count++;
 
@@ -122,13 +139,36 @@
           currentFrame = (currentFrame + 1) % frameCount;
           count = 0;
         }
-      },
-
-      draw: function(canvas, x, y, options) {
-        frameData[currentFrame].draw(canvas, x, y, options);
       }
     };
   };
+  
+  Animation.load = function(url, frames, width, height, delay) {
+    var img = new Image();
+    var proxy = LoaderProxy();
+
+    proxy.width = width;
+    proxy.height = height;
+
+    img.onload = function() {
+      var frameData = [];
+
+      frames.times(function(i) {
+        frameData[i] = Sprite(img, i * width, 0, width, height);
+      });
+
+      $.extend(proxy, Animation(frameData, delay));
+    };
+
+    track($(img));
+    img.onerror = brokenImageWarning(url);
+
+    img.src = url;
+
+    return proxy;
+  };
+
+  window["Animation"] = Animation;
 
   window["Actor"] = function(states, defaultState, callbacks) {
     var state = defaultState || "default";
@@ -154,28 +194,5 @@
     };
   };
 
-  window["loadAnimation"] = function(url, frames, width, height, delay) {
-    var img = new Image();
-    var proxy = LoaderProxy();
-
-    proxy.width = width;
-    proxy.height = height;
-
-    img.onload = function() {
-      var frameData = [];
-
-      frames.times(function(i) {
-        frameData[i] = Sprite(img, i * width, 0, width, height);
-      });
-
-      $.extend(proxy, Animation(frameData, delay));
-    };
-
-    track($(img));
-    img.onerror = brokenImageWarning(url);
-
-    img.src = url;
-
-    return proxy;
-  };
+  window["loadAnimation"] = Animation.load;
 })();

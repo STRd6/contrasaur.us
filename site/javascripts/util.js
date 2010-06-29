@@ -26,6 +26,22 @@ Array.prototype.rand = function() {
 };
 
 /**
+ * Remove the first occurance of the given object from the array if it is
+ * present.
+ *
+ * @param {Object} object The object to remove from the array if present.
+ * @returns The removed object if present otherwise undefined.
+ */
+Array.prototype.remove = function(object) {
+  var index = this.indexOf(object);
+  if(index >= 0) {
+    return this.splice(index, 1)[0];
+  } else {
+    return undefined;
+  }
+};
+
+/**
  * Returns a mod useful for array wrapping.
  *
  * @param {Number} n
