@@ -16,6 +16,23 @@
     }
   }
 
+  // Asset Tracking for load progress
+  var assetCount = 0;
+  var loadedAssets = 0;
+  function track(asset) {
+    assetCount++;
+
+    asset.load(function() {
+      loadedAssets++;
+    });
+  }
+
+  window["AssetTracker"] = {
+    count: function() {
+      return [loadedAssets, assetCount];
+    }
+  }
+
   var Sprite = function(image, sourceX, sourceY, width, height) {
     sourceX = sourceX || 0;
     sourceY = sourceY || 0;
@@ -56,6 +73,7 @@
       }
     };
 
+    track($(img));
     img.onerror = brokenImageWarning(url);
 
     img.src = url;
@@ -153,6 +171,7 @@
       $.extend(proxy, Animation(frameData, delay));
     };
 
+    track($(img));
     img.onerror = brokenImageWarning(url);
 
     img.src = url;

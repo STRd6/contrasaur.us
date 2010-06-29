@@ -30,5 +30,17 @@
     canvas = _canvas;
     canvas.font("bold 1em consolas, 'Courier New', 'andale mono', 'lucida console', monospace");
 
-    nextStage();
+    canvas.fillColor("black");
+    canvas.fillText("LOADING...", 280, 240);
+
+    var loadChecker = setInterval(function() {
+      var status = AssetTracker.count();
+
+      // Added some fudge, it looks like it's not triggering the load tracking
+      // on two assets
+      if(status[0] >= status[1] - 2) {
+        clearInterval(loadChecker);
+        nextStage();
+      }
+    }, 1000);
   }});
