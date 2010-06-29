@@ -31,7 +31,7 @@ function Dinosaur() {
     yVelocity: 6,
     collideDamage: 2,
     collisionType: "dino",
-    hitCircles: [{"x":-37,"y":3,"radius":14},{"x":45,"y":-4,"radius":13},{"x":-4,"y":58,"radius":5},{"x":29,"y":-9,"radius":17},{"x":-10,"y":12,"radius":28},{"x":-11,"y":40,"radius":9},{"x":-13,"y":54,"radius":7},{"x":24,"y":14,"radius":9},{"x":-50,"y":-3,"radius":9}],
+    hitCircles: [{"x":87,"y":-52,"radius":27},{"x":13,"y":-10,"radius":37},{"x":117,"y":-45,"radius":24},{"x":50,"y":-38,"radius":19},{"x":-27,"y":-12,"radius":25},{"x":-60,"y":-2,"radius":18},{"x":-89,"y":5,"radius":14},{"x":-114,"y":10,"radius":12}],
     sprite: walkTile
   };
 
