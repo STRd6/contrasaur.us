@@ -126,10 +126,12 @@ function Dinosaur() {
     },
 
     land: function(h) {
-      I.y = h - (I.radius + 1);
-      I.yVelocity = 0;
-      I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
-      airborne = false;
+      if(I.yVelocity >= 0) {
+        I.y = h - (I.radius + 1);
+        I.yVelocity = 0;
+        I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
+        airborne = false;
+      }
     },
 
     parasailing: function(newValue) {
