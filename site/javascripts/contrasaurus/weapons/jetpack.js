@@ -25,7 +25,7 @@ function Jetpack(I) {
     },
 
     draw: function(canvas) {
-      I.sprite.draw(canvas, -65, -25);
+      I.sprite.draw(canvas, -45, -55);
     },
 
     jetpackCharge: function(value) {
