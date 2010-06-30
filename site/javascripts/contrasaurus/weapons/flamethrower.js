@@ -3,7 +3,7 @@ function Flamethrower(I) {
 
   $.reverseMerge(I, {
     duration: 1000,
-    exitPoints: [Point(45, 20)],
+    exitPoints: [Point(110, -40)],
     power: 10,
     sprite: Sprite.EMPTY
   });

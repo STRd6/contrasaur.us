@@ -1,5 +1,5 @@
 function Flame(direction, I) {
-  var speed = 10;
+  var speed = 20;
   var theta = Math.PI/4;
 
   $.reverseMerge(I, {
@@ -7,7 +7,7 @@ function Flame(direction, I) {
     duration: 20,
     sprite: Sprite.load("images/projectiles/flame.png"),
     radius: 18,
-    xVelocity: direction * 5,
+    xVelocity: direction * 10,
     yVelocity: Math.sin(theta) * speed
   });
 
