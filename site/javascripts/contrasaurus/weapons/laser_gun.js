@@ -8,7 +8,7 @@ function LaserGun(I) {
   $.reverseMerge(I, {
     age: 0,
     duration: 3000,
-    exitPoints: [Point(10, 2)],
+    exitPoints: [Point(5, 2)],
     power: 10,
     radius: 5,
     sprite: monocle
@@ -16,7 +16,7 @@ function LaserGun(I) {
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.translation(39, -12);
+      return Matrix.translation(95, -67);
     },
 
     generateProjectile: function(direction, position) {
