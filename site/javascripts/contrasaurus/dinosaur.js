@@ -226,7 +226,7 @@ function Dinosaur() {
     }
   });
 
-  self.addWeapon(LaserGun());
+  self.addWeapon();
 
   return self;
 }

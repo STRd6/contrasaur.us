@@ -32,6 +32,7 @@ function Chainsaw(I) {
         I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }
     }
-  })
+  });
+
   return self;
 }
