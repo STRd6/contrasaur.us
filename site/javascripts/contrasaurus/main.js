@@ -147,12 +147,12 @@ $(document).keydown(function(e) {
 });
 
 var tophat = GameObject({
-  x: 30,
-  y: -32,
+  x: 85,
+  y: -85,
   sprite: Sprite.load("images/accessories/tophat.png")
 });
 
-if(rand() < 0.25) {
+if(rand() < 1) {
   dino.addAccessory(tophat);
 }
 
