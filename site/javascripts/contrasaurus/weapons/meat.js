@@ -1,7 +1,7 @@
 function Meat(I) {
   I = I || {};
 
-  var healthPerUpdate = 1;
+  var healthPerUpdate = 3;
 
   $.reverseMerge(I, {
     duration: 50,
