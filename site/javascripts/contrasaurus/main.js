@@ -152,7 +152,7 @@ var tophat = GameObject({
   sprite: Sprite.load("images/accessories/tophat.png")
 });
 
-if(rand() < 1) {
+if(rand() < 0.25) {
   dino.addAccessory(tophat);
 }
 
