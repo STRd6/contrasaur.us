@@ -11,7 +11,7 @@ function Chainsaw(I) {
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.rotation(I.theta, Point(-52, -12)).translate(57, 15);
+      return Matrix.rotation(I.theta, Point(-52, -12)).translate(122, -5);
     },
 
     generateProjectile: function(direction, position) {
@@ -29,7 +29,7 @@ function Chainsaw(I) {
 
     after: {
       update: function() {
-        I.theta = Math.sin(I.age / 4) * (Math.PI / 6);
+        I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }
     }
   })
