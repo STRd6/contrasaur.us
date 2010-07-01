@@ -54,6 +54,19 @@
           height
         );
       },
+
+      frame: function(newFrame) {
+        if(newFrame !== undefined) {
+          return this;
+        } else {
+          return 0;
+        }
+      },
+
+      frameCount: function() {
+        return 1;
+      },
+      
       width: width,
       height: height
     };
