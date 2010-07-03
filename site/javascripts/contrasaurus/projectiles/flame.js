@@ -2,6 +2,7 @@ function Flame(direction, I) {
   var speed = 20;
   var theta = Math.PI/4;
 
+
   $.reverseMerge(I, {
     collideDamage: 0,
     duration: 20,

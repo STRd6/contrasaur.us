@@ -54,8 +54,9 @@ function Enemy(I) {
 
         if(I.onFire && rand(2)) {
           //Smoke/flame
-          addGameObject(Effect(Point(0, 0), $.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
-            sprite: Sprite.load("images/effects/smoke.png")
+          addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
+            sprite: Sprite.load("images/effects/smoke.png"),
+            velocity: Point(0, 0)
           })));
         }
       }
@@ -74,14 +75,15 @@ Enemy.bloodSprayEffect = function(bullet) {
       point = point.add(offset);
     }
 
-    var effect = Effect(bullet.velocity(), $.extend(point, {
+    var effect = Effect($.extend(point, {
       duration: 10,
       sprite: [
         loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16),
         loadAnimation("images/effects/bloodEffect2_8x8.png", 10, 8, 8),
         loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8),
         loadAnimation("images/effects/bloodEffect4_16x16.png", 10, 16, 16)
-      ].rand()
+      ].rand(),
+      velocity: bullet.velocity()
     }));
 
     addGameObject(effect);
@@ -89,9 +91,10 @@ Enemy.bloodSprayEffect = function(bullet) {
 };
 
 Enemy.sparkSprayEffect = function(bullet) {
-  var effect = Effect(bullet.velocity(), $.extend(bullet.position(), {
+  var effect = Effect($.extend(bullet.position(), {
     duration: 9,
-    sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16)
+    sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16),
+    velocity: bullet.velocity()
   }));
 
   addGameObject(effect);

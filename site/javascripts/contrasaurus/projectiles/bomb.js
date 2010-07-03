@@ -1,4 +1,4 @@
-function Bomb(xVelocity, I) {
+function Bomb(I) {
   I = I || {};
 
   var bombTile = Sprite.load("images/projectiles/bomb.png");
@@ -9,7 +9,7 @@ function Bomb(xVelocity, I) {
     height: 23,
     radius: 12,
     collideDamage: 0,
-    xVelocity: xVelocity,
+    xVelocity: I.xVelocity,
     yVelocity: 0,
     sprite: bombTile
   });

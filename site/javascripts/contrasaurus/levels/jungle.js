@@ -62,10 +62,11 @@
         // HACK: fix the soldier so that the position from
         // self.position() lines up with the effect
         soldier.bind('destroy', function(self) {
-          var effect = Effect({ x: 0, y: 0 }, $.extend({ x: self.position().x - 2, y: self.position().y - 6 }, {
+          var effect = Effect($.extend({ x: self.position().x - 2, y: self.position().y - 6 }, {
             duration: 35,
             hFlip: true,
-            sprite: loadAnimation("images/effects/sandinista_die_61x61.png", 12, 61, 61, 3)
+            sprite: loadAnimation("images/effects/sandinista_die_61x61.png", 12, 61, 61, 3),
+            velocity: Point(0, 0)
           }));
 
           addGameObject(effect);

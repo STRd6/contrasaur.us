@@ -20,9 +20,10 @@ function Floor(I) {
         var sprite;
         sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
       
-        var effect = Effect(Point(), $.extend(bullet.position(), {
+        var effect = Effect($.extend(bullet.position(), {
           duration: 8,
-          sprite: sprite
+          sprite: sprite,
+          velocity: Point()
         }));
 
         addGameObject(effect);
@@ -35,9 +36,10 @@ function Floor(I) {
     },
     hit: function(other) {
       if(I.water) {
-        var effect = Effect(Point(), $.extend(other.position(), {
+        var effect = Effect($.extend(other.position(), {
           duration: 8,
-          sprite: loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16)
+          sprite: loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16),
+          velocity: Point()
         }));
 
         addGameObject(effect);

@@ -7,10 +7,12 @@ function Bomber(I) {
   function dropBomb() {
     cooldown += 10;
     bombs--;
-    addGameObject(Bomb(
-      I.xVelocity, 
-      self.position()
-    ));
+    addGameObject(Bomb({
+      xVelocity: I.xVelocity,
+      x: self.position().x,
+      y: self.position().y
+      //position: self.position()
+    }));
   }
 
   $.reverseMerge(I, {

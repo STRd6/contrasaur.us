@@ -1,4 +1,4 @@
-function Missile(theta, I) {
+function Missile(I) {
   var speed = 3;
 
   $.reverseMerge(I, {
@@ -8,15 +8,18 @@ function Missile(theta, I) {
     radius: 8,
     collideDamage: 20,
     sprite: Sprite.load("images/projectiles/missile.png"),
-    xVelocity: Math.cos(theta)*speed,
-    yVelocity: Math.sin(theta)*speed
+//    xVelocity: Math.cos(theta)*speed,
+//    yVelocity: Math.sin(theta)*speed
   });
 
-  var self = Bullet(theta, I).extend({
+  var xVelocity = Math.cos(I.theta)*speed;
+  var yVelocity = Math.sin(I.theta)*speed;
+
+  var self = Bullet(I.theta, I).extend({
     after: {
       update: function() {
-        I.xVelocity = I.xVelocity * 1.1;
-        I.yVelocity = I.yVelocity * 1.1;
+        xVelocity = xVelocity * 1.1;
+        yVelocity = yVelocity * 1.1;
       }
     }
   });

@@ -4,6 +4,10 @@ function Dinosaur() {
 
   var jetpack = Jetpack();
 
+  //using this to indicate the first time the jetpack goes off
+  var jetpackFlag = false;
+  var userControlled = false;
+
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 150;
 
@@ -64,11 +68,14 @@ function Dinosaur() {
 
   $(document).bind('keydown', 'space', function() {
     jetpack.jetpackCharge(50);
+    userControlled = true;
+    I.yVelocity = -1;
   });
 
   $(document).bind('keydown', 'left', function() {
     if(airborne) {
       pitchAngle -= Math.PI/48;
+      I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
     } else {
       if (I.xVelocity < 0) {
         I.xVelocity -= 0.1;
@@ -76,11 +83,13 @@ function Dinosaur() {
         I.xVelocity = (-1*I.xVelocity) - 0.1;
       }
     }
+    userControlled = true;
   });
 
   $(document).bind('keydown', 'right', function() {
     if(airborne) {
       pitchAngle += Math.PI/48;
+      I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
     } else {
       if (I.xVelocity < 0) {
         I.xVelocity = (-1*I.xVelocity) + 0.1;
@@ -88,6 +97,7 @@ function Dinosaur() {
         I.xVelocity += 0.1;
       }
     }
+    userControlled = true;
   });
 
   function heal(amount) {
@@ -185,6 +195,9 @@ function Dinosaur() {
         I.yVelocity = 0;
         I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
         airborne = false;
+        pitchAngle = -Math.PI/24
+        jetpackFlag = false;
+        userControlled = false;
       }
     },
 
@@ -226,8 +239,10 @@ function Dinosaur() {
             I.xVelocity = 1;
           }
 
-          if (airborne && jetpack.engaged()) {
+          // TODO: get some jetpack trigger events 
+          if (airborne && jetpack.engaged() && !jetpackFlag) {
             I.yVelocity = -1;
+            jetpackFlag = true;
           }
 
           if (!(jetpack.engaged()) && airborne) {
@@ -236,7 +251,9 @@ function Dinosaur() {
 
           if (airborne) {
             setModel(flyModel);
-            //pitchAngle += Math.PI / 24;
+            if (!userControlled) {
+              pitchAngle += Math.PI / 24;
+            }
           } else {
             setModel(walkModel);
             lastDirection = I.xVelocity;
@@ -269,13 +286,10 @@ function Dinosaur() {
           I.xVelocity = I.xVelocity * 0.9;
         }
 
-        //
         I.hitCircles = currentModel.hitFrames[currentModel.animation.frame()];
       }
     }
   });
-
-  //self.addWeapon();
 
   return self;
 }

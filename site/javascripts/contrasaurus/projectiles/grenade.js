@@ -1,4 +1,4 @@
-function Grenade(theta, I) {
+function Grenade(I) {
   I = I || {};
 
   var fuse = 45;

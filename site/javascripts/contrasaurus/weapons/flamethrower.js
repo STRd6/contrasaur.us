@@ -9,7 +9,7 @@ function Flamethrower(I) {
   });
 
   var self = Weapon(I).extend({
-    generateProjectile: function(direction, position) {
+    generateProjectile: function(unused, position) {
       return Flame(I.direction, position);
     },
 

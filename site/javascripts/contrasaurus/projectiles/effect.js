@@ -1,7 +1,7 @@
-function Effect(velocity, I) {
+function Effect(I) {
   $.reverseMerge(I, {
     duration: 33,
-    rotation: Math.atan2(velocity.y, velocity.x)
+    rotation: Math.atan2(I.velocity.y, I.velocity.x)
   });
 
   var self = GameObject(I).extend({

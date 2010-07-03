@@ -8,6 +8,9 @@ function Jetpack(I) {
   $.reverseMerge(I, {
     age: 0,
     engaged: false,
+    eventCallbacks: {
+      'engage': $.noop
+    },
     jetpackCharge: 0,
     jetpackCounter: 0,
     sprite: Sprite.load("images/weapons/jetpack.png")
