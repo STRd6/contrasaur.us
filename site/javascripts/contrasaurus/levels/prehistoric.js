@@ -46,8 +46,6 @@
       });
     });
 
-    console.log(foregrounds);
-
     return foregrounds;
   }
 

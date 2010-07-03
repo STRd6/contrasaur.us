@@ -62,6 +62,34 @@ function Dinosaur() {
 
   var healthMax = I.health;
 
+  $(document).bind('keydown', 'space', function() {
+    jetpack.jetpackCharge(50);
+  });
+
+  $(document).bind('keydown', 'left', function() {
+    if(airborne) {
+      pitchAngle -= Math.PI/48;
+    } else {
+      if (I.xVelocity < 0) {
+        I.xVelocity -= 0.1;
+      } else {
+        I.xVelocity = (-1*I.xVelocity) - 0.1;
+      }
+    }
+  });
+
+  $(document).bind('keydown', 'right', function() {
+    if(airborne) {
+      pitchAngle += Math.PI/48;
+    } else {
+      if (I.xVelocity < 0) {
+        I.xVelocity = (-1*I.xVelocity) + 0.1;
+      } else {
+        I.xVelocity += 0.1;
+      }
+    }
+  });
+
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
@@ -208,7 +236,7 @@ function Dinosaur() {
 
           if (airborne) {
             setModel(flyModel);
-            pitchAngle += Math.PI / 24;
+            //pitchAngle += Math.PI / 24;
           } else {
             setModel(walkModel);
             lastDirection = I.xVelocity;
