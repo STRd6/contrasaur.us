@@ -1,9 +1,11 @@
 function Soldier(I) {
   I = I || {};
 
-  var runLegs = loadAnimation("images/enemies/sandinista/run_legs.png", 8, 31, 25, 3);
-  var runTorso = loadAnimation("images/enemies/sandinista/run_torso.png", 8, 33, 34, 3);
-  var shootTorso = loadAnimation("images/enemies/sandinista/shoot_full.png", 6, 44, 34, 3);
+  var imageDir = "images/enemies/sandinista/";
+  var runLegs = loadAnimation(imageDir + "run_legs.png", 8, 31, 25, 3);
+  var runTorso = loadAnimation(imageDir + "run_torso.png", 8, 33, 34, 3);
+  var shootTorso = loadAnimation(imageDir + "shoot_full.png", 6, 44, 34, 3);
+  var bitLegs = loadAnimation(imageDir + "bit_in_half.png", 15, 435/15, 24, 3);
 
   var exitPoint = Point(15, -20);
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
@@ -46,6 +48,20 @@ function Soldier(I) {
     yVelocity: 0
   });
 
-  var self = Enemy(I).extend({ });
+  var self = Enemy(I);
+
+  // HACK: fix the soldier so that the position from
+  // self.position() lines up with the effect
+  self.bind('destroy', function(self) {
+    var effect = Effect($.extend({ x: self.position().x - 2, y: self.position().y - 6 }, {
+      duration: 35,
+      hFlip: true,
+      sprite: bitLegs,
+      velocity: Point(0, 0)
+    }));
+
+    addGameObject(effect);
+  });
+
   return self;
 }

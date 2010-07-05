@@ -2,6 +2,7 @@
   function LoaderProxy() {
     return {
       draw: $.noop,
+      frame: $.noop,
       update: $.noop,
       width: null,
       height: null

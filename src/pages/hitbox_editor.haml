@@ -83,8 +83,6 @@
         y: event.offsetY
       };
 
-      console.log(point);
-
       var set = false;
 
       // Check which circle was hit
@@ -93,21 +91,15 @@
           return;
         }
 
-        console.log(circle);
         var dx = point.x - circle.x;
         var dy = point.y - circle.y;
         var dist = circle.radius;
-
-        console.log(dx);
-        console.log(dy);
-        console.log(dist);
 
         if(dx * dx + dy * dy < dist * dist) {
           activeCircle = circle.circle;
           set = true;
         }
 
-        console.log(activeCircle);
       });
 
       if(!set) {
@@ -154,6 +146,22 @@
 
   function removeCircle() {
     frameCircles[currentFrame].remove(activeCircle);
+  }
+
+  function nextCircle() {
+    var index = frameCircles[currentFrame].indexOf(activeCircle);
+    console.log(index);
+    index = Math.mod((index - 1), frameCircles[currentFrame].length);
+    console.log(index);
+    activeCircle = frameCircles[currentFrame][index];
+  }
+
+  function nextCircle() {
+    var index = frameCircles[currentFrame].indexOf(activeCircle);
+    console.log(index);
+    index = (index + 1) % frameCircles[currentFrame].length;
+    console.log(index);
+    activeCircle = frameCircles[currentFrame][index];
   }
 
   function move(x, y) {
@@ -206,6 +214,17 @@
     "shift+-": function() {
       grow(-10);
     },
+    "shift+tab": function() {
+      prevCircle();
+      return false;
+    },
+    "tab": function() {
+      nextCircle();
+      return false;
+    },
+    "d": function() {
+      removeCircle();
+    }
   }
 
   $.each(keyEvents, function(key, fn) {
