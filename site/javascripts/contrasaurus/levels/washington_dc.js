@@ -14,9 +14,35 @@
   var floor = Floor();
 
   var triggers = [
-    {at: 1000, event: function(level) {
+    {at: 3000, event: function(level) {
       level.complete();
-    }}
+    }}, {
+      at: 50,
+      event: function(level) {
+        var whiteHouse = Enemy({
+          health: 200,
+          hitCircles: [
+            {"x":-156,"y":34,"radius":62},{"x":3,"y":0,"radius":117},{"x":247,"y":-55,"radius":38},{"x":240,"y":29,"radius":43},{"x":-174,"y":-43,"radius":55},{"x":-242,"y":16,"radius":44},{"x":-242,"y":-13,"radius":43},{"x":238,"y":-17,"radius":45},{"x":140,"y":4,"radius":74},{"x":224,"y":-66,"radius":32},{"x":179,"y":-37,"radius":58},{"x":-239,"y":-50,"radius":49}
+          ],
+          x: level.position().x + CANVAS_WIDTH + 100,
+          y: 170,
+          shootLogic: $.noop,
+          sprite: Sprite.load('images/levels/washington_dc/whiteHouse.png')
+        });
+
+        whiteHouse.bind('destroy', function() {
+          currentLevel.complete();
+          dino.boss(false);
+        });
+
+        level.addGameObject(whiteHouse);
+      }
+    }, {
+    at: 100,
+      event: function() {
+        dino.boss(true);
+      }
+    }
   ]
 
   addCutscene(
