@@ -260,7 +260,7 @@ function Dinosaur() {
           }
 
           if (!(jetpack.engaged()) && airborne) {
-            I.yVelocity = 6;
+            I.yVelocity += GRAVITY;
           }
 
           if (airborne) {
