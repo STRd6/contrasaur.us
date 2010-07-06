@@ -79,7 +79,6 @@ function DialogBox(text) {
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
       canvas.fillRect(0, yPosition, canvas.width(), height);
 
-      canvas.textAlign("middle");
       canvas.fillColor("#FFF");
       canvas.fillText(text, margin, yPosition + lineHeight, canvas.width());
     },
