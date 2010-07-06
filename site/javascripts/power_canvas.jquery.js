@@ -115,8 +115,8 @@
         return this;
       },
 
-      fillText: function(text, x, y, maxWidth) {
-        context.fillText(text, x, y, maxWidth);
+      fillText: function(text, x, y) {
+        context.fillText(text, x, y);
 
         return this;
       },
