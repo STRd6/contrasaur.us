@@ -10,3 +10,22 @@ function Model(animation, hitFrames) {
     }
   }
 }
+
+Model.loadJSONUrl = function(url, callback) {
+  var proxy = {
+    hitFrames: $.noop,
+    update: $.noop
+  };
+
+  $.getJSON(url, function(data) {
+    var model = Model(Animation.loadJSON(data.animation, null, callback), data.hitFrames);
+
+    $.extend(proxy, model);
+
+    if(callback) {
+      callback(proxy);
+    }
+  });
+
+  return proxy;
+};

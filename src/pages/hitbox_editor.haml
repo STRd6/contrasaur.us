@@ -22,10 +22,13 @@
 
 = text_field "dataUrl", "javascripts/data/bite.animation.json"
 %button#loadImage Load
+= "|"
+%button#export Export
 
 :javascript
   var transform = Matrix.translation(320, 240);
   var animation;
+  var animationJSON;
   var currentFrame = 0;
   var activeCircle;
   var activeColor = "rgba(255, 0, 255, 0.5)";
@@ -264,10 +267,10 @@
   }).appendTo($("#controls"));
 
   function loadAnimationJSON(url) {
-    alert(url);
-    Animation.loadJSONUrl(url, function(a) {
+    Animation.loadJSONUrl(url, function(a, data) {
       animation = a;
       currentFrame = a.frame();
+      animationJSON = data;
     });
   };
 
@@ -276,3 +279,10 @@
 
     loadAnimationJSON(url);
   }).click();
+
+  $("#export").click(function() {
+    alert(JSON.stringify({
+      animation: animationJSON,
+      hitFrames: frameCircles
+    }, null, 2));
+  });

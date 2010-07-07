@@ -189,7 +189,13 @@
   Animation.loadJSON = function(data, proxy, callback) {
     proxy = proxy || LoaderProxy();
 
-    Animation.load(data.url, data.frames, data.width, data.height, data.delay, proxy, callback);
+    var animCallback = function(animation) {
+      if(callback) {
+        callback(animation, data);
+      }
+    };
+
+    Animation.load(data.url, data.frames, data.width, data.height, data.delay, proxy, animCallback);
 
     return proxy;
   };
@@ -198,10 +204,6 @@
     var proxy = LoaderProxy();
 
     $.getJSON(url, function(data, status) {
-      console.log("GET JSON");
-      console.log(url);
-      console.log(status);
-      console.log(data);
       Animation.loadJSON(data, proxy, callback);
     });
 
