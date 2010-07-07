@@ -7,8 +7,7 @@ function Shield(I) {
     duration: -1,
     effectCount: 3,
     health: 50,
-    hitCircles: [{x: 0, y: 0, radius: 72}],
-    radius: 72,
+    hitCircles: [{x: 0, y: 0, radius: 140}],
     sprite: Sprite.load("images/weapons/shield.png")
   });
 

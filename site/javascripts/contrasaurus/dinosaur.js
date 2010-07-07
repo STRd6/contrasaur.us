@@ -127,13 +127,18 @@ function Dinosaur() {
       return airborne;
     },
 
-    boss: function(newValue) {
-      if(newValue != undefined) {
-        boss = newValue;
+    boss: function(value) {
+      if (value !== undefined) {
+        boss = value;
+        if (boss) {
+          I.xVelocity = 1;
+        }
       } else {
-        return boss;
+        if (boss) {
+          I.xVelocity = 1;
+        }
       }
-      return self;
+      return boss;
     },
 
     bulletHitEffect: Enemy.bloodSprayEffect,
@@ -248,9 +253,9 @@ function Dinosaur() {
             currentLevel.tiltAmount(1);
           }
 
+          console.log(boss);
           if (boss) {
             currentLevel.tiltAmount(0);
-            I.xVelocity = 1;
           }
 
           // TODO: get some jetpack trigger events 
