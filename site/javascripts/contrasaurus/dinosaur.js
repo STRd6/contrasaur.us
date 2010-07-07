@@ -55,7 +55,7 @@ function Dinosaur() {
   var I = {
     collideDamage: 2,
     collisionType: "dino",
-    hitCircles: currentModel.hitFrames(),
+    hitCircles: currentModel.hitFrame(),
     health: 500,
     radius: 72,
     sprite: currentModel.animation,
@@ -307,7 +307,7 @@ function Dinosaur() {
           I.xVelocity = I.xVelocity * 0.9;
         }
 
-        I.hitCircles = currentModel.hitFrames();
+        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
