@@ -53,7 +53,7 @@ function Soldier(I) {
   // HACK: fix the soldier so that the position from
   // self.position() lines up with the effect
   self.bind('destroy', function(self) {
-    var effect = Effect($.extend({ x: self.position().x - 2, y: self.position().y - 6 }, {
+    var effect = Effect($.extend({ x: self.position().x - 2, y: self.position().y + 10 }, {
       duration: 35,
       hFlip: true,
       sprite: bitLegs,

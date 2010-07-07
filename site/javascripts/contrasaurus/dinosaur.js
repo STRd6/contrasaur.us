@@ -72,34 +72,41 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(document).bind('keydown', 'space', function() {
-    jetpack.jetpackCharge(50);
+    jetpack.jetpackCounter(50);
     userControlled = true;
-    I.yVelocity = -1;
   });
 
   $(document).bind('keydown', 'left', function() {
-    if(airborne) {
-      pitchAngle -= Math.PI/48;
-      I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
-    } else {
-      if (I.xVelocity < 0) {
-        I.xVelocity -= 0.1;
-      } else {
-        I.xVelocity = (-1*I.xVelocity) - 0.1;
+    if(airborne && I.xVelocity >= 0) {
+      if (jetpack.engaged()) {
+        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
       }
+      pitchAngle -= Math.PI/48;
     }
+
+    if(airborne && I.xVelocity < 0) {
+      if (jetpack.engaged()) {
+        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
+      }
+      pitchAngle -= Math.PI/48;
+    }
+
+    if (I.xVelocity >= 0 && !airborne) {
+      I.xVelocity = (-1*I.xVelocity);
+    }
+    
     userControlled = true;
   });
 
   $(document).bind('keydown', 'right', function() {
     if(airborne) {
+      if (jetpack.engaged()) {
+        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
+      }
       pitchAngle += Math.PI/48;
-      I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
     } else {
-      if (I.xVelocity < 0) {
-        I.xVelocity = (-1*I.xVelocity) + 0.1;
-      } else {
-        I.xVelocity += 0.1;
+      if (I.xVelocity < 0 && !airborne) {
+        I.xVelocity = (-1*I.xVelocity);
       }
     }
     userControlled = true;
@@ -214,6 +221,7 @@ function Dinosaur() {
         airborne = false;
         pitchAngle = -Math.PI/24
         jetpackFlag = false;
+        jetpack.engaged(false);
         userControlled = false;
       }
     },
@@ -233,10 +241,28 @@ function Dinosaur() {
       }
     },
 
+    xVelocity: function(value) {
+      if(value !== undefined) {
+        I.xVelocity = value;
+        return I.xVelocity;
+      } else {
+        return I.xVelocity;
+      }
+    },
+
+    yVelocity: function(value) {
+      if(value !== undefined) {
+        I.yVelocity = value;
+        return I.yVelocity;
+      } else {
+        return I.yVelocity;
+      }
+    },
+
     after: {
       update: function(position) {
         // Choose correct animation and hitFrames
-        
+
         biteCounter--;
 
         jetpack.update();
@@ -253,15 +279,8 @@ function Dinosaur() {
             currentLevel.tiltAmount(1);
           }
 
-          console.log(boss);
           if (boss) {
             currentLevel.tiltAmount(0);
-          }
-
-          // TODO: get some jetpack trigger events 
-          if (airborne && jetpack.engaged() && !jetpackFlag) {
-            I.yVelocity = -1;
-            jetpackFlag = true;
           }
 
           if (!(jetpack.engaged()) && airborne) {

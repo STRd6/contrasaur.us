@@ -2,21 +2,43 @@ function Jetpack(I) {
 
   I = I || {};
 
-  var jetpackTile = Sprite.load("images/weapons/jetpack.png");
   var activeTile = Sprite.load("images/weapons/jetpack_active.png");
+  var jetpackTile = Sprite.load("images/weapons/jetpack.png");
 
   $.reverseMerge(I, {
     age: 0,
     engaged: false,
     eventCallbacks: {
-      'engage': $.noop
+      'engage': function() {
+        if(!I.engaged) {
+          I.engaged = true;
+          I.yImpulse = -1;
+          I.xImpulse = dino.xVelocity() + 1;
+          dino.xVelocity(I.xImpulse);
+          dino.yVelocity(-1 + I.yImpulse);
+        }
+      },
+      'disengage': function() {
+        if(I.engaged) {
+          I.engaged = false;
+          I.yImpulse = 0;
+          I.xImpulse = dino.xVelocity() + 1;
+          dino.xVelocity(I.xImpulse);
+          dino.yVelocity(0 + I.yImpulse);
+        }
+      }
     },
-    jetpackCharge: 0,
     jetpackCounter: 0,
-    sprite: Sprite.load("images/weapons/jetpack.png")
+    sprite: Sprite.load("images/weapons/jetpack.png"),
+    xImpulse: 0,
+    yImpulse: 0
   });
 
   var self = Weapon(I).extend({
+
+    draw: function(canvas) {
+      I.sprite.draw(canvas, -45, -55);
+    },
 
     engaged: function(value) {
       if (value === undefined) {
@@ -27,15 +49,18 @@ function Jetpack(I) {
       }
     },
 
-    draw: function(canvas) {
-      I.sprite.draw(canvas, -45, -55);
+    impulse: function() {
+      return {
+        x: I.xImpulse,
+        y: I.yImpulse
+      }
     },
 
-    jetpackCharge: function(value) {
+    jetpackCounter: function(value) {
       if(value === undefined) {
-        return I.jetpackCharge;
+        return I.jetpackCounter;
       } else {
-        I.jetpackCharge += value;
+        I.jetpackCounter += value;
         return self;
       }
     },
@@ -43,28 +68,18 @@ function Jetpack(I) {
     shoot: $.noop,
 
     update: function() {
-      if((Math.random() < 0.01 && I.jetpackCounter <= 0) || I.jetpackCharge >= 25) {
+      if(Math.random() < 0.01 && I.jetpackCounter <= 0) {
         I.jetpackCounter = 50 + rand(50);
-        I.jetpackCharge = 0;
       }
 
       if (I.jetpackCounter > 0) {
         I.jetpackCounter--;
-        I.engaged = true;
+        self.trigger('engage');
       } else {
-        I.engaged = false;
+        self.trigger('disengage');
       }
 
       I.sprite = I.engaged ? activeTile : jetpackTile;
-    },
-
-    yVelocity: function(value) {
-      if (value === undefined) {
-        return I.yVelocity;
-      } else {
-        I.yVelocity = value;
-        return self;
-      }
     }
   })
   return self;
