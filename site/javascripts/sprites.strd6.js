@@ -156,10 +156,10 @@
       }
     };
   };
-  
-  Animation.load = function(url, frames, width, height, delay) {
+
+  Animation.load = function(url, frames, width, height, delay, proxy, callback) {
     var img = new Image();
-    var proxy = LoaderProxy();
+    proxy = proxy || LoaderProxy();
 
     proxy.width = width;
     proxy.height = height;
@@ -172,12 +172,38 @@
       });
 
       $.extend(proxy, Animation(frameData, delay));
+
+      if(callback) {
+        callback(proxy);
+      }
     };
 
     track($(img));
     img.onerror = brokenImageWarning(url);
 
     img.src = url;
+
+    return proxy;
+  };
+
+  Animation.loadJSON = function(data, proxy, callback) {
+    proxy = proxy || LoaderProxy();
+
+    Animation.load(data.url, data.frames, data.width, data.height, data.delay, proxy, callback);
+
+    return proxy;
+  };
+
+  Animation.loadJSONUrl = function(url, callback) {
+    var proxy = LoaderProxy();
+
+    $.getJSON(url, function(data, status) {
+      console.log("GET JSON");
+      console.log(url);
+      console.log(status);
+      console.log(data);
+      Animation.loadJSON(data, proxy, callback);
+    });
 
     return proxy;
   };
