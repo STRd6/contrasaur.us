@@ -30,9 +30,9 @@ Model.loadJSONUrl = function(url, callback) {
     update: $.noop
   };
 
-  var animCallback = function(animation, data) {
+  var animCallback = function(animation, animationData) {
     if(callback) {
-      callback(proxy, animation, data)
+      callback(proxy, animationData)
     }
   };
 

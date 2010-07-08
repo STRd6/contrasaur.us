@@ -282,7 +282,7 @@
   };
 
   function loadModel(url) {
-    Model.loadJSONUrl(url, function(model, anim, animData) {
+    Model.loadJSONUrl(url, function(model, animData) {
       frameCircles = model.hitFrames;
       animation = model.animation;
       animationJSON = animData;

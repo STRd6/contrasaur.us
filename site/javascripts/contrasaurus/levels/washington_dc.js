@@ -31,8 +31,14 @@
         });
 
         whiteHouse.bind('destroy', function() {
-          currentLevel.complete();
-          dino.boss(false);
+          var roboReagan = RoboReagan({
+            x: level.position().x + 320
+          });
+          roboReagan.bind('destroy', function() {
+            level.complete();
+            dino.boss(false);
+          });
+          level.addGameObject(roboReagan);
         });
 
         level.addGameObject(whiteHouse);
