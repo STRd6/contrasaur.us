@@ -21,6 +21,8 @@ function Dinosaur() {
   var activeWeapons = [];
 
   var pitchAngle = 0;
+  var leftBaseAngle = Math.PI;
+  var rightBaseAngle = 0;
 
   var walkModel = Model(
       loadAnimation("images/contrasaurus/walk.png", 8, 283, 163, 3),
@@ -73,22 +75,17 @@ function Dinosaur() {
 
   $(document).bind('keydown', 'space', function() {
     jetpack.jetpackCounter(50);
+    pitchAngle = Math.clamp(pitchAngle, -Math.PI/3, Math.PI/24)
+    I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
     userControlled = true;
   });
 
   $(document).bind('keydown', 'left', function() {
-    if(airborne && I.xVelocity >= 0) {
+    if(airborne) {
       if (jetpack.engaged()) {
-        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
+        pitchAngle = Math.clamp(pitchAngle - Math.PI/48, -Math.PI/3, Math.PI/24);
+        I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
       }
-      pitchAngle -= Math.PI/48;
-    }
-
-    if(airborne && I.xVelocity < 0) {
-      if (jetpack.engaged()) {
-        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
-      }
-      pitchAngle -= Math.PI/48;
     }
 
     if (I.xVelocity >= 0 && !airborne) {
@@ -101,14 +98,15 @@ function Dinosaur() {
   $(document).bind('keydown', 'right', function() {
     if(airborne) {
       if (jetpack.engaged()) {
-        I.yVelocity = I.xVelocity*Math.tan(pitchAngle);
-      }
-      pitchAngle += Math.PI/48;
-    } else {
-      if (I.xVelocity < 0 && !airborne) {
-        I.xVelocity = (-1*I.xVelocity);
+        pitchAngle = Math.clamp(pitchAngle + Math.PI/48, -Math.PI/3, Math.PI/24);
+        I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
       }
     }
+    
+    if (I.xVelocity < 0 && !airborne) {
+      I.xVelocity = (-1*I.xVelocity);
+    }
+
     userControlled = true;
   });
 
