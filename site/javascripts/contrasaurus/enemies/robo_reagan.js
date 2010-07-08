@@ -5,9 +5,10 @@ function RoboReagan(I) {
     I.sprite = model.animation;
   });
 
+  var currentModel = hoverModel;
+
   $.reverseMerge(I, {
     health: 3000,
-    hitCircles: [{"x":-1,"y":36,"radius":13},{"x":-1,"y":10,"radius":14}],
     radius: 40,
     collideDamage: 1,
     pointsWorth: 1000000,
@@ -29,6 +30,8 @@ function RoboReagan(I) {
     before: {
       update: function() {
         // TODO: Move Around
+
+        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
