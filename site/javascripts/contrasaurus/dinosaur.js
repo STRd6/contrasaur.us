@@ -9,6 +9,7 @@ function Dinosaur() {
   var userControlled = false;
 
   var currentHealth = 0;
+  var cryThreshold = 0;
 
   var biteCounter = 0;
 
@@ -269,12 +270,14 @@ function Dinosaur() {
       // doesn't trigger the cry model
       hit: function(other) {
         currentHealth = I.health;
+        cryThreshold += other.collideDamage();
       }
     },
     after: {
       hit: function(other) {
-        if (I.health < currentHealth && !airborne && biteCounter <= 0) {
+        if (I.health < currentHealth && !airborne && biteCounter <= 0 && cryThreshold > 30) {
           setModel(cryModel);
+          cryThreshold--;
         }
       },
       update: function(position) {
@@ -290,10 +293,10 @@ function Dinosaur() {
         } else {
           if (jetpack.engaged()) {
             airborne = true;
-            currentLevel.tiltAmount(6);
-            I.xVelocity = 7;
+            currentLevel.tiltAmount(6 * (I.xVelocity/Math.abs(I.xVelocity)));
+            I.xVelocity = 7 * (I.xVelocity/Math.abs(I.xVelocity));
           } else {
-            currentLevel.tiltAmount(1);
+            currentLevel.tiltAmount(2);
           }
 
           if (boss) {
