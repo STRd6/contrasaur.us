@@ -2,7 +2,7 @@ function Tank(I) {
   I = I || {};
 
   var gunAngle;
-  var tankTile = Sprite.load("images/enemies/tank.png")
+  var tankTile = loadAnimation("images/enemies/tank_move.png", 4, 123, 55, 3);
 
   $.reverseMerge(I, {
     y: CANVAS_HEIGHT - Floor.LEVEL,
