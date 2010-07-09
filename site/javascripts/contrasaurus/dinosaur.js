@@ -273,7 +273,7 @@ function Dinosaur() {
     },
     after: {
       hit: function(other) {
-        if (I.health < currentHealth) {
+        if (I.health < currentHealth && !airborne && biteCounter <= 0) {
           setModel(cryModel);
         }
       },
