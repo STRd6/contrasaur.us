@@ -30,7 +30,7 @@
 
   function generateForgroundScenary() {
     var foregrounds = [];
-    (10).times(function() {
+    (8).times(function() {
       foregrounds.push({
         image: Sprite.load('images/levels/jungle/tree.png'),
         parallaxRate: 1,
@@ -43,7 +43,7 @@
       });
     });
 
-    (10).times(function() {
+    (8).times(function() {
       foregrounds.push({
         image: Sprite.load('images/levels/jungle/tree.png'),
         parallaxRate: 2,
