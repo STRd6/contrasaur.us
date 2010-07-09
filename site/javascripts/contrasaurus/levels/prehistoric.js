@@ -3,10 +3,20 @@
     count.times(function() {
       level.addGameObject(
         Utahraptor({
-          xVelocity: 0, x: level.position().x + CANVAS_WIDTH + count*20,
+          xVelocity: 0,
+          x: level.position().x + CANVAS_WIDTH + count*20,
           sprite: Sprite.load("images/enemies/dinofodder2.png")
         })
       );
+      level.addGameObject(GameObject({
+        sprite: Sprite.load([
+          "images/levels/prehistoric/grass1.png",
+          "images/levels/prehistoric/grass2.png",
+          "images/levels/prehistoric/grass3.png"
+        ].rand()),
+        x: level.position().x + CANVAS_WIDTH + (count*20) - 25,
+        y: 310
+      }));
     });
   }
 
@@ -26,7 +36,7 @@
         parallaxRate: 1,
         position: {
           x: rand(CANVAS_WIDTH - rand(200)),
-          y: 280
+          y: 200 + rand(100)
         },
         repeat: true,
         width: 640
@@ -39,7 +49,7 @@
         parallaxRate: 2,
         position: {
           x: rand(CANVAS_WIDTH - rand(400)),
-          y: 330
+          y: 300 + rand(50)
         },
         repeat: true,
         width: 640
@@ -99,11 +109,15 @@
       }
     }
   }, {
-    every: 100,
+    every: 50,
     event: function(level) {
       if (Math.random() < 0.5) {
         level.addGameObject(GameObject({
-          sprite: Sprite.load("images/levels/prehistoric/grass1.png"),
+          sprite: Sprite.load([
+          "images/levels/prehistoric/grass1.png",
+          "images/levels/prehistoric/grass2.png",
+          "images/levels/prehistoric/grass3.png"
+        ].rand()),
           x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
           y: 310
         }));
@@ -117,29 +131,35 @@
       }
     }
   }, {
+    every: 200,
+    event: function(level) {
+      generateStandingEnemies(level, rand(3));
+    }
+  },
+  {
     at: 50,
     event: function(level) {
-      generateStandingEnemies(level, 4);
+      generateStandingEnemies(level, rand(6));
     }
   }, {
     at: 150,
     event: function(level) {
-      generateRunningEnemies(level, 5);
+      generateRunningEnemies(level, rand(6));
     }
   }, {
     at: 400,
     event: function(level) {
-      generateStandingEnemies(level, 6);
+      generateStandingEnemies(level, rand(7));
     }
   }, {
     at: 700,
     event: function(level) {
-      generateRunningEnemies(level, 3);
+      generateRunningEnemies(level, rand(5));
     }
   }, {
     at: 1200,
     event: function(level) {
-      generateStandingEnemies(level, 3);
+      generateStandingEnemies(level, rand(5));
     }
   }, {
     at: 1500,
