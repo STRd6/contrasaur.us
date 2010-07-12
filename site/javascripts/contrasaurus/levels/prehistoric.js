@@ -30,29 +30,16 @@
 
   function generateForegroundScenary() {
     var foregrounds = [];
-    (8).times(function() {
+    (7).times(function() {
       foregrounds.push({
-        image: Sprite.load('images/levels/jungle/tree.png'),
-        parallaxRate: 1,
-        position: {
-          x: rand(CANVAS_WIDTH - rand(200)),
-          y: 200 + rand(100)
-        },
-        repeat: true,
-        width: 640
-      });
-    });
-
-    (8).times(function() {
-      foregrounds.push({
-        image: Sprite.load('images/levels/jungle/tree.png'),
+        image: Sprite.load('images/levels/prehistoric/rock.png'),
         parallaxRate: 2,
         position: {
-          x: rand(CANVAS_WIDTH - rand(400)),
-          y: 300 + rand(50)
+          x: rand(1920),
+          y: 325 + rand(150)
         },
         repeat: true,
-        width: 640
+        width: 1920
       });
     });
 
@@ -60,6 +47,16 @@
   }
 
   var scene = Scene([
+    {
+      image: Sprite.load('images/levels/floor_background.png'),
+      parallaxRate: 0,
+      position: {
+        x: 0,
+        y: CANVAS_HEIGHT - 160
+      },
+      repeat: true,
+      width: 1920
+    },
     {
       image: Sprite.load("images/levels/jungle/background.png"),
       parallaxRate: 0,
