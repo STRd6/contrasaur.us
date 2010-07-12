@@ -5,7 +5,7 @@
         Utahraptor({
           xVelocity: 0,
           x: level.position().x + CANVAS_WIDTH + count*20,
-          sprite: Sprite.load("images/enemies/dinofodder2.png")
+          sprite: loadAnimation("images/enemies/dinofodder_eat.png", 2, 61, 33, 6)
         })
       );
       level.addGameObject(GameObject({
@@ -14,7 +14,7 @@
           "images/levels/prehistoric/grass2.png",
           "images/levels/prehistoric/grass3.png"
         ].rand()),
-        x: level.position().x + CANVAS_WIDTH + (count*20) - 25,
+        x: level.position().x + CANVAS_WIDTH + (count*20) - 40,
         y: 310
       }));
     });
@@ -28,33 +28,33 @@
     ));
   }
 
-  function generateForgroundScenary() {
+  function generateForegroundScenary() {
     var foregrounds = [];
-    (8).times(function() {
-      foregrounds.push({
-        image: Sprite.load('images/levels/jungle/tree.png'),
-        parallaxRate: 1,
-        position: {
-          x: rand(CANVAS_WIDTH - rand(200)),
-          y: 200 + rand(100)
-        },
-        repeat: true,
-        width: 640
-      });
-    });
-
-    (8).times(function() {
-      foregrounds.push({
-        image: Sprite.load('images/levels/jungle/tree.png'),
-        parallaxRate: 2,
-        position: {
-          x: rand(CANVAS_WIDTH - rand(400)),
-          y: 300 + rand(50)
-        },
-        repeat: true,
-        width: 640
-      });
-    });
+//    (8).times(function() {
+//      foregrounds.push({
+//        image: Sprite.load('images/levels/jungle/tree.png'),
+//        parallaxRate: 1,
+//        position: {
+//          x: rand(CANVAS_WIDTH - rand(200)),
+//          y: 200 + rand(100)
+//        },
+//        repeat: true,
+//        width: 640
+//      });
+//    });
+//
+//    (8).times(function() {
+//      foregrounds.push({
+//        image: Sprite.load('images/levels/jungle/tree.png'),
+//        parallaxRate: 2,
+//        position: {
+//          x: rand(CANVAS_WIDTH - rand(400)),
+//          y: 300 + rand(50)
+//        },
+//        repeat: true,
+//        width: 640
+//      });
+//    });
 
     return foregrounds;
   }
@@ -90,7 +90,7 @@
       repeat: true,
       width: 1920
     }
-  ], generateForgroundScenary());
+  ], generateForegroundScenary());
 
   var floor = Floor();
 
