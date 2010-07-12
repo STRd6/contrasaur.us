@@ -30,31 +30,31 @@
 
   function generateForegroundScenary() {
     var foregrounds = [];
-//    (8).times(function() {
-//      foregrounds.push({
-//        image: Sprite.load('images/levels/jungle/tree.png'),
-//        parallaxRate: 1,
-//        position: {
-//          x: rand(CANVAS_WIDTH - rand(200)),
-//          y: 200 + rand(100)
-//        },
-//        repeat: true,
-//        width: 640
-//      });
-//    });
-//
-//    (8).times(function() {
-//      foregrounds.push({
-//        image: Sprite.load('images/levels/jungle/tree.png'),
-//        parallaxRate: 2,
-//        position: {
-//          x: rand(CANVAS_WIDTH - rand(400)),
-//          y: 300 + rand(50)
-//        },
-//        repeat: true,
-//        width: 640
-//      });
-//    });
+    (8).times(function() {
+      foregrounds.push({
+        image: Sprite.load('images/levels/jungle/tree.png'),
+        parallaxRate: 1,
+        position: {
+          x: rand(CANVAS_WIDTH - rand(200)),
+          y: 200 + rand(100)
+        },
+        repeat: true,
+        width: 640
+      });
+    });
+
+    (8).times(function() {
+      foregrounds.push({
+        image: Sprite.load('images/levels/jungle/tree.png'),
+        parallaxRate: 2,
+        position: {
+          x: rand(CANVAS_WIDTH - rand(400)),
+          y: 300 + rand(50)
+        },
+        repeat: true,
+        width: 640
+      });
+    });
 
     return foregrounds;
   }
@@ -81,14 +81,14 @@
       width: 1280
     },
     {
-      image: Sprite.load("images/levels/jungle/foreground.png"),
+      image: Sprite.load("images/levels/prehistoric/volcano_background.png"),
       parallaxRate: 1,
       position: {
         x: 0,
         y: 0
       },
       repeat: true,
-      width: 1920
+      width: 1600
     }
   ], generateForegroundScenary());
 
