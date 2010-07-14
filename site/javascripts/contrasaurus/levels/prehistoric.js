@@ -33,13 +33,46 @@
     (7).times(function() {
       foregrounds.push({
         image: Sprite.load('images/levels/prehistoric/rock.png'),
-        parallaxRate: 2,
+        parallaxRate: 1,
         position: {
           x: rand(1920),
           y: 325 + rand(150)
         },
         repeat: true,
         width: 1920
+      });
+    });
+
+    (10).times(function(i) {
+      foregrounds.push({
+        image: Sprite.load([
+          'images/levels/prehistoric/plant3.png',
+          'images/levels/prehistoric/plant4.png',
+          'images/levels/prehistoric/plant4.png'
+        ].rand()),
+        parallaxRate: 1,
+        position: {
+          x: i * 150 + rand(50),
+          y: 225 + rand(80)
+        },
+        repeat: true,
+        width: 1000
+      });
+    });
+
+    (12).times(function(i) {
+      foregrounds.push({
+        image: Sprite.load([
+          'images/levels/prehistoric/plant1.png',
+          'images/levels/prehistoric/plant2.png'
+        ].rand()),
+        parallaxRate: 1.5,
+        position: {
+          x: i * 100,
+          y: 400
+        },
+        repeat: true,
+        width: 1200
       });
     });
 
@@ -85,7 +118,7 @@
         y: 0
       },
       repeat: true,
-      width: 1600
+      width: 1598
     }
   ], generateForegroundScenary());
 
