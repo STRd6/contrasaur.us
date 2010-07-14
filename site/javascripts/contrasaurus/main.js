@@ -7,6 +7,22 @@ var dinoTile = Sprite.load("images/levels/dino1.png");
 var tankTile = Sprite.load("images/enemies/tank.png");
 var bulletQueue = [];
 var dialogBox = DialogBox("GAME OVER");
+var leaderBoard = DialogBox("ALL TIME LEADERS:", {
+  height: 25,
+  yPosition: 25
+});
+var leader1 = DialogBox("Condor: 34,492,192", {
+  height: 25,
+  yPosition: 50
+});
+var leader2 = DialogBox("Dr. Werewolf: 32,182,019", {
+  height: 25,
+  yPosition: 75
+});
+var leader3 = DialogBox("Zuch: 30,352,222", {
+  height: 25,
+  yPosition: 100
+});
 var currentLevel;
 var displayTexts = [];
 var testExplosion = loadAnimation("images/effects/explosion.png", 25, 67, 171);
@@ -95,6 +111,10 @@ function overlayUpdate(){
     endGame();
 
     dialogBox.draw(canvas);
+    leaderBoard.draw(canvas);
+    leader1.draw(canvas);
+    leader2.draw(canvas);
+    leader3.draw(canvas);
   }
 }
 

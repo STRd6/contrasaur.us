@@ -68,14 +68,20 @@ function healthColorMap(completeness) {
   return "#" + r + g + "00";
 }
 
-function DialogBox(text) {
+function DialogBox(text, I) {
+  I = I || {};
+
   return {
     draw: function(canvas) {
-      var yPosition = Math.floor((canvas.height() * 2) / 3);
-      var height = Math.ceil(canvas.height() / 3);
-      var lineHeight = 16;
+      var yPosition = I.yPosition || Math.floor((canvas.height() * 2) / 3);
+      var height = I.height || Math.ceil(canvas.height() / 3);
+      var lineHeight = I.lineHeight || 16;
+      var textAlign = I.textAlign;
       var margin = 16;
 
+      if (textAlign) {
+        canvas.textAlign(textAlign);
+      }
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
       canvas.fillRect(0, yPosition, canvas.width(), height);
 
