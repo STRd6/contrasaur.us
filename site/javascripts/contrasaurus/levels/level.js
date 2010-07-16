@@ -94,16 +94,20 @@ function Level(I) {
       });
     });
 
-    // Level hazards can hit both dinos and enemies
-//    $.each(collidables.levelHazards, function(i, bullet) {
-//      $.each(collidables.dino, function(j, dino) {
-//        circleCollision(bullet, dino);
-//      });
-//
-//      $.each(collidables.enemy, function(j, enemy) {
-//        circleCollision(bullet, enemy);
-//      });
-//    });
+    // Level hazards can hit everything
+    $.each(collidables.levelHazard, function(i, bullet) {
+      $.each(collidables.dino, function(j, dino) {
+        circleCollision(bullet, dino);
+      });
+
+      $.each(collidables.enemy, function(j, enemy) {
+        circleCollision(bullet, enemy);
+      });
+
+      $.each(collidables.platform, function(i, platform) {
+        planeCollision(bullet, platform);
+      });
+    });
 
     // Dino bullets can hit enemies
     $.each(collidables.dinoBullet, function(i, bullet) {
