@@ -61,7 +61,9 @@ function Level(I) {
       enemy: [],
       enemyBullet: [],
       dino: [],
-      dinoBullet: []
+      dinoBullet: [],
+      biteTrigger: [],
+      levelHazard: []
     };
   }
 
@@ -92,8 +94,26 @@ function Level(I) {
       });
     });
 
+    // Level hazards can hit both dinos and enemies
+//    $.each(collidables.levelHazards, function(i, bullet) {
+//      $.each(collidables.dino, function(j, dino) {
+//        circleCollision(bullet, dino);
+//      });
+//
+//      $.each(collidables.enemy, function(j, enemy) {
+//        circleCollision(bullet, enemy);
+//      });
+//    });
+
     // Dino bullets can hit enemies
     $.each(collidables.dinoBullet, function(i, bullet) {
+      $.each(collidables.enemy, function(j, enemy) {
+        circleCollision(bullet, enemy);
+      });
+    });
+
+    // Bite triggers can hit enemies
+    $.each(collidables.biteTrigger, function(i, bullet) {
       $.each(collidables.enemy, function(j, enemy) {
         circleCollision(bullet, enemy);
       });

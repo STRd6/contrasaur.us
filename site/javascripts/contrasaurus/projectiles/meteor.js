@@ -10,7 +10,7 @@ function Meteor(I) {
     height: 36,
     radius: 12,
     collideDamage: 10,
-    collisionType: "enemyBullet",
+    collisionType: "levelHazard",
     xVelocity: [
       3,
       -3

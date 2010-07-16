@@ -68,9 +68,9 @@ function Jetpack(I) {
     shoot: $.noop,
 
     update: function() {
-      if(Math.random() < 0.01 && I.jetpackCounter <= 0) {
-        I.jetpackCounter = 50 + rand(50);
-      }
+//      if(Math.random() < 0.01 && I.jetpackCounter <= 0) {
+//        I.jetpackCounter = 50 + rand(50);
+//      }
 
       if (I.jetpackCounter > 0) {
         I.jetpackCounter--;

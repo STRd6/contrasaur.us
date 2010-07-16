@@ -118,7 +118,7 @@
         y: 0
       },
       repeat: true,
-      width: 1598
+      width: 1600
     }
   ], generateForegroundScenary());
 

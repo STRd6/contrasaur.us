@@ -4,6 +4,8 @@ function Enemy(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "enemy",
+    dropFrequency: 0.03,
+    drops: ["LaserGun", "meat", "Chainsaw"],
     health: 3,
     hFlip: false,
     onFire: false,

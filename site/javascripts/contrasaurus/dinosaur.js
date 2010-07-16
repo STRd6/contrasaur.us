@@ -3,6 +3,7 @@ function Dinosaur() {
   var height = 128;
 
   var jetpack = Jetpack();
+  var bite = Bite();
 
   //using this to indicate the first time the jetpack goes off
   var jetpackFlag = false;
@@ -20,8 +21,8 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [];
-  var activeWeapons = [];
+  var weapons = [bite];
+  var activeWeapons = [bite];
 
   var pitchAngle = 0;
   var leftBaseAngle = Math.PI;

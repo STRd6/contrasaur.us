@@ -22,6 +22,25 @@ function GameObject(I) {
     yVelocity: 0
   });
 
+  function dropPowerup(imgFile, callback) {
+    addGameObject(Powerup({
+      callback: callback,
+      sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
+      x: dino.position().x,
+      xVelocity: dino.velocity().x,
+      y: 0,
+      yVelocity: 0
+    }));
+  }
+
+  function dropWeaponPowerup(imgFile, weaponClass) {
+    dropPowerup(imgFile, function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(weaponClass());
+      }
+    });
+  }
+
   function move() {
     I.x += I.xVelocity;
     I.y += I.yVelocity;
@@ -55,6 +74,9 @@ function GameObject(I) {
       if (I.active == true) {
         I.active = false;
         self.trigger('destroy');
+        if(I.drops && Math.random() < I.dropFrequency) {
+          dropWeaponPowerup("chainsaw", Chainsaw)
+        }
       }
     },
 
@@ -140,6 +162,11 @@ function GameObject(I) {
       if (I.health <= 0) {
         self.destroy();
         addScore(I.pointsWorth);
+      }
+
+      // HAX: there is probably a better way to trigger the bite animation
+      if(I.collisionType === "biteTrigger") {
+        dino.bump();
       }
     },
 
