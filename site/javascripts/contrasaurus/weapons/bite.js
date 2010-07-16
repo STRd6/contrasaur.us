@@ -2,7 +2,7 @@ function Bite(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    duration: 1000,
+    duration: -1,
     exitPoints: [Point(50, 60)],
     radius: 5,
     sprite: Sprite.EMPTY,
