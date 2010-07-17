@@ -1,30 +1,20 @@
 function Soldier(I) {
   I = I || {};
 
-  var imageDir = "images/enemies/sandinista/";
-  var runLegs = loadAnimation(imageDir + "run_legs.png", 8, 31, 25, 3);
-  var runTorso = loadAnimation(imageDir + "run_torso.png", 8, 33, 34, 3);
-  var shootTorso = loadAnimation(imageDir + "shoot_full.png", 6, 44, 34, 3);
-  var bitLegs = loadAnimation(imageDir + "bit_in_half.png", 15, 435/15, 24, 3);
-
   var exitPoint = Point(15, -20);
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
-  var legs = runLegs;
-  var torso = shootTorso;
+  var shootModelCounter = 0;
 
-  var composite = {
-    width: 38,
-    height: 52,
-    update: function() {
-      torso.update();
-      legs.update();
-    },
-    draw: function(canvas, x, y, options) {
-      torso.draw(canvas, x + 4, y - 2, options);
-      legs.draw(canvas, x, y + 25, options);
-    }
-  };
+  var runModel = Model.loadJSONUrl("javascripts/data/sandinista/run.model.json", function(model) {
+    I.sprite = model.animation;
+  });
+
+  var shootModel = Model.loadJSONUrl("javascripts/data/sandinista/shoot.model.json");
+
+  var bitInHalfModel = Model.loadJSONUrl("javascripts/data/sandinista/bit_in_half.model.json");
+
+  var deathModel = Model.loadJSONUrl("javascripts/data/sandinista/normal_death.model.json");
 
   $.reverseMerge(I, {
     shootLogic: function() {
@@ -40,9 +30,12 @@ function Soldier(I) {
           y: p.y,
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
+
+        I.sprite = shootModel.animation;
+        shootModelCounter = 8;
       }
     },
-    sprite: composite,
+    sprite: runModel.animation, //composite,
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
@@ -59,6 +52,13 @@ function Soldier(I) {
 
     after: {
       update: function() {
+        if (shootModelCounter < 0) {
+          I.sprite = runModel.animation;
+        }
+
+        shootModelCounter--;
+
+
         if (Math.random() < 0.05 && I.onFire) {
           I.xVelocity = I.xVelocity * -1;
         }
@@ -75,10 +75,10 @@ function Soldier(I) {
   // HACK: fix the soldier so that the position from
   // self.position() lines up with the effect
   self.bind('destroy', function(self) {
-    var effect = Effect($.extend({ x: self.position().x - 2, y: self.position().y + 10 }, {
+    var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,
       hFlip: true,
-      sprite: bitLegs,
+      sprite: bitInHalfModel.animation,
       velocity: Point(0, 0)
     }));
 
