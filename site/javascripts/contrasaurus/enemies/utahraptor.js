@@ -12,6 +12,14 @@ function Utahraptor(I) {
 
   var self = Tank(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
+
+    burn: function(flame) {
+      if (!I.onFire) {
+        I.onFire = true;
+        I.xVelocity = I.xVelocity * 2.5;
+      }
+    },
+
     after: {
       update: function() {
         if (Math.random() < 0.5 && I.xVelocity > 0) {
@@ -21,6 +29,10 @@ function Utahraptor(I) {
           I.xVelocity = I.xVelocity * -1;
         }
         I.hFlip = I.xVelocity <= 0;
+
+        if (Math.random() < 0.05 && I.onFire) {
+          I.xVelocity = I.xVelocity * -1;
+        }
       }
     }
   });

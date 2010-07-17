@@ -48,7 +48,23 @@ function Soldier(I) {
     yVelocity: 0
   });
 
-  var self = Enemy(I);
+  var self = Enemy(I).extend({
+
+    burn: function(flame) {
+      if (!I.onFire) {
+        I.onFire = true;
+        I.xVelocity = I.xVelocity * 2.5;
+      }
+    },
+
+    after: {
+      update: function() {
+        if (Math.random() < 0.05 && I.onFire) {
+          I.xVelocity = I.xVelocity * -1;
+        }
+      }
+    }
+  });
 
   // HACK: fix the soldier so that the position from
   // self.position() lines up with the effect
