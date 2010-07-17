@@ -62,6 +62,12 @@ function Soldier(I) {
         if (Math.random() < 0.05 && I.onFire) {
           I.xVelocity = I.xVelocity * -1;
         }
+
+        if (I.xVelocity < 0) {
+          I.hFlip = true;
+        } else {
+          I.hFlip = false;
+        }
       }
     }
   });
