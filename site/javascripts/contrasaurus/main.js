@@ -36,6 +36,20 @@ var currentLevel;
 var displayTexts = [];
 var testExplosion = loadAnimation("images/effects/explosion.png", 25, 67, 171);
 var stages = [];
+
+var weapons = [
+  "battleAxe",
+  "bazooka",
+  "bomb",
+  "chainsaw",
+  "flamethrower",
+  "laserGun",
+  "machineGun",
+  "meat",
+  "shield",
+  "shotgun"
+]
+
 var weaponMap = {
   "battleAxe": BattleAxe,
   "bazooka": Bazooka,

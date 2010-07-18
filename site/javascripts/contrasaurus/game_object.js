@@ -76,7 +76,8 @@ function GameObject(I) {
         I.active = false;
         self.trigger('destroy');
         if(I.drops && Math.random() < I.dropFrequency) {
-          dropWeaponPowerup("chainsaw", Chainsaw)
+          var weapon = weapons.rand();
+          dropWeaponPowerup(weapon, weaponMap[weapon]);
         }
         if(I.type) {
           killCounter[I.type]++;
