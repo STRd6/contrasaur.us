@@ -75,7 +75,7 @@ function GameObject(I) {
       if (I.active == true) {
         I.active = false;
         self.trigger('destroy');
-        if(I.drops && Math.random() < I.dropFrequency) {
+        if(I.drops && Math.random() < 0.7 /*I.dropFrequency*/) {
           var weapon = weapons.rand();
           dropWeaponPowerup(weapon, weaponMap[weapon]);
         }

@@ -4,7 +4,7 @@ function MachineGun(I) {
   var gunTile = Sprite.load("images/weapons/machineGun.png");
 
   $.reverseMerge(I, {
-    exitPoints: [Point(25, 4)],
+    exitPoints: [Point(50, 1)],
     radius: 5,
     sprite: gunTile,
     theta: 0,
@@ -37,7 +37,9 @@ function MachineGun(I) {
     },
 
     after: {
-      update: updateGunAngle,
+      update: function() {
+        updateGunAngle(dino);
+      }
     }
   });
   return self;

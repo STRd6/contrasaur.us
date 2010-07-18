@@ -1,6 +1,10 @@
 function Chainsaw(I) {
   I = I || {};
 
+  var thrown = false;
+  var xVelocity = 0;
+  var yVelocity = 0;
+
   $.reverseMerge(I, {
     duration: 1000,
     exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
@@ -29,6 +33,15 @@ function Chainsaw(I) {
 
     after: {
       update: function() {
+        if (Math.random() < 0.4) {
+          thrown = true;
+        }
+
+        if (thrown) {
+          xVelocity += 5;
+          yVelocity = -7;
+        }
+
         I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }
     }

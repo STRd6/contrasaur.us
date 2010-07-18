@@ -1,6 +1,10 @@
 function BattleAxe(I) {
   I = I || {};
 
+  var thrown = false;
+  var xVelocity = 0;
+  var yVelocity = 0;
+
   $.reverseMerge(I, {
     exitPoints: [Point(10, -30)],
     radius: 5,
@@ -27,6 +31,15 @@ function BattleAxe(I) {
 
     after: {
       update: function() {
+        if (Math.random() < 0.4) {
+          thrown = true;
+        }
+
+        if (thrown) {
+          xVelocity += 5;
+          yVelocity = -7;
+        }
+
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;
       }
     }
