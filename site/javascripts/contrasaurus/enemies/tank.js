@@ -25,7 +25,8 @@ function Tank(I) {
           }
         );
       }
-    }
+    },
+    type: 'tank'
   });
 
   if (I.xVelocity == 0.5) {

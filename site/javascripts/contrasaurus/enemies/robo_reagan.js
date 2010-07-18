@@ -22,6 +22,7 @@ function RoboReagan(I) {
       );
     },
     sprite: hoverModel.animation,
+    type: 'boss',
     x: rand(CANVAS_WIDTH),
     y: 45
   });

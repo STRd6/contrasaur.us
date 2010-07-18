@@ -11,6 +11,7 @@ function Enemy(I) {
     onFire: false,
     pointsWorth: 1000,
     radius: 18,
+    type: '',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0

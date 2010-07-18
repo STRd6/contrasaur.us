@@ -15,6 +15,7 @@ function GameObject(I) {
     height: 10,
     pointsWorth: 0,
     radius: 5,
+    type: '',
     width: 10,
     x: 0,
     xVelocity: 0,
@@ -76,6 +77,9 @@ function GameObject(I) {
         self.trigger('destroy');
         if(I.drops && Math.random() < I.dropFrequency) {
           dropWeaponPowerup("chainsaw", Chainsaw)
+        }
+        if(I.type) {
+          killCounter[I.type]++;
         }
       }
     },

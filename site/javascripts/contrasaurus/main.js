@@ -1,6 +1,15 @@
 var score = 0;
 var canvas;
 var dino = Dinosaur();
+var killCounter = {
+      'bomber': 0,
+      'boss': 0,
+      'parasoldier': 0,
+      'sandinista': 0,
+      'secret service': 0,
+      'tank': 0,
+      'utahraptor': 0
+    };
 var floor;
 var bulletTile = Sprite.load("images/projectiles/blast_small.png");
 var dinoTile = Sprite.load("images/levels/dino1.png");

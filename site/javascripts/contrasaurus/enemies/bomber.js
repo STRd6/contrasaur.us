@@ -36,7 +36,8 @@ function Bomber(I) {
         dropBomb();
       }
     },
-    sprite: Sprite.load("images/enemies/bomber.png")
+    sprite: Sprite.load("images/enemies/bomber.png"),
+    type: 'bomber'
   });
 
   I.hFlip = I.xVelocity <= 0;

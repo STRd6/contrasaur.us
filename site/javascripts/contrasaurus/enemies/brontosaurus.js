@@ -10,7 +10,8 @@ function Brontosaurus(I) {
     pointsWorth: 50000,
     radius: 90,
     sprite: Sprite.load("images/enemies/brontosaurus.png"),
-    shootLogic: $.noop
+    shootLogic: $.noop,
+    type: 'boss'
   });
 
   var self = Enemy(I).extend({

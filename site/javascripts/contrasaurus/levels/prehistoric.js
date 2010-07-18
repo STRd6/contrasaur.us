@@ -1,10 +1,10 @@
 (function() {
   function generateStandingEnemies(level, count) {
-    count.times(function() {
+    count.times(function(i) {
       level.addGameObject(
         Utahraptor({
           xVelocity: 0,
-          x: level.position().x + CANVAS_WIDTH + count*20,
+          x: level.position().x + CANVAS_WIDTH + i*30,
           sprite: loadAnimation("images/enemies/dinofodder_eat.png", 2, 61, 33, 6)
         })
       );
@@ -14,18 +14,21 @@
           "images/levels/prehistoric/grass2.png",
           "images/levels/prehistoric/grass3.png"
         ].rand()),
-        x: level.position().x + CANVAS_WIDTH + (count*20) - 40,
+        x: level.position().x + CANVAS_WIDTH + (i*30) - 40,
         y: 310
       }));
     });
   }
 
   function generateRunningEnemies(level, count) {
-    level.addGameObject(
-      Utahraptor({
-        xVelocity: rand(2) + 0.5, x: level.position().x + CANVAS_WIDTH + count*20
-      }
-    ));
+    count.times(function(i) {
+      level.addGameObject(
+        Utahraptor({
+          xVelocity: rand(2) + 0.5,
+          x: level.position().x + CANVAS_WIDTH + i*20
+        }
+      ));
+    });
   }
 
   function generateForegroundScenary() {
@@ -163,33 +166,33 @@
   }, {
     every: 200,
     event: function(level) {
-      generateStandingEnemies(level, rand(3));
+      generateStandingEnemies(level, Math.ceil(rand(2)));
     }
   },
   {
     at: 50,
     event: function(level) {
-      generateStandingEnemies(level, rand(6));
+      generateStandingEnemies(level, Math.ceil(rand(4)));
     }
   }, {
     at: 150,
     event: function(level) {
-      generateRunningEnemies(level, rand(6));
+      generateRunningEnemies(level, 5);
     }
   }, {
     at: 400,
     event: function(level) {
-      generateStandingEnemies(level, rand(7));
+      generateStandingEnemies(level, Math.ceil(rand(3)));
     }
   }, {
     at: 700,
     event: function(level) {
-      generateRunningEnemies(level, rand(5));
+      generateRunningEnemies(level, Math.ceil(rand(4)));
     }
   }, {
     at: 1200,
     event: function(level) {
-      generateStandingEnemies(level, rand(5));
+      generateStandingEnemies(level, Math.ceil(rand(3)));
     }
   }, {
     at: 1500,

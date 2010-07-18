@@ -23,6 +23,7 @@ function Parasoldier(I) {
       }
     },
     sprite: Sprite.load("images/enemies/parasoldier.png"),
+    type: 'parasoldier',
     x: rand(CANVAS_WIDTH),
     y: 45
   });

@@ -36,6 +36,7 @@ function Soldier(I) {
       }
     },
     sprite: runModel.animation, //composite,
+    type: 'sandinista',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
@@ -72,8 +73,6 @@ function Soldier(I) {
     }
   });
 
-  // HACK: fix the soldier so that the position from
-  // self.position() lines up with the effect
   self.bind('destroy', function(self) {
     var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,

@@ -7,7 +7,8 @@ function Utahraptor(I) {
     pointsWorth: 1000,
     radius: 20,
     shootLogic: $.noop,
-    sprite: loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3)
+    sprite: loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3),
+    type: 'utahraptor'
   });
 
   var self = Tank(I).extend({
