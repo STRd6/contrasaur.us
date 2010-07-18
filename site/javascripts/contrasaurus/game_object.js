@@ -27,10 +27,10 @@ function GameObject(I) {
     addGameObject(Powerup({
       callback: callback,
       sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
-      x: dino.position().x,
-      xVelocity: dino.velocity().x,
-      y: 0,
-      yVelocity: 0
+      x: I.x + 50,
+      xVelocity: 2,
+      y: I.y - 80,
+      yVelocity: -12
     }));
   }
 
