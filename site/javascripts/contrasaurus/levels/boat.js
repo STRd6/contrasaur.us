@@ -63,6 +63,11 @@
       dino.parasailing(true);
     }
   }, {
+    every: 1,
+    event: function() {
+      // Update speed and position based on boat and cord elasticity
+    }
+  }, {
     every: 30,
     event: function(level) {
       level.addGameObject(Parasoldier({
@@ -71,7 +76,7 @@
         }));
     }
   }, {
-    at: 500,
+    at: 2000,
     event: function(level) {
       level.complete();
       dino.parasailing(false);

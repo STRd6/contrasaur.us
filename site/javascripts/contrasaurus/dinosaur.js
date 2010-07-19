@@ -180,7 +180,8 @@ function Dinosaur() {
 
       canvas.withTransform(self.getTransform(), function() {
         if(parasailing) {
-          parasailTile.draw(canvas, -100, -100);
+          parasailTile.draw(canvas, -80, -140);
+          setModel(flyModel);
         }
 
         I.sprite.draw(canvas,
@@ -223,8 +224,8 @@ function Dinosaur() {
       if(newValue != undefined) {
         parasailing = newValue;
         if(parasailing == true) {
-          I.x = (CANVAS_WIDTH - width) / 2;
-          I.y = 150;
+          I.x = (CANVAS_WIDTH - width) / 2 - 100;
+          I.y = 200;
           pitchAngle = 0;
           airborne = true;
         }
@@ -274,7 +275,8 @@ function Dinosaur() {
         jetpack.update();
 
         if(parasailing) {
-          I.xVelocity = Math.sin(I.age);
+          currentLevel.tiltAmount(5);
+          I.xVelocity = Math.sin(I.age) + 5;
           I.yVelocity = Math.cos(I.age/2);
         } else {
           if (jetpack.engaged()) {
