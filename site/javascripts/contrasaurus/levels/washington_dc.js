@@ -13,10 +13,7 @@
 
   var floor = Floor();
 
-  var triggers = [
-    {at: 3000, event: function(level) {
-      level.complete();
-    }}, {
+  var triggers = [{
       at: 50,
       event: function(level) {
         var whiteHouse = Enemy({
