@@ -1,4 +1,7 @@
 (function() {
+  var boatTarget = Point(440, 285);
+  var boatPosition =  boatTarget.add(Point());
+
   var scene = Scene([
     {
       image: Sprite.load("images/levels/parasail/coast.png"),
@@ -34,10 +37,7 @@
     {
       image: Sprite.load("images/levels/parasail/speed-boat.png"),
       parallaxRate: 0,
-      position: {
-        x: 320,
-        y: 285
-      }
+      position: boatPosition
     },
     {
       image: Sprite.load("images/levels/parasail/ocean.png"),
@@ -57,15 +57,25 @@
     water: true
   });
 
+  var counter = 0;
+
   var triggers = [{
     at: 0,
     event: function(level) {
       dino.parasailing(true);
+
+      level.tiltAmount(5);
     }
   }, {
     every: 1,
-    event: function() {
+    event: function(level) {
+      counter++;
+
+      // Oscilate Boat
+      boatPosition.x = boatTarget.x + 20 * Math.sin(counter/20);
+
       // Update speed and position based on boat and cord elasticity
+
     }
   }, {
     every: 30,

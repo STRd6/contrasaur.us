@@ -275,8 +275,7 @@ function Dinosaur() {
         jetpack.update();
 
         if(parasailing) {
-          currentLevel.tiltAmount(5);
-          I.xVelocity = Math.sin(I.age) + 5;
+          I.xVelocity = Math.sin(I.age) + currentLevel.tiltAmount();
           I.yVelocity = Math.cos(I.age/2);
         } else {
           if (jetpack.engaged()) {
