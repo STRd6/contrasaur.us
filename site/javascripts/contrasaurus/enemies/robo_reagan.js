@@ -20,6 +20,12 @@ function RoboReagan(I) {
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         }
       );
+
+      if(rand(20) == 0) {
+        addGameObject(HomingMissile($.extend({
+          collisionType: "enemyBullet"
+        }, self.position())));
+      }
     },
     sprite: hoverModel.animation,
     type: 'boss',

@@ -153,21 +153,34 @@ function Level(I) {
     },
 
     nearestEnemy: function(currentPosition) {
+      return self.nearestTarget(currentPosition, "dinoBullet");
+    },
+
+    nearestTarget: function(currentPosition, collisionType) {
+      var selection = [];
+
+      if(collisionType == "enemyBullet") {
+        selection = collidables.dino;
+      } else if(collisionType == "dinoBullet") {
+        selection = collidables.enemy;
+      }
+
       var nearest;
       var nearestDistance;
 
-      $.each(self.enemies(), function(i, enemy) {
-        var enemyDistance = Point.distance(currentPosition, enemy.position());
+      $.each(selection, function(i, target) {
+        var targetDistance = Point.distance(currentPosition, target.position());
         if(nearest) {
-          if(nearestDistance > enemyDistance) {
-            nearest = enemy;
-            nearestDistance = enemyDistance;
+          if(nearestDistance > targetDistance) {
+            nearest = target;
+            nearestDistance = targetDistance;
           }
         } else {
-          nearest = enemy;
-          nearestDistance = enemyDistance;
+          nearest = target;
+          nearestDistance = targetDistance;
         }
       });
+
       return nearest;
     },
 

@@ -4,35 +4,32 @@ function HomingMissile(I) {
   var direction = 0;
 
   $.reverseMerge(I, {
-    color: '#500',
-    width: 24,
-    height: 19,
-    radius: 4.5,
     collideDamage: 5,
+    collisionType: "dinoBullet",
+    getDirection: function() {
+      var direction;
+      var target = currentLevel.nearestTarget(self.position(), I.collisionType);
+      if(target) {
+        var targetPosition = target.position();
+
+        direction = Math.atan2(
+          targetPosition.y - I.y,
+          targetPosition.x - I.x
+        );
+      } else {
+        direction = Math.atan2(I.yVelocity, I.xVelocity);
+      }
+
+      if(isNaN(direction)) {
+        debugger;
+      }
+
+      return direction;
+    },
+    radius: 5,
     speed: 5,
     sprite: Sprite.load("images/projectiles/homing_missile.png")
   });
-
-  function getDirection() {
-    var direction;
-    var target = currentLevel.nearestEnemy(self.position());
-    if(target) {
-      var targetPosition = target.position();
-
-      direction = Math.atan2(
-        targetPosition.y - I.y,
-        targetPosition.x - I.x
-      );
-    } else {
-      direction = Math.atan2(I.yVelocity, I.xVelocity);
-    }
-
-    if(isNaN(direction)) {
-      debugger;
-    }
-
-    return direction;
-  }
 
   function explode() {
     if(I.active) {
@@ -40,7 +37,7 @@ function HomingMissile(I) {
       addGameObject(Explosion({
         x: I.x,
         y: I.y,
-        collisionType: "dinoBullet",
+        collisionType: I.collisionType,
         duration: 10, 
         sprite: loadAnimation("images/effects/explosion_46x46.png", 5, 46, 46, 2)
       }));
@@ -53,7 +50,7 @@ function HomingMissile(I) {
     },
     after: {
       update: function() {
-        var direction = getDirection();
+        var direction = I.getDirection();
         if(direction) {
           I.xVelocity = (I.xVelocity * 0.95) + Math.cos(direction);
           I.yVelocity = (I.yVelocity * 0.95) + Math.sin(direction);
