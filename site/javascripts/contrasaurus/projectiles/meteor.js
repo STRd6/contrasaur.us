@@ -39,9 +39,14 @@ function Meteor(I) {
       },
       update: function() {
         I.sprite = I.xVelocity < 0 ? meteor1Tile: meteor2Tile;
-        I.yVelocity += GRAVITY;
+        I.yVelocity += GRAVITY/2;
       }
     }
   });
+
+  self.bind('destroy', function() {
+    self.explode();
+  });
+
   return self;
 }

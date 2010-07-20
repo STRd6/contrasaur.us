@@ -130,15 +130,10 @@
   var triggers = [{
     every: 1,
     event: function(level) {
-      var meteor = Meteor({
-          x: level.position().x + rand(CANVAS_WIDTH)
-        });
-      meteor.bind('destroy', function() { 
-        meteor.explode();
-      });
-
       if (Math.random() < 0.03) {
-        level.addGameObject(meteor);
+        level.addGameObject(Meteor({
+          x: level.position().x + rand(CANVAS_WIDTH)
+        }));
       }
     }
   }, {
