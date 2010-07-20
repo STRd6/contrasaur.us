@@ -2,8 +2,6 @@ function BattleAxe(I) {
   I = I || {};
 
   var thrown = false;
-  var xVelocity = 0;
-  var yVelocity = 0;
 
   $.reverseMerge(I, {
     exitPoints: [Point(10, -30)],
@@ -19,25 +17,27 @@ function BattleAxe(I) {
 
     generateProjectile: function(direction, position) {
       //TODO: Throw Axe
-      return Bullet(direction, {
-        duration: 1,
-        speed: 0,
-        sprite: Sprite.EMPTY,
-        radius: 20,
-        x: position.x,
-        y: position.y
-      });
+
+//      if (thrown) {
+//        I.age += I.duration;
+//        return ThrownItem();
+//      } else {
+        return Bullet({
+          duration: 1,
+          speed: 0,
+          sprite: Sprite.EMPTY,
+          radius: 20,
+          theta: direction,
+          x: position.x,
+          y: position.y
+        });
+      //}
     },
 
     after: {
       update: function() {
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.05) {
           thrown = true;
-        }
-
-        if (thrown) {
-          xVelocity += 5;
-          yVelocity = -7;
         }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;

@@ -2,8 +2,6 @@ function Chainsaw(I) {
   I = I || {};
 
   var thrown = false;
-  var xVelocity = 0;
-  var yVelocity = 0;
 
   $.reverseMerge(I, {
     duration: 1000,
@@ -19,13 +17,14 @@ function Chainsaw(I) {
     },
 
     generateProjectile: function(direction, position) {
-      return Bullet(direction, {
+      return Bullet({
         dispersion: 30,
         duration: 1,
         effectCount: 13,
         speed: 0,
         sprite: Sprite.EMPTY,
         radius: 10,
+        theta: direction,
         x: position.x,
         y: position.y
       });
@@ -33,13 +32,12 @@ function Chainsaw(I) {
 
     after: {
       update: function() {
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.05) {
           thrown = true;
         }
 
         if (thrown) {
-          xVelocity += 5;
-          yVelocity = -7;
+          I.age += I.duration
         }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);

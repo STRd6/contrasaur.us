@@ -24,7 +24,7 @@ function Weapon(I) {
     },
 
     generateProjectile: function(direction, position) {
-      return Bullet(direction, position);
+      return Bullet({ theta: direction, x: position.x, y: position.y });
     },
 
     power: function(value) {

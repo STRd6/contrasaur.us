@@ -1,9 +1,10 @@
-function Bullet(I) {
-  I = I || {}
+function ThrownItem(I) {
+  I = I || {};
 
    $.reverseMerge(I, {
      speed: 10,
-     theta: I.theta || 0
+     theta: 0,
+     weaponName: "battleAxe"
    });
 
   $.reverseMerge(I, {
@@ -12,19 +13,13 @@ function Bullet(I) {
     dispersion: 0,
     duration: -1,
     effectCount: 1,
-    radius: 2,
-    sprite: Sprite.load("images/projectiles/playerbullet4.png"),
+    radius: 30,
+    sprite: Sprite.load("images/weapons/" + I.weaponName + ".png"),
     xVelocity: Math.cos(I.theta)*I.speed,
     yVelocity: Math.sin(I.theta)*I.speed
   });
 
-  var self = GameObject(I).extend({
-    dispersion: function() {
-      return I.dispersion;
-    },
-    effectCount: function() {
-      return I.effectCount;
-    },
+  var self = Bullet(I).extend({
     getTransform: GameObject.velocityGetTransform(I),
     land: function() {
       I.active = false;
@@ -35,7 +30,10 @@ function Bullet(I) {
           other.bulletHitEffect(self);
         }
       },
-      update: GameObject.generateCheckBounds(I)
+      update: function() {
+        GameObject.generateCheckBounds(I);
+        I.yVelocity += GRAVITY;
+      }
     }
   });
 

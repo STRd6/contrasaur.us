@@ -9,7 +9,7 @@ function Meteor(I) {
     health: 1,
     height: 36,
     radius: 12,
-    collideDamage: 10,
+    collideDamage: 5,
     collisionType: "levelHazard",
     xVelocity: [
       3,
@@ -19,7 +19,7 @@ function Meteor(I) {
     sprite: meteor1Tile
   })
 
-  var self = Bullet(null, I).extend({
+  var self = Bullet(I).extend({
     explode: function() {
       addGameObject(Explosion({
         x: I.x,

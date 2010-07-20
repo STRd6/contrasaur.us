@@ -29,7 +29,7 @@ function Enemy(I) {
     land: $.noop,
 
     shoot: function(angle, bulletData) {
-      var bullet = Bullet(angle, $.extend(bulletData, {
+      var bullet = Bullet({ theta: angle }, $.extend(bulletData, {
         collisionType: "enemyBullet"
       }))
       addGameObject(bullet);

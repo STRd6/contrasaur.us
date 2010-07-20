@@ -20,12 +20,13 @@ function LaserGun(I) {
     },
 
     generateProjectile: function(direction, position) {
-      return Bullet(direction, {
+      return Bullet({
         speed: 13,
         collideDamage: 3,
         health: 5000,
         radius: 2,
         sprite: Sprite.load("images/projectiles/laser.png"),
+        theta: direction,
         x: position.x,
         y: position.y
       });

@@ -44,7 +44,7 @@ function HomingMissile(I) {
     }
   }
 
-  var self = Bullet(direction, I).extend({
+  var self = Bullet(I).extend({
     hit: function() {
       explode();
     },

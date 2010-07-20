@@ -17,7 +17,7 @@ function Shotgun(I) {
   var self = Weapon(I).extend({
 
     generateProjectile: function(unused, position) {
-      return Bullet(direction, { x: position.x, y: position.y });
+      return Bullet({ theta: direction, x: position.x, y: position.y });
     },
 
     getTransform: function() {

@@ -21,7 +21,7 @@ function Bomb(I) {
     }
   }
 
-  var self = Bullet(null, I).extend({
+  var self = Bullet(I).extend({
     getTransform: GameObject.velocityGetTransform(I),
 
     hit: $.noop,

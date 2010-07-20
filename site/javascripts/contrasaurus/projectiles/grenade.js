@@ -22,7 +22,7 @@ function Grenade(I) {
     }
   }
 
-  var self = Bullet(theta, I).extend({
+  var self = Bullet(I).extend({
     getTransform: GameObject.rotationGetTransform(I),
 
     land: function() {

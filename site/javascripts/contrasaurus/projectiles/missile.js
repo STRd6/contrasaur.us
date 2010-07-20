@@ -7,15 +7,13 @@ function Missile(I) {
     height: 16,
     radius: 8,
     collideDamage: 20,
-    sprite: Sprite.load("images/projectiles/missile.png"),
-//    xVelocity: Math.cos(theta)*speed,
-//    yVelocity: Math.sin(theta)*speed
+    sprite: Sprite.load("images/projectiles/missile.png")
   });
 
   var xVelocity = Math.cos(I.theta)*speed;
   var yVelocity = Math.sin(I.theta)*speed;
 
-  var self = Bullet(I.theta, I).extend({
+  var self = Bullet(I).extend({
     after: {
       update: function() {
         xVelocity = xVelocity * 1.1;

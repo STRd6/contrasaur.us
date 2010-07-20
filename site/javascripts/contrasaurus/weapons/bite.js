@@ -15,7 +15,7 @@ function Bite(I) {
     },
 
     generateProjectile: function(direction, position) {
-      return Bullet(direction, {
+      return Bullet({
         collideDamage: 0,
         collisionType: "biteTrigger",
         duration: 1,
@@ -23,6 +23,7 @@ function Bite(I) {
         speed: 0,
         sprite: Sprite.EMPTY,
         radius: 10,
+        theta: direction,
         x: position.x,
         y: position.y
       });
