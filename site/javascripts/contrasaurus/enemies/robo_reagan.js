@@ -14,7 +14,7 @@ function RoboReagan(I) {
     pointsWorth: 1000000,
     shootLogic: function() {
       self.shoot(
-        Math.random() * (2 * Math.PI), {
+        Math.random() * (Math.PI), {
           x: self.midpoint().x,
           y: self.midpoint().y,
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
