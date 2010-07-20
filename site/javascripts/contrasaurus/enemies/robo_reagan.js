@@ -30,18 +30,22 @@ function RoboReagan(I) {
     sprite: hoverModel.animation,
     type: 'boss',
     x: rand(CANVAS_WIDTH),
-    y: 45
+    y: 60
   });
 
   var self = Enemy(I).extend({
     before: {
       update: function() {
-        // TODO: Move Around
+        // Move Around
+        I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
+        I.y = centralPoint.y +  25 * Math.cos(I.age / 13);
 
         I.hitCircles = currentModel.hitFrame();
       }
     }
   });
+
+  var centralPoint = self.position().add(Point());
 
   return self;
 }
