@@ -36,9 +36,9 @@ function BattleAxe(I) {
 
     after: {
       update: function() {
-        if (Math.random() < 0.05) {
-          thrown = true;
-        }
+//        if (Math.random() < 0.05) {
+//          thrown = true;
+//        }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;
       }
