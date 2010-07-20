@@ -32,13 +32,13 @@ function Chainsaw(I) {
 
     after: {
       update: function() {
-        if (Math.random() < 0.05) {
-          thrown = true;
-        }
-
-        if (thrown) {
-          I.age += I.duration
-        }
+//        if (Math.random() < 0.05) {
+//          thrown = true;
+//        }
+//
+//        if (thrown) {
+//          I.age += I.duration
+//        }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }

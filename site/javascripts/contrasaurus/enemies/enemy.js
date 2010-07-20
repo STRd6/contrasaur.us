@@ -5,7 +5,6 @@ function Enemy(I) {
     collideDamage: 1,
     collisionType: "enemy",
     dropFrequency: 0.03,
-    drops: ["LaserGun", "meat", "Chainsaw"],
     health: 3,
     hFlip: false,
     onFire: false,
@@ -29,9 +28,11 @@ function Enemy(I) {
     land: $.noop,
 
     shoot: function(angle, bulletData) {
-      var bullet = Bullet({ theta: angle }, $.extend(bulletData, {
-        collisionType: "enemyBullet"
-      }))
+      var bullet = Bullet($.extend(bulletData, {
+        collisionType: "enemyBullet",
+        theta: angle
+      }));
+
       addGameObject(bullet);
     },
 

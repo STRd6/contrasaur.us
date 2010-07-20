@@ -18,10 +18,12 @@ function BattleAxe(I) {
     generateProjectile: function(direction, position) {
       //TODO: Throw Axe
 
-//      if (thrown) {
-//        I.age += I.duration;
-//        return ThrownItem();
-//      } else {
+      if (thrown) {
+        I.age += I.duration;
+        var t = ThrownItem({x: dino.position.x});
+        console.log(t.I);
+        return t;
+      } else {
         return Bullet({
           duration: 1,
           speed: 0,
@@ -31,14 +33,14 @@ function BattleAxe(I) {
           x: position.x,
           y: position.y
         });
-      //}
+      }
     },
 
     after: {
       update: function() {
-//        if (Math.random() < 0.05) {
-//          thrown = true;
-//        }
+        if (Math.random() < 0.05) {
+          thrown = true;
+        }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;
       }

@@ -4,7 +4,7 @@ function ThrownItem(I) {
    $.reverseMerge(I, {
      speed: 10,
      theta: 0,
-     weaponName: "battleAxe"
+     weaponName: I.weaponName || "battleAxe"
    });
 
   $.reverseMerge(I, {
@@ -16,7 +16,9 @@ function ThrownItem(I) {
     radius: 30,
     sprite: Sprite.load("images/weapons/" + I.weaponName + ".png"),
     xVelocity: Math.cos(I.theta)*I.speed,
-    yVelocity: Math.sin(I.theta)*I.speed
+    yVelocity: Math.sin(I.theta)*I.speed,
+    x: dino.position.x,
+    y: 200
   });
 
   var self = Bullet(I).extend({
