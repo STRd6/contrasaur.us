@@ -3,6 +3,7 @@ function Tank(I) {
 
   var gunAngle;
   var tankTile = loadAnimation("images/enemies/tank_move.png", 4, 123, 55, 3);
+  var exitPoint = Point(60, -23);
 
   $.reverseMerge(I, {
     y: CANVAS_HEIGHT - Floor.LEVEL,
@@ -16,14 +17,16 @@ function Tank(I) {
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
-        self.shoot(
-          gunAngle, {
-            x: self.midpoint().x,
-            y: self.midpoint().y,
-            sprite: Sprite.load("images/projectiles/blast_small.png"),
-            collideDamage: 7
-          }
-        );
+        var transform = self.getTransform();
+
+        var p = transform.transformPoint(exitPoint);
+
+        self.shoot(gunAngle, {
+          x: p.x,
+          y: p.y,
+          sprite: Sprite.load("images/projectiles/blast_small.png"),
+          collideDamage: 7
+        });
       }
     },
     type: 'tank'
