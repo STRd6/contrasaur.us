@@ -11,9 +11,6 @@ var killCounter = {
       'utahraptor': 0
     };
 var floor;
-var bulletTile = Sprite.load("images/projectiles/blast_small.png");
-var dinoTile = Sprite.load("images/levels/dino1.png");
-var tankTile = Sprite.load("images/enemies/tank.png");
 var bulletQueue = [];
 var dialogBox = DialogBox("GAME OVER");
 var leaderBoard = DialogBox("ALL TIME LEADERS:", {

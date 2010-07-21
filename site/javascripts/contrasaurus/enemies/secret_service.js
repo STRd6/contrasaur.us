@@ -1,20 +1,18 @@
-function Soldier(I) {
+function SecretService(I) {
   I = I || {};
 
-  var exitPoint = Point(15, -20);
+  var exitPoint = Point(10, -20);
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   var shootModelCounter = 0;
 
-  var runModel = Model.loadJSONUrl("javascripts/data/sandinista/run.model.json", function(model) {
+  var runModel = Model.loadJSONUrl("javascripts/data/secret_service/run.model.json", function(model) {
     I.sprite = model.animation;
   });
 
-  var shootModel = Model.loadJSONUrl("javascripts/data/sandinista/shoot.model.json");
+  var shootModel = Model.loadJSONUrl("javascripts/data/secret_service/shoot.model.json");
 
-  var bitInHalfModel = Model.loadJSONUrl("javascripts/data/sandinista/bit_in_half.model.json");
-
-  var deathModel = Model.loadJSONUrl("javascripts/data/sandinista/normal_death.model.json");
+  var deathModel = Model.loadJSONUrl("javascripts/data/secret_service/death.model.json");
 
   $.reverseMerge(I, {
     shootLogic: function() {
@@ -36,7 +34,7 @@ function Soldier(I) {
       }
     },
     sprite: runModel.animation,
-    type: 'sandinista',
+    type: 'secret service',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
@@ -77,7 +75,7 @@ function Soldier(I) {
     var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,
       hFlip: true,
-      sprite: bitInHalfModel.animation,
+      sprite: deathModel.animation,
       velocity: Point(0, 0)
     }));
 

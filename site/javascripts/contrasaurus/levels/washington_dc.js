@@ -11,6 +11,19 @@
     []
   );
 
+  function generateEnemies(level) {
+    if (Math.random() < 0.03) {
+      var secretService = SecretService({
+        theta: - 5 * Math.PI / 6,
+        hFlip: true,
+        x: level.position().x + CANVAS_WIDTH + 20,
+        xVelocity: -2
+      });
+
+      level.addGameObject(secretService);
+    }
+  }
+
   var floor = Floor();
 
   var triggers = [{
@@ -45,7 +58,12 @@
       event: function() {
         dino.boss(true);
       }
+    }, {
+    every: 1,
+    event: function(level) {
+      generateEnemies(level);
     }
+  }
   ]
 
   addCutscene(
