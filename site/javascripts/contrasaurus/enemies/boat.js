@@ -11,6 +11,8 @@ function Boat(I) {
   var jumpImpulse = -10;
 
   var self = GameObject(I).extend({
+    bulletHitEffect: Enemy.sparkSprayEffect,
+
     getTransform: function() {
       var t;
       if(jumping) {
