@@ -2,8 +2,8 @@
   "animation":{
     "delay":3,
     "frames":8,
-    "height":61,
-    "width":48.75,
+    "height":65,
+    "width":70,
     "url":"images/enemies/sandinista/sandinista_shoot_full.png"
   },
   "hitFrames":[[{
