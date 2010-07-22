@@ -81,7 +81,6 @@ function drawOverlay() {
   displayTexts = activeTexts;
 
   healthBar.value(dino.health());
-  healthBar.draw(canvas);
 
   // Score display
   $("#score").text(score);

@@ -2,7 +2,14 @@ function ProgressBar(I) {
   function completeness() {
     return I.value / I.max;
   }
-  
+
+  function update() {
+    I.element.css({
+      'background-color': I.colorMap(completeness()),
+      'width': Math.floor(completeness() * 100) + "%"
+    });
+  }
+
   // Init Defaults
   I = $.extend({
     colorMap: function() {
@@ -13,16 +20,10 @@ function ProgressBar(I) {
   }, I);
   
   var self = {
-    draw: function(canvas) {
-      I.element.css({
-      	'background-color': I.colorMap(completeness()),
-      	'width': Math.floor(completeness() * 100) + "%"
-      });
-    },
-
     value: function(newValue) {
       if(newValue != undefined) {
         I.value = Math.min(newValue, I.max);
+        update();
         return self;
       } else {
         return I.value;

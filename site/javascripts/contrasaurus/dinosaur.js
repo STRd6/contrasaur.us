@@ -130,15 +130,19 @@ function Dinosaur() {
     boss: function(value) {
       if (value !== undefined) {
         boss = value;
+
         if (boss) {
           I.xVelocity = 1;
+
+          boss.healthBar()
+          $("#boss").show();
+        } else {
+          $("#boss").hide();
         }
+        return self;
       } else {
-        if (boss) {
-          I.xVelocity = 1;
-        }
+        return boss;
       }
-      return boss;
     },
 
     bulletHitEffect: Enemy.bloodSprayEffect,

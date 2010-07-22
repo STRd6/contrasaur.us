@@ -3,12 +3,18 @@
 
 #game_container
   #game_info
-    %span#health_label health
-    #progress_bar
-      #health
+    .bar_container.left
+      %span.label health
+      .progress_bar
+        #health
+    #boss.bar_container.left{:style => "display: none;"}
+      %span.label boss
+      .progress_bar.left
+        #bossHealth
     #score_holder
-      %span#score_label score
+      %span.label score
       %span#score 0
+    .clear
   %canvas#gameCanvas{:width => 640, :height => 480}
     %p 
       HTML5 canvas not supported by your browser.

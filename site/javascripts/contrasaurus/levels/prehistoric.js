@@ -127,6 +127,8 @@
 
   var floor = Floor();
 
+  var brontosaurus;
+
   var triggers = [{
     every: 1,
     event: function(level) {
@@ -152,10 +154,10 @@
       }
       if (dino.boss()) {
         level.addGameObject(
-        Utahraptor({
-          xVelocity: -6, x: level.position().x + CANVAS_WIDTH + 30
-        }
-      ));
+          Utahraptor({
+            xVelocity: -6, x: level.position().x + CANVAS_WIDTH + 30
+          })
+        );
       }
     }
   }, {
@@ -192,7 +194,7 @@
   }, {
     at: 1500,
     event: function(level) {
-      var brontosaurus = Brontosaurus({
+      brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 100,
         y: 170
       });
@@ -207,7 +209,7 @@
   }, {
     at: 1550,
     event: function() {
-      dino.boss(true);
+      dino.boss(brontosaurus);
     }
   }];
 

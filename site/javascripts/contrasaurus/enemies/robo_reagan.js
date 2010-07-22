@@ -28,12 +28,11 @@ function RoboReagan(I) {
       }
     },
     sprite: hoverModel.animation,
-    type: 'boss',
     x: rand(CANVAS_WIDTH),
     y: 60
   });
 
-  var self = Enemy(I).extend({
+  var self = Boss(I).extend({
     before: {
       update: function() {
         // Move Around
