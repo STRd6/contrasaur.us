@@ -14,7 +14,7 @@ function Floor(I) {
     sprite: Sprite.load("images/levels/floor_background.png")
   });
 
-  return GameObject(I).extend({
+  var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
       if(!I.water) {
         var sprite;
@@ -36,15 +36,9 @@ function Floor(I) {
     },
     hit: function(other) {
       if(I.water) {
-        var effect = Effect($.extend(other.position(), {
-          duration: 8,
-          sprite: loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16),
-          velocity: Point()
-        }));
-
-        addGameObject(effect);
-
-        other.active(false);
+        if(other.sink) {
+          other.sink(self);
+        }
       } else {
         if(other.land) {
           other.land(I.y);
@@ -53,6 +47,8 @@ function Floor(I) {
     },
     y: I.y
   });
+
+  return self;
 }
 
 Floor.LEVEL = 160;

@@ -76,7 +76,7 @@
     event: function(level) {
       level.addGameObject(Parasoldier({
           xVelocity: 0,
-          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20
+          x: level.position().x + rand(CANVAS_WIDTH - CANVAS_WIDTH/2) + CANVAS_WIDTH/2
         }));
     }
   }, {

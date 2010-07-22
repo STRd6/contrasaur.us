@@ -189,6 +189,18 @@ function GameObject(I) {
       return Point(I.x, I.y);
     },
 
+    sink: function(water) {
+      self.active(false);
+
+      var effect = Effect($.extend(self.position(), {
+        duration: 8,
+        sprite: loadAnimation("images/effects/waterEffect_16x16.png", 12, 16, 16),
+        velocity: Point()
+      }));
+
+      addGameObject(effect);
+    },
+
     sprite: function(value) {
       if (value === undefined) {
         return I.sprite;

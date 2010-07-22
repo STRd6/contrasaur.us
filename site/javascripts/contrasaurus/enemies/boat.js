@@ -2,8 +2,10 @@ function Boat(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    collideDamage: 1,
     collisionType: "dino",
     health: 10000,
+    radius: 23,
     sprite: Sprite.load("images/levels/parasail/speed-boat.png")
   });
 
@@ -22,6 +24,8 @@ function Boat(I) {
       }
       return t.translate(I.x, I.y);
     },
+    
+    sink: $.noop,
 
     before: {
       update: function(position) {
