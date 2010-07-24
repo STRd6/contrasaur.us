@@ -6,6 +6,7 @@ var killCounter = {
       'boss': 0,
       'parasoldier': 0,
       'sandinista': 0,
+      'scientist': 0,
       'secret service': 0,
       'tank': 0,
       'utahraptor': 0

@@ -1,7 +1,7 @@
 (function() {
   var scene = Scene([
     {
-      image: Sprite.load("images/levels/area51/background.png"),
+      image: Sprite.load("images/levels/area51/test_tube_background.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -10,10 +10,28 @@
     }
   ], []);
 
+  function generateEnemies(level) {
+    if (Math.random() < 0.005) {
+      var scientist = Scientist({
+        theta: - 5 * Math.PI / 6,
+        hFlip: true,
+        x: level.position().x + CANVAS_WIDTH + 20,
+        xVelocity: 0
+      });
+
+      level.addGameObject(scientist);
+    }
+  }
+
   var floor = Floor();
 
   var triggers = [{
-    at: 200,
+    every: 1,
+    event: function(level) {
+      generateEnemies(level);
+    }
+    },{
+    at: 2000,
     event: function(level) {
       level.complete();
     }
