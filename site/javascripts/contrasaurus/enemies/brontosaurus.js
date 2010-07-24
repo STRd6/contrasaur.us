@@ -13,7 +13,7 @@ function Brontosaurus(I) {
   });
 
   var self = Boss(I).extend({
-    bulletHitEffect: Enemy.bloodSprayEffect,
+    bulletHitEffect: Enemy.bloodSprayEffect
   });
 
   return self;
