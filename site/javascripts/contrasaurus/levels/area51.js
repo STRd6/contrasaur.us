@@ -11,7 +11,7 @@
   ], []);
 
   function generateEnemies(level) {
-    if (Math.random() < 0.005) {
+    if (Math.random() < 0.01) {
       var scientist = Scientist({
         theta: - 5 * Math.PI / 6,
         hFlip: true,
@@ -19,7 +19,13 @@
         xVelocity: 0
       });
 
-      level.addGameObject(scientist);
+      var wolf = Wolf({
+        hFlip: true,
+        x: level.position().x + CANVAS_WIDTH + 20,
+        xVelocity: 0
+      });
+
+      level.addGameObject([scientist, wolf].rand());
     }
   }
 

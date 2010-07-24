@@ -9,7 +9,8 @@ var killCounter = {
       'scientist': 0,
       'secret service': 0,
       'tank': 0,
-      'utahraptor': 0
+      'utahraptor': 0,
+      'wolf': 0
     };
 var floor;
 var bulletQueue = [];

@@ -1,6 +1,9 @@
 function Scientist(I) {
   I = I || {};
 
+  var exitPoint = Point(15, -20);
+  var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
+
   $.reverseMerge(I, {
     shootLogic: function() {
       if (Math.random() < 0.075) {
@@ -29,16 +32,11 @@ function Scientist(I) {
     burn: function(flame) {
       if (!I.onFire) {
         I.onFire = true;
-        I.xVelocity = I.xVelocity * 2.5;
       }
     },
 
     after: {
       update: function() {
-        if (Math.random() < 0.05 && I.onFire) {
-          I.xVelocity = I.xVelocity * -1;
-        }
-
         if (I.xVelocity < 0) {
           I.hFlip = true;
         } else {
