@@ -67,8 +67,7 @@
     event: function(level) {
       generateEnemies(level);
     }
-  }
-  ]
+  }];
 
   addCutscene(
     "images/levels/cutscenes/lincoln_memorial.png",

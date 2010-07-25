@@ -1,9 +1,9 @@
 function Explosion(I) {
-  var duration = 25;
   I = I || {};
 
   $.reverseMerge(I, {
     collideDamage: 1,
+    duration: 25,
     sprite: loadAnimation("images/effects/explosion.png", 25, 67, 171),
     radius: 20,
     width: 67,
@@ -20,7 +20,7 @@ function Explosion(I) {
           I.collideDamage = 0;
         }
 
-        if(I.age > duration) {
+        if(I.age > I.duration) {
           I.active = false;
         }
       }

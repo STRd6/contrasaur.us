@@ -6,7 +6,7 @@ function Wolf(I) {
     sprite: Sprite.load("images/enemies/patch_wolf.png"),
     type: 'wolf',
     x: rand(CANVAS_WIDTH),
-    y: CANVAS_HEIGHT - Floor.LEVEL - 20,
+    y: CANVAS_HEIGHT - Floor.LEVEL,
     yVelocity: 0
   });
 

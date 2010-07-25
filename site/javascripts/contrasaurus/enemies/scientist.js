@@ -1,22 +1,26 @@
 function Scientist(I) {
   I = I || {};
 
-  var exitPoint = Point(15, -20);
-  var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
+  var exitPoint = Point(-15, -20);
+  //var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   $.reverseMerge(I, {
     shootLogic: function() {
-      if (Math.random() < 0.075) {
+      if (Math.random() < 0.035) {
         var transform = self.getTransform();
 
         var p = transform.transformPoint(exitPoint);
-        var d = transform.deltaTransformPoint(exitDirection);
-        var theta = Math.atan2(d.y, d.x);
+        //var d = transform.deltaTransformPoint(exitDirection);
+        var theta = 3*(Math.PI)/4 //Math.atan2(d.y, -d.x);
 
         self.shoot(theta, {
+          collisionType: "enemyBullet",
           x: p.x,
           y: p.y,
-          sprite: Sprite.load("images/effects/enemybullet1_small.png")
+          radius: 2,
+          sprite: Sprite.load("images/projectiles/test_tube.png"),
+          theta: theta,
+          yVelocity: Math.clamp(-1*rand(10), -10, -2)
         });
       }
     },
@@ -33,6 +37,12 @@ function Scientist(I) {
       if (!I.onFire) {
         I.onFire = true;
       }
+    },
+
+    shoot: function(angle, bulletData) {
+      var poison = Poison(bulletData);
+
+      addGameObject(poison);
     },
 
     after: {
