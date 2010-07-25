@@ -31,8 +31,11 @@ function Poison(I) {
       detonate();
     },
 
-    hit: $.noop,
-
+    before: {
+      hit: function() {
+        detonate();
+      }
+    },
     after: {
       update: function() {
         I.rotation += I.rotationalVelocity;
