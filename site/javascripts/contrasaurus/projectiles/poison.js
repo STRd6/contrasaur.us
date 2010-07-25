@@ -8,7 +8,7 @@ function Poison(I) {
     radius: 4,
     rotation: 0,
     rotationalVelocity: -Math.PI / 16,
-    speed: 7,
+    speed: 10,
     sprite: Sprite.load("images/projectiles/test_tube.png")
   });
 
@@ -35,7 +35,7 @@ function Poison(I) {
 
     after: {
       update: function() {
-        console.log(I.rotation);
+        I.rotation += I.rotationalVelocity;
         I.yVelocity += GRAVITY;
 
         if(I.age > fuse) {

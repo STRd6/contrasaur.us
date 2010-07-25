@@ -11,7 +11,7 @@ function Scientist(I) {
 
         var p = transform.transformPoint(exitPoint);
         //var d = transform.deltaTransformPoint(exitDirection);
-        var theta = 3*(Math.PI)/4 //Math.atan2(d.y, -d.x);
+        var theta = 2*(Math.PI)/3 //Math.atan2(d.y, -d.x);
 
         self.shoot(theta, {
           collisionType: "enemyBullet",
@@ -20,7 +20,7 @@ function Scientist(I) {
           radius: 2,
           sprite: Sprite.load("images/projectiles/test_tube.png"),
           theta: theta,
-          yVelocity: Math.clamp(-1*rand(10), -10, -2)
+          yVelocity: Math.clamp(-1*rand(15), -15, -2)
         });
       }
     },

@@ -8,7 +8,25 @@
         y: 0
       }
     }
-  ], []);
+  ], generateForegroundScenary());
+
+  function generateForegroundScenary() {
+    var foregrounds = [];
+    (7).times(function() {
+      foregrounds.push({
+        image: Sprite.load('images/levels/area51/stasis_chamber.png'),
+        parallaxRate: 1,
+        position: {
+          x: rand(1920),
+          y: 250
+        },
+        repeat: true,
+        width: 1920
+      });
+    });
+
+    return foregrounds;
+  }
 
   function generateEnemies(level) {
     if (Math.random() < 0.01) {
