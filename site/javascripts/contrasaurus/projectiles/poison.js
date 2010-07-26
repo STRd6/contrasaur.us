@@ -1,7 +1,7 @@
 function Poison(I) {
   I = I || {};
 
-  var fuse = 45;
+  var fuse = 30;
 
   $.reverseMerge(I, {
     collideDamage: 0,
@@ -31,11 +31,10 @@ function Poison(I) {
       detonate();
     },
 
-    before: {
-      hit: function() {
-        detonate();
-      }
+    hit: function() {
+      detonate();
     },
+    
     after: {
       update: function() {
         I.rotation += I.rotationalVelocity;

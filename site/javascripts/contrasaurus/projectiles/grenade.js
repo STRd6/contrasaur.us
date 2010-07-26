@@ -7,7 +7,7 @@ function Grenade(I) {
     collideDamage: 0,
     radius: 8,
     rotation: 0,
-    rotationVelocity: Math.PI / 32,
+    rotationalVelocity: Math.PI / 32,
     speed: 5,
     sprite: Sprite.load("images/projectiles/grenade.png")
   });
@@ -33,7 +33,7 @@ function Grenade(I) {
 
     after: {
       update: function() {
-        I.rotation += I.rotationSpeed;
+        I.rotation += I.rotationalVelocity;
         I.yVelocity += GRAVITY;
 
         if(I.age > fuse) {

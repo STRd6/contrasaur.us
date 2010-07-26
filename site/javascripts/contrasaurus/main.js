@@ -19,15 +19,15 @@ var leaderBoard = DialogBox("ALL TIME LEADERS:", {
   height: 25,
   yPosition: 25
 });
-var leader1 = DialogBox("Condor: 34,492,192", {
+var leader1 = DialogBox("Condor: 3,492,192", {
   height: 25,
   yPosition: 50
 });
-var leader2 = DialogBox("Dr. Werewolf: 32,182,019", {
+var leader2 = DialogBox("Dr. Werewolf: 3,182,019", {
   height: 25,
   yPosition: 75
 });
-var leader3 = DialogBox("Zuch: 30,352,222", {
+var leader3 = DialogBox("Zuch: 3,052,222", {
   height: 25,
   yPosition: 100
 });

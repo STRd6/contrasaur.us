@@ -16,13 +16,9 @@ function BattleAxe(I) {
     },
 
     generateProjectile: function(direction, position) {
-      //TODO: Throw Axe
-
       if (thrown) {
         I.age += I.duration;
-        var t = ThrownItem({x: dino.position.x});
-        console.log(t.I);
-        return t;
+        return ThrownItem({});
       } else {
         return Bullet({
           duration: 1,
@@ -38,7 +34,7 @@ function BattleAxe(I) {
 
     after: {
       update: function() {
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.03) {
           thrown = true;
         }
 
