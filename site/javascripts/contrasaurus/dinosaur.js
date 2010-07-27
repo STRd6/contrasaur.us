@@ -45,7 +45,7 @@ function Dinosaur() {
     ]
   );
 
-  var parasailTile = Sprite.load("images/levels/parasail/parasail.png");
+  var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 
   var currentModel = walkModel;
 
@@ -184,7 +184,7 @@ function Dinosaur() {
 
       canvas.withTransform(self.getTransform(), function() {
         if(parasailing) {
-          parasailTile.draw(canvas, -80, -140);
+          parasailTile.draw(canvas, -150, -170);
           setModel(flyModel);
         }
 

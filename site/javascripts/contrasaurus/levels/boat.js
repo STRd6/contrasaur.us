@@ -57,8 +57,8 @@
       dino.parasailing(true);
 
       var boat = Boat({
-        x: 440,
-        y: 305
+        x: 460,
+        y: 285
       });
 
       level.addGameObject(boat);

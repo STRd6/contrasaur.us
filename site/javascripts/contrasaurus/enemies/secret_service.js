@@ -14,6 +14,8 @@ function SecretService(I) {
 
   var deathModel = Model.loadJSONUrl("javascripts/data/secret_service/death.model.json");
 
+  var currentModel = runModel;
+
   $.reverseMerge(I, {
     shootLogic: function() {
       if (Math.random() < 0.075) {
@@ -29,16 +31,23 @@ function SecretService(I) {
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
 
+        I.hitCircles = shootModel.hitFrames;
         I.sprite = shootModel.animation;
         shootModelCounter = 8;
       }
     },
-    sprite: runModel.animation,
+    hitCircles: currentModel.hitFrames,
+    sprite: currentModel.animation,
     type: 'secret service',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
+
+  function setModel(model) {
+    currentModel = model;
+    I.sprite = currentModel.animation;
+  }
 
   var self = Enemy(I).extend({
 
@@ -52,7 +61,7 @@ function SecretService(I) {
     after: {
       update: function() {
         if (shootModelCounter < 0) {
-          I.sprite = runModel.animation;
+          setModel(runModel);
         }
 
         shootModelCounter--;
@@ -67,6 +76,8 @@ function SecretService(I) {
         } else {
           I.hFlip = false;
         }
+
+        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
@@ -75,6 +86,7 @@ function SecretService(I) {
     var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,
       hFlip: true,
+      hitCircles: deathModel.hitFrames,
       sprite: deathModel.animation,
       velocity: Point(0, 0)
     }));
