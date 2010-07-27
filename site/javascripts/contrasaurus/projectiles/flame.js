@@ -9,7 +9,7 @@ function Flame(I) {
     collideDamage: 0,
     duration: 20,
     hFlip: true,
-    sprite: Sprite.load("images/projectiles/flame.png"),
+    sprite: Sprite.load("images/projectiles/flame2.png"),
     radius: 18,
     xVelocity: I.theta * 10,
     yVelocity: Math.sin(I.theta) * speed

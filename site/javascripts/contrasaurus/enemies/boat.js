@@ -73,11 +73,14 @@ function Boat(I) {
         }));
       }
     },
-    health: 10,
+    health: 100,
     hitCircles: boatModel.hitFrames,
+    onFire: false,
     sprite: boatModel.animation
   });
 
+
+  var maxHealth = I.health;
   var jumping = false;
   var jumpImpulse = -10;
 
@@ -116,6 +119,19 @@ function Boat(I) {
             I.yVelocity = jumpImpulse;
           }
         }
+
+        if(I.health < maxHealth / 2) {
+          I.onFire = true;
+        }
+
+        if(I.onFire && rand(2)) {
+          //Smoke/flame
+          addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
+            sprite: Sprite.load("images/effects/smoke2.png"),
+            velocity: Point(0, 0)
+          })));
+        }
+
         I.hitCircles = boatModel.hitFrame();
       }
     }
