@@ -4,6 +4,10 @@ function Explosion(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     duration: 25,
+    eventCallbacks: {
+      'complete': $.noop,
+      'destroy': $.noop
+    },
     sprite: loadAnimation("images/effects/explosion.png", 25, 67, 171),
     radius: 20,
     width: 67,
@@ -11,7 +15,7 @@ function Explosion(I) {
     collisionType: "enemyBullet"
   });
 
-  return GameObject(I).extend({
+  var self = GameObject(I).extend({
     hit: $.noop,
 
     after: {
@@ -22,8 +26,11 @@ function Explosion(I) {
 
         if(I.age > I.duration) {
           I.active = false;
+          self.trigger('complete');
         }
       }
     }
   });
+
+  return self;
 }

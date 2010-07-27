@@ -22,7 +22,58 @@ function Boat(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "dino",
-    health: 10000,
+    eventCallbacks: {
+      'destroy': function() {
+        addGameObject(Explosion({
+          collisionType: "dinoBullet",
+          duration: 10,
+          eventCallbacks: {
+            'complete': function() {
+              addGameObject(Explosion({
+                duration: 10,
+                eventCallbacks: {
+                  'complete': function() {
+                    addGameObject(Explosion({
+                      x: I.x + 70,
+                      y: I.y
+                    }));
+                  }
+                },
+                x: I.x + 50,
+                y: I.y
+              }));
+            }
+          },
+          x: I.x + 30,
+          y: I.y
+        }));
+
+        addGameObject(Explosion({
+          collisionType: "dinoBullet",
+          duration: 10,
+          eventCallbacks: {
+            'complete': function() {
+              addGameObject(Explosion({
+                duration: 10,
+                eventCallbacks: {
+                  'complete': function() {
+                    addGameObject(Explosion({
+                      x: I.x - 70,
+                      y: I.y
+                    }));
+                  }
+                },
+                x: I.x - 50,
+                y: I.y
+              }));
+            }
+          },
+          x: I.x - 30,
+          y: I.y
+        }));
+      }
+    },
+    health: 10,
     hitCircles: boatModel.hitFrames,
     sprite: boatModel.animation
   });
