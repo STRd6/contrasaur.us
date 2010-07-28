@@ -73,7 +73,7 @@ function Boat(I) {
         }));
       }
     },
-    health: 100,
+    health: 50,
     hitCircles: boatModel.hitFrames,
     onFire: false,
     sprite: boatModel.animation
@@ -124,9 +124,14 @@ function Boat(I) {
           I.onFire = true;
         }
 
-        if(I.onFire && rand(2)) {
+        if(I.onFire && Math.random() < 0.2) {
           //Smoke/flame
-          addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
+          var smokePosition = Point(
+            self.position().x - 80 - rand(20),
+            self.position().y + 20
+          );
+
+          addGameObject(Effect($.extend(smokePosition.add(Circle(-400, 0, 5).randomPoint()), {
             sprite: Sprite.load("images/effects/smoke2.png"),
             velocity: Point(0, 0)
           })));
