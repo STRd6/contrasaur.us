@@ -93,27 +93,29 @@ function Jetpack(I) {
         self.trigger('disengage');
       }
 
-      if (dino.airborne() && !charge) {
-        dino.pitchAngle(I.pitchImpulse);
-      }
+      if( !dino.parasailing()) {
+        if (dino.airborne() && !charge) {
+          dino.pitchAngle(I.pitchImpulse);
+        }
 
-      if (charge && !dino.boss()) {
-        dino.lastDirection(1);
-        I.engaged = true;
-        dino.xVelocity(20);
-        dino.yVelocity(-0.5);
-        dino.airborne(true);
-        currentLevel.tiltAmount(16);
-      }
+        if (charge && !dino.boss()) {
+          dino.lastDirection(1);
+          I.engaged = true;
+          dino.xVelocity(20);
+          dino.yVelocity(-0.5);
+          dino.airborne(true);
+          currentLevel.tiltAmount(16);
+        }
 
-      if (haywire && !dino.boss()) {
-        dino.lastDirection(1);
-        I.engaged = true;
-        dino.xVelocity(10 + rand(20));
-        dino.yVelocity(-5 - rand(5));
-        dino.airborne(true);
-        currentLevel.tiltAmount((10));
-        dino.pitchAngle(Math.PI/10);
+        if (haywire && !dino.boss()) {
+          dino.lastDirection(1);
+          I.engaged = true;
+          dino.xVelocity(10 + rand(20));
+          dino.yVelocity(-5 - rand(5));
+          dino.airborne(true);
+          currentLevel.tiltAmount((10));
+          dino.pitchAngle(Math.PI/10);
+        }
       }
 
       I.sprite = I.engaged ? activeTile : jetpackTile;

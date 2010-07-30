@@ -39,13 +39,16 @@ function ThrownItem(I) {
     land: function() {
       I.active = false;
     },
+    before: {
+      hit: function(other) {
+        detonate();
+      }
+    },
     after: {
       hit: function(other) {
         if(other.bulletHitEffect) {
           other.bulletHitEffect(self);
         }
-
-        detonate();
       },
       update: function() {
         GameObject.generateCheckBounds(I);
