@@ -97,15 +97,17 @@ function Jetpack(I) {
         dino.pitchAngle(I.pitchImpulse);
       }
 
-      if (charge) {
+      if (charge && !dino.boss()) {
+        dino.lastDirection(1);
         I.engaged = true;
-        dino.xVelocity(15);
+        dino.xVelocity(20);
         dino.yVelocity(-0.5);
         dino.airborne(true);
         currentLevel.tiltAmount(16);
       }
 
-      if (haywire) {
+      if (haywire && !dino.boss()) {
+        dino.lastDirection(1);
         I.engaged = true;
         dino.xVelocity(10 + rand(20));
         dino.yVelocity(-5 - rand(5));

@@ -197,6 +197,15 @@ function Dinosaur() {
       }
     },
 
+    lastDirection: function(value) {
+      if (value !== undefined) {
+        lastDirection = value;
+        return lastDirection;
+      } else {
+        return lastDirection;
+      }
+    },
+
     parasailing: function(newValue) {
       if(newValue != undefined) {
         parasailing = newValue;
