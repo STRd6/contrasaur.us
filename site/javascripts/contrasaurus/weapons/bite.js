@@ -4,7 +4,7 @@ function Bite(I) {
   $.reverseMerge(I, {
     duration: -1,
     exitPoints: [Point(50, 60)],
-    radius: 5,
+    radius: 50,
     sprite: Sprite.EMPTY,
     theta: 0
   });

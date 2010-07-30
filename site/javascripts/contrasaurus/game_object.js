@@ -28,8 +28,8 @@ function GameObject(I) {
       callback: callback,
       sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
       x: I.x + 50,
-      xVelocity: 2,
       y: I.y - 80,
+      xVelocity: 2,
       yVelocity: -12
     }));
   }

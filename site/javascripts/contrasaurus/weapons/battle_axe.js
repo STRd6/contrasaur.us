@@ -17,7 +17,8 @@ function BattleAxe(I) {
 
     generateProjectile: function(direction, position) {
       if (thrown) {
-        I.age += I.duration;
+        I.active = false;
+        thrown = false;
         return ThrownItem({});
       } else {
         return Bullet({

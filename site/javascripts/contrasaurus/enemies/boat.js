@@ -25,15 +25,20 @@ function Boat(I) {
     eventCallbacks: {
       'destroy': function() {
         addGameObject(Explosion({
+          collisionDamage: 20,
           collisionType: "dinoBullet",
           duration: 10,
           eventCallbacks: {
             'complete': function() {
               addGameObject(Explosion({
+                collisionDamage: 20,
+                collisionType: "dinoBullet",
                 duration: 10,
                 eventCallbacks: {
                   'complete': function() {
                     addGameObject(Explosion({
+                      collisionDamage: 5,
+                      collisionType: "dinoBullet",
                       x: I.x + 70,
                       y: I.y
                     }));
@@ -49,15 +54,20 @@ function Boat(I) {
         }));
 
         addGameObject(Explosion({
+          collisionDamage: 20,
           collisionType: "dinoBullet",
           duration: 10,
           eventCallbacks: {
             'complete': function() {
               addGameObject(Explosion({
+                collisionDamage: 20,
+                collisionType: "dinoBullet",
                 duration: 10,
                 eventCallbacks: {
                   'complete': function() {
                     addGameObject(Explosion({
+                      collisionDamage: 5,
+                      collisionType: "dinoBullet",
                       x: I.x - 70,
                       y: I.y
                     }));

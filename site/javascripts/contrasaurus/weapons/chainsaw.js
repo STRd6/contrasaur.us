@@ -17,28 +17,32 @@ function Chainsaw(I) {
     },
 
     generateProjectile: function(direction, position) {
-      return Bullet({
-        dispersion: 30,
-        duration: 1,
-        effectCount: 13,
-        speed: 0,
-        sprite: Sprite.EMPTY,
-        radius: 10,
-        theta: direction,
-        x: position.x,
-        y: position.y
-      });
+      if (thrown) {
+        I.active = false;
+        thrown = false;
+        return ThrownItem({
+          weaponName: "chainsaw"
+        });
+      } else {
+        return Bullet({
+          dispersion: 30,
+          duration: 1,
+          effectCount: 13,
+          speed: 0,
+          sprite: Sprite.EMPTY,
+          radius: 10,
+          theta: direction,
+          x: position.x,
+          y: position.y
+        });
+      }
     },
 
     after: {
       update: function() {
-//        if (Math.random() < 0.05) {
-//          thrown = true;
-//        }
-//
-//        if (thrown) {
-//          I.age += I.duration
-//        }
+        if (Math.random() < 0.01) {
+          thrown = true;
+        }
 
         I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }

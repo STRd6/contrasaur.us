@@ -8,7 +8,7 @@ function ThrownItem(I) {
    });
 
   $.reverseMerge(I, {
-    collideDamage: 1,
+    collideDamage: 5,
     collisionType: "dinoBullet",
     dispersion: 0,
     duration: -1,
@@ -27,7 +27,9 @@ function ThrownItem(I) {
     if(I.active) {
       I.active = false;
       addGameObject(Explosion({
-        x: I.x,
+        collideDamage: 20,
+        collisionType: "dinoBullet",
+        x: I.x + 20,
         y: I.y - 50
       }));
     }

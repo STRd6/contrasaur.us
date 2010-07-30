@@ -93,7 +93,7 @@ function Jetpack(I) {
         self.trigger('disengage');
       }
 
-      if( !dino.parasailing()) {
+      if (!dino.parasailing()) {
         if (dino.airborne() && !charge) {
           dino.pitchAngle(I.pitchImpulse);
         }
