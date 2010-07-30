@@ -4,7 +4,7 @@
  * It includes a convenient update method to keep the hitFrame and current
  * animation frame in sync.
  */
-function Model(animation, hitFrames) {
+function Model(animation, hitFrames, namedPoints) {
 
   return {
     animation: animation,
@@ -15,6 +15,7 @@ function Model(animation, hitFrames) {
       return hitFrames[animation.frame()];
     },
     hitFrames: hitFrames,
+    namedPoints: namedPoints,
     update: function() {
       animation.update();
     }
