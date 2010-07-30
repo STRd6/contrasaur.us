@@ -4,6 +4,8 @@ function Jetpack(I) {
 
   var activeTile = Sprite.load("images/weapons/jetpack_active.png");
   var jetpackTile = Sprite.load("images/weapons/jetpack.png");
+  var charge = false;
+  var haywire = false;
 
   $.reverseMerge(I, {
     age: 0,
@@ -12,20 +14,32 @@ function Jetpack(I) {
     eventCallbacks: {
       'engage': function() {
         if(!I.engaged) {
-          I.engaged = true;
-          I.yImpulse = -1;
-          var dinoXVelocity = dino.xVelocity();
-          dino.xVelocity(dinoXVelocity + 2);
-          dino.yVelocity(-9);
-          dino.airborne(true);
-          I.jetpackCounter = 15;
+          if (Math.random() < 0.2) {
+            charge = true;
+            I.jetpackCounter = 60;
+          } else if (Math.random() < 0.1) {
+            haywire = true;
+            I.jetpackCounter = 40;
+          } else {
+            I.engaged = true;
+            I.yImpulse = -1;
+            var dinoXVelocity = dino.xVelocity();
+            dino.xVelocity(dinoXVelocity + 2);
+            dino.yVelocity(-9);
+            dino.airborne(true);
+            I.jetpackCounter = 15;
+          }
         }
       },
       'disengage': function() {
         if(I.engaged) {
           I.engaged = false;
+          charge = false;
+          haywire = false;
           I.yImpulse = 2;
           dino.yVelocity(I.yImpulse);
+          dino.xVelocity(2);
+          currentLevel.tiltAmount(2);
         }
       }
     },
@@ -75,13 +89,29 @@ function Jetpack(I) {
     update: function() {
       if (I.jetpackCounter > 0) {
         I.jetpackCounter--;
-        self.trigger('engage');
       } else {
         self.trigger('disengage');
       }
 
-      if (dino.airborne()) {
+      if (dino.airborne() && !charge) {
         dino.pitchAngle(I.pitchImpulse);
+      }
+
+      if (charge) {
+        I.engaged = true;
+        dino.xVelocity(15);
+        dino.yVelocity(-0.5);
+        dino.airborne(true);
+        currentLevel.tiltAmount(16);
+      }
+
+      if (haywire) {
+        I.engaged = true;
+        dino.xVelocity(10 + rand(20));
+        dino.yVelocity(-5 - rand(5));
+        dino.airborne(true);
+        currentLevel.tiltAmount((10));
+        dino.pitchAngle(Math.PI/10);
       }
 
       I.sprite = I.engaged ? activeTile : jetpackTile;
