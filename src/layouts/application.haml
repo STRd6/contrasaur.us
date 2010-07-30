@@ -11,7 +11,7 @@
     - projectile_files = %w[bomb explosion bullet effect flame grenade homing_missile laser meteor missile poison powerup thrown_item].map { |file_name| "contrasaurus/projectiles/#{file_name}" }
     = javascripts(*projectile_files)
     = javascripts('contrasaurus/levels/cutscene', 'contrasaurus/levels/level', 'contrasaurus/levels/scene')
-    - enemy_files = %w[boat bomber boss brontosaurus enemy parasoldier robo_reagan scientist secret_service soldier tank utahraptor wolf].map { |name| "contrasaurus/enemies/#{name}" }
+    - enemy_files = %w[boat bomber boss brontosaurus enemy parasoldier ramp robo_reagan scientist secret_service soldier tank utahraptor wolf].map { |name| "contrasaurus/enemies/#{name}" }
     = javascripts(*enemy_files)
     = javascripts('contrasaurus/dinosaur', 'contrasaurus/floor', 'contrasaurus/game_object', 'contrasaurus/UI', 'contrasaurus/model')
     - weapon_files = %w[battle_axe bazooka bite chainsaw flamethrower jetpack laser_gun machine_gun meat primal_scream shield shotgun weapon].map {|file_name| "contrasaurus/weapons/#{file_name}" }

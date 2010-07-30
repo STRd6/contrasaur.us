@@ -63,13 +63,19 @@
 
       level.addGameObject(boat);
 
-      level.tiltAmount(5);
+      level.tiltAmount(7);
     }
   }, {
     every: 1,
     event: function(level) {
       // Update dino speed and position based on boat and cord elasticity
 
+      if(rand() < 0.01) {
+        level.addGameObject(Ramp({
+          x: level.position().x + CANVAS_WIDTH,
+          y: CANVAS_HEIGHT - Floor.LEVEL
+        }));
+      }
     }
   }, {
     every: 30,

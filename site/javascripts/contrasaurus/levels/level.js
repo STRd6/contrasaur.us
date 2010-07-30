@@ -1,3 +1,5 @@
+debugCounts = true;
+
 function Level(I) {
   var position = {
     x: 0,
@@ -144,6 +146,15 @@ function Level(I) {
       I.completed();
     },
 
+    debugCounts: function() {
+      var results = {};
+      $.each(collidables, function(key, value) {
+        results[key] = value.length;
+      });
+
+      return results;
+    },
+
     enemies: function() {
       return oldEnemies;
     },
@@ -251,6 +262,16 @@ function Level(I) {
       position.x += tiltAmount;
 
       oldEnemies = collidables.enemy;
+
+      // Update debug
+      if(debugCounts) {
+        var html = "";
+        $.each(self.debugCounts(), function(key, value) {
+          html += key + ": " + value + "<br />"
+        });
+
+        $("#debug").html(html);
+      }
     }
   };
 

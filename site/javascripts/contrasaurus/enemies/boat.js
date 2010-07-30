@@ -95,6 +95,13 @@ function Boat(I) {
   var jumpImpulse = -10;
 
   var self = GameObject(I).extend({
+    bounce: function () {
+      jumping = true;
+
+      I.yVelocity = jumpImpulse;
+      I.y += I.yVelocity;
+    },
+
     bulletHitEffect: Enemy.sparkSprayEffect,
 
     getTransform: function() {
@@ -121,12 +128,6 @@ function Boat(I) {
             I.y = boatTarget.y;
             I.yVelocity = 0;
             jumping = false;
-          }
-        } else {
-          if(rand(100) == 0) {
-            jumping = true;
-
-            I.yVelocity = jumpImpulse;
           }
         }
 
