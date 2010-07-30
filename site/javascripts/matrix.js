@@ -32,11 +32,14 @@
    * Returns the identity matrix when called with no arguments.
    */
   function Matrix(a, b, c, d, tx, ty) {
+    a = a !== undefined ? a : 1;
+    d = d !== undefined ? d : 1;
+
     return {
-      a: a || 1,
+      a: a,
       b: b || 0,
       c: c || 0,
-      d: d || 1,
+      d: d,
       tx: tx || 0,
       ty: ty || 0,
 
