@@ -124,7 +124,7 @@ function Boat(I) {
           I.onFire = true;
         }
 
-        if(I.onFire && Math.random() < 0.2) {
+        if(I.onFire && Math.random() < 0.4) {
           //Smoke/flame
           var smokePosition = Point(
             self.position().x - 80 - rand(20),

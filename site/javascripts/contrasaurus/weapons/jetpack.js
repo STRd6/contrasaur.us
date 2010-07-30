@@ -7,24 +7,25 @@ function Jetpack(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    duration: -1,
     engaged: false,
     eventCallbacks: {
       'engage': function() {
         if(!I.engaged) {
           I.engaged = true;
           I.yImpulse = -1;
-          I.xImpulse = dino.xVelocity() + 1;
-          dino.xVelocity(I.xImpulse);
-          dino.yVelocity(-1 + I.yImpulse);
+          var dinoXVelocity = dino.xVelocity();
+          dino.xVelocity(dinoXVelocity + 2);
+          dino.yVelocity(-9);
+          dino.airborne(true);
+          I.jetpackCounter = 15;
         }
       },
       'disengage': function() {
         if(I.engaged) {
           I.engaged = false;
-          I.yImpulse = 0;
-          I.xImpulse = dino.xVelocity() + 1;
-          dino.xVelocity(I.xImpulse);
-          dino.yVelocity(0 + I.yImpulse);
+          I.yImpulse = 2;
+          dino.yVelocity(I.yImpulse);
         }
       }
     },
@@ -32,6 +33,10 @@ function Jetpack(I) {
     sprite: Sprite.load("images/weapons/jetpack.png"),
     xImpulse: 0,
     yImpulse: 0
+  });
+
+  $.reverseMerge(I, {
+    pitchImpulse: Math.PI/16
   });
 
   var self = Weapon(I).extend({
@@ -68,15 +73,15 @@ function Jetpack(I) {
     shoot: $.noop,
 
     update: function() {
-//      if(Math.random() < 0.01 && I.jetpackCounter <= 0) {
-//        I.jetpackCounter = 50 + rand(50);
-//      }
-
       if (I.jetpackCounter > 0) {
         I.jetpackCounter--;
         self.trigger('engage');
       } else {
         self.trigger('disengage');
+      }
+
+      if (dino.airborne()) {
+        dino.pitchAngle(I.pitchImpulse);
       }
 
       I.sprite = I.engaged ? activeTile : jetpackTile;

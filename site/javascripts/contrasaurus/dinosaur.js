@@ -5,10 +5,6 @@ function Dinosaur() {
   var jetpack = Jetpack();
   var bite = Bite();
 
-  //using this to indicate the first time the jetpack goes off
-  var jetpackFlag = false;
-  var userControlled = false;
-
   var currentHealth = 0;
   var cryCounter = 0;
 
@@ -21,12 +17,10 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [bite];
-  var activeWeapons = [bite];
+  var weapons = [bite, jetpack];
+  var activeWeapons = [];
 
   var pitchAngle = 0;
-  var leftBaseAngle = Math.PI;
-  var rightBaseAngle = 0;
 
   var walkModel = Model.loadJSONUrl("javascripts/data/dinosaur/walk.model.json");
 
@@ -69,40 +63,21 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(document).bind('keydown', 'space', function() {
-    jetpack.jetpackCounter(50);
-    pitchAngle = Math.clamp(pitchAngle, -Math.PI/3, Math.PI/24)
-    I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
-    userControlled = true;
+    if(!airborne) {
+      jetpack.trigger('engage');
+    }
   });
 
   $(document).bind('keydown', 'left', function() {
-    if(airborne) {
-      if (jetpack.engaged()) {
-        pitchAngle = Math.clamp(pitchAngle - Math.PI/48, -Math.PI/3, Math.PI/24);
-        I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
-      }
-    }
-
     if (I.xVelocity >= 0 && !airborne) {
       I.xVelocity = (-1*I.xVelocity);
     }
-    
-    userControlled = true;
   });
 
-  $(document).bind('keydown', 'right', function() {
-    if(airborne) {
-      if (jetpack.engaged()) {
-        pitchAngle = Math.clamp(pitchAngle + Math.PI/48, -Math.PI/3, Math.PI/24);
-        I.yVelocity = Math.clamp(I.xVelocity * Math.tan(pitchAngle), -5, 0);
-      }
-    }
-    
+  $(document).bind('keydown', 'right', function() {    
     if (I.xVelocity < 0 && !airborne) {
       I.xVelocity = (-1*I.xVelocity);
     }
-
-    userControlled = true;
   });
 
   function heal(amount) {
@@ -123,8 +98,12 @@ function Dinosaur() {
       weapons.push(weapon.dino(self));
     },
 
-    airborne: function() {
-      return airborne;
+    airborne: function(value) {
+      if (value !== undefined) {
+        airborne = value;
+      } else {
+        return airborne;
+      }
     },
 
     boss: function(value) {
@@ -197,10 +176,6 @@ function Dinosaur() {
           accessory.draw(canvas);
         });
 
-        if(!parasailing) {
-          jetpack.draw(canvas);
-        }
-
         $.each(weapons, function(i, weapon) {
           weapon.draw(canvas);
         });
@@ -217,10 +192,8 @@ function Dinosaur() {
         I.yVelocity = 0;
         I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
         airborne = false;
-        pitchAngle = -Math.PI/24
-        jetpackFlag = false;
+        pitchAngle = 0;
         jetpack.engaged(false);
-        userControlled = false;
       }
     },
 
@@ -236,6 +209,15 @@ function Dinosaur() {
         return self;
       } else {
         return parasailing;
+      }
+    },
+
+    pitchAngle: function(value) {
+      if(value !== undefined) {
+        pitchAngle += value;
+        return pitchAngle;
+      } else {
+        return pitchAngle;
       }
     },
 
@@ -276,33 +258,22 @@ function Dinosaur() {
 
         biteCounter--;
 
-        jetpack.update();
-
         if(parasailing) {
           I.xVelocity = Math.sin(I.age) + currentLevel.tiltAmount();
           I.yVelocity = Math.cos(I.age/2);
         } else {
-          if (jetpack.engaged()) {
-            airborne = true;
-            currentLevel.tiltAmount(6 * (I.xVelocity/Math.abs(I.xVelocity)));
-            I.xVelocity = 7 * (I.xVelocity/Math.abs(I.xVelocity));
-          } else {
-            currentLevel.tiltAmount(2);
-          }
+          currentLevel.tiltAmount(2);
 
           if (boss) {
             currentLevel.tiltAmount(0);
           }
 
-          if (!(jetpack.engaged()) && airborne) {
+          if ((!jetpack.engaged()) && airborne) {
             I.yVelocity += GRAVITY;
           }
 
           if (airborne) {
             setModel(flyModel);
-            if (!userControlled) {
-              pitchAngle += Math.PI / 24;
-            }
           } else {
             if (biteCounter <= 0) {
               setModel(walkModel);
