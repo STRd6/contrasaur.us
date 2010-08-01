@@ -3,7 +3,7 @@ function Bullet(I) {
 
    $.reverseMerge(I, {
      speed: 10,
-     theta: I.theta || 0
+     theta: 0
    });
 
   $.reverseMerge(I, {

@@ -173,7 +173,7 @@ function Level(I) {
       if(collisionType == "enemyBullet") {
         selection = collidables.dino;
       } else if(collisionType == "dinoBullet") {
-        selection = collidables.enemy;
+        selection = self.enemies();
       }
 
       var nearest;

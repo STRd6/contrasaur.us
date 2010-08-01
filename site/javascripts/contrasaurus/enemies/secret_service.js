@@ -66,7 +66,6 @@ function SecretService(I) {
 
         shootModelCounter--;
 
-
         if (Math.random() < 0.05 && I.onFire) {
           I.xVelocity = I.xVelocity * -1;
         }
@@ -77,7 +76,10 @@ function SecretService(I) {
           I.hFlip = false;
         }
 
-        I.hitCircles = currentModel.hitFrame();
+        // TODO: check proxy
+        if (currentModel.hitFrame) {
+          I.hitCircles = currentModel.hitFrame();
+        }
       }
     }
   });
