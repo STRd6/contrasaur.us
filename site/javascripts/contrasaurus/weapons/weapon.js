@@ -2,15 +2,11 @@ function Weapon(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    age: 0,
     duration: 400,
     exitPoints: [Point(0, 0)],
     hitCircles: [],
     power: 100,
-    radius: 5,
-    theta: 0,
-    x: 0,
-    y: 0
+    theta: 0
   });
 
   var self = GameObject(I).extend({

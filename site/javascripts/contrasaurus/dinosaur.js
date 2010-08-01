@@ -173,6 +173,8 @@ function Dinosaur() {
         );
 
         $.each(accessories, function(i, accessory) {
+          var point = currentModel.attachment(accessory.attachment());
+          accessory.position(point);
           accessory.draw(canvas);
         });
 

@@ -187,13 +187,14 @@ $(document).keydown(function(e) {
   }
 });
 
-var tophat = GameObject({
-  x: 85,
-  y: -85,
+var tophat = Accessory({
+  attachment: "hat", //the named point from the model
+  //x: 85,
+  //y: -85,
   sprite: Sprite.load("images/accessories/tophat.png")
 });
 
-if(rand() < 0.25) {
+if(rand() < 0.9) {
   dino.addAccessory(tophat);
 }
 

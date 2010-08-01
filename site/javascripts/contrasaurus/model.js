@@ -4,18 +4,34 @@
  * It includes a convenient update method to keep the hitFrame and current
  * animation frame in sync.
  */
-function Model(animation, hitFrames, namedPoints) {
+function Model(animation, frames, hitFrames) {
 
   return {
     animation: animation,
+    frames: frames,
     /**
      * Returns the array of circles representing the current hit frame.
      */
     hitFrame: function() {
-      return hitFrames[animation.frame()];
+      return frames[animation.frame()].circles;
     },
     hitFrames: hitFrames,
-    namedPoints: namedPoints,
+    attachment: function(name) {
+      if(animation.frame().attachmentPoints) {
+        if(animation.frame().attachmentPoints[name]) {
+          return animation.frame().attachmentPoints[name];
+        } else {
+          warning("no attachment point for " + name + " in " + this.url);
+          return {
+            x: 0,
+            y: 0,
+            direction: 0
+          };
+        }
+      } else {
+        warning("no attachment points for " + this.url);
+      }
+    },
     update: function() {
       animation.update();
     }
@@ -28,7 +44,8 @@ function Model(animation, hitFrames, namedPoints) {
 Model.loadJSONUrl = function(url, callback) {
   var proxy = {
     hitFrames: $.noop,
-    update: $.noop
+    update: $.noop,
+    url: url
   };
 
   var animCallback = function(animation, animationData) {
@@ -38,7 +55,7 @@ Model.loadJSONUrl = function(url, callback) {
   };
 
   $.getJSON(url, function(data) {
-    var model = Model(Animation.loadJSON(data.animation, null, animCallback), data.hitFrames);
+    var model = Model(Animation.loadJSON(data.animation, null, animCallback), data.frames, data.hitFrames);
 
     $.extend(proxy, model);
   });

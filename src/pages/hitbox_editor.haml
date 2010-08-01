@@ -23,7 +23,7 @@
 = text_field "animationDataUrl", "javascripts/data/sandinista/run.animation.json"
 %button#loadImage Load Animation
 = "|"
-= text_field "modelDataUrl", "javascripts/data/sandinista/run.animation.json"
+= text_field "modelDataUrl", "javascripts/data/dinosaur/bite.model.json"
 %button#loadModel Load Model
 = "|"
 %button#export Export
@@ -34,18 +34,38 @@
   var animation;
   var animationJSON;
   var currentFrame = 0;
-  var activeCircle;
+  var active = {};
+  var attachmentRadius = 5;
+  var attachmentColor = "rgba(0, 255, 0, 0.5)";
   var activeColor = "rgba(255, 0, 255, 0.5)";
   var circleColor = "rgba(255, 0, 0, 0.5)";
-  var frameCircles;
+  var frames;
 
   $('#gameCanvas').powerCanvas({init: function(canvas) {
     var character = GameObject().extend({
+      attachmentPoints: function() {
+        var transform = this.getTransform();
+
+        if(frames) {
+          var attachmentPoints = {};
+          $.each(frames[currentFrame].attachmentPoints, function(name, point) {
+            var transformedPoint = transform.transformPoint(point);
+            attachmentPoints[name] = {
+              x: transformedPoint.x,
+              y: transformedPoint.y,
+              direction: point.direction,
+              point: point
+            };
+          });
+        }
+
+        return attachmentPoints;
+      },
       getCircles: function() {
         var transform = this.getTransform();
 
-        if(frameCircles) {
-          return $.map(frameCircles[currentFrame], function(circle) {
+        if(frames) {
+          return $.map(frames[currentFrame].circles, function(circle) {
             var point = transform.transformPoint(circle);
             return {
               x: point.x,
@@ -76,8 +96,14 @@
         }
 
         $.each(this.getCircles(), function(i, circle) {
-          var color = (circle.circle == activeCircle ? activeColor : circleColor);
+          var color = (circle.circle == active["circles"] ? activeColor : circleColor);
           canvas.fillCircle(circle.x, circle.y, circle.radius, color);
+        });
+
+        $.each(this.attachmentPoints(), function(name, point) {
+          var color = (point.point == active["attachmentPoints"] ? activeColor : attachmentColor)
+          canvas.fillCircle(point.x, point.y, attachmentRadius, color);
+          canvas.fillText(name, point.x, point.y - 10);
         });
       }
     });
@@ -93,6 +119,8 @@
         y: event.offsetY
       };
 
+      var activeType = "circles";
+      var activeComponent = undefined;
       var set = false;
 
       // Check which circle was hit
@@ -106,28 +134,47 @@
         var dist = circle.radius;
 
         if(dx * dx + dy * dy < dist * dist) {
-          activeCircle = circle.circle;
+          activeType = "circles";
+          activeComponent = circle.circle;
           set = true;
         }
 
       });
 
-      if(!set) {
-        activeCircle = undefined;
-      }
+      $.each(character.attachmentPoints(), function(name, attachmentPoint) {
+        if(set) {
+          return;
+        }
+
+        var dx = point.x - attachmentPoint.x;
+        var dy = point.y - attachmentPoint.y;
+        var dist = attachmentRadius;
+
+        if(dx * dx + dy * dy < dist * dist) {
+          activeType = "attachmentPoints"
+          activeComponent = attachmentPoint.point;
+          set = true;
+        }
+      });
+
+      $.each(active, function(key, value) {
+        active[key] = undefined;
+      });
+
+      active[activeType] = activeComponent;
     });
 
   }});
 
   function nextFrame() {
-    activeCircle = undefined;
+    active["circles"] = undefined;
     currentFrame++;
 
     if(currentFrame == animation.frameCount()) {
       currentFrame = 0;
-    } else if(currentFrame >= frameCircles.length) {
+    } else if(currentFrame >= frames.length) {
       // Copy first frame of hit circles
-      var copy = frameCircles[0].slice(0).map(function(circle) {
+      var copy = frames[0].circles.slice(0).map(function(circle) {
         return {
           x: circle.x,
           y: circle.y,
@@ -135,7 +182,7 @@
         };
       });
 
-      frameCircles.push(copy);
+      frames.push({ circles: copy });
     }
   }
 
@@ -145,54 +192,72 @@
     }
   }
 
-  function addCircle() {
-    activeCircle = {
+  function generateComponentMethods(component, creator) {
+    function getter() {
+      frames[currentFrame][component];
+    };
+
+    return {
+      add: function() {
+        active[component] = creator();
+      },
+
+      grow: function(delta) {
+        var c = active[component];
+        if(c) {
+          c.radius = Math.clamp(delta + c.radius, 1, 1000);
+        }
+      },
+
+      next: function() {
+        var index = getter().indexOf(active[component]);
+        index = (index + 1) % getter().length;
+        active[component] = getter()[index];
+      },
+
+      prev: function() {
+        var index = getter().indexOf(active[component]);
+        index = Math.mod(index - 1, getter().length);
+        active[component] = getter()[index];
+      },
+
+      remove: function() {
+        getter().remove(active[component]);
+      }
+    }
+  }
+
+  Circles = generateComponentMethods("circles", function() {
+    return {
       x: 0,
       y: 0,
       radius: 50
     };
-    frameCircles[currentFrame].push(activeCircle);
-  }
+  });
 
-  function removeCircle() {
-    frameCircles[currentFrame].remove(activeCircle);
-  }
-
-  function nextCircle() {
-    var index = frameCircles[currentFrame].indexOf(activeCircle);
-    console.log(index);
-    index = Math.mod((index - 1), frameCircles[currentFrame].length);
-    console.log(index);
-    activeCircle = frameCircles[currentFrame][index];
-  }
-
-  function nextCircle() {
-    var index = frameCircles[currentFrame].indexOf(activeCircle);
-    console.log(index);
-    index = (index + 1) % frameCircles[currentFrame].length;
-    console.log(index);
-    activeCircle = frameCircles[currentFrame][index];
-  }
+  AttachmentPoints = generateComponentMethods("attachmentPoints", function() {
+    return {
+      x: 0,
+      y: 0,
+      radius: 5
+    }
+  });
 
   function move(x, y) {
-    if(activeCircle) {
-      activeCircle.x += x;
-      activeCircle.y += y;
-    }
-  }
-
-  function grow(delta) {
-    if(activeCircle) {
-      activeCircle.radius = Math.clamp(delta + activeCircle.radius, 1, 1000);
-    }
+    $.each(active, function(name, component) {
+      if(component) {
+        component.x += x;
+        component.y += y;
+      }
+    });
   }
 
   keyEvents = {
     "+": function() {
-      grow(1);
+      Circles.grow(1);
     },
     "-": function() {
-      grow(-1);
+      Circles.grow(-1);
     },
     "up": function() {
       move(0, -1);
@@ -219,21 +284,21 @@
       move(0, 10);
     },
     "shift++": function() {
-      grow(10);
+      Circles.grow(10);
     },
     "shift+-": function() {
-      grow(-10);
+      Circles.grow(-10);
     },
     "shift+tab": function() {
-      prevCircle();
+      Circles.prev();
       return false;
     },
     "tab": function() {
-      nextCircle();
+      Circles.next();
       return false;
     },
     "d": function() {
-      removeCircle();
+      Circles.remove();
     }
   }
 
@@ -257,11 +322,15 @@
   });
 
   $("<input type='button' value='Add Circle'/>").click(function() {
-    addCircle();
+    Circles.add();
+  }).appendTo($("#controls"));
+
+  $("<input type='button' value='Add Attachment Point'/>").click(function() {
+    AttachmentPoints.add();
   }).appendTo($("#controls"));
 
   $("<input type='button' value='Remove Circle' />").click(function() {
-    removeCircle();
+    Circles.remove();
   }).appendTo($("#controls"));
 
   $("<input type='button' value='Previous Frame' />").click(function() {
@@ -277,13 +346,22 @@
       animation = a;
       currentFrame = a.frame();
       animationJSON = data;
-      frameCircles = [[]];
+      frames = [];
     });
   };
 
   function loadModel(url) {
     Model.loadJSONUrl(url, function(model, animData) {
-      frameCircles = model.hitFrames;
+      if(model.frames) {
+        frames = model.frames;
+      } else {
+        frames = $.map(model.hitFrames, function(circles) {
+          return {
+            attachmentPoints: {},
+            circles: circles
+          };
+        });
+      }
       animation = model.animation;
       animationJSON = animData;
     });
@@ -300,6 +378,6 @@
   $("#export").click(function() {
     alert(JSON.stringify({
       animation: animationJSON,
-      hitFrames: frameCircles
+      frames: frames
     }, null, 2));
   });

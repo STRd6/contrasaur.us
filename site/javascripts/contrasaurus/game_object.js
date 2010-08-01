@@ -136,17 +136,15 @@ function GameObject(I) {
       var circles = componentCircles.concat(objectCircles);
 
       var transform = self.getTransform();
-        return $.map(circles, function(circle) {
-          var point = transform.transformPoint(circle);
-          return {
-            x: point.x,
-            y: point.y,
-            radius: circle.radius,
-            component: circle.component || self
-          };
-        });
-
-      return circles;
+      return $.map(circles, function(circle) {
+        var point = transform.transformPoint(circle);
+        return {
+          x: point.x,
+          y: point.y,
+          radius: circle.radius,
+          component: circle.component || self
+        };
+      });
     },
 
     getTransform: function() {
@@ -185,8 +183,14 @@ function GameObject(I) {
     // TODO: Encapsulate these better
     pointsWorth: function() { return I.pointsWorth },
 
-    position: function() {
-      return Point(I.x, I.y);
+    position: function(newPoint) {
+      if (newPoint !== undefined) {
+        I.x = newPoint.x;
+        I.y = newPoint.y;
+        return self;
+      } else {
+        return Point(I.x, I.y);
+      }
     },
 
     sink: function(water) {
