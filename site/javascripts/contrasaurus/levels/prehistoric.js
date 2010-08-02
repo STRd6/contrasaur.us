@@ -1,4 +1,6 @@
 (function() {
+  var imgPath = "images/levels/prehistoric/";
+
   function generateStandingEnemies(level, count) {
     count.times(function(i) {
       level.addGameObject(
@@ -10,9 +12,9 @@
       );
       level.addGameObject(GameObject({
         sprite: Sprite.load([
-          "images/levels/prehistoric/grass1.png",
-          "images/levels/prehistoric/grass2.png",
-          "images/levels/prehistoric/grass3.png"
+          imgPath + "grass1.png",
+          imgPath + "grass2.png",
+          imgPath + "grass3.png"
         ].rand()),
         x: level.position().x + CANVAS_WIDTH + (i*30) - 40,
         y: 310
@@ -35,7 +37,7 @@
     var foregrounds = [];
     (7).times(function() {
       foregrounds.push({
-        image: Sprite.load('images/levels/prehistoric/rock.png'),
+        image: Sprite.load(imgPath + "rock.png"),
         parallaxRate: 1,
         position: {
           x: rand(1920),
@@ -46,12 +48,12 @@
       });
     });
 
-    (10).times(function(i) {
+    (5).times(function(i) {
       foregrounds.push({
         image: Sprite.load([
-          'images/levels/prehistoric/plant3.png',
-          'images/levels/prehistoric/plant4.png',
-          'images/levels/prehistoric/plant4.png'
+          imgPath + "plant3.png",
+          imgPath + "plant4.png",
+          imgPath + "plant4.png"
         ].rand()),
         parallaxRate: 1,
         position: {
@@ -66,8 +68,8 @@
     (12).times(function(i) {
       foregrounds.push({
         image: Sprite.load([
-          'images/levels/prehistoric/plant1.png',
-          'images/levels/prehistoric/plant2.png'
+          imgPath + "plant1.png",
+          imgPath + "plant2.png"
         ].rand()),
         parallaxRate: 1.5,
         position: {
@@ -84,44 +86,44 @@
 
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/floor_background.png'),
+      image: Sprite.load('images/levels/ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
-        y: CANVAS_HEIGHT - 160
-      },
-      repeat: true,
-      width: 1920
-    },
-    {
-      image: Sprite.load("images/levels/jungle/background.png"),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: 0
+        y: CANVAS_HEIGHT - Floor.LEVEL
       },
       repeat: true,
       width: 640
     },
     {
-      image: Sprite.load("images/levels/jungle/midground.png"),
+      image: Sprite.load(imgPath + "volcano_background.png"),
+      parallaxRate: 0.25,
+      position: {
+        x: 0,
+        y: 0
+      },
+      repeat: true,
+      width: 1500
+    },
+    {
+      image: Sprite.load(imgPath + "volcano_midground.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
         y: 0
       },
       repeat: true,
-      width: 1280
+      width: 6161
     },
     {
-      image: Sprite.load("images/levels/prehistoric/volcano_background.png"),
+      image: Sprite.load(imgPath + "volcano_grassy_foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
-        y: 0
+        y: 4
       },
       repeat: true,
-      width: 1600
+      width: 10000
     }
   ], generateForegroundScenary());
 

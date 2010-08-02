@@ -224,12 +224,18 @@ function addRandomWeapon() {
 }
 
 function weaponDisposal(object) {
-  object.fadeOut("slow", function() {
   object.remove();
- });
 }
 
-$(".menu").live("click", function() {
+function weaponPurchase() {
+  $("#menu_container .inventory").append(addRandomWeapon());
+}
+
+$(".store .menu").live("click", function() {
+  weaponPurchase();
+});
+
+$(".inventory .menu").live("click", function() {
   if (!$(this).attr("data-used")) {
     var weaponClass = $(this).attr("data-weaponClass");
     dropWeaponPowerup(
@@ -237,8 +243,6 @@ $(".menu").live("click", function() {
       weaponMap[weaponClass]
     );
     weaponDisposal($(this));
-    $("div.menu:last").after(addRandomWeapon());
-    $("div.menu:last").hide().fadeIn(2000);
     
     $(this).attr("data-used", 'true');
   }

@@ -1,14 +1,14 @@
 (function() {
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/floor_background.png'),
+      image: Sprite.load('images/levels/ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
-        y: CANVAS_HEIGHT - 160
+        y: CANVAS_HEIGHT - Floor.LEVEL
       },
       repeat: true,
-      width: 1920
+      width: 640
     }, {
       image: Sprite.load("images/levels/area51/test_tube_background.png"),
       parallaxRate: 0,

@@ -24,9 +24,16 @@
       = link "Learn more here", "http://www.google.com/chrome"
     #tilt
 #menu_container
-  - %w[battleAxe bazooka bomb chainsaw flamethrower laserGun machineGun meat shield shotgun].each do |weapon|
-    .menu{"data-weaponClass" => weapon}
-      = img "menu/#{weapon}.png"
+  .inventory
+    %span.label Inventory
+    - %w[battleAxe bazooka bomb chainsaw].each do |weapon|
+      .menu{"data-weaponClass" => weapon}
+        = img "menu/#{weapon}.png"
+  .store
+    %span.label Store
+    - %w[laserGun machineGun meat].each do |weapon|
+      .menu{"data-weaponClass" => weapon}
+        = img "menu/#{weapon}.png"
 
 = javascripts('contrasaurus/main')
 

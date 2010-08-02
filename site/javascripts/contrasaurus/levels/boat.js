@@ -93,5 +93,5 @@
     }
   }];
 
-  addLevel(scene, [floor], triggers);
+  addLevel(scene, [floor], triggers, "Lady Gaga - Alejandro");
 }());
