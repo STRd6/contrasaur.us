@@ -24,20 +24,11 @@ function Dinosaur() {
 
   var walkModel = Model.loadJSONUrl("javascripts/data/dinosaur/walk.model.json");
 
-  var flyModel = Model(
-    Sprite.load("images/contrasaurus/fly.png"),
-    [
-      [{"x":88,"y":-49,"radius":30},{"x":16,"y":-12,"radius":36},{"x":117,"y":-45,"radius":24},{"x":51,"y":-36,"radius":20},{"x":-62,"y":1,"radius":19},{"x":-28,"y":-6,"radius":30},{"x":-86,"y":8,"radius":18},{"x":-114,"y":24,"radius":25},{"x":-135,"y":9,"radius":6}]
-    ]
-  );
+  var flyModel = Model.loadJSONUrl("javascripts/data/dinosaur/fly.model.json");
+
   var biteModel = Model.loadJSONUrl("javascripts/data/dinosaur/bite.model.json");
 
-  var cryModel = Model(
-    Sprite.load("images/contrasaurus/cry.png"),
-    [
-      [{"x":87,"y":-52,"radius":27},{"x":13,"y":-10,"radius":37},{"x":117,"y":-45,"radius":24},{"x":50,"y":-38,"radius":19},{"x":-27,"y":-12,"radius":25},{"x":-60,"y":-2,"radius":18},{"x":-89,"y":5,"radius":14},{"x":-113,"y":10,"radius":12},{"x":-2,"y":35,"radius":20},{"x":0,"y":64,"radius":18},{"x":24,"y":72,"radius":10},{"x":39,"y":73,"radius":8},{"x":-130,"y":11,"radius":8}]
-    ]
-  );
+  var cryModel = Model.loadJSONUrl("javascripts/data/dinosaur/cry.model.json");
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 

@@ -16,6 +16,8 @@ function Soldier(I) {
 
   var deathModel = Model.loadJSONUrl("javascripts/data/sandinista/normal_death.model.json");
 
+  var currentModel = runModel;
+
   $.reverseMerge(I, {
     shootLogic: function() {
       if (Math.random() < 0.075) {
@@ -31,16 +33,23 @@ function Soldier(I) {
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
 
+        I.hitCirles = shootModel.hitFrames;
         I.sprite = shootModel.animation;
         shootModelCounter = 8;
       }
     },
-    sprite: runModel.animation,
+    hitCircles: currentModel.hitFrames,
+    sprite: currentModel.animation,
     type: 'sandinista',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
+
+  function setModel(model) {
+    currentModel = model;
+    I.sprite = currentModel.animation;
+  }
 
   var self = Enemy(I).extend({
 
@@ -69,6 +78,11 @@ function Soldier(I) {
         } else {
           I.hFlip = false;
         }
+
+        // TODO: check proxy
+        if (currentModel.hitFrame) {
+          I.hitCircles = currentModel.hitFrame();
+        }
       }
     }
   });
@@ -77,7 +91,8 @@ function Soldier(I) {
     var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,
       hFlip: true,
-      sprite: bitInHalfModel.animation,
+      hitCircles: deathModel.hitFrames,
+      sprite: deathModel.animation,
       velocity: Point(0, 0)
     }));
 

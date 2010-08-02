@@ -15,10 +15,6 @@
       = link "Learn more here", "http://www.google.com/chrome"
 
 #controls
-  %input.ui{:type => 'button', :value => 'increase'}
-  %input.ui{:type => 'button', :value => 'decrease'}
-  %input.ui{:type => 'button', :value => 'increase+'}
-  %input.ui{:type => 'button', :value => 'decrease-'}
 
 = text_field "animationDataUrl", "javascripts/data/sandinista/run.animation.json"
 %button#loadImage Load Animation
@@ -306,20 +302,25 @@
     $(document).bind('keydown', key, fn);
   });
 
-  $('.ui').bind('click', function() {
-    if ($(this).attr('value') === 'increase') {
-      grow(1);
-    }
-    if ($(this).attr('value') === 'decrease') {
-      grow(-1);
-    }
-    if ($(this).attr('value') === 'increase+') {
-      grow(5);
-    }
-    if ($(this).attr('value') === 'decrease-') {
-      grow(-5);
-    }
-  });
+  function Button(text, callback) {
+    return $("<input type='button' />").attr("value", text).click(callback);
+  }
+
+  $("#controls").append(Button("Increase", function() {
+    Circles.grow(1);
+  }));
+
+  $("#controls").append(Button("Decrease", function() {
+    Circles.grow(-1);
+  }));
+
+  $("#controls").append(Button("Increase+", function() {
+    Circles.grow(5);
+  }));
+
+  $("#controls").append(Button("Decrease+", function() {
+    Circles.grow(-5);
+  }));
 
   $("<input type='button' value='Add Circle'/>").click(function() {
     Circles.add();

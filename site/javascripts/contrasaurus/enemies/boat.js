@@ -1,23 +1,9 @@
 function Boat(I) {
   I = I || {};
 
-  var boatModel = Model(
-    Sprite.load("images/levels/parasail/parasailboat.png"),
-    [
-      [
-        {"x": 92,"y": 17,"radius": 19},
-        {"x": 115,"y": 5,"radius": 7},
-        {"x": 50,"y": 24,"radius": 24},
-        {"x": 5,"y": 28,"radius": 21},
-        {"x": -34,"y": 32,"radius": 18},
-        {"x": -68,"y": 34,"radius": 16},
-        {"x": -99,"y": 35,"radius": 15},
-        {"x": -120,"y": 28,"radius": 8},
-        {"x": -120,"y": 41,"radius": 6},
-        {"x": -61,"y": 3,"radius": 10}
-      ]
-    ]
-  );
+  var boatModel = Model.loadJSONUrl("javascripts/data/boat/boat.model.json", function(model) {
+    I.sprite = model.animation;
+  });
 
   $.reverseMerge(I, {
     collideDamage: 1,

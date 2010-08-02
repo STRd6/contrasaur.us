@@ -21,7 +21,7 @@ function Model(animation, frames, hitFrames) {
         if(animation.frame().attachmentPoints[name]) {
           return animation.frame().attachmentPoints[name];
         } else {
-          warning("no attachment point for " + name + " in " + this.url);
+          //warning("no attachment point for " + name + " in " + this.url);
           return {
             x: 0,
             y: 0,
@@ -29,7 +29,7 @@ function Model(animation, frames, hitFrames) {
           };
         }
       } else {
-        warning("no attachment points for " + this.url);
+        //warning("no attachment points for " + this.url);
       }
     },
     update: function() {

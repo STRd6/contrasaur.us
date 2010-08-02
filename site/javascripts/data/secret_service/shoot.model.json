@@ -6,102 +6,126 @@
     "width": 67,
     "url": "images/enemies/secret_service/shoot.png"
   },
-  "hitFrames": [
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 16,
-        "radius": 11
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -12,
-        "y": 16,
-        "radius": 11
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 12,
-        "radius": 13
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 17,
-        "radius": 12
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 15,
-        "radius": 10
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -13,
-        "y": 15,
-        "radius": 11
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 14,
-        "radius": 12
-      }
-    ],
-    [
-      {
-        "x": -10,
-        "y": -6,
-        "radius": 11
-      },
-      {
-        "x": -11,
-        "y": 16,
-        "radius": 11
-      }
-    ]
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 16,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -12,
+          "y": 16,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 12,
+          "radius": 13
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 17,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 15,
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -13,
+          "y": 15,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 14,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -10,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -11,
+          "y": 16,
+          "radius": 11
+        }
+      ]
+    }
   ]
 }
