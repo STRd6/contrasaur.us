@@ -23,11 +23,8 @@ function Dinosaur() {
   var pitchAngle = 0;
 
   var walkModel = Model.loadJSONUrl("javascripts/data/dinosaur/walk.model.json");
-
   var flyModel = Model.loadJSONUrl("javascripts/data/dinosaur/fly.model.json");
-
   var biteModel = Model.loadJSONUrl("javascripts/data/dinosaur/bite.model.json");
-
   var cryModel = Model.loadJSONUrl("javascripts/data/dinosaur/cry.model.json");
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");

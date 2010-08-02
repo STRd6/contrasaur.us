@@ -1,19 +1,21 @@
 function Tank(I) {
   I = I || {};
 
-  var gunAngle;
-  var tankTile = loadAnimation("images/enemies/tank_move.png", 4, 123, 55, 3);
+  var gunAngle = 13 * Math.PI / 12;;
   var exitPoint = Point(60, -23);
+
+  var tankModel = Model.loadJSONUrl("javascripts/data/tank/tank.model.json", function(model) {
+    I.sprite = model.animation;
+  });
 
   $.reverseMerge(I, {
     y: CANVAS_HEIGHT - Floor.LEVEL,
-    radius: 25,
-    xVelocity: 0.5,
+    xVelocity: -0.5,
     health: 10,
-    hFlip: I.xVelocity <= 0,
-    color: "#FF7",
+    hFlip: true,
     pointsWorth: 5000,
-    sprite: tankTile,
+    hitCircles: tankModel.hitFrames,
+    sprite: tankModel.animation,
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
@@ -32,14 +34,14 @@ function Tank(I) {
     type: 'tank'
   });
 
-  if (I.xVelocity == 0.5) {
-    gunAngle = - Math.PI / 12;
-  } else {
-    gunAngle = 13 * Math.PI / 12;
-  }
-
   var self = Enemy(I).extend({
-    bulletHitEffect: Enemy.sparkSprayEffect
+    bulletHitEffect: Enemy.sparkSprayEffect,
+
+    after: {
+      update: function() {
+        I.hitCircles = tankModel.hitFrame();
+      }
+    }
   });
 
   return self;

@@ -2,7 +2,10 @@ function Scientist(I) {
   I = I || {};
 
   var exitPoint = Point(-15, -20);
-  //var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
+
+  var scientistModel = Model.loadJSONUrl("javascripts/data/scientist/scientist.model.json", function(model) {
+    I.sprite = model.animation;
+  });
 
   $.reverseMerge(I, {
     shootLogic: function() {
@@ -18,13 +21,13 @@ function Scientist(I) {
           x: p.x,
           y: p.y,
           radius: 2,
-          sprite: Sprite.load("images/projectiles/test_tube.png"),
           theta: theta,
           yVelocity: Math.clamp(-1*rand(15), -15, -2)
         });
       }
     },
-    sprite: Sprite.load("images/enemies/mad_scientist.png"),
+    hitCircles: scientistModel.hitFrames,
+    sprite: scientistModel.animation,
     type: 'scientist',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
@@ -52,9 +55,14 @@ function Scientist(I) {
         } else {
           I.hFlip = false;
         }
+
+        // TODO: check proxy
+        if (scientistModel.hitFrame) {
+          I.hitCircles = scientistModel.hitFrame();
+        }
       }
     }
   });
-
+  
   return self;
 }
