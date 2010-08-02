@@ -271,14 +271,14 @@ function Level(I) {
       oldEnemies = collidables.enemy;
 
       // Update debug
-      if(debugCounts) {
-        var html = "";
-        $.each(self.debugCounts(), function(key, value) {
-          html += key + ": " + value + "<br />"
-        });
-
-        $("#debug").html(html);
-      }
+//      if(debugCounts) {
+//        var html = "";
+//        $.each(self.debugCounts(), function(key, value) {
+//          html += key + ": " + value + "<br />"
+//        });
+//
+//        $("#debug").html(html);
+//      }
     }
   };
 
