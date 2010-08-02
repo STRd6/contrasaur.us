@@ -210,6 +210,9 @@ function Level(I) {
       }
 
       intervalId = setInterval(function() {
+        if (gamePaused) {
+          return;
+        }
         activateTriggers();
         I.beforeStep(self);
         self.step();
@@ -229,6 +232,10 @@ function Level(I) {
     },
 
     step: function step() {
+      if (debugHalt) {
+        debugger;
+      }
+
       I.scene.update();
 
       resetCollidables();

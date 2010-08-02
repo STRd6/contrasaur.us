@@ -17,9 +17,10 @@ function Model(animation, frames, hitFrames) {
     },
     hitFrames: hitFrames,
     attachment: function(name) {
-      if(animation.frame().attachmentPoints) {
-        if(animation.frame().attachmentPoints[name]) {
-          return animation.frame().attachmentPoints[name];
+      var currentFrame = frames[animation.frame()];
+      if(currentFrame.attachmentPoints) {
+        if(currentFrame.attachmentPoints[name]) {
+          return currentFrame.attachmentPoints[name];
         } else {
           //warning("no attachment point for " + name + " in " + this.url);
           return {
@@ -30,7 +31,13 @@ function Model(animation, frames, hitFrames) {
         }
       } else {
         //warning("no attachment points for " + this.url);
+        return {
+          x: 0,
+          y: 0,
+          direction: 0
+        };
       }
+
     },
     update: function() {
       animation.update();

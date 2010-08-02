@@ -164,6 +164,9 @@ function Dinosaur() {
         );
 
         $.each(accessories, function(i, accessory) {
+          if (debugHalt) {
+            debugger;
+          }
           var point = currentModel.attachment(accessory.attachment());
           accessory.position(point);
           accessory.draw(canvas);
@@ -314,6 +317,17 @@ function Dinosaur() {
       }
     }
   });
+
+  var tophat = Accessory({
+    attachment: "hat",
+    sprite: Sprite.load("images/accessories/tophat.png")
+  });
+
+  if(rand() < 1) {
+    console.log(tophat.position());
+    console.log(tophat.attachment());
+    self.addAccessory(tophat);
+  }
 
   return self;
 }

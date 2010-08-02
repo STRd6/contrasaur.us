@@ -19,7 +19,7 @@
 = text_field "animationDataUrl", "javascripts/data/sandinista/run.animation.json"
 %button#loadImage Load Animation
 = "|"
-= text_field "modelDataUrl", "javascripts/data/dinosaur/bite.model.json"
+= text_field "modelDataUrl", "javascripts/data/brontosaurus/brontosaurus.model.json"
 %button#loadModel Load Model
 = "|"
 %button#export Export
@@ -190,12 +190,13 @@
 
   function generateComponentMethods(component, creator) {
     function getter() {
-      frames[currentFrame][component];
+      return frames[currentFrame][component];
     };
 
     return {
       add: function() {
         active[component] = creator();
+        getter().push(active[component]);
       },
 
       grow: function(delta) {

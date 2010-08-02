@@ -87,7 +87,9 @@
       }
     };
 
-    track($(img));
+    if(url) {
+      track($(img));
+    }
     img.onerror = brokenImageWarning(url);
 
     img.src = url;
@@ -178,7 +180,9 @@
       }
     };
 
-    track($(img));
+    if(url) {
+      track($(img));
+    }
     img.onerror = brokenImageWarning(url);
 
     img.src = url;

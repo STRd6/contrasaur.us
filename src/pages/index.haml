@@ -45,9 +45,7 @@
     var loadChecker = setInterval(function() {
       var status = AssetTracker.count();
 
-      // Added some fudge, it looks like it's not triggering the load tracking
-      // on two assets
-      if(status[0] >= status[1] - 2) {
+      if(status[0] >= status[1]) {
         clearInterval(loadChecker);
         nextStage();
       }

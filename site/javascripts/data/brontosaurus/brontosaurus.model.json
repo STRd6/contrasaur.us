@@ -1,0 +1,81 @@
+{
+  "animation": {
+    "delay": 1,
+    "frames": 1,
+    "height": 354,
+    "width": 751,
+    "url": "images/enemies/brontosaurus.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 304,
+          "y": -151,
+          "radius": 19
+        },
+        {
+          "x": 341,
+          "y": -159,
+          "radius": 19
+        },
+        {
+          "x": 271,
+          "y": -128,
+          "radius": 22
+        },
+        {
+          "x": 238,
+          "y": -96,
+          "radius": 25
+        },
+        {
+          "x": 165,
+          "y": -12,
+          "radius": 31
+        },
+        {
+          "x": 112,
+          "y": 25,
+          "radius": 36
+        },
+        {
+          "x": 4,
+          "y": 26,
+          "radius": 73
+        },
+        {
+          "x": 76,
+          "y": 75,
+          "radius": 28
+        },
+        {
+          "x": 80,
+          "y": 116,
+          "radius": 15
+        },
+        {
+          "x": 203,
+          "y": -57,
+          "radius": 28
+        },
+        {
+          "x": 94,
+          "y": 139,
+          "radius": 13
+        },
+        {
+          "x": 108,
+          "y": 159,
+          "radius": 13
+        },
+        {
+          "x": 364,
+          "y": -140,
+          "radius": 13
+        }
+      ]
+    }
+  ]
+}

@@ -15,6 +15,8 @@ var killCounter = {
 var floor;
 var bulletQueue = [];
 var dialogBox = DialogBox("GAME OVER");
+var gamePaused = false;
+var debugHalt = false;
 var leaderBoard = DialogBox("ALL TIME LEADERS:", {
   height: 25,
   yPosition: 25
@@ -180,23 +182,20 @@ $(document).bind('keydown', "0", function() {
   GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
 });
 
+$(document).bind('keydown', "d", function() {
+  debugHalt = true;
+});
+
+$(document).bind('keydown', "p", function() {
+  gamePaused = !gamePaused;
+});
+
 // Level select
 $(document).keydown(function(e) {
   if(e.keyCode >= 49 && e.keyCode <= 57) {
     nextStage(e.keyCode - 48);
   }
 });
-
-var tophat = Accessory({
-  attachment: "hat", //the named point from the model
-  //x: 85,
-  //y: -85,
-  sprite: Sprite.load("images/accessories/tophat.png")
-});
-
-if(rand() < 0.9) {
-  dino.addAccessory(tophat);
-}
 
 function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
