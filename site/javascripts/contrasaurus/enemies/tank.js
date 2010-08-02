@@ -39,7 +39,9 @@ function Tank(I) {
 
     after: {
       update: function() {
-        I.hitCircles = tankModel.hitFrame();
+        if (I.type === 'tank') {
+          I.hitCircles = tankModel.hitFrame();
+        }
       }
     }
   });

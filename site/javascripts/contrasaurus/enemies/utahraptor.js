@@ -1,17 +1,21 @@
 function Utahraptor(I) {
   I = I || {};
 
+  var raptorAnimation = loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3);
+
   $.reverseMerge(I, {
     collideDamage: 0,
     health: 1,
     pointsWorth: 1000,
     radius: 20,
     shootLogic: $.noop,
-    sprite: loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3),
-    type: 'utahraptor'
+    sprite: raptorAnimation,
+    type: 'utahraptor',
+    xVelocity: -0.5,
+    y: CANVAS_HEIGHT - Floor.LEVEL,
   });
 
-  var self = Tank(I).extend({
+  var self = Enemy(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
 
     burn: function(flame) {

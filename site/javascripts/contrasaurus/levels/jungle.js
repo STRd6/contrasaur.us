@@ -1,6 +1,16 @@
 (function() {
   var scene = Scene([
     {
+      image: Sprite.load('images/levels/floor_background.png'),
+      parallaxRate: 0,
+      position: {
+        x: 0,
+        y: CANVAS_HEIGHT - 160
+      },
+      repeat: true,
+      width: 1920
+    },
+    {
       image: Sprite.load("images/levels/jungle/background.png"),
       parallaxRate: 0,
       position: {
