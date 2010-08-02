@@ -320,9 +320,7 @@ function Dinosaur() {
     sprite: Sprite.load("images/accessories/tophat.png")
   });
 
-  if(rand() < 1) {
-    console.log(tophat.position());
-    console.log(tophat.attachment());
+  if(rand() < 0) {
     self.addAccessory(tophat);
   }
 
