@@ -4,6 +4,7 @@ function BattleAxe(I) {
   var thrown = false;
 
   $.reverseMerge(I, {
+    duration: 150,
     exitPoints: [Point(10, -30)],
     radius: 5,
     sprite: Sprite.load("images/weapons/battleAxe.png"),
@@ -36,12 +37,16 @@ function BattleAxe(I) {
       }
     },
 
-    after: {
+    before: {
       update: function() {
-        if (Math.random() < 0.03) {
+        if(I.age >= I.duration) {
           thrown = true;
         }
+      }
+    },
 
+    after: {
+      update: function() {
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;
       }
     }

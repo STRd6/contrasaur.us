@@ -277,7 +277,7 @@ GameObject.generateCheckBounds = function(I, buffer) {
     // Check Bounds
     if (I.x + buffer < position.x - I.radius ||
       I.x - buffer > xMax + I.radius ||
-      I.y + buffer < -I.radius ||
+      I.y + buffer + 100 < -I.radius ||
       I.y - buffer > yMax + I.radius
     ) {
       I.active = false;
