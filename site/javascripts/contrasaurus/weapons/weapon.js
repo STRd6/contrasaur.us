@@ -19,6 +19,10 @@ function Weapon(I) {
       }
     },
 
+    getTransform: function() {
+      return Matrix.IDENTITY;
+    },
+
     generateProjectile: function(direction, position) {
       return Bullet({ theta: direction, x: position.x, y: position.y });
     },

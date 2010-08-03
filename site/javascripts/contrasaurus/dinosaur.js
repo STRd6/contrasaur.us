@@ -241,6 +241,11 @@ function Dinosaur() {
       }
     },
     before: {
+      update: function() {
+        if(biteCounter > 0) {
+          I.xVelocity = 0;
+        }
+      },
       // HAX: to make sure walking on the floor
       // doesn't trigger the cry model
       hit: function(other) {
@@ -258,7 +263,9 @@ function Dinosaur() {
       update: function(position) {
         // Choose correct animation and hitFrames
 
-        biteCounter--;
+        if(biteCounter > 0) {
+          biteCounter--;
+        }
 
         if(parasailing) {
           I.xVelocity = Math.sin(I.age) + currentLevel.tiltAmount();
@@ -277,10 +284,14 @@ function Dinosaur() {
           if (airborne) {
             setModel(flyModel);
           } else {
-            if (biteCounter <= 0) {
+            if (biteCounter == 0) {
+              if(I.xVelocity == 0) {
+                I.xVelocity = 2;
+              }
+
               setModel(walkModel);
             }
-            lastDirection = I.xVelocity;
+            lastDirection = I.xVelocity || 1;
           }
         }
 

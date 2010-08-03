@@ -3,17 +3,13 @@ function Bite(I) {
 
   $.reverseMerge(I, {
     duration: -1,
-    exitPoints: [Point(50, 60)],
+    exitPoints: [Point(110, 60)],
     radius: 50,
     sprite: Sprite.EMPTY,
     theta: 0
   });
 
   var self = Weapon(I).extend({
-    getTransform: function() {
-      return Matrix.rotation(I.theta, Point(-52, -12)).translate(122, -5);
-    },
-
     generateProjectile: function(direction, position) {
       return Bullet({
         collideDamage: 0,
