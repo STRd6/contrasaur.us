@@ -12,10 +12,11 @@ var frames;
 $('#gameCanvas').powerCanvas({init: function(canvas) {
   var character = GameObject().extend({
     attachmentPoints: function() {
+      var attachmentPoints = {};
       var transform = this.getTransform();
 
-      if(frames) {
-        var attachmentPoints = {};
+      if(frames && frames[currentFrame]) {
+        
         $.each(frames[currentFrame].attachmentPoints, function(name, point) {
           var transformedPoint = transform.transformPoint(point);
           attachmentPoints[name] = {
@@ -32,7 +33,7 @@ $('#gameCanvas').powerCanvas({init: function(canvas) {
     getCircles: function() {
       var transform = this.getTransform();
 
-      if(frames) {
+      if(frames && frames[currentFrame]) {
         return $.map(frames[currentFrame].circles, function(circle) {
           var point = transform.transformPoint(circle);
           return {
@@ -322,7 +323,15 @@ function loadAnimationJSON(url) {
     animationJSON = data;
     frames = [];
   });
-};
+}
+
+function loadImage(url) {
+  Sprite.load(url, function(sprite) {
+    animation = sprite;
+    currentFrame = animation.frame();
+    frames = [{attachmentPoints: {}, circles: []}];
+  });
+}
 
 function loadModel(url) {
   Model.loadJSONUrl(url, function(model, animData) {
@@ -342,6 +351,10 @@ function loadModel(url) {
 }
 
 $("#loadImage").click(function() {
+  loadImage($(this).prev().val());
+});
+
+$("#loadAnimation").click(function() {
   loadAnimationJSON($(this).prev().val());
 });
 
