@@ -1,36 +1,38 @@
 (function() {
+  var imgPath = "images/levels/parasail/";
+
   var scene = Scene([
     {
-      image: Sprite.load("images/levels/parasail/coast.png"),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: 0
-      }
-    },
-    {
-      image: Sprite.load("images/levels/clouds2.png"),
-      parallaxRate: 1,
-      velocity: Point(-0.5, 0),
+      image: Sprite.load(imgPath + "background.png"),
+      parallaxRate: 0.25,
       position: {
         x: 0,
         y: 0
       },
       repeat: true,
-      width: 640
+      width: 1800
+    },
+    {
+      image: Sprite.load(imgPath + "midground.png"),
+      parallaxRate: 0.5,
+      position: {
+        x: 0,
+        y: 0
+      },
+      repeat: true,
+      width: 4650
+    },
+    {
+      image: Sprite.load(imgPath + "foreground.png"),
+      parallaxRate: 1,
+      position: {
+        x: 0,
+        y: 0
+      },
+      repeat: true,
+      width: 10000
     }
   ], [
-    {
-      image: Sprite.load("images/levels/clouds1.png"),
-      parallaxRate: 1,
-      velocity: Point(-1, 0),
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      width: 640
-    },
     {
       image: Sprite.load("images/levels/parasail/ocean.png"),
       parallaxRate: 1,
