@@ -1,27 +1,21 @@
 function ThrownItem(I) {
   I = I || {};
 
-   $.reverseMerge(I, {
-     speed: 20,
-     theta: -Math.PI/6,
-     weaponName: "battleAxe"
-   });
+  $.reverseMerge(I, {
+    speed: 20,
+    theta: -Math.PI/6,
+    weaponName: "battleAxe"
+  });
 
   $.reverseMerge(I, {
     collideDamage: 0,
     collisionType: "dinoBullet",
     explodeDamage: 20,
-    dispersion: 0,
-    duration: -1,
-    effectCount: 1,
     radius: 30,
     rotation: 0,
     rotationalVelocity: Math.PI/10,
-    sprite: Sprite.load("images/weapons/" + I.weaponName + ".png"),
-    xVelocity: Math.cos(I.theta)*I.speed,
-    yVelocity: Math.sin(I.theta)*I.speed + 1,
-    x: dino.position().x,
-    y: dino.position().y
+    shoot: $.noop,
+    sprite: Sprite.load("images/weapons/" + I.weaponName + ".png")
   });
 
   function detonate() {
@@ -45,6 +39,9 @@ function ThrownItem(I) {
     before: {
       hit: function(other) {
         detonate();
+      },
+      update: function() {
+        I.shoot(I);
       }
     },
     after: {

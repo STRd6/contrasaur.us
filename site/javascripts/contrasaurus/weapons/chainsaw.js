@@ -28,7 +28,9 @@ function Chainsaw(I) {
           explodeDamage: 200,
           weaponName: "chainsaw",
           xVelocity: 8,
-          yVelocity: -20
+          yVelocity: -20,
+          x: dino.position().x,
+          y: dino.position().y
         });
       } else {
         return Bullet({

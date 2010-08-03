@@ -10,7 +10,6 @@ function Bullet(I) {
     collideDamage: 1,
     collisionType: "dinoBullet",
     dispersion: 0,
-    duration: -1,
     effectCount: 1,
     radius: 2,
     sprite: Sprite.load("images/projectiles/playerbullet4.png"),

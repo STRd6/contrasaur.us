@@ -3,6 +3,8 @@ function MachineGun(I) {
 
   var gunTile = Sprite.load("images/weapons/machineGun.png");
 
+  var thrown = false;
+
   $.reverseMerge(I, {
     exitPoints: [Point(50, 1)],
     radius: 5,
@@ -34,6 +36,38 @@ function MachineGun(I) {
   var self = Weapon(I).extend({
     getTransform: function() {
       return Matrix.rotation(I.theta);
+    },
+
+    generateProjectile: function(direction, position) {
+      if (thrown) {
+        I.active = false;
+        thrown = false;
+        dino.lastDirection(1);
+        var xVelocity = dino.xVelocity();
+        dino.xVelocity(Math.abs(xVelocity));
+        return ThrownItem({
+          collideDamage: 20,
+          explodeDamage: 20,
+          shoot: function(I) {
+            addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }))
+          },
+          weaponName: "machineGun",
+          xVelocity: 8,
+          yVelocity: -20,
+          x: dino.position().x,
+          y: dino.position().y
+        });
+      } else {
+        return Bullet({ theta: direction, x: position.x, y: position.y });
+      }
+    },
+
+    before: {
+      update: function() {
+        if(I.age >= I.duration || rand() < 0.005) {
+          thrown = true;
+        }
+      }
     },
 
     after: {

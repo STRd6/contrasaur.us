@@ -23,7 +23,10 @@ function BattleAxe(I) {
         dino.lastDirection(1);
         var xVelocity = dino.xVelocity();
         dino.xVelocity(Math.abs(xVelocity));
-        return ThrownItem({});
+        return ThrownItem({
+          x: dino.position().x,
+          y: dino.position().y
+        });
       } else {
         return Bullet({
           duration: 1,
