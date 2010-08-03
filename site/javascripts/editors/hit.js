@@ -164,12 +164,18 @@ function previousFrame() {
 function generateComponentMethods(component, creator) {
   function getter() {
     return frames[currentFrame][component];
-  };
+  }
 
   return {
     add: function() {
       active[component] = creator();
-      getter().push(active[component]);
+      if(component === "circles") {
+        getter().push(active[component]);
+      } else {
+        frames[currentFrame][component] = {
+          "hat": active[component]
+        }
+      }
     },
 
     grow: function(delta) {
@@ -304,11 +310,17 @@ $("<input type='button' value='Add Attachment Point'/>").click(function() {
   AttachmentPoints.add();
 }).appendTo($("#controls"));
 
-$("<input type='button' value='Remove Circle' />").click(function() {
+//$("<input type='button' value='Add Attachment Point'/>").click(function() {
+//  attachmentPoints = {
+//    "hat": {"x": 0, "y": 0, "direction": 0}
+//  }
+//}).appendTo($("#controls"));
+
+$("<input type='button' value='Remove Circle'/>").click(function() {
   Circles.remove();
 }).appendTo($("#controls"));
 
-$("<input type='button' value='Previous Frame' />").click(function() {
+$("<input type='button' value='Previous Frame'/>").click(function() {
   previousFrame();
 }).appendTo($("#controls"));
 
