@@ -329,6 +329,7 @@ function loadImage(url) {
   Sprite.load(url, function(sprite) {
     animation = sprite;
     currentFrame = animation.frame();
+    //TODO: Animation JSON or a switch to export only the circles
     frames = [{attachmentPoints: {}, circles: []}];
   });
 }
