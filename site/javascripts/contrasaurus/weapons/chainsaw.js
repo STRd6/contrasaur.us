@@ -24,7 +24,11 @@ function Chainsaw(I) {
         var xVelocity = dino.xVelocity();
         dino.xVelocity(Math.abs(xVelocity));
         return ThrownItem({
-          weaponName: "chainsaw"
+          collideDamage: 200,
+          explodeDamage: 200,
+          weaponName: "chainsaw",
+          xVelocity: 8,
+          yVelocity: -20
         });
       } else {
         return Bullet({
@@ -43,7 +47,7 @@ function Chainsaw(I) {
 
     after: {
       update: function() {
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.001) {
           thrown = true;
         }
 

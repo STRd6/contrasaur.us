@@ -1,12 +1,14 @@
 (function(){
   var scene = Scene(
     [{
-      image: Sprite.load("images/levels/washington_dc/background.png"),
+      image: Sprite.load('images/levels/ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
-        y: 0
-      }
+        y: CANVAS_HEIGHT - Floor.LEVEL
+      },
+      repeat: true,
+      width: 640
     }],
     []
   );
