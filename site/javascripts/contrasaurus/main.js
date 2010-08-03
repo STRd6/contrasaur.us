@@ -215,24 +215,24 @@ function dropWeaponPowerup(imgFile, weaponClass) {
   });
 }
 
-function addRandomWeapon() {
-  return $.map(["battleAxe", "bazooka", "bomb", "chainsaw", "flamethrower", "laserGun", "machineGun", "meat", "shotgun"], function(weaponClass) {
-    var div = $("<div />").addClass("menu").attr("data-weaponClass", weaponClass);
-    div.append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"));
-    return div;
-  }).rand();
+var weaponDivs = $.map(["battleAxe", "bazooka", "bomb", "chainsaw", "flamethrower", "laserGun", "machineGun", "meat", "shotgun"], function(weaponClass) {
+  var div = $("<div />").addClass("menu").attr("data-weaponClass", weaponClass);
+  div.append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"));
+  return div;
+});
+
+function randomWeapon() {
+  return weaponDivs.rand().clone();
 }
 
 function weaponDisposal(object) {
   object.remove();
 }
 
-function weaponPurchase() {
-  $("#menu_container .inventory").append(addRandomWeapon());
-}
 
 $(".store .menu").live("click", function() {
-  weaponPurchase();
+  $("#menu_container .inventory").append(this);
+  $("#menu_container .store").append(randomWeapon());
 });
 
 $(".inventory .menu").live("click", function() {
