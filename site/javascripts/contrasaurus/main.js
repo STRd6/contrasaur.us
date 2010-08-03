@@ -159,8 +159,8 @@ function addLevel(scene, platforms, triggers, audio) {
   stages.push(level);
 }
 
-function addCutscene(image, text, duration) {
-  stages.push(Cutscene(image, text, duration, nextStage));
+function addCutscene(image, text, duration, avatar) {
+  stages.push(Cutscene(image, text, duration, avatar, nextStage));
 }
 
 function addGameObject(gameObject) {
