@@ -74,7 +74,14 @@
           "y": 11,
           "radius": 8
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 88,
+          "y": -85,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -163,7 +170,14 @@
           "y": 50,
           "radius": 8
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 88,
+          "y": -84,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -262,7 +276,14 @@
           "y": 24,
           "radius": 8
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 87,
+          "y": -85,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -361,7 +382,14 @@
           "y": 34,
           "radius": 10
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 86,
+          "y": -86,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -430,7 +458,14 @@
           "y": 74,
           "radius": 9
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 86,
+          "y": -83,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -509,7 +544,14 @@
           "y": 54,
           "radius": 10
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 88,
+          "y": -83,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -603,7 +645,14 @@
           "y": 57,
           "radius": 11
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 85,
+          "y": -84,
+          "radius": 5
+        }
+      }
     },
     {
       "circles": [
@@ -692,7 +741,14 @@
           "y": 44,
           "radius": 8
         }
-      ]
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 84,
+          "y": -85,
+          "radius": 5
+        }
+      }
     }
   ]
 }
