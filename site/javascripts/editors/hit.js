@@ -3,11 +3,16 @@ var animation;
 var animationJSON;
 var currentFrame = 0;
 var active = {};
+
+var frames;
+
+// Display properties
+var showCircles = true;
+var showAttachmentPoints = true;
 var attachmentRadius = 5;
 var attachmentColor = "rgba(0, 255, 0, 0.5)";
 var activeColor = "rgba(255, 0, 255, 0.5)";
 var circleColor = "rgba(255, 0, 0, 0.5)";
-var frames;
 
 $('#gameCanvas').powerCanvas({init: function(canvas) {
   var character = GameObject().extend({
@@ -64,16 +69,20 @@ $('#gameCanvas').powerCanvas({init: function(canvas) {
         });
       }
 
-      $.each(this.getCircles(), function(i, circle) {
-        var color = (circle.circle == active["circles"] ? activeColor : circleColor);
-        canvas.fillCircle(circle.x, circle.y, circle.radius, color);
-      });
+      if(showCircles) {
+        $.each(this.getCircles(), function(i, circle) {
+          var color = (circle.circle == active["circles"] ? activeColor : circleColor);
+          canvas.fillCircle(circle.x, circle.y, circle.radius, color);
+        });
+      }
 
-      $.each(this.attachmentPoints(), function(name, point) {
-        var color = (point.point == active["attachmentPoints"] ? activeColor : attachmentColor)
-        canvas.fillCircle(point.x, point.y, attachmentRadius, color);
-        canvas.fillText(name, point.x, point.y - 10);
-      });
+      if(showAttachmentPoints) {
+        $.each(this.attachmentPoints(), function(name, point) {
+          var color = (point.point == active["attachmentPoints"] ? activeColor : attachmentColor)
+          canvas.fillCircle(point.x, point.y, attachmentRadius, color);
+          canvas.fillText(name, point.x, point.y - 10);
+        });
+      }
     }
   });
 
@@ -92,39 +101,42 @@ $('#gameCanvas').powerCanvas({init: function(canvas) {
     var activeComponent = undefined;
     var set = false;
 
-    // Check which circle was hit
-    $.each(character.getCircles(), function(i, circle) {
-      if(set) {
-        return;
-      }
+    if(showAttachmentPoints) {
+      $.each(character.attachmentPoints(), function(name, attachmentPoint) {
+        if(set) {
+          return;
+        }
 
-      var dx = point.x - circle.x;
-      var dy = point.y - circle.y;
-      var dist = circle.radius;
+        var dx = point.x - attachmentPoint.x;
+        var dy = point.y - attachmentPoint.y;
+        var dist = attachmentRadius;
 
-      if(dx * dx + dy * dy < dist * dist) {
-        activeType = "circles";
-        activeComponent = circle.circle;
-        set = true;
-      }
+        if(dx * dx + dy * dy < dist * dist) {
+          activeType = "attachmentPoints"
+          activeComponent = attachmentPoint.point;
+          set = true;
+        }
+      });
+    }
 
-    });
+    if(showCircles) {
+      $.each(character.getCircles(), function(i, circle) {
+        if(set) {
+          return;
+        }
 
-    $.each(character.attachmentPoints(), function(name, attachmentPoint) {
-      if(set) {
-        return;
-      }
+        var dx = point.x - circle.x;
+        var dy = point.y - circle.y;
+        var dist = circle.radius;
 
-      var dx = point.x - attachmentPoint.x;
-      var dy = point.y - attachmentPoint.y;
-      var dist = attachmentRadius;
+        if(dx * dx + dy * dy < dist * dist) {
+          activeType = "circles";
+          activeComponent = circle.circle;
+          set = true;
+        }
 
-      if(dx * dx + dy * dy < dist * dist) {
-        activeType = "attachmentPoints"
-        activeComponent = attachmentPoint.point;
-        set = true;
-      }
-    });
+      });
+    }
 
     $.each(active, function(key, value) {
       active[key] = undefined;
@@ -167,14 +179,12 @@ function generateComponentMethods(component, creator) {
   }
 
   return {
-    add: function() {
+    add: function(param) {
       active[component] = creator();
       if(component === "circles") {
         getter().push(active[component]);
       } else {
-        frames[currentFrame][component] = {
-          "hat": active[component]
-        }
+        frames[currentFrame][component][param] = active[component];
       }
     },
 
@@ -307,7 +317,8 @@ $("<input type='button' value='Add Circle'/>").click(function() {
 }).appendTo($("#controls"));
 
 $("<input type='button' value='Add Attachment Point'/>").click(function() {
-  AttachmentPoints.add();
+  var name = prompt("Attachment point name:", '');
+  AttachmentPoints.add(name);
 }).appendTo($("#controls"));
 
 //$("<input type='button' value='Add Attachment Point'/>").click(function() {

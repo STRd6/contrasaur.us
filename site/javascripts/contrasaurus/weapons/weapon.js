@@ -9,7 +9,7 @@ function Weapon(I) {
     theta: 0
   });
 
-  var self = GameObject(I).extend({
+  var self = Accessory(I).extend({
     dino: function(newDino) {
       if(newDino !== undefined) {
         I.dino = newDino;
@@ -17,10 +17,6 @@ function Weapon(I) {
       } else {
         return I.dino;
       }
-    },
-
-    getTransform: function() {
-      return Matrix.IDENTITY;
     },
 
     generateProjectile: function(direction, position) {

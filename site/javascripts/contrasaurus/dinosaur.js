@@ -161,15 +161,14 @@ function Dinosaur() {
         );
 
         $.each(accessories, function(i, accessory) {
-          if (debugHalt) {
-            debugger;
-          }
           var point = currentModel.attachment(accessory.attachment());
           accessory.position(point);
           accessory.draw(canvas);
         });
 
         $.each(weapons, function(i, weapon) {
+          var point = currentModel.attachment(weapon.attachment());
+          weapon.position(point);
           weapon.draw(canvas);
         });
       });

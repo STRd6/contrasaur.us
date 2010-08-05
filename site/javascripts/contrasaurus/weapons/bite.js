@@ -2,6 +2,7 @@ function Bite(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    attachment: "center",
     duration: -1,
     exitPoints: [Point(110, 60)],
     radius: 50,

@@ -3,6 +3,7 @@ function Shield(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    attachment: "center",
     collideDamage: 1,
     duration: -1,
     effectCount: 3,

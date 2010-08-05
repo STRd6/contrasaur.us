@@ -7,6 +7,7 @@ function LaserGun(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    attachment: "eye",
     duration: 3000,
     exitPoints: [Point(5, 2)],
     power: 10,
@@ -15,10 +16,6 @@ function LaserGun(I) {
   });
 
   var self = Weapon(I).extend({
-    getTransform: function() {
-      return Matrix.translation(95, -67);
-    },
-
     generateProjectile: function(direction, position) {
       return Bullet({
         speed: 13,

@@ -9,6 +9,7 @@ function Jetpack(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    attachment: "back",
     duration: -1,
     engaged: false,
     eventCallbacks: {
@@ -54,11 +55,6 @@ function Jetpack(I) {
   });
 
   var self = Weapon(I).extend({
-
-    draw: function(canvas) {
-      I.sprite.draw(canvas, -45, -55);
-    },
-
     engaged: function(value) {
       if (value === undefined) {
         return I.engaged;

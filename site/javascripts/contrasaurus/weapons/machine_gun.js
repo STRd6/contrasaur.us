@@ -35,7 +35,7 @@ function MachineGun(I) {
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.rotation(I.theta);
+      return Matrix.rotation(I.theta).translate(I.x, I.y);
     },
 
     generateProjectile: function(direction, position) {
