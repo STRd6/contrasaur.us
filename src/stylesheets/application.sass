@@ -74,10 +74,25 @@ body
   font-weight: bold
   display: block
 
+#money
+  color: green
 
-div.menu
-  width: 64px
+
+.menu
   float: left
+  position: relative
+  width: 64px
+
+  .price
+    color: green
+    left: 6px
+    position: absolute
+    top: 6px
+
+.inventory
+  .menu
+    .price
+      display: none
 
 .left
   float: left

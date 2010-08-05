@@ -30,19 +30,28 @@
         y: 0
       },
       repeat: true,
-      width: 10000
+      width: 2200
     }
   ], [
     {
-      image: Sprite.load("images/levels/parasail/ocean.png"),
+      image: Sprite.load(imgPath + "water_background.png"),
       parallaxRate: 1,
-      velocity: Point(-3, 0),
+      position: {
+        x: 0,
+        y: 300
+      },
+      repeat: true,
+      width: 1800
+    },
+    {
+      image: Sprite.load(imgPath + "water_foreground.png"),
+      parallaxRate: 4,
       position: {
         x: 0,
         y: 320
       },
       repeat: true,
-      width: 640
+      width: 2600
     }
   ]);
 

@@ -265,6 +265,7 @@ function Level(I) {
 
       // TODO: Move this somewhere
       score += collidables.dinoBullet.length;
+      money += 1;
 
       position.x += tiltAmount;
 

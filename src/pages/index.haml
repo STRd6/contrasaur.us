@@ -26,14 +26,13 @@
 #menu_container
   .inventory
     %span.label Inventory
-    - %w[battleAxe bazooka bomb chainsaw].each do |weapon|
-      .menu{"data-weaponClass" => weapon}
-        = img "menu/#{weapon}.png"
+
   .store
-    %span.label Store
-    - %w[laserGun machineGun meat].each do |weapon|
-      .menu{"data-weaponClass" => weapon}
-        = img "menu/#{weapon}.png"
+    %span.label 
+      Store
+      %span#money 
+        $
+        %span.amount 0
 
 = javascripts('contrasaurus/main')
 

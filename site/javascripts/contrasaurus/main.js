@@ -1,4 +1,5 @@
 var score = 0;
+var money = 1000;
 var canvas;
 var dino = Dinosaur();
 var killCounter = {
@@ -49,7 +50,7 @@ var weapons = [
   "meat",
   "shield",
   "shotgun"
-]
+];
 
 var weaponMap = {
   "battleAxe": BattleAxe,
@@ -62,7 +63,7 @@ var weaponMap = {
   "meat": Meat,
   "shield": Shield,
   "shotgun": Shotgun
-}
+};
 
 var gameOver = false;
 var currentStage = -1;
@@ -88,6 +89,7 @@ function drawOverlay() {
 
   // Score display
   $("#score").text(score);
+  $("#money .amount").text(money);
 }
 
 function nextStage(choice) {
@@ -215,10 +217,11 @@ function dropWeaponPowerup(imgFile, weaponClass) {
   });
 }
 
-var weaponDivs = $.map(["battleAxe", "bazooka", "bomb", "chainsaw", "flamethrower", "laserGun", "machineGun", "meat", "shotgun"], function(weaponClass) {
-  var div = $("<div />").addClass("menu").attr("data-weaponClass", weaponClass);
-  div.append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"));
-  return div;
+var weaponDivs = $.map(weapons, function(weaponClass) {
+  var price = 500;
+  return $("<div />").addClass("menu").attr("data-weaponClass", weaponClass)
+    .append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"))
+    .append($("<div class='price'>$<span class='amount'>"+price+"</span></div>"));
 });
 
 function randomWeapon() {
@@ -229,10 +232,30 @@ function weaponDisposal(object) {
   object.remove();
 }
 
+function pay(amount) {
+  console.log("Pay: " + amount + " of " + money);
+
+  if(money >= amount) {
+    money -= amount;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+(3).times(function() {
+  $("#menu_container .store").append(randomWeapon());
+});
+
+(4).times(function() {
+  $("#menu_container .inventory").append(randomWeapon());
+});
 
 $(".store .menu").live("click", function() {
-  $("#menu_container .inventory").append(this);
-  $("#menu_container .store").append(randomWeapon());
+  if(pay(+$(this).find(".price .amount").text())) {
+    $("#menu_container .inventory").append(this);
+    $("#menu_container .store").append(randomWeapon());
+  }
 });
 
 $(".inventory .menu").live("click", function() {
