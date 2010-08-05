@@ -38,10 +38,20 @@
       parallaxRate: 1,
       position: {
         x: 0,
-        y: 300
+        y: 320
       },
       repeat: true,
-      width: 1800
+      width: 2200
+    },
+    {
+      image: Sprite.load(imgPath + "water_midground.png"),
+      parallaxRate: 1,
+      position: {
+        x: 0,
+        y: 320
+      },
+      repeat: true,
+      width: 2400
     },
     {
       image: Sprite.load(imgPath + "water_foreground.png"),
@@ -83,7 +93,6 @@
 
       if(rand() < 0.01) {
         level.addGameObject(Ramp({
-          hitCircles: [{"x": 30, "y": 0, "radius": 20}],
           x: level.position().x + CANVAS_WIDTH,
           y: CANVAS_HEIGHT - Floor.LEVEL
         }));
