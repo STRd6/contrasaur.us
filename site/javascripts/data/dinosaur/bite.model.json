@@ -17,17 +17,17 @@
         "eye": {
           "x": 87,
           "y": -54,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 61,
           "y": 25,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": -6,
           "y": -31,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -183,17 +183,17 @@
         "eye": {
           "x": 89,
           "y": -47,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 52,
           "y": 20,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": -6,
           "y": -34,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -364,17 +364,17 @@
         "eye": {
           "x": 70,
           "y": -78,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 48,
           "y": 1,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": -6,
           "y": -36,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -525,17 +525,17 @@
         "eye": {
           "x": 65,
           "y": -81,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 47,
           "y": -1,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": -6,
           "y": -36,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -679,24 +679,24 @@
     {
       "attachmentPoints": {
         "hat": {
-          "x": 100,
-          "y": -7,
-          "direction": 0
+          "x": 76,
+          "y": -77,
+          "direction": 2.0943951023931953
         },
         "eye": {
           "x": 108,
           "y": 20,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 38,
           "y": 33,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": 16,
           "y": -22,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -830,24 +830,24 @@
     {
       "attachmentPoints": {
         "hat": {
-          "x": 114,
-          "y": 0,
-          "direction": 0
+          "x": 104,
+          "y": -60,
+          "direction": 4.1887902047863905
         },
         "eye": {
           "x": 111,
           "y": 22,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 40,
           "y": 32,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": 15,
           "y": -25,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -998,17 +998,17 @@
         "eye": {
           "x": 110,
           "y": -19,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 50,
           "y": 33,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": 6,
           "y": -26,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [
@@ -1169,17 +1169,17 @@
         "eye": {
           "x": 87,
           "y": -54,
-          "radius": 5
+          "direction": 0
         },
         "hand": {
           "x": 57,
           "y": 24,
-          "radius": 5
+          "direction": 0
         },
         "back": {
           "x": -4,
           "y": -31,
-          "radius": 5
+          "direction": 0
         }
       },
       "circles": [

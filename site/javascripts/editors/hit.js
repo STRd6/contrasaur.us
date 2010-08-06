@@ -23,6 +23,10 @@ $('#gameCanvas').powerCanvas({init: function(canvas) {
       if(frames && frames[currentFrame]) {
         
         $.each(frames[currentFrame].attachmentPoints, function(name, point) {
+          // Clean Point
+          point.direction = point.direction || 0;
+          delete point.radius;
+
           var transformedPoint = transform.transformPoint(point);
           attachmentPoints[name] = {
             x: transformedPoint.x,
@@ -81,6 +85,11 @@ $('#gameCanvas').powerCanvas({init: function(canvas) {
           var color = (point.point == active["attachmentPoints"] ? activeColor : attachmentColor)
           canvas.fillCircle(point.x, point.y, attachmentRadius, color);
           canvas.fillText(name, point.x, point.y - 10);
+
+          var target_x = point.x + attachmentRadius * Math.cos(point.direction);
+          var target_y = point.y + attachmentRadius * Math.sin(point.direction);
+          canvas.strokeColor("black");
+          canvas.drawLine(point.x, point.y, target_x, target_y, 1);
         });
       }
     }
@@ -155,7 +164,7 @@ function nextFrame() {
     currentFrame = 0;
   } else if(currentFrame >= frames.length) {
     // Copy first frame of hit circles
-    var copy = frames[0].circles.slice(0).map(function(circle) {
+    var circlesCopy = frames[0].circles.slice(0).map(function(circle) {
       return {
         x: circle.x,
         y: circle.y,
@@ -163,7 +172,12 @@ function nextFrame() {
       };
     });
 
-    frames.push({ circles: copy });
+    var attachmentPointsCopy = {};
+    frames[0].attachmentPoints.each(function(name, point) {
+      attachmentPointsCopy[name] = $.extend({}, point);
+    });
+
+    frames.push({ circles: circlesCopy, attachmentPoints: attachmentPointsCopy });
   }
 }
 
@@ -225,7 +239,7 @@ AttachmentPoints = generateComponentMethods("attachmentPoints", function() {
   return {
     x: 0,
     y: 0,
-    radius: 5
+    direction: 0
   }
 });
 
@@ -312,32 +326,35 @@ $("#controls").append(Button("Decrease+", function() {
   Circles.grow(-5);
 }));
 
-$("<input type='button' value='Add Circle'/>").click(function() {
-  Circles.add();
-}).appendTo($("#controls"));
-
-$("<input type='button' value='Add Attachment Point'/>").click(function() {
+$("#controls").append(Button("Add Attachment Point", function() {
   var name = prompt("Attachment point name:", '');
   AttachmentPoints.add(name);
-}).appendTo($("#controls"));
+}));
 
-//$("<input type='button' value='Add Attachment Point'/>").click(function() {
-//  attachmentPoints = {
-//    "hat": {"x": 0, "y": 0, "direction": 0}
-//  }
-//}).appendTo($("#controls"));
+$("#controls").append(Button("Add Circle", function() {
+  Circles.add();
+}));
 
-$("<input type='button' value='Remove Circle'/>").click(function() {
+$("#controls").append(Button("Remove Circle", function() {
   Circles.remove();
-}).appendTo($("#controls"));
+}));
 
-$("<input type='button' value='Previous Frame'/>").click(function() {
+$("#controls").append(Button("Previous Frame", function() {
   previousFrame();
-}).appendTo($("#controls"));
+}));
 
-$("<input type='button' value='Next Frame'/>").click(function() {
+$("#controls").append(Button("Next Frame", function() {
   nextFrame();
-}).appendTo($("#controls"));
+}));
+
+$("#controls").append(Button("Set Attachment Direction", function() {
+  if(active.attachmentPoints) {
+    var direction = eval(prompt("Direction:", ''));
+    active.attachmentPoints.direction = direction;
+  } else {
+    alert("No point selected");
+  }
+}));
 
 function loadAnimationJSON(url) {
   Animation.loadJSONUrl(url, function(a, data) {

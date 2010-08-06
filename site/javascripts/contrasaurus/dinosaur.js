@@ -161,14 +161,12 @@ function Dinosaur() {
         );
 
         $.each(accessories, function(i, accessory) {
-          var point = currentModel.attachment(accessory.attachment());
-          accessory.position(point);
+          accessory.attachment(currentModel);
           accessory.draw(canvas);
         });
 
         $.each(weapons, function(i, weapon) {
-          var point = currentModel.attachment(weapon.attachment());
-          weapon.position(point);
+          weapon.attachment(currentModel);
           weapon.draw(canvas);
         });
       });
@@ -330,7 +328,7 @@ function Dinosaur() {
     sprite: Sprite.load("images/accessories/tophat.png")
   });
 
-  if(rand() < 0) {
+  if(rand() < 1) {
     self.addAccessory(tophat);
   }
 
