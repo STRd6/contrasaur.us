@@ -183,7 +183,7 @@
         "eye": {
           "x": 89,
           "y": -47,
-          "direction": 0
+          "direction": 0.2617993877991494
         },
         "hand": {
           "x": 52,
@@ -364,7 +364,7 @@
         "eye": {
           "x": 70,
           "y": -78,
-          "direction": 0
+          "direction": 0.5235987755982988
         },
         "hand": {
           "x": 48,
@@ -525,7 +525,7 @@
         "eye": {
           "x": 65,
           "y": -81,
-          "direction": 0
+          "direction": 0.5235987755982988
         },
         "hand": {
           "x": 47,
@@ -679,14 +679,14 @@
     {
       "attachmentPoints": {
         "hat": {
-          "x": 76,
-          "y": -77,
+          "x": 86,
+          "y": -67,
           "direction": 2.0943951023931953
         },
         "eye": {
           "x": 108,
           "y": 20,
-          "direction": 0
+          "direction": -0.2617993877991494
         },
         "hand": {
           "x": 38,
@@ -830,14 +830,14 @@
     {
       "attachmentPoints": {
         "hat": {
-          "x": 104,
-          "y": -60,
+          "x": 94,
+          "y": -50,
           "direction": 4.1887902047863905
         },
         "eye": {
           "x": 111,
           "y": 22,
-          "direction": 0
+          "direction": -0.2617993877991494
         },
         "hand": {
           "x": 40,
@@ -991,8 +991,8 @@
     {
       "attachmentPoints": {
         "hat": {
-          "x": 95,
-          "y": -50,
+          "x": 99,
+          "y": -46,
           "direction": 0
         },
         "eye": {
