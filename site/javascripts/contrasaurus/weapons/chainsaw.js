@@ -6,14 +6,17 @@ function Chainsaw(I) {
   $.reverseMerge(I, {
     duration: 1000,
     exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
+    offset: Point(50, -5),
     radius: 5,
-    sprite: Sprite.load("images/weapons/chainsaw.png"),
-    theta: 0
+    rotation: 0,
+    rotationPoint: Point(-52, -12),
+    sprite: Sprite.load("images/weapons/chainsaw.png")
   });
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.rotation(I.theta, Point(-52, -12)).translate(122, -5);
+      var p = self.position().add(I.offset);
+      return Matrix.rotation(I.rotation + I.direction, I.rotationPoint).translate(p.x, p.y);
     },
 
     generateProjectile: function(direction, position) {
@@ -52,7 +55,7 @@ function Chainsaw(I) {
           thrown = true;
         }
 
-        I.theta = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
+        I.rotation = Math.sin(I.age / 4) * (Math.PI / 6) + (Math.PI / 12);
       }
     }
   });
