@@ -6,7 +6,6 @@ function Dinosaur() {
 
   var currentHealth = 0;
   var cryCounter = 0;
-
   var biteCounter = 0;
 
   var x = (CANVAS_WIDTH - width) / 2;
@@ -47,7 +46,6 @@ function Dinosaur() {
   var accessories = [];
 
   var lastDirection = 1;
-
   var healthMax = I.health;
 
   $(document).bind('keydown', 'space', function() {
@@ -65,7 +63,6 @@ function Dinosaur() {
   $(document).bind('keyup', 'left', function() {
     if (!parasailing) {
       I.xVelocity = 0;
-      lastDirection = -1;
     }
   });
 
@@ -78,7 +75,6 @@ function Dinosaur() {
   $(document).bind('keyup', 'right', function() {
     if (!parasailing) {
       I.xVelocity = 0;
-      lastDirection = 1;
     }
   });
 
@@ -146,10 +142,10 @@ function Dinosaur() {
     getTransform: function() {
       var transform;
 
-      if (lastDirection <= 0 && !parasailing) {
-        transform = Matrix.HORIZONTAL_FLIP;
-      } else {
+      if (parasailing || I.xVelocity > 0 || lastDirection > 0) {
         transform = Matrix.IDENTITY;
+      } else {
+        transform = Matrix.HORIZONTAL_FLIP;
       }
       
       if(airborne) {
@@ -200,15 +196,6 @@ function Dinosaur() {
       }
     },
 
-    lastDirection: function(value) {
-      if (value !== undefined) {
-        lastDirection = value;
-        return lastDirection;
-      } else {
-        return lastDirection;
-      }
-    },
-
     parasailing: function(newValue) {
       if(newValue != undefined) {
         parasailing = newValue;
@@ -252,57 +239,55 @@ function Dinosaur() {
     },
     before: {
       update: function() {
-        if(biteCounter > 0) {
+        if(!airborne && (biteCounter > 0 || cryCounter > 0)) {
           I.xVelocity = 0;
         }
-      },
-      // HAX: to make sure walking on the floor
-      // doesn't trigger the cry model
-      hit: function(other) {
+
         currentHealth = I.health;
-        cryCounter = 30;
-      }
+      },
     },
     after: {
       hit: function(other) {
-        if (I.health < currentHealth && !airborne && biteCounter <= 0 && cryCounter > 0) {
-          setModel(cryModel);
-          cryCounter--;
+        if (I.health < currentHealth && !airborne && biteCounter <= 0) {
+          cryCounter += (currentHealth - I.health) / 2;
         }
       },
       update: function(position) {
         // Choose correct animation and hitFrames
+        if(I.xVelocity != 0) {
+          lastDirection = I.xVelocity;
+        }
 
         if(biteCounter > 0) {
           biteCounter--;
         }
 
+        if(cryCounter > 0) {
+          cryCounter--;
+        }
+
         if(parasailing) {
-          I.xVelocity = Math.sin(I.age) + currentLevel.tiltAmount();
+          I.xVelocity = Math.sin(I.age) + 7;
           I.yVelocity = Math.cos(I.age/2);
         } else {
-          currentLevel.tiltAmount(1);
-
-          if (boss) {
-            currentLevel.tiltAmount(0);
-          }
-
-          if ((!jetpack.engaged()) && airborne) {
-            I.yVelocity += GRAVITY;
-          }
-
           if (airborne) {
+            if(!jetpack.engaged()) {
+              I.yVelocity += GRAVITY;
+            }
+
             setModel(flyModel);
           } else {
-            if (biteCounter == 0) {
+            // TODO: Maybe a state machine?
+            if (biteCounter > 0) {
+              setModel(biteModel);
+            } else if(cryCounter > 0) {
+              setModel(cryModel);
+            } else if(I.xVelocity != 0) {
+              setModel(walkModel);
+            } else {
               setModel(standModel);
             }
-            lastDirection = I.xVelocity || lastDirection;
           }
-
-          if (!airborne && Math.abs(I.xVelocity) > 0) {
-            setModel(walkModel);
-          } 
         }
 
         $.each(weapons, function(i, weapon) {

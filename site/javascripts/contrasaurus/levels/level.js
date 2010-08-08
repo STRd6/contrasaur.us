@@ -13,7 +13,6 @@ function Level(I) {
   var backgroundColor = "#A2EEFF";
   var step = 0;
   var intervalId;
-  var tiltAmount = 0;
 
   $.reverseMerge(I, {
     triggers: [],
@@ -35,6 +34,14 @@ function Level(I) {
         trigger.event(self);
       }
     });
+  }
+
+  function trackDino() {
+    var dinoPosition = dino.position();
+
+    if(true) {
+      position.x = dinoPosition.x - CANVAS_WIDTH / 2
+    }
   }
 
   function getTransform() {
@@ -194,15 +201,6 @@ function Level(I) {
 
       return nearest;
     },
-
-    tiltAmount: function(value) {
-      if (value === undefined) {
-        return tiltAmount
-      } else {
-        tiltAmount = value;
-        return self;
-      }
-    },
     
     start: function() {
       if (backgroundMusic) {
@@ -267,7 +265,7 @@ function Level(I) {
       score += collidables.dinoBullet.length;
       money += 1;
 
-      position.x += tiltAmount;
+      trackDino();
 
       oldEnemies = collidables.enemy;
 

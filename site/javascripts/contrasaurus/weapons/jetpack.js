@@ -37,7 +37,6 @@ function Jetpack(I) {
           haywire = false;
           I.yImpulse = 2;
           dino.yVelocity(I.yImpulse);
-          currentLevel.tiltAmount(2);
         }
       }
     },
@@ -92,21 +91,17 @@ function Jetpack(I) {
         }
 
         if (charge && !dino.boss()) {
-          dino.lastDirection(1);
           I.engaged = true;
           dino.xVelocity(20);
           dino.yVelocity(-0.5);
           dino.airborne(true);
-          currentLevel.tiltAmount(16);
         }
 
         if (haywire && !dino.boss()) {
-          dino.lastDirection(1);
           I.engaged = true;
           dino.xVelocity(10 + rand(20));
           dino.yVelocity(-5 - rand(5));
           dino.airborne(true);
-          currentLevel.tiltAmount((10));
           dino.pitchAngle(Math.PI/10);
         }
       }

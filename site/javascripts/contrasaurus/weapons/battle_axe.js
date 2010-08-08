@@ -20,7 +20,6 @@ function BattleAxe(I) {
       if (thrown) {
         I.active = false;
         thrown = false;
-        dino.lastDirection(1);
         var xVelocity = dino.xVelocity();
         dino.xVelocity(Math.abs(xVelocity));
         return ThrownItem({

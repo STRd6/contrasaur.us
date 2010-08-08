@@ -83,8 +83,6 @@
       });
 
       level.addGameObject(boat);
-
-      level.tiltAmount(7);
     }
   }, {
     every: 1,
