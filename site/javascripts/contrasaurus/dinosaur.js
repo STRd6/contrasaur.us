@@ -3,7 +3,6 @@ function Dinosaur() {
   var height = 128;
 
   var jetpack = Jetpack();
-  var bite = Bite();
 
   var currentHealth = 0;
   var cryCounter = 0;
@@ -17,11 +16,12 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [bite, jetpack];
+  var weapons = [jetpack];
   var activeWeapons = [];
 
   var pitchAngle = 0;
 
+  var standModel = Model.loadJSONUrl("javascripts/data/dinosaur/stand.model.json");
   var walkModel = Model.loadJSONUrl("javascripts/data/dinosaur/walk.model.json");
   var flyModel = Model.loadJSONUrl("javascripts/data/dinosaur/fly.model.json");
   var biteModel = Model.loadJSONUrl("javascripts/data/dinosaur/bite.model.json");
@@ -29,7 +29,7 @@ function Dinosaur() {
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 
-  var currentModel = walkModel;
+  var currentModel = standModel;
 
   var I = {
     collideDamage: 2,
@@ -40,13 +40,13 @@ function Dinosaur() {
     sprite: currentModel.animation,
     x: x,
     y: y,
-    xVelocity: 1,
+    xVelocity: 0,
     yVelocity: 6
   };
 
   var accessories = [];
 
-  var lastDirection = I.xVelocity;
+  var lastDirection = 1;
 
   var healthMax = I.health;
 
@@ -57,14 +57,41 @@ function Dinosaur() {
   });
 
   $(document).bind('keydown', 'left', function() {
-    if (I.xVelocity >= 0 && !airborne) {
-      I.xVelocity = (-1*I.xVelocity);
+    if (!parasailing) {
+      I.xVelocity = -6;
     }
   });
 
-  $(document).bind('keydown', 'right', function() {    
-    if (I.xVelocity < 0 && !airborne) {
-      I.xVelocity = (-1*I.xVelocity);
+  $(document).bind('keyup', 'left', function() {
+    if (!parasailing) {
+      I.xVelocity = 0;
+      lastDirection = -1;
+    }
+  });
+
+  $(document).bind('keydown', 'right', function() {
+    if (!parasailing) {
+      I.xVelocity = 6;
+    }
+  });
+
+  $(document).bind('keyup', 'right', function() {
+    if (!parasailing) {
+      I.xVelocity = 0;
+      lastDirection = 1;
+    }
+  });
+
+  $(document).bind('keydown', 'down', function() {
+    if (!parasailing) {
+      if (biteCounter <= 0) {
+        biteCounter = 24;
+        biteModel.animation.frame(0);
+      }
+
+      if (!airborne && biteCounter > 0) {
+        setModel(biteModel);
+      }
     }
   });
 
@@ -99,8 +126,6 @@ function Dinosaur() {
         boss = value;
 
         if (boss) {
-          I.xVelocity = 1;
-
           boss.healthBar()
           $("#boss").show();
         } else {
@@ -136,17 +161,6 @@ function Dinosaur() {
 
     heal: heal,
 
-    bump: function() {
-      if (biteCounter <= 0) {
-        biteCounter = 24;
-        biteModel.animation.frame(0);
-      }
-
-      if (!airborne && biteCounter > 0) {
-        setModel(biteModel);
-      }
-    },
-
     draw: function(canvas) {
 
       canvas.withTransform(self.getTransform(), function() {
@@ -180,7 +194,6 @@ function Dinosaur() {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
-        I.xVelocity = (Math.abs(I.xVelocity) / I.xVelocity) * 5;
         airborne = false;
         pitchAngle = 0;
         jetpack.engaged(false);
@@ -268,7 +281,7 @@ function Dinosaur() {
           I.xVelocity = Math.sin(I.age) + currentLevel.tiltAmount();
           I.yVelocity = Math.cos(I.age/2);
         } else {
-          currentLevel.tiltAmount(2);
+          currentLevel.tiltAmount(1);
 
           if (boss) {
             currentLevel.tiltAmount(0);
@@ -282,14 +295,14 @@ function Dinosaur() {
             setModel(flyModel);
           } else {
             if (biteCounter == 0) {
-              if(I.xVelocity == 0) {
-                I.xVelocity = 2;
-              }
-
-              setModel(walkModel);
+              setModel(standModel);
             }
-            lastDirection = I.xVelocity || 1;
+            lastDirection = I.xVelocity || lastDirection;
           }
+
+          if (!airborne && Math.abs(I.xVelocity) > 0) {
+            setModel(walkModel);
+          } 
         }
 
         $.each(weapons, function(i, weapon) {
@@ -310,12 +323,6 @@ function Dinosaur() {
         } else if (I.x > position.x + CANVAS_WIDTH - I.radius) {
           I.x = position.x + CANVAS_WIDTH - I.radius;
           I.xVelocity = -Math.abs(I.xVelocity);
-        }
-
-        // Wiggle in the air
-        if (airborne) {
-          I.xVelocity += (Math.random() - 0.5) * 3;
-          I.xVelocity = I.xVelocity * 0.9;
         }
 
         I.hitCircles = currentModel.hitFrame();

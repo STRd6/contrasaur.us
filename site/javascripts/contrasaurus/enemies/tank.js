@@ -35,7 +35,7 @@ function Tank(I) {
   });
 
   var self = Enemy(I).extend({
-    bulletHitEffect: Enemy.sparkSprayEffect,
+    bulletHitEffect: Enemy.debrisSprayEffect,
 
     after: {
       update: function() {

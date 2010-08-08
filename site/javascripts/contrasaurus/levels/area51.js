@@ -77,7 +77,7 @@
   }];
 
   addCutscene("", "By the power of science!", 3000);
-  addCutscene("", "With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", 3000, Sprite.load("images/avatars/reagan.png"));
+  addCutscene("", "With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", 3000, Sprite.load("images/avatars/reagan2.png"));
 
   addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi");
 }());

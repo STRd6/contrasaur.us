@@ -24,8 +24,6 @@ function Jetpack(I) {
           } else {
             I.engaged = true;
             I.yImpulse = -1;
-            var dinoXVelocity = dino.xVelocity();
-            dino.xVelocity(dinoXVelocity + 2);
             dino.yVelocity(-9);
             dino.airborne(true);
             I.jetpackCounter = 15;
@@ -39,7 +37,6 @@ function Jetpack(I) {
           haywire = false;
           I.yImpulse = 2;
           dino.yVelocity(I.yImpulse);
-          dino.xVelocity(2);
           currentLevel.tiltAmount(2);
         }
       }

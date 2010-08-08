@@ -5,7 +5,7 @@ function Enemy(I) {
     collideDamage: 1,
     collisionType: "enemy",
     drops: "chainsaw",
-    dropFrequency: 0.03,
+    dropFrequency: 0.2,
     health: 3,
     hFlip: false,
     onFire: false,
@@ -99,6 +99,16 @@ Enemy.sparkSprayEffect = function(bullet) {
   var effect = Effect($.extend(bullet.position(), {
     duration: 9,
     sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16),
+    velocity: bullet.velocity()
+  }));
+
+  addGameObject(effect);
+};
+
+Enemy.debrisSprayEffect = function(bullet) {
+  var effect = Effect($.extend(bullet.position(), {
+    duration: 9,
+    sprite: loadAnimation("images/effects/vehicle_debris_32x32.png", 1, 32, 32),
     velocity: bullet.velocity()
   }));
 

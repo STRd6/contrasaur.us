@@ -2,6 +2,10 @@ function Parasoldier(I) {
   I = I || {};
 
   var theta = Math.random() * (Math.PI * 2);
+  var parasoldierModel = Model.loadJSONUrl("javascripts/data/parasoldier/parasoldier.model.json", function(model) {
+    I.sprite = model.animation;
+  });
+
 
   $.reverseMerge(I, {
     health: 3,
@@ -10,6 +14,7 @@ function Parasoldier(I) {
     yVelocity: 4,
     color: "#F00",
     collideDamage: 1,
+    hitCircles: parasoldierModel.hitFrames,
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {
@@ -22,7 +27,7 @@ function Parasoldier(I) {
         );
       }
     },
-    sprite: Sprite.load("images/enemies/parasoldier.png"),
+    sprite: parasoldierModel.animation,
     type: 'parasoldier',
     x: rand(CANVAS_WIDTH),
     y: 45
@@ -41,7 +46,7 @@ function Parasoldier(I) {
         }
       },
       update: function() {
-        I.shootLogic();
+        I.hitCircles = parasoldierModel.hitFrame();
       }
     }
   });
