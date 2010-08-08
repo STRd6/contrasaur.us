@@ -131,13 +131,6 @@ function Level(I) {
         circleCollision(bullet, enemy);
       });
     });
-
-    // Enemies can hit dinos
-    $.each(collidables.dino, function(i, dino) {
-      $.each(collidables.enemy, function(j, enemy) {
-        circleCollision(dino, enemy);
-      });
-    });
   }
 
   resetCollidables();

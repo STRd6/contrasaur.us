@@ -2,7 +2,7 @@ function Ramp(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    collisionType: "enemy",
+    collisionType: "enemyBullet",
     health: 10,
     hitCircles: [{"x": 28, "y": 6, "radius": 20}],
     sprite: Sprite.load("images/enemies/ramp.png")

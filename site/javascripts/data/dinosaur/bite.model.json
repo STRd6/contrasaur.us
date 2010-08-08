@@ -697,6 +697,11 @@
           "x": 16,
           "y": -22,
           "direction": 0
+        },
+        "bite": {
+          "x": 111,
+          "y": 61,
+          "direction": 0
         }
       },
       "circles": [
@@ -847,6 +852,11 @@
         "back": {
           "x": 15,
           "y": -25,
+          "direction": 0
+        },
+        "bite": {
+          "x": 113,
+          "y": 62,
           "direction": 0
         }
       },

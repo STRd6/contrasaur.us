@@ -102,7 +102,7 @@ function GameObject(I) {
 
     drawHitCircles: function(canvas) {
       $.each(self.getCircles(), function(i, circle) {
-        canvas.fillCircle(circle.x, circle.y, circle.radius, "rgba(255, 0, 0, 0.5)");
+        canvas.fillCircle(circle.x, circle.y, circle.radius, GameObject.circleColor(I.collisionType));
       });
     },
 
@@ -298,3 +298,13 @@ GameObject.rotationGetTransform = function(I) {
     return Matrix.rotation(I.rotation).translate(I.x, I.y);
   };
 };
+
+GameObject.circleColor = function(collisionType) {
+  if(collisionType == "enemy" || collisionType == "dino") {
+    return "rgba(255, 0, 0, 0.5)";
+  } else if(collisionType == "enemyBullet" || collisionType == "dinoBullet") {
+    return "rgba(0, 255, 0, 0.5)";
+  } else {
+    return "rgba(255, 255, 0, 0.5)";
+  }
+}

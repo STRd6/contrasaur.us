@@ -255,6 +255,24 @@ function Dinosaur() {
 
         if(biteCounter > 0) {
           biteCounter--;
+
+          var bitePoint = currentModel.attachment("bite");
+          if(bitePoint.x != 0) {
+            var t = self.getTransform();
+            var p = t.transformPoint(bitePoint);
+
+            addGameObject(Bullet({
+              collideDamage: 20,
+              dispersion: 30,
+              effectCount: 5,
+              duration: 1,
+              radius: 30,
+              speed: 0,
+              sprite: Sprite.EMPTY,
+              x: p.x,
+              y: p.y
+            }));
+          }
         }
 
         if(cryCounter > 0) {
