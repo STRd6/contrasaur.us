@@ -101,6 +101,10 @@ function Dinosaur() {
       accessories.push(accessory);
     },
 
+    addMoney: function(amount) {
+      money += amount;
+    },
+
     addWeapon: function(weapon) {
       weapons.push(weapon.dino(self));
     },
@@ -239,7 +243,7 @@ function Dinosaur() {
         }
 
         currentHealth = I.health;
-      },
+      }
     },
     after: {
       hit: function(other) {

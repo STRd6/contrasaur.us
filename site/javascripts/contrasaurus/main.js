@@ -211,7 +211,7 @@ $(document).keydown(function(e) {
 function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
     callback: callback,
-    sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
+    sprite: Sprite.load(imgFile),
     x: dino.position().x,
     xVelocity: dino.velocity().x,
     yVelocity: 0
@@ -219,7 +219,7 @@ function dropPowerup(imgFile, callback) {
 }
 
 function dropWeaponPowerup(imgFile, weaponClass) {
-  dropPowerup(imgFile, function(hitTarget) {
+  dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
     if(hitTarget.addWeapon) {
       hitTarget.addWeapon(weaponClass());
     }

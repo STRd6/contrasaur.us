@@ -26,7 +26,7 @@ function GameObject(I) {
   function dropPowerup(imgFile, callback) {
     addGameObject(Powerup({
       callback: callback,
-      sprite: Sprite.load("images/weapons/" + imgFile + ".png"),
+      sprite: Sprite.load(imgFile),
       x: I.x + 50,
       y: I.y - 80,
       xVelocity: 2,
@@ -34,8 +34,26 @@ function GameObject(I) {
     }));
   }
 
+  function dropMoney() {
+    addGameObject(Powerup({
+      callback: function(other) {
+        if (other.addMoney) {
+          other.addMoney(1000);
+        }
+      },
+      sprite: Sprite.load([
+        "images/accessories/coins.png",
+        "images/accessories/money.png"
+      ].rand()),
+      x: I.x + 50,
+      y: I.y - 50 - rand(40),
+      xVelocity: rand(6),
+      yVelocity: -5*rand(4)
+    }));
+  }
+
   function dropWeaponPowerup(imgFile, weaponClass) {
-    dropPowerup(imgFile, function(hitTarget) {
+    dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
       if(hitTarget.addWeapon) {
         hitTarget.addWeapon(weaponClass());
       }
@@ -77,6 +95,9 @@ function GameObject(I) {
         self.trigger('destroy');
         if(I.drops && Math.random() < I.dropFrequency) {
           var weapon = weapons.rand();
+          dropMoney();
+          dropMoney();
+          dropMoney();
           dropWeaponPowerup(weapon, weaponMap[weapon]);
         }
         if(I.type) {
