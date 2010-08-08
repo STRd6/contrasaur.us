@@ -84,10 +84,6 @@ function Dinosaur() {
         biteCounter = 24;
         biteModel.animation.frame(0);
       }
-
-      if (!airborne && biteCounter > 0) {
-        setModel(biteModel);
-      }
     }
   });
 
@@ -162,7 +158,6 @@ function Dinosaur() {
       canvas.withTransform(self.getTransform(), function() {
         if(parasailing) {
           parasailTile.draw(canvas, -150, -170);
-          setModel(flyModel);
         }
 
         I.sprite.draw(canvas,
@@ -269,6 +264,8 @@ function Dinosaur() {
         if(parasailing) {
           I.xVelocity = Math.sin(I.age) + 7;
           I.yVelocity = Math.cos(I.age/2);
+
+          setModel(flyModel);
         } else {
           if (airborne) {
             if(!jetpack.engaged()) {
