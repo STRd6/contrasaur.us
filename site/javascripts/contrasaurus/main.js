@@ -143,12 +143,17 @@ function overlayUpdate(){
   }
 }
 
-function addLevel(scene, platforms, triggers, audio) {
+function addLevel(scene, platforms, triggers, audio, afterStep) {
   var level = Level({
     audio: audio,
     canvas: canvas,
     scene: scene,
-    afterStep: overlayUpdate,
+    afterStep: function(level) {
+      overlayUpdate(level);
+      if (afterStep) {
+        afterStep(level);
+      }
+    },
     triggers: triggers,
     completed: nextStage
   });

@@ -1,15 +1,19 @@
 function Parasoldier(I) {
   I = I || {};
 
-  var theta = Math.random() * (Math.PI * 2);
   var parasoldierModel = Model.loadJSONUrl("javascripts/data/parasoldier/parasoldier.model.json", function(model) {
     I.sprite = model.animation;
   });
 
+  $.reverseMerge(I, {
+    x: rand(CANVAS_WIDTH),
+    y: 45
+  });
+
+  var theta = Math.atan2(dino.position().y - I.y, dino.position().x - I.x);
 
   $.reverseMerge(I, {
     health: 3,
-    hitCircles: [{"x":-1,"y":36,"radius":13},{"x":-1,"y":10,"radius":14}],
     radius: 40,
     yVelocity: 4,
     color: "#F00",
@@ -28,9 +32,7 @@ function Parasoldier(I) {
       }
     },
     sprite: parasoldierModel.animation,
-    type: 'parasoldier',
-    x: rand(CANVAS_WIDTH),
-    y: 45
+    type: 'parasoldier'
   });
 
   var self = Enemy(I).extend({

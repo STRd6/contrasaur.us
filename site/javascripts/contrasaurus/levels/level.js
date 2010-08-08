@@ -147,6 +147,10 @@ function Level(I) {
       gameObjectsQueue.push(gameObject);
     },
 
+    age: function() {
+      return step;
+    },
+
     complete: function() {
       self.stop();
 

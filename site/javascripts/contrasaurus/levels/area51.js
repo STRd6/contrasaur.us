@@ -64,12 +64,6 @@
       generateEnemies(level);
     }
   }, {
-    at: 200,
-    event: function(level) {
-      //addCutscene("", "With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", 500);
-      //nextStage();
-    }
-  }, {
     at: 2000,
     event: function(level) {
       level.complete();
@@ -77,7 +71,13 @@
   }];
 
   addCutscene("", "By the power of science!", 3000);
-  addCutscene("", "With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", 3000, Sprite.load("images/avatars/reagan2.png"));
+  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", {
+    avatar: Sprite.load("images/avatars/reagan2.png")
+  });
 
-  addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi");
+  addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi", function(level) {
+    if (level.age() > 200 && level.age() < 400) {
+      reaganMachineGun.draw(canvas);
+    }
+  });
 }());

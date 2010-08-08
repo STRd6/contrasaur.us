@@ -79,20 +79,22 @@ function DialogBox(text, I) {
       var lineHeight = I.lineHeight || 16;
       var textAlign = I.textAlign;
       var margin = 16;
+      var avatarMargin = margin;
+      var width = canvas.width()
       
       if (textAlign) {
         canvas.textAlign(textAlign);
       }
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
-      canvas.fillRect(0, yPosition, canvas.width(), height);
+      canvas.fillRect(0, yPosition, width, height);
 
       if(I.avatar) {
         I.avatar.draw(canvas, margin, yPosition);
-        margin += 64;
+        avatarMargin += 72 + margin;
       }
 
       canvas.fillColor("#FFF");
-      canvas.fillText(text, margin, yPosition + lineHeight, canvas.width());
+      canvas.fillWrappedText(text, avatarMargin, yPosition + lineHeight, width - avatarMargin - margin);
     },
 
     update: $.noop

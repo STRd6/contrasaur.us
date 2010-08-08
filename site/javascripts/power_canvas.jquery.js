@@ -121,6 +121,24 @@
         return this;
       },
 
+      fillWrappedText: function(text, x, y, width) {
+        var tokens = text.split(" ");
+        var tokens2 = text.split(" ");
+        var lineHeight = 16;
+
+        if ($canvas.measureText(text) > width) {
+          if (tokens.length % 2 == 0) {
+            tokens2 = tokens.splice(tokens.length / 2, (tokens.length / 2), "");
+          } else {
+            tokens2 = tokens.splice(tokens.length / 2 + 1, (tokens.length / 2) + 1, "");
+          }
+          context.fillText(tokens.join(" "), x, y);
+          context.fillText(tokens2.join(" "), x, y + lineHeight);
+        } else {
+          context.fillText(tokens.join(" "), x, y + lineHeight);
+        }
+      },
+
       fillColor: function(color) {
         if(color) {
           context.fillStyle = color;
@@ -132,6 +150,10 @@
 
       font: function(font) {
         context.font = font;
+      },
+
+      measureText: function(text) {
+        return context.measureText(text).width;
       },
 
       strokeColor: function(color) {
