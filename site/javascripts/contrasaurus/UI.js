@@ -86,7 +86,7 @@ function DialogBox(text, I) {
         canvas.textAlign(textAlign);
       }
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
-      canvas.fillRect(0, yPosition, width, height);
+      canvas.fillRect(0, yPosition + lineHeight, width, height);
 
       if(I.avatar) {
         I.avatar.draw(canvas, margin, yPosition);

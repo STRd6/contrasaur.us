@@ -20,18 +20,22 @@ var gamePaused = false;
 var debugHalt = false;
 var leaderBoard = DialogBox("ALL TIME LEADERS:", {
   height: 25,
+  lineHeight: 0,
   yPosition: 25
 });
 var leader1 = DialogBox("Condor: 3,492,192", {
   height: 25,
+  lineHeight: 0,
   yPosition: 50
 });
 var leader2 = DialogBox("Dr. Werewolf: 3,182,019", {
   height: 25,
+  lineHeight: 0,
   yPosition: 75
 });
 var leader3 = DialogBox("Zuch: 3,052,222", {
   height: 25,
+  lineHeight: 0,
   yPosition: 100
 });
 var currentLevel;
