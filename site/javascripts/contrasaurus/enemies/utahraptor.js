@@ -5,7 +5,9 @@ function Utahraptor(I) {
 
   $.reverseMerge(I, {
     collideDamage: 0,
+    drops: ["meat"],
     health: 1,
+    moneyFrequency: 0,
     pointsWorth: 1000,
     radius: 20,
     shootLogic: $.noop,

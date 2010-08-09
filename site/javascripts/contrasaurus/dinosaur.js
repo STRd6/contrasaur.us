@@ -2,7 +2,7 @@ function Dinosaur() {
   var width = 128;
   var height = 128;
 
-  var jetpack = Jetpack();
+  var jetpack;
 
   var currentHealth = 0;
   var cryCounter = 0;
@@ -15,7 +15,7 @@ function Dinosaur() {
   var boss = false;
   var airborne = true;
 
-  var weapons = [jetpack];
+  var weapons = [];
   var activeWeapons = [];
 
   var pitchAngle = 0;
@@ -50,7 +50,9 @@ function Dinosaur() {
 
   $(document).bind('keydown', 'space', function() {
     if(!airborne) {
-      jetpack.trigger('engage');
+      if(jetpack) {
+        jetpack.trigger('engage');
+      }
     }
   });
 
@@ -99,6 +101,12 @@ function Dinosaur() {
   var self = GameObject(I).extend({
     addAccessory: function(accessory) {
       accessories.push(accessory);
+    },
+
+    addJetpack: function() {
+      jetpack = Jetpack();
+
+      self.addWeapon(jetpack);
     },
 
     addMoney: function(amount) {
@@ -191,7 +199,10 @@ function Dinosaur() {
         I.yVelocity = 0;
         airborne = false;
         pitchAngle = 0;
-        jetpack.engaged(false);
+
+        if(jetpack) {
+          jetpack.engaged(false);
+        }
       }
     },
 
@@ -290,7 +301,7 @@ function Dinosaur() {
           setModel(flyModel);
         } else {
           if (airborne) {
-            if(!jetpack.engaged()) {
+            if(!jetpack || !jetpack.engaged()) {
               I.yVelocity += GRAVITY;
             }
 

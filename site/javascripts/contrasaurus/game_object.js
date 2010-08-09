@@ -90,16 +90,24 @@ function GameObject(I) {
     },
 
     destroy: function() {
-      if (I.active == true) {
+      if (I.active) {
         I.active = false;
         self.trigger('destroy');
+
+        //TODO: Move this into a destroy callback in enemy.js
         if(I.drops && Math.random() < I.dropFrequency) {
-          var weapon = weapons.rand();
-          dropMoney();
-          dropMoney();
-          dropMoney();
+          var weapon = I.drops.rand();
           dropWeaponPowerup(weapon, weaponMap[weapon]);
         }
+
+        //TODO: Move this into a destroy callback in enemy.js
+        if(Math.random() < I.moneyFrequency) {
+          dropMoney();
+          dropMoney();
+          dropMoney();
+        }
+
+        //TODO: Move this into a destroy callback
         if(I.type) {
           killCounter[I.type]++;
         }

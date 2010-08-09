@@ -68,16 +68,31 @@
     event: function(level) {
       level.complete();
     }
+  }, {
+    at: 800,
+    event: function() {
+      dino.addJetpack();
+    }
   }];
 
   addCutscene("", "By the power of science!", 3000);
-  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", {
-    avatar: Sprite.load("images/avatars/reagan2.png")
+
+  var reaganAvatar = Sprite.load("images/avatars/reagan2.png");
+  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons.", {
+    avatar: reaganAvatar
+  });
+
+  var reaganJetpack = DialogBox("A jetpack will enable him to soar like the majestic condor and rain fire down upon our enemies.", {
+    avatar: reaganAvatar
   });
 
   addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi", function(level) {
     if (level.age() > 200 && level.age() < 400) {
       reaganMachineGun.draw(canvas);
+    }
+
+    if (level.age() > 800 && level.age() < 1000) {
+      reaganJetpack.draw(canvas);
     }
   });
 }());

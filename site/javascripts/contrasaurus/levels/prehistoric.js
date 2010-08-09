@@ -1,6 +1,8 @@
 (function() {
   var imgPath = "images/levels/prehistoric/";
 
+  var meteorsActive = false;
+
   function generateStandingEnemies(level, count) {
     count.times(function(i) {
       level.addGameObject(
@@ -26,7 +28,7 @@
     count.times(function(i) {
       level.addGameObject(
         Utahraptor({
-          xVelocity: rand(2) + 0.5,
+          xVelocity: -(rand(6) + 0.5),
           x: level.position().x + CANVAS_WIDTH + i*20
         }
       ));
@@ -134,26 +136,35 @@
   var triggers = [{
     every: 1,
     event: function(level) {
-      if (Math.random() < 0.03) {
-        level.addGameObject(Meteor({
-          x: level.position().x + rand(CANVAS_WIDTH)
-        }));
+      if(Math.random() < 0.01) {
+        generateRunningEnemies(level, rand(5));
+      }
+
+      if(meteorsActive) {
+        if (Math.random() < 0.03) {
+          level.addGameObject(Meteor({
+            x: level.position().x + rand(CANVAS_WIDTH)
+          }));
+        }
       }
     }
   }, {
     every: 50,
     event: function(level) {
-      if (Math.random() < 0.5) {
-        level.addGameObject(GameObject({
-          sprite: Sprite.load([
+      level.addGameObject(GameObject({
+        sprite: Sprite.load([
           "images/levels/prehistoric/grass1.png",
           "images/levels/prehistoric/grass2.png",
           "images/levels/prehistoric/grass3.png"
         ].rand()),
-          x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
-          y: 310
-        }));
+        x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
+        y: 310
+      }));
+
+      if(Math.random() < 0.5) {
+        generateStandingEnemies(level, rand(4) + 1);
       }
+
       if (dino.boss()) {
         level.addGameObject(
           Utahraptor({
@@ -163,38 +174,12 @@
       }
     }
   }, {
-    every: 200,
-    event: function(level) {
-      generateStandingEnemies(level, Math.ceil(rand(2)));
-    }
-  },
-  {
-    at: 50,
-    event: function(level) {
-      generateStandingEnemies(level, Math.ceil(rand(4)));
+    at: 1000,
+    event: function() {
+      meteorsActive = true;
     }
   }, {
-    at: 150,
-    event: function(level) {
-      generateRunningEnemies(level, 5);
-    }
-  }, {
-    at: 400,
-    event: function(level) {
-      generateStandingEnemies(level, Math.ceil(rand(3)));
-    }
-  }, {
-    at: 700,
-    event: function(level) {
-      generateRunningEnemies(level, Math.ceil(rand(4)));
-    }
-  }, {
-    at: 1200,
-    event: function(level) {
-      generateStandingEnemies(level, Math.ceil(rand(3)));
-    }
-  }, {
-    at: 1500,
+    at: 2500,
     event: function(level) {
       brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 100,
@@ -206,15 +191,18 @@
         dino.boss(false);
       });
 
-      level.addGameObject(brontosaurus);
-    }
-  }, {
-    at: 1550,
-    event: function() {
       dino.boss(brontosaurus);
+
+      level.addGameObject(brontosaurus);
     }
   }];
 
+  var useTheYawToChomp = DialogBox("Use the yaw to CHOMP!");
+
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
-  addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance");
+  addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance", function(level) {
+    if (level.age() > 400 && level.age() < 600) {
+      useTheYawToChomp.draw(canvas);
+    }
+  });
 }());

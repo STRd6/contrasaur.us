@@ -4,10 +4,11 @@ function Enemy(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "enemy",
-    drops: "chainsaw",
+    drops: weapons,
     dropFrequency: 0.2,
     health: 3,
     hFlip: false,
+    moneyFrequency: 0.2,
     onFire: false,
     pointsWorth: 1000,
     radius: 18,
