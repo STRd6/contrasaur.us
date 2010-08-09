@@ -91,10 +91,14 @@ function DialogBox(text, I) {
       if(I.avatar) {
         I.avatar.draw(canvas, margin, yPosition);
         avatarMargin = 72 + 2*margin;
+        canvas.fillColor("#FFF");
+        canvas.fillWrappedText(text, avatarMargin, yPosition + lineHeight, width - avatarMargin - margin);
+      } else {
+        canvas.fillColor("#FFF");
+        canvas.fillWrappedText(text, avatarMargin, yPosition, width - avatarMargin - margin);
       }
 
-      canvas.fillColor("#FFF");
-      canvas.fillWrappedText(text, avatarMargin, yPosition + lineHeight, width - avatarMargin - margin);
+
     },
 
     update: $.noop
