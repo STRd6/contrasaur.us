@@ -86,11 +86,11 @@ function DialogBox(text, I) {
         canvas.textAlign(textAlign);
       }
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
-      canvas.fillRect(0, yPosition + lineHeight, width, height);
+      canvas.fillRect(0, yPosition, width, height);
 
       if(I.avatar) {
         I.avatar.draw(canvas, margin, yPosition);
-        avatarMargin += 72 + margin;
+        avatarMargin = 72 + 2*margin;
       }
 
       canvas.fillColor("#FFF");
