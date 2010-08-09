@@ -16,27 +16,30 @@ var killCounter = {
 var floor;
 var bulletQueue = [];
 var dialogBox = DialogBox("GAME OVER");
-var gamePaused = false;
+var pauseDisplay = DialogBox("PAUSED", {
+  height: CANVAS_HEIGHT,
+  y: 0
+});
 var debugHalt = false;
 var leaderBoard = DialogBox("ALL TIME LEADERS:", {
   height: 25,
   lineHeight: 0,
-  yPosition: 25
+  y: 25
 });
 var leader1 = DialogBox("Condor: 3,492,192", {
   height: 25,
   lineHeight: 0,
-  yPosition: 50
+  y: 50
 });
 var leader2 = DialogBox("Dr. Werewolf: 3,182,019", {
   height: 25,
   lineHeight: 0,
-  yPosition: 75
+  y: 75
 });
 var leader3 = DialogBox("Zuch: 3,052,222", {
   height: 25,
   lineHeight: 0,
-  yPosition: 100
+  y: 100
 });
 var currentLevel;
 var displayTexts = [];
@@ -198,7 +201,9 @@ $(document).bind('keydown', "d", function() {
 });
 
 $(document).bind('keydown', "p", function() {
-  gamePaused = !gamePaused;
+  if(currentLevel.togglePause()) {
+    pauseDisplay.draw(canvas);
+  }
 });
 
 // Level select

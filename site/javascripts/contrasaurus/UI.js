@@ -72,33 +72,34 @@ function healthColorMap(completeness) {
 function DialogBox(text, I) {
   I = I || {};
 
+  $.reverseMerge(I, {
+    height:  Math.ceil(CANVAS_HEIGHT / 3),
+    lineHeight: 16,
+    margin: 16,
+    y: Math.floor((CANVAS_HEIGHT * 2) / 3),
+    width: CANVAS_WIDTH
+  });
+
   return {
     draw: function(canvas) {
-      var yPosition = I.yPosition || Math.floor((canvas.height() * 2) / 3);
-      var height = I.height || Math.ceil(canvas.height() / 3);
-      var lineHeight = I.lineHeight || 16;
       var textAlign = I.textAlign;
-      var margin = 16;
-      var avatarMargin = margin;
-      var width = canvas.width()
+      var avatarMargin = I.margin;
       
       if (textAlign) {
         canvas.textAlign(textAlign);
       }
       canvas.fillColor("rgba(0, 0, 0, 0.75)");
-      canvas.fillRect(0, yPosition, width, height);
+      canvas.fillRect(0, I.y, I.width, I.height);
 
       if(I.avatar) {
-        I.avatar.draw(canvas, margin, yPosition);
-        avatarMargin = 72 + 2*margin;
+        I.avatar.draw(canvas, I.margin, I.y);
+        avatarMargin = 72 + 2*I.margin;
         canvas.fillColor("#FFF");
-        canvas.fillWrappedText(text, avatarMargin, yPosition + lineHeight, width - avatarMargin - margin);
+        canvas.fillWrappedText(text, avatarMargin, I.y + I.lineHeight, I.width - avatarMargin - I.margin);
       } else {
         canvas.fillColor("#FFF");
-        canvas.fillWrappedText(text, avatarMargin, yPosition, width - avatarMargin - margin);
+        canvas.fillWrappedText(text, avatarMargin, I.y, I.width - avatarMargin - I.margin);
       }
-
-
     },
 
     update: $.noop

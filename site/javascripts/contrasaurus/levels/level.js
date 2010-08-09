@@ -12,6 +12,7 @@ function Level(I) {
   var collidables;
   var backgroundColor = "#A2EEFF";
   var step = 0;
+  var paused = false;
   var intervalId;
 
   $.reverseMerge(I, {
@@ -205,7 +206,7 @@ function Level(I) {
       }
 
       intervalId = setInterval(function() {
-        if (gamePaused) {
+        if (paused) {
           return;
         }
         activateTriggers();
@@ -256,13 +257,11 @@ function Level(I) {
       Array.prototype.push.apply(gameObjects, gameObjectsQueue);
       gameObjectsQueue = [];
 
-      draw(canvas);
+      trackDino();
 
       // TODO: Move this somewhere
       score += collidables.dinoBullet.length;
       money += 1;
-
-      trackDino();
 
       oldEnemies = collidables.enemy;
 
@@ -275,6 +274,20 @@ function Level(I) {
 
         $("#debug").html(html);
       }
+
+      draw(canvas);
+    },
+
+    togglePause: function() {
+      paused = !paused;
+
+      if(paused) {
+        backgroundMusic.get(0).pause();
+      } else {
+        backgroundMusic.get(0).play();
+      }
+
+      return paused;
     }
   };
 
