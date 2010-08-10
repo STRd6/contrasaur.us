@@ -1,16 +1,17 @@
 function MachineGun(I) {
   I = I || {};
 
-  var gunTile = Sprite.load("images/weapons/machineGun.png");
-
-  var thrown = false;
-
   $.reverseMerge(I, {
     exitPoints: [Point(50, 1)],
+    name: "machineGun",
     radius: 5,
-    sprite: gunTile,
     theta: 0,
-    thetaVelocity: Math.PI / 48
+    thetaVelocity: Math.PI / 48,
+    throwable: {
+      shoot: function(I) {
+        addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }))
+      }
+    }
   });
 
   // Adjust machine gun angle
@@ -38,40 +39,13 @@ function MachineGun(I) {
       return Matrix.rotation(I.theta).translate(I.x, I.y);
     },
 
-    generateProjectile: function(direction, position) {
-      if (thrown) {
-        I.active = false;
-        thrown = false;
-        var xVelocity = dino.xVelocity();
-        dino.xVelocity(Math.abs(xVelocity));
-        return ThrownItem({
-          collideDamage: 20,
-          explodeDamage: 20,
-          shoot: function(I) {
-            addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }))
-          },
-          weaponName: "machineGun",
-          xVelocity: 8,
-          yVelocity: -20,
-          x: dino.position().x,
-          y: dino.position().y
-        });
-      } else {
-        return Bullet({ theta: direction, x: position.x, y: position.y });
-      }
-    },
-
     before: {
       update: function() {
-        if(I.age >= I.duration || rand() < 0.005) {
-          thrown = true;
-        }
-      }
-    },
-
-    after: {
-      update: function() {
         updateGunAngle(dino);
+
+        if(I.age >= I.duration || rand() < 0.005) {
+          self.toss();
+        }
       }
     }
   });

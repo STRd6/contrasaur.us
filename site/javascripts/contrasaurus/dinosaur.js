@@ -56,6 +56,10 @@ function Dinosaur() {
     }
   });
 
+  $(document).bind('keydown', 't', function() {
+    toss();
+  });
+
   $(document).bind('keydown', 'left', function() {
     if (!parasailing) {
       I.xVelocity = -6;
@@ -96,6 +100,18 @@ function Dinosaur() {
   function setModel(model) {
     currentModel = model;
     I.sprite = currentModel.animation;
+  }
+
+  function toss() {
+    var tossed = false;
+
+    $.each(weapons, function(i, weapon) {
+      if(tossed) {
+        return;
+      }
+
+      tossed = tossed || weapon.toss();
+    });
   }
 
   var self = GameObject(I).extend({

@@ -1,14 +1,13 @@
 function BattleAxe(I) {
   I = I || {};
 
-  var thrown = false;
-
   $.reverseMerge(I, {
     duration: 150,
     exitPoints: [Point(10, -30)],
+    name: "battleAxe",
     radius: 5,
-    sprite: Sprite.load("images/weapons/battleAxe.png"),
-    theta: 0
+    theta: 0,
+    throwable: {}
   });
 
   var self = Weapon(I).extend({
@@ -17,38 +16,23 @@ function BattleAxe(I) {
     },
 
     generateProjectile: function(direction, position) {
-      if (thrown) {
-        I.active = false;
-        thrown = false;
-        var xVelocity = dino.xVelocity();
-        dino.xVelocity(Math.abs(xVelocity));
-        return ThrownItem({
-          x: dino.position().x,
-          y: dino.position().y
-        });
-      } else {
-        return Bullet({
-          duration: 1,
-          speed: 0,
-          sprite: Sprite.EMPTY,
-          radius: 20,
-          theta: direction,
-          x: position.x,
-          y: position.y
-        });
-      }
+      return Bullet({
+        duration: 1,
+        speed: 0,
+        sprite: Sprite.EMPTY,
+        radius: 20,
+        theta: direction,
+        x: position.x,
+        y: position.y
+      });
     },
 
     before: {
       update: function() {
         if(I.age >= I.duration) {
-          thrown = true;
+          self.toss();
         }
-      }
-    },
 
-    after: {
-      update: function() {
         I.theta = Math.sin(I.age / 4) * (Math.PI / 2) + Math.PI / 4;
       }
     }

@@ -3,12 +3,12 @@ function ThrownItem(I) {
 
   $.reverseMerge(I, {
     speed: 20,
-    theta: -Math.PI/6,
+    theta: -Math.PI/12,
     weaponName: "battleAxe"
   });
 
   $.reverseMerge(I, {
-    collideDamage: 0,
+    collideDamage: 10,
     collisionType: "dinoBullet",
     explodeDamage: 20,
     radius: 30,
@@ -36,24 +36,16 @@ function ThrownItem(I) {
     land: function() {
       I.active = false;
     },
+
     before: {
       hit: function(other) {
         detonate();
       },
+
       update: function() {
-        I.shoot(I);
-      }
-    },
-    after: {
-      hit: function(other) {
-        if(other.bulletHitEffect) {
-          other.bulletHitEffect(self);
-        }
-      },
-      update: function() {
-        GameObject.generateCheckBounds(I);
         I.rotation += I.rotationalVelocity;
         I.yVelocity += GRAVITY;
+        I.shoot(I);
       }
     }
   });

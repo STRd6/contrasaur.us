@@ -6,8 +6,11 @@ function Weapon(I) {
     exitPoints: [Point(0, 0)],
     hitCircles: [],
     power: 100,
-    theta: 0
+    theta: 0,
+    throwable: false
   });
+
+  I.sprite = I.sprite || Sprite.load("images/weapons/" + I.name + ".png");
 
   var self = Accessory(I).extend({
     dino: function(newDino) {
@@ -45,6 +48,25 @@ function Weapon(I) {
 
         addGameObject(self.generateProjectile(direction, localPosition));
       });
+    },
+
+    toss: function() {
+      if(I.throwable) {
+        I.active = false;
+
+        var position = dino.position();
+        // TODO: Targeted throws
+
+        addGameObject(ThrownItem($.extend({
+          weaponName: I.name,
+          x: position.x,
+          y: position.y
+        }, I.throwable)));
+
+        return true;
+      } else {
+        return false;
+      }
     },
 
     after: {

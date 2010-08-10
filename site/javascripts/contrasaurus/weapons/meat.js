@@ -5,7 +5,8 @@ function Meat(I) {
 
   $.reverseMerge(I, {
     duration: 50,
-    exitPoints: []
+    exitPoints: [],
+    sprite: Sprite.EMPTY
   });
 
   var self = Weapon(I).extend({
