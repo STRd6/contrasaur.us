@@ -5,6 +5,7 @@ function Soldier(I) {
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   var shootModelCounter = 0;
+  var bitInHalf = false;
 
   var runModel = Model.loadJSONUrl("javascripts/data/sandinista/run.model.json", function(model) {
     I.sprite = model.animation;
@@ -52,12 +53,15 @@ function Soldier(I) {
   }
 
   var self = Enemy(I).extend({
-
     burn: function(flame) {
       if (!I.onFire) {
         I.onFire = true;
         I.xVelocity = I.xVelocity * 2.5;
       }
+    },
+
+    bite: function() {
+      bitInHalf = true;
     },
 
     after: {
@@ -88,11 +92,18 @@ function Soldier(I) {
   });
 
   self.bind('destroy', function(self) {
+    var deathAnimation;
+
+    if(bitInHalf) {
+      deathAnimation = bitInHalfModel.animation;
+    } else {
+      deathAnimation = deathModel.animation;
+    }
+
     var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
       duration: 35,
       hFlip: true,
-      hitCircles: deathModel.hitFrames,
-      sprite: deathModel.animation,
+      sprite: deathAnimation,
       velocity: Point(0, 0)
     }));
 

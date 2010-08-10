@@ -275,7 +275,8 @@ function Dinosaur() {
     after: {
       hit: function(other) {
         if (I.health < currentHealth && !airborne && biteCounter <= 0) {
-          cryCounter += (currentHealth - I.health) / 2;
+          // No stun for now, not fun yet
+          //cryCounter += (currentHealth - I.health) / 2;
         }
       },
       update: function(position) {
@@ -302,6 +303,14 @@ function Dinosaur() {
               sprite: Sprite.EMPTY,
               x: p.x,
               y: p.y
+            }).extend({
+              before: {
+                hit: function(other) {
+                  if(other.bite) {
+                    other.bite();
+                  }
+                }
+              }
             }));
           }
         }

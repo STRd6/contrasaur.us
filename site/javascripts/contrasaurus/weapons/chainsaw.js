@@ -32,6 +32,14 @@ function Chainsaw(I) {
         theta: direction,
         x: position.x,
         y: position.y
+      }).extend({
+        before: {
+          hit: function(other) {
+            if(other.bite) {
+              other.bite();
+            }
+          }
+        }
       });
     },
 
