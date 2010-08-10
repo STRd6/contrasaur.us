@@ -8,6 +8,7 @@ function Utahraptor(I) {
     drops: ["meat"],
     health: 1,
     moneyFrequency: 0,
+    nutrition: 10,
     pointsWorth: 1000,
     radius: 20,
     shootLogic: $.noop,

@@ -40,6 +40,7 @@ function Soldier(I) {
       }
     },
     hitCircles: currentModel.hitFrames,
+    nutrition: 50,
     sprite: currentModel.animation,
     type: 'sandinista',
     x: rand(CANVAS_WIDTH),

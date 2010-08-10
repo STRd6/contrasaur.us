@@ -9,6 +9,7 @@ function Enemy(I) {
     health: 3,
     hFlip: false,
     moneyFrequency: 0.2,
+    nutrition: 0,
     onFire: false,
     pointsWorth: 1000,
     radius: 18,
@@ -46,6 +47,10 @@ function Enemy(I) {
         t = Matrix.IDENTITY;
       }
       return t.translate(I.x, I.y);
+    },
+
+    nutrify: function(other) {
+      other.heal(I.nutrition);
     },
 
     after: {

@@ -19,6 +19,7 @@ function Parasoldier(I) {
     color: "#F00",
     collideDamage: 1,
     hitCircles: parasoldierModel.hitFrames,
+    nutrition: 50,
     pointsWorth: 1000,
     shootLogic: function() {
       if (Math.random() < 0.3) {

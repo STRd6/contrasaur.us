@@ -309,6 +309,10 @@ function Dinosaur() {
                   if(other.bite) {
                     other.bite();
                   }
+
+                  if(other.nutrify) {
+                    other.nutrify(self);
+                  }
                 }
               }
             }));

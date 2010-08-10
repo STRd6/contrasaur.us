@@ -12,6 +12,7 @@ function Brontosaurus(I) {
     pointsWorth: 50000,
     radius: 90,
     hitCircles: brontoModel.hitFrames,
+    nutrition: 25,
     sprite: brontoModel.animation,
     shootLogic: $.noop
   });
