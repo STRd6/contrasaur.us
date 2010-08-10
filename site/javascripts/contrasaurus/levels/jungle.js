@@ -1,7 +1,9 @@
 (function() {
+  var imgPath = "images/levels/jungle/";
+
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/ground.png'),
+      image: Sprite.load(imgPath + "ground.png"),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -11,47 +13,36 @@
       width: 640
     },
     {
-      image: Sprite.load("images/levels/jungle/background.png"),
-      parallaxRate: 0,
+      image: Sprite.load(imgPath + "background.png"),
+      parallaxRate: 0.25,
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 2700
     },
     {
-      image: Sprite.load("images/levels/jungle/midground.png"),
+      image: Sprite.load(imgPath + "midground.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 4670
     },
     {
-      image: Sprite.load("images/levels/jungle/foreground.png"),
+      image: Sprite.load(imgPath + "foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 5600
     }
-  ], [
-    {
-      image: Sprite.load('images/levels/jungle/tree.png'),
-      parallaxRate: 1,
-      position: {
-        x: rand(CANVAS_WIDTH - 116),
-        y: 280
-      }
-    },
-    {
-      image: Sprite.load('images/levels/jungle/tree.png'),
-      parallaxRate: 2,
-      position: {
-        x: rand(CANVAS_WIDTH - 116),
-        y: 330
-      }
-    }
-  ]);
+  ], []);
 
   var bombingRunActive = false;
   var bombingRunCount = 0;
@@ -102,7 +93,7 @@
     }
   }
 
-  var floor = Floor();
+  var floor = Floor({sprite: Sprite.EMPTY});
 
   var triggers = [{
     every: 500,
