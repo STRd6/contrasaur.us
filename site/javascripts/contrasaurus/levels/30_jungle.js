@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   var imgPath = "images/levels/jungle/";
 
   var scene = Scene([
@@ -114,4 +114,4 @@
 
   addCutscene("", "...", 4000);
   addLevel(scene, [floor], triggers, "Lady Gaga - Telephone");
-}());
+});

@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   var imgPath = "images/levels/prehistoric/";
 
   var meteorsActive = false;
@@ -205,4 +205,4 @@
       useTheYawToChomp.draw(canvas);
     }
   });
-}());
+});

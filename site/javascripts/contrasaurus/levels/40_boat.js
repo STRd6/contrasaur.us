@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   var imgPath = "images/levels/parasail/";
 
   var scene = Scene([
@@ -113,4 +113,4 @@
   }];
 
   addLevel(scene, [floor], triggers, "Lady Gaga - Alejandro");
-}());
+});

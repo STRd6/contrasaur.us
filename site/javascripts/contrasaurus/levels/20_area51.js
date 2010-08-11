@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   var scene = Scene([
     {
       image: Sprite.load('images/levels/ground.png'),
@@ -95,4 +95,4 @@
       reaganJetpack.draw(canvas);
     }
   });
-}());
+});
