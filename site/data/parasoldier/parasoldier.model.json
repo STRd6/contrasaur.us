@@ -1,0 +1,131 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 4,
+    "height": 90,
+    "width": 80,
+    "url": "images/enemies/parasoldier/parasoldier2.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 1,
+          "y": 9,
+          "radius": 11
+        },
+        {
+          "x": -1,
+          "y": 32,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -2,
+          "y": 8,
+          "radius": 11
+        },
+        {
+          "x": -4,
+          "y": 31,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -2,
+          "y": 10,
+          "radius": 11
+        },
+        {
+          "x": -5,
+          "y": 32,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -1,
+          "y": 10,
+          "radius": 12
+        },
+        {
+          "x": -3,
+          "y": 34,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -21,
+          "y": -4,
+          "radius": 11
+        },
+        {
+          "x": -24,
+          "y": 17,
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -20,
+          "y": -3,
+          "radius": 11
+        },
+        {
+          "x": -21,
+          "y": 18,
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -16,
+          "y": -5,
+          "radius": 11
+        },
+        {
+          "x": -19,
+          "y": 16,
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -18,
+          "y": -4,
+          "radius": 11
+        },
+        {
+          "x": -22,
+          "y": 17,
+          "radius": 10
+        }
+      ]
+    }
+  ]
+}

@@ -34,11 +34,6 @@
         $
         %span.amount 0
 
-= javascripts('contrasaurus/main')
-
-- levels = %w[10_prehistoric 20_area51 30_jungle 40_boat 50_washington_dc].map {|name| "contrasaurus/levels/#{name}" }
-= javascripts(*levels)
-
 :javascript
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
 

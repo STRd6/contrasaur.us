@@ -1,0 +1,87 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 135,
+    "width": 283,
+    "url": "images/contrasaurus/fly.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "hat": {
+          "x": 89,
+          "y": -71,
+          "direction": 0
+        },
+        "eye": {
+          "x": 94,
+          "y": -56,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -8,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -33,
+          "direction": 0
+        }
+      },
+      "circles": [
+        {
+          "x": 89,
+          "y": -27,
+          "radius": 19
+        },
+        {
+          "x": 118,
+          "y": -32,
+          "radius": 24
+        },
+        {
+          "x": 58,
+          "y": -28,
+          "radius": 19
+        },
+        {
+          "x": 18,
+          "y": -1,
+          "radius": 35
+        },
+        {
+          "x": -34,
+          "y": 7,
+          "radius": 27
+        },
+        {
+          "x": 86,
+          "y": -55,
+          "radius": 12
+        },
+        {
+          "x": -99,
+          "y": 18,
+          "radius": 12
+        },
+        {
+          "x": -114,
+          "y": 36,
+          "radius": 24
+        },
+        {
+          "x": -88,
+          "y": 34,
+          "radius": 10
+        },
+        {
+          "x": -74,
+          "y": 18,
+          "radius": 20
+        }
+      ]
+    }
+  ]
+}

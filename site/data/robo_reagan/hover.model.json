@@ -1,0 +1,91 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 4,
+    "height": 68,
+    "width": 37,
+    "url": "images/enemies/robo_reagan/hover.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 14
+        },
+        {
+          "x": 4,
+          "y": 12,
+          "radius": 13
+        },
+        {
+          "x": 0,
+          "y": -27,
+          "radius": 7
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 1,
+          "y": -10,
+          "radius": 14
+        },
+        {
+          "x": 4,
+          "y": 11,
+          "radius": 13
+        },
+        {
+          "x": 0,
+          "y": -26,
+          "radius": 7
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 0,
+          "y": -9,
+          "radius": 14
+        },
+        {
+          "x": 3,
+          "y": 13,
+          "radius": 13
+        },
+        {
+          "x": 0,
+          "y": -26,
+          "radius": 7
+        }
+      ]
+    },
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 14
+        },
+        {
+          "x": 5,
+          "y": 12,
+          "radius": 13
+        },
+        {
+          "x": 0,
+          "y": -27,
+          "radius": 7
+        }
+      ]
+    }
+  ]
+}

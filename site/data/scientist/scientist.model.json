@@ -1,0 +1,26 @@
+{
+  "animation": {
+    "delay": 1,
+    "frames": 1,
+    "height": 80,
+    "width": 80,
+    "url": "images/enemies/mad_scientist.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 1,
+          "y": 16,
+          "radius": 18
+        },
+        {
+          "x": -4,
+          "y": -19,
+          "radius": 18
+        }
+      ]
+    }
+  ]
+}
