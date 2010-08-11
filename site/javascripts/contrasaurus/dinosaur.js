@@ -93,6 +93,11 @@ function Dinosaur() {
     }
   });
 
+  $("#gameCanvas").mousedown(function(event) {
+    // Shoot?
+    toss();
+  });
+
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
   }
@@ -279,7 +284,7 @@ function Dinosaur() {
           //cryCounter += (currentHealth - I.health) / 2;
         }
       },
-      update: function(position) {
+      update: function(levelPosition) {
         // Choose correct animation and hitFrames
         if(I.xVelocity != 0) {
           lastDirection = I.xVelocity;
@@ -350,7 +355,7 @@ function Dinosaur() {
         }
 
         $.each(weapons, function(i, weapon) {
-          weapon.update(self);
+          weapon.update(self, levelPosition);
 
           if(weapon.active()) {
             activeWeapons.push(weapon);
@@ -361,11 +366,11 @@ function Dinosaur() {
         activeWeapons = [];
 
         // Stay in screen
-        if (I.x < position.x + I.radius) {
-          I.x = position.x + I.radius;
+        if (I.x < levelPosition.x + I.radius) {
+          I.x = levelPosition.x + I.radius;
           I.xVelocity = Math.abs(I.xVelocity);
-        } else if (I.x > position.x + CANVAS_WIDTH - I.radius) {
-          I.x = position.x + CANVAS_WIDTH - I.radius;
+        } else if (I.x > levelPosition.x + CANVAS_WIDTH - I.radius) {
+          I.x = levelPosition.x + CANVAS_WIDTH - I.radius;
           I.xVelocity = -Math.abs(I.xVelocity);
         }
 

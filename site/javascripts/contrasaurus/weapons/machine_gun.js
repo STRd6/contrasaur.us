@@ -1,51 +1,54 @@
 function MachineGun(I) {
   I = I || {};
 
+  var jitter = Math.PI / 12;
+  var dinoTransform = Matrix.IDENTITY;
+  var bullets = 1024;
+
   $.reverseMerge(I, {
+    duration: -1,
     exitPoints: [Point(50, 1)],
     name: "machineGun",
-    radius: 5,
-    theta: 0,
-    thetaVelocity: Math.PI / 48,
     throwable: {
       shoot: function(I) {
-        addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }))
+        if(bullets > 0) {
+          addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }));
+          bullets--;
+        }
       }
     }
   });
 
   // Adjust machine gun angle
-  function updateGunAngle(dino) {
-    I.theta += I.thetaVelocity;
+  function updateGunAngle(dino, levelPosition) {
+    var position = dino.position();
+    var displacement = 0;
 
-    // Change gun rotation direction
-    if(Math.random() < 0.05) {
-      I.thetaVelocity = I.thetaVelocity * -1;
+    if(bullets > 0) {
+      displacement = rand() * jitter - jitter / 2;
     }
 
-    // Flip target angle 180
-    if(Math.random() < 0.05) {
-      I.theta += Math.PI;
-    }
-
-    // Don't shoot machine gun into the ground
-    if(Math.sin(-I.theta) < -0.3 && !dino.airborne()) {
-      I.theta -= I.thetaVelocity * 2;
-    }
+    I.rotation = Point.direction(position, target.add(levelPosition)) + displacement;
   }
 
   var self = Weapon(I).extend({
     getTransform: function() {
-      return Matrix.rotation(I.theta).translate(I.x, I.y);
+      var position = dinoTransform.transformPoint(self.position());
+
+      return dinoTransform.inverse().concat(Matrix.rotation(I.rotation).translate(position.x, position.y));
     },
 
     before: {
-      update: function() {
-        updateGunAngle(dino);
+      update: function(dino, levelPosition) {
+        dinoTransform = dino.getTransform();
 
-        if(I.age >= I.duration || rand() < 0.005) {
-          self.toss();
+        updateGunAngle(dino, levelPosition);
+
+        if(bullets == 0) {
+          I.power = 0;
         }
+
+        bullets--;
       }
     }
   });

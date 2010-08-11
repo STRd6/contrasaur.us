@@ -72,6 +72,8 @@ var weaponMap = {
   "shotgun": Shotgun
 };
 
+var target = Point();
+
 var gameOver = false;
 var currentStage = -1;
 
@@ -93,6 +95,8 @@ function drawOverlay() {
   displayTexts = activeTexts;
 
   healthBar.value(dino.health());
+
+  canvas.fillCircle(target.x, target.y, 10, "rgba(255, 255, 0, 0.5)");
 
   // Score display
   $("#score").text(score);
@@ -283,4 +287,13 @@ $(".inventory .menu").live("click", function() {
     
     $(this).attr("data-used", 'true');
   }
+});
+
+$("#gameCanvas").bind("mousemove", function(event) {
+  var offset = $(this).offset();
+
+  var localY = event.pageY - offset.top;
+  var localX = event.pageX - offset.left;
+
+  target = Point(localX, localY);
 });

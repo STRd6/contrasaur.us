@@ -20,6 +20,16 @@
   };
 
   /**
+   * Returns the direction from p1 to p2 in radians.
+   */
+  Point.direction = function(p1, p2) {
+    return Math.atan2(
+      p2.y - p1.y,
+      p2.x - p1.x
+    );
+  }
+
+  /**
    * Creates a matrix for 2d affine transformations.
    *  _        _
    * | a  c tx  |
