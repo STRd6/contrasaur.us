@@ -26,6 +26,8 @@ function Dinosaur() {
   var flyModel = Model.loadJSONUrl(modelPath + "fly.model.json");
   var biteModel = Model.loadJSONUrl(modelPath + "bite.model.json");
   var cryModel = Model.loadJSONUrl(modelPath + "cry.model.json");
+  var idle1Model = Model.loadJSONUrl(modelPath + "idle1.model.json");
+  var idle2Model = Model.loadJSONUrl(modelPath + "idle2.model.json")
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 
@@ -352,7 +354,7 @@ function Dinosaur() {
             } else if(I.xVelocity != 0) {
               setModel(walkModel);
             } else {
-              setModel(standModel);
+              setModel(idle1Model);
             }
           }
         }
