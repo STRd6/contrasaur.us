@@ -50,7 +50,7 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(function() {
-    $(document).bind('keydown', 'space', function() {
+    $(document).bind('keydown', 'up space', function() {
       if(!airborne) {
         if(jetpack) {
           jetpack.trigger('engage');
