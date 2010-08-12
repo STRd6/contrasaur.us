@@ -5,10 +5,20 @@ function ThrownItem(I) {
   // make csour turn if you throw it behind you
 
   var position = dino.position();
+  var levelPosition = currentLevel.position();
+
+  var throwAngle = Point.direction(position, target.add(levelPosition));
+
+  if ((Math.cos(throwAngle) < 0 && dino.xVelocity() >= 0) || (Math.cos(throwAngle) >= 0 && dino.xVelocity() < 0)) {
+    var dinoVelocity = dino.xVelocity();
+    dino.xVelocity(-1 * dinoVelocity);
+  }
+
+  var throwSpeed = Point.distance(position, target.add(levelPosition)) / 10;
 
   $.reverseMerge(I, {
-    speed: 20,
-    theta: Point.direction(position, target.add(currentLevel.position())),
+    speed: throwSpeed,
+    theta: throwAngle,
     weaponName: "battleAxe"
   });
 

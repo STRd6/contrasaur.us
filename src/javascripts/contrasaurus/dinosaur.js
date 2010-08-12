@@ -279,6 +279,10 @@ function Dinosaur() {
           I.xVelocity = 0;
         }
 
+        if(I.xVelocity != 0) {
+          lastDirection = I.xVelocity;
+        }
+
         currentHealth = I.health;
       }
     },
@@ -291,9 +295,6 @@ function Dinosaur() {
       },
       update: function(levelPosition) {
         // Choose correct animation and hitFrames
-        if(I.xVelocity != 0) {
-          lastDirection = I.xVelocity;
-        }
 
         if(biteCounter > 0) {
           biteCounter--;
