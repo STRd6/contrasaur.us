@@ -1,9 +1,14 @@
 function ThrownItem(I) {
   I = I || {};
 
+  // TODO: make the weapon throw farther based on how far away you click
+  // make csour turn if you throw it behind you
+
+  var position = dino.position();
+
   $.reverseMerge(I, {
     speed: 20,
-    theta: -Math.PI/12,
+    theta: Point.direction(position, target.add(currentLevel.position())),
     weaponName: "battleAxe"
   });
 

@@ -62,31 +62,31 @@ function Dinosaur() {
       toss();
     });
 
-    $(document).bind('keydown', 'left', function() {
+    $(document).bind('keydown', 'left a', function() {
       if (!parasailing) {
         I.xVelocity = -6;
       }
     });
 
-    $(document).bind('keyup', 'left', function() {
+    $(document).bind('keyup', 'left a', function() {
       if (!parasailing) {
         I.xVelocity = 0;
       }
     });
 
-    $(document).bind('keydown', 'right', function() {
+    $(document).bind('keydown', 'right d', function() {
       if (!parasailing) {
         I.xVelocity = 6;
       }
     });
 
-    $(document).bind('keyup', 'right', function() {
+    $(document).bind('keyup', 'right d', function() {
       if (!parasailing) {
         I.xVelocity = 0;
       }
     });
 
-    $(document).bind('keydown', 'down', function() {
+    $(document).bind('keydown', 'down s', function() {
       if (!parasailing) {
         if (biteCounter <= 0) {
           biteCounter = 24;

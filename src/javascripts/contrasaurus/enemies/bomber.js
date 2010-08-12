@@ -4,6 +4,10 @@ function Bomber(I) {
   var bombs = 6;
   var cooldown = 0;
 
+  var bomberModel = Model.loadJSONUrl("data/bomber/bomber.model.json", function(model) {
+    I.sprite = model.animation;
+  });
+
   function dropBomb() {
     cooldown += 10;
     bombs--;
@@ -19,6 +23,7 @@ function Bomber(I) {
     x: 650,
     y: 40,
     width: 71,
+    hitCircles: bomberModel.hitFrames,
     height: 44,
     radius: 22,
     hFlip: true,
@@ -36,14 +41,20 @@ function Bomber(I) {
         dropBomb();
       }
     },
-    sprite: Sprite.load("images/enemies/bomber.png"),
+    sprite: bomberModel.animation,
     type: 'bomber'
   });
 
   I.hFlip = I.xVelocity <= 0;
 
   var self = Enemy(I).extend({
-    bulletHitEffect: Enemy.sparkSprayEffect
+    bulletHitEffect: Enemy.sparkSprayEffect,
+
+    after: {
+      update: function() {
+        I.hitCircles = bomberModel.hitFrame();
+      }
+    }
   });
 
   return self;
