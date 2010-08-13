@@ -1,16 +1,16 @@
 function LaserGun(I) {
   I = I || {};
 
-  var monocle = Sprite.load("images/weapons/monocle.png");
-  var monocleRed = Sprite.load("images/weapons/monocle_red.png");
-  var redCount = 0;
+  var monocle = Animation.load("images/weapons/laser_eye.png", 4, 28, 26, 4);
+  var targetPosition = 0;
+  var lastFrame = 0;
 
   $.reverseMerge(I, {
     age: 0,
     attachment: "eye",
     duration: 3000,
     exitPoints: [Point(5, 2)],
-    power: 10,
+    power: 0,
     radius: 5,
     sprite: monocle
   });
@@ -23,26 +23,23 @@ function LaserGun(I) {
         health: 5000,
         radius: 2,
         sprite: Sprite.load("images/projectiles/laser.png"),
-        theta: direction,
+        theta: Point.direction(position, targetPosition),
         x: position.x,
         y: position.y
       });
     },
 
     after: {
-      shoot: function() {
-        I.sprite = monocleRed;
-        redCount = 3;
-      }
-    },
+      update: function(dino, levelPosition) {
+        targetPosition = target.add(levelPosition);
 
-    before: {
-      update: function() {
-        redCount--;
-
-        if (redCount < 0) {
-          I.sprite = monocle;
+        if(monocle.frame() == 3 && lastFrame != 3) {
+          I.power = 100;
+        } else {
+          I.power = 0;
         }
+
+        lastFrame = monocle.frame();
       }
     }
   });
