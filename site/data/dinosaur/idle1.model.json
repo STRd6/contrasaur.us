@@ -28,6 +28,11 @@
           "x": 2,
           "y": -33,
           "direction": 0
+        },
+        "jaw": {
+          "x": 117,
+          "y": -14,
+          "direction": 0
         }
       },
       "circles": [
@@ -143,6 +148,11 @@
         "eye": {
           "x": 94,
           "y": -55,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 117,
+          "y": -15,
           "direction": 0
         }
       },
@@ -260,6 +270,11 @@
           "x": 96,
           "y": -56,
           "direction": 0
+        },
+        "jaw": {
+          "x": 118,
+          "y": -16,
+          "direction": 0
         }
       },
       "circles": [
@@ -375,6 +390,11 @@
         "back": {
           "x": 2,
           "y": -32,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 118,
+          "y": -16,
           "direction": 0
         }
       },

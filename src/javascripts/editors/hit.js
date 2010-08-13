@@ -328,7 +328,10 @@ $("#controls").append(Button("Decrease+", function() {
 
 $("#controls").append(Button("Add Attachment Point", function() {
   var name = prompt("Attachment point name:", '');
-  AttachmentPoints.add(name);
+
+  if(name) {
+    AttachmentPoints.add(name);
+  }
 }));
 
 $("#controls").append(Button("Add Circle", function() {

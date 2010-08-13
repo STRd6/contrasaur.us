@@ -28,6 +28,11 @@
           "x": 3,
           "y": -33,
           "direction": 0
+        },
+        "jaw": {
+          "x": 115,
+          "y": -17,
+          "direction": 0
         }
       },
       "circles": [
