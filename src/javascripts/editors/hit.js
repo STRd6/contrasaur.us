@@ -356,6 +356,10 @@ $("#controls").append(Button("Set Attachment Direction", function() {
   }
 }));
 
+$("#controls").append(Button("Toggle Show Circles", function() {
+  showCircles = !showCircles;
+}));
+
 function loadAnimationJSON(url) {
   Animation.loadJSONUrl(url, function(a, data) {
     animation = a;
