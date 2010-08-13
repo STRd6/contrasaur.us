@@ -2,8 +2,8 @@ function Jetpack(I) {
 
   I = I || {};
 
-  var activeTile = Sprite.load("images/weapons/jetpack_active.png");
-  var jetpackTile = Sprite.load("images/weapons/jetpack.png");
+  var fireSprite = Animation.load("images/weapons/jetpack_fire.png", 4, 91, 89, 2);
+  var jetpackSprite = Sprite.load("images/weapons/jetpack.png");
   var charge = false;
   var haywire = false;
 
@@ -13,7 +13,7 @@ function Jetpack(I) {
     duration: -1,
     engaged: false,
     eventCallbacks: {
-      'engage': function() {
+      engage: function() {
         if(!I.engaged) {
           if (Math.random() < 0.2) {
             charge = true;
@@ -30,7 +30,7 @@ function Jetpack(I) {
           }
         }
       },
-      'disengage': function() {
+      disengage: function() {
         if(I.engaged) {
           I.engaged = false;
           charge = false;
@@ -41,7 +41,7 @@ function Jetpack(I) {
       }
     },
     jetpackCounter: 0,
-    sprite: Sprite.load("images/weapons/jetpack.png"),
+    sprite: jetpackSprite,
     xImpulse: 0,
     yImpulse: 0
   });
@@ -51,6 +51,16 @@ function Jetpack(I) {
   });
 
   var self = Weapon(I).extend({
+    draw: function(canvas) {
+      canvas.withTransform(self.getTransform(), function() {
+        jetpackSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
+
+        if (I.engaged) {
+          fireSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
+        }
+      });
+    },
+
     engaged: function(value) {
       if (value === undefined) {
         return I.engaged;
@@ -106,7 +116,7 @@ function Jetpack(I) {
         }
       }
 
-      I.sprite = I.engaged ? activeTile : jetpackTile;
+      fireSprite.update();
     }
   })
   return self;

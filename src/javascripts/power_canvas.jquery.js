@@ -3,53 +3,14 @@
     options = options || {};
 
     var canvas = this.get(0);
-    var context;
 
-    function withState(x, y, options, block) {
-      context.save();
-
-      context.translate(x, y);
-
-      if(options) {
-        if(options.hFlip) {
-          context.transform(-1, 0, 0, 1, 0, 0);
-        }
-
-        if(options.vFlip) {
-          context.transform(1, 0, 0, -1, 0, 0);
-        }
-
-        if(options.rotation) {
-          var theta = options.rotation;
-          context.transform(
-            Math.cos(theta), Math.sin(theta),
-            -Math.sin(theta), Math.cos(theta),
-            0, 0
-          );
-        }
-
-        if(options.transform) {
-          context.transform(
-            options.transform.a,
-            options.transform.b,
-            options.transform.c,
-            options.transform.d,
-            options.transform.tx,
-            options.transform.ty
-          );
-        }
-      }
-
-      try {
-        block();
-      } finally {
-        context.restore();
-      }
+    if(!canvas) {
+      return this;
     }
 
-    var $canvas = $(canvas).extend({
-      withState: withState,
+    var context;
 
+    var $canvas = $(canvas).extend({
       drawLine: function(x1, y1, x2, y2, width) {
         width = width || 3;
 

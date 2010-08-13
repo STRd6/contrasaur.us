@@ -14,7 +14,7 @@ var attachmentColor = "rgba(0, 255, 0, 0.5)";
 var activeColor = "rgba(255, 0, 255, 0.5)";
 var circleColor = "rgba(255, 0, 0, 0.5)";
 
-$('#gameCanvas').powerCanvas({init: function(canvas) {
+$('#editorCanvas').powerCanvas({init: function(canvas) {
   var character = GameObject().extend({
     attachmentPoints: function() {
       var attachmentPoints = {};
@@ -404,7 +404,7 @@ $("#loadModel").click(function() {
 }).click();
 
 $("#export").click(function() {
-  alert(JSON.stringify({
+  $("#output").text(JSON.stringify({
     animation: animationJSON,
     frames: frames
   }, null, 2));

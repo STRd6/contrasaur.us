@@ -7,6 +7,7 @@ function Dinosaur() {
   var currentHealth = 0;
   var cryCounter = 0;
   var biteCounter = 0;
+  var idleCounter = 0;
 
   var x = (CANVAS_WIDTH - width) / 2;
   var y = 150;
@@ -350,12 +351,23 @@ function Dinosaur() {
             // TODO: Maybe a state machine?
             if (biteCounter > 0) {
               setModel(biteModel);
+              idleCounter = 0;
             } else if(cryCounter > 0) {
               setModel(cryModel);
+              idleCounter = 0;
             } else if(I.xVelocity != 0) {
               setModel(walkModel);
+              idleCounter = 0;
             } else {
-              setModel(idle1Model);
+              if(idleCounter == 0) {
+                setModel(idle1Model);
+              } else if(Math.floor(idleCounter / 128) % 2 == 1) {
+                setModel(idle2Model);
+              } else {
+                setModel(idle1Model);
+              }
+
+              idleCounter++;
             }
           }
         }
@@ -393,6 +405,8 @@ function Dinosaur() {
   if(rand() < 1) {
     self.addAccessory(tophat);
   }
+
+  self.addJetpack();
 
   return self;
 }
