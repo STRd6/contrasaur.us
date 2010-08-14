@@ -13,8 +13,8 @@ function Bullet(I) {
     effectCount: 1,
     radius: 2,
     sprite: Sprite.load("images/projectiles/playerbullet4.png"),
-    xVelocity: Math.cos(I.theta)*I.speed,
-    yVelocity: Math.sin(I.theta)*I.speed
+    xVelocity: Math.cos(I.theta)*I.speed + dino.xVelocity(),
+    yVelocity: Math.sin(I.theta)*I.speed + dino.yVelocity()
   });
 
   var self = GameObject(I).extend({
