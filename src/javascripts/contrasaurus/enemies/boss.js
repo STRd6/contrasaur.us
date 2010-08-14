@@ -2,6 +2,7 @@ function Boss(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    checkBounds: $.noop,
     type: 'boss'
   });
 

@@ -41,6 +41,8 @@ $(function(){
           y: 190,
           shootLogic: $.noop,
           sprite: Sprite.load('images/levels/washington_dc/whiteHouse.png')
+        }).extend({
+          bulletHitEffect: Enemy.sparkSprayEffect
         });
 
         dino.boss(whiteHouse);

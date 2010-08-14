@@ -37,6 +37,7 @@ function SecretService(I) {
       }
     },
     hitCircles: currentModel.hitFrames,
+    nutrition: 25,
     sprite: currentModel.animation,
     type: 'secret service',
     x: rand(CANVAS_WIDTH),
