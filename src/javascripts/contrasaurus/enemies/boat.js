@@ -115,6 +115,8 @@ function Boat(I) {
             I.yVelocity = 0;
             jumping = false;
           }
+        } else {
+          I.y = position.y + boatTarget.y + 5 * Math.sin(I.age/13);
         }
 
         if(I.health < maxHealth / 2) {

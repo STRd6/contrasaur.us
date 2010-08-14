@@ -336,7 +336,7 @@ function Dinosaur() {
         }
 
         if(parasailing) {
-          I.xVelocity = Math.sin(I.age) + 7;
+          I.xVelocity = 6;
           I.yVelocity = Math.cos(I.age/2);
 
           setModel(flyModel);
