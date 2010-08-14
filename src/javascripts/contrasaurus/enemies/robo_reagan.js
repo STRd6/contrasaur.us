@@ -8,7 +8,7 @@ function RoboReagan(I) {
   var currentModel = hoverModel;
 
   $.reverseMerge(I, {
-    health: 100,
+    health: 9000,
     radius: 40,
     collideDamage: 1,
     pointsWorth: 1000000,

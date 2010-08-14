@@ -3,6 +3,7 @@ function Bazooka(I) {
 
   $.reverseMerge(I, {
     attachment: "back",
+    exitPoints: [Point(30, -30)],    
     power: 10,
     sprite: Sprite.load("images/weapons/missile_launcher.png")
   });

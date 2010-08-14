@@ -45,9 +45,9 @@ function GameObject(I) {
         "images/accessories/coins.png",
         "images/accessories/money.png"
       ].rand()),
-      x: I.x + 50,
-      y: I.y - 50 - rand(40),
-      xVelocity: rand(6),
+      x: I.x,
+      y: I.y - 40 - rand(50),
+      xVelocity: (Math.random() < 0.5 ? rand(6) : -1*rand(6)),
       yVelocity: -5*rand(4)
     }));
   }

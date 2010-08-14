@@ -6,7 +6,6 @@ function LaserGun(I) {
   var lastFrame = 0;
 
   $.reverseMerge(I, {
-    age: 0,
     attachment: "eye",
     duration: 3000,
     exitPoints: [Point(5, 2)],
@@ -21,7 +20,7 @@ function LaserGun(I) {
         speed: 13,
         collideDamage: 3,
         health: 5000,
-        radius: 2,
+        hitCircles: [{"x": -15, "y": 0, "radius": 3}, {"x": 0, "y": 0, "radius": 3}, {"x": 15, "y": 0, "radius": 3}],
         sprite: Sprite.load("images/projectiles/laser.png"),
         theta: Point.direction(position, targetPosition),
         x: position.x,

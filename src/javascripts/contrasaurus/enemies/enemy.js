@@ -2,6 +2,7 @@ function Enemy(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    checkBounds: GameObject.generateCheckBounds(I, 100),
     collideDamage: 1,
     collisionType: "enemy",
     drops: weapons,
@@ -18,8 +19,6 @@ function Enemy(I) {
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
-
-  var checkBounds = GameObject.generateCheckBounds(I, 100);
 
   var self = GameObject(I).extend({
     burn: function(flame) {
@@ -61,7 +60,7 @@ function Enemy(I) {
       },
       update: function() {
         I.shootLogic();
-        checkBounds.apply(self, arguments);
+        I.checkBounds.apply(self, arguments);
 
         if(I.onFire && Math.random() < 0.1) {
           //Smoke/flame
