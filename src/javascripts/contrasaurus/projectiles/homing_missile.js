@@ -20,10 +20,6 @@ function HomingMissile(I) {
         direction = Math.atan2(I.yVelocity, I.xVelocity);
       }
 
-      if(isNaN(direction)) {
-        debugger;
-      }
-
       return direction;
     },
     radius: 5,
