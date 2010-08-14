@@ -22,13 +22,14 @@ function Dinosaur() {
   var pitchAngle = 0;
 
   var modelPath = "data/dinosaur/";
-  var standModel = Model.loadJSONUrl(modelPath + "stand.model.json");
-  var walkModel = Model.loadJSONUrl(modelPath + "walk.model.json");
-  var flyModel = Model.loadJSONUrl(modelPath + "fly.model.json");
-  var biteModel = Model.loadJSONUrl(modelPath + "bite.model.json");
-  var cryModel = Model.loadJSONUrl(modelPath + "cry.model.json");
-  var idle1Model = Model.loadJSONUrl(modelPath + "idle1.model.json");
-  var idle2Model = Model.loadJSONUrl(modelPath + "idle2.model.json")
+  var extension = ".model.json";
+  var standModel = Model.loadJSONUrl(modelPath + "stand" + extension);
+  var walkModel = Model.loadJSONUrl(modelPath + "walk" + extension);
+  var flyModel = Model.loadJSONUrl(modelPath + "fly" + extension);
+  var biteModel = Model.loadJSONUrl(modelPath + "bite" + extension);
+  var cryModel = Model.loadJSONUrl(modelPath + "cry" + extension);
+  var idle1Model = Model.loadJSONUrl(modelPath + "idle1" + extension);
+  var idle2Model = Model.loadJSONUrl(modelPath + "idle2" + extension);
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 
@@ -53,7 +54,7 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(function() {
-    $(document).bind('keydown', 'up space', function() {
+    $(document).bind('keydown', 'w up space', function() {
       if(!airborne) {
         if(jetpack) {
           jetpack.trigger('engage');
