@@ -54,33 +54,51 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(function() {
-    $(document).bind('keydown', 'w up space', function() {
-      if(!airborne) {
-        if(jetpack) {
-          jetpack.trigger('engage');
+    
+    $.each({
+      
+      "w up space": function() {
+        if(!airborne) {
+          if(jetpack) {
+            jetpack.trigger('engage');
+          }
         }
-      }
+      },
+      
+      "t": function() {
+        toss();
+      },
+      
+      "left a": function() {
+        if (!parasailing) {
+          I.xVelocity = -6;
+        }
+      },
+      
+      "right d": function() {
+        if (!parasailing) {
+          I.xVelocity = 6;
+        }
+      },
+      
+      "down s": function() {
+        if (!parasailing) {
+          if (biteCounter <= 0) {
+            biteCounter = 24;
+            biteModel.animation.frame(0);
+          }
+        }
+      }   
+    }, function(key, fn) {
+      $(document).bind('keydown', key, function() {
+        fn();
+        return false;
+      });
     });
-
-    $(document).bind('keydown', 't', function() {
-      toss();
-    });
-
-    $(document).bind('keydown', 'left a', function() {
-      if (!parasailing) {
-        I.xVelocity = -6;
-      }
-    });
-
+    
     $(document).bind('keyup', 'left a', function() {
       if (!parasailing) {
         I.xVelocity = 0;
-      }
-    });
-
-    $(document).bind('keydown', 'right d', function() {
-      if (!parasailing) {
-        I.xVelocity = 6;
       }
     });
 
@@ -88,16 +106,6 @@ function Dinosaur() {
       if (!parasailing) {
         I.xVelocity = 0;
       }
-    });
-
-    $(document).bind('keydown', 'down s', function() {
-      if (!parasailing) {
-        if (biteCounter <= 0) {
-          biteCounter = 24;
-          biteModel.animation.frame(0);
-        }
-      }
-      return false;
     });
 
     $("#gameCanvas").mousedown(function(event) {
