@@ -97,6 +97,7 @@ function Dinosaur() {
           biteModel.animation.frame(0);
         }
       }
+      return false;
     });
 
     $("#gameCanvas").mousedown(function(event) {
