@@ -291,11 +291,9 @@ keyEvents = {
   },
   "shift+tab": function() {
     Circles.prev();
-    return false;
   },
   "tab": function() {
     Circles.next();
-    return false;
   },
   "d": function() {
     Circles.remove();
@@ -303,7 +301,10 @@ keyEvents = {
 }
 
 $.each(keyEvents, function(key, fn) {
-  $(document).bind('keydown', key, fn);
+  $(document).bind('keydown', key, function() {
+    fn();
+    return false;
+  });
 });
 
 function Button(text, callback) {
