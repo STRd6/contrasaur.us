@@ -9,13 +9,28 @@ function Tank(I) {
   });
 
   $.reverseMerge(I, {
-    y: CANVAS_HEIGHT - Floor.LEVEL,
-    xVelocity: -0.5,
-    health: 10,
+    eventCallbacks: {
+      'destroy': function() {
+        addGameObject(Grenade({
+          collideDamage: 5,
+          collisionType: "dinoBullet",
+          sprite: Sprite.load([
+            "images/effects/debris1.png",
+            "images/effects/debris2.png",
+            "images/effects/debris3.png",
+            "images/effects/debris4.png"
+          ].rand()),
+          x: self.position().x,
+          xVelocity: (Math.random() < 0.5) ? rand(10) : -1*rand(10),
+          y: self.position().y - 50,
+          yVelocity: -1*rand(10) - 5
+        }));
+      }
+    },    
     hFlip: true,
-    pointsWorth: 5000,
+    health: 10,    
     hitCircles: tankModel.hitFrames,
-    sprite: tankModel.animation,
+    pointsWorth: 5000,    
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
@@ -30,12 +45,15 @@ function Tank(I) {
           collideDamage: 7
         });
       }
-    },
-    type: 'tank'
+    },    
+    sprite: tankModel.animation,
+    type: 'tank',
+    xVelocity: -0.5,
+    y: CANVAS_HEIGHT - Floor.LEVEL    
   });
 
   var self = Enemy(I).extend({
-    bulletHitEffect: Enemy.debrisSprayEffect,
+    bulletHitEffect: Enemy.sparkSprayEffect,
 
     after: {
       update: function() {

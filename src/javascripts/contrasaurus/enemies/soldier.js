@@ -94,18 +94,22 @@ function Soldier(I) {
 
   self.bind('destroy', function(self) {
     var deathAnimation;
+    var offset;
 
     if(bitInHalf) {
       deathAnimation = bitInHalfModel.animation;
+      offset = 20;
     } else {
       deathAnimation = deathModel.animation;
+      offset = 0;
     }
 
-    var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
+    var effect = Effect($.extend(self.position(), {
       duration: 35,
       hFlip: true,
       sprite: deathAnimation,
-      velocity: Point(0, 0)
+      velocity: Point(0, 0),
+      x: I.x + offset
     }));
 
     addGameObject(effect);

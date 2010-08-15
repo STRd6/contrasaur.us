@@ -4,6 +4,11 @@ function Parasoldier(I) {
   var parasoldierModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json", function(model) {
     I.sprite = model.animation;
   });
+  
+  var runModel = Model.loadJSONUrl("data/sandinista/run.model.json");
+  var shootModel = Model.loadJSONUrl("data/sandinista/shoot.model.json");  
+  
+  var currentModel = parasoldierModel;
 
   $.reverseMerge(I, {
     x: rand(CANVAS_WIDTH),
@@ -18,7 +23,7 @@ function Parasoldier(I) {
     yVelocity: 4,
     color: "#F00",
     collideDamage: 1,
-    hitCircles: parasoldierModel.hitFrames,
+    hitCircles: currentModel.hitFrames,
     nutrition: 50,
     pointsWorth: 1000,
     shootLogic: function() {
@@ -32,14 +37,21 @@ function Parasoldier(I) {
         );
       }
     },
-    sprite: parasoldierModel.animation,
+    sprite: currentModel.animation,
     type: 'parasoldier'
   });
+  
+  function setModel(model) {
+    currentModel = model;
+    I.sprite = currentModel.animation;
+  }  
 
   var self = Enemy(I).extend({
     land: function(h) {
       I.y = h - I.radius;
       I.yVelocity = 0;
+      setModel(runModel);
+      I.xVelocity = -2;
     },
 
     after: {
@@ -49,7 +61,7 @@ function Parasoldier(I) {
         }
       },
       update: function() {
-        I.hitCircles = parasoldierModel.hitFrame();
+        I.hitCircles = currentModel.hitFrame();
       }
     }
   });

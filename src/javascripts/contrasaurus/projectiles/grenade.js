@@ -16,6 +16,8 @@ function Grenade(I) {
     if(I.active) {
       I.active = false;
       addGameObject(Explosion({
+        collideDamage: I.collideDamage,
+        collisionType: I.collisionType,
         x: I.x,
         y: I.y - 50
       }));
