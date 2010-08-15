@@ -81,11 +81,15 @@ function Boat(I) {
   var jumpImpulse = -10;
 
   var self = GameObject(I).extend({
-    bounce: function () {
-      jumping = true;
+    bounce: function (ramp) {
+      if(I.yVelocity > 3) {
+        ramp.crush();
+      } else {
+        jumping = true;
 
-      I.yVelocity = jumpImpulse;
-      I.y += I.yVelocity;
+        I.yVelocity = jumpImpulse;
+        I.y += I.yVelocity;
+      }
     },
 
     bulletHitEffect: Enemy.sparkSprayEffect,

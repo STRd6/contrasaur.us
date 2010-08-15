@@ -12,13 +12,18 @@ function Ramp(I) {
 
   var self = GameObject(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
+    
+    crush: function() {
+      I.active = false;
+      //TODO Debris
+    },
 
     sink: $.noop,
 
     after: {
       hit: function(other) {
         if(other.bounce) {
-          other.bounce();
+          other.bounce(self);
         }
       },
 
