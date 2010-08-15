@@ -3,27 +3,6 @@ $(function() {
 
   var meteorsActive = false;
 
-  function generateStandingEnemies(level, count) {
-    count.times(function(i) {
-      level.addGameObject(
-        Utahraptor({
-          xVelocity: 0,
-          x: level.position().x + CANVAS_WIDTH + i*30,
-          sprite: loadAnimation("images/enemies/dinofodder_eat.png", 2, 61, 33, 6)
-        })
-      );
-      level.addGameObject(GameObject({
-        sprite: Sprite.load([
-          imgPath + "grass1.png",
-          imgPath + "grass2.png",
-          imgPath + "grass3.png"
-        ].rand()),
-        x: level.position().x + CANVAS_WIDTH + (i*30) - 40,
-        y: 310
-      }));
-    });
-  }
-
   function generateRunningEnemies(level, count) {
     count.times(function(i) {
       level.addGameObject(
@@ -151,19 +130,6 @@ $(function() {
   }, {
     every: 50,
     event: function(level) {
-      level.addGameObject(GameObject({
-        sprite: Sprite.load([
-          "images/levels/prehistoric/grass1.png",
-          "images/levels/prehistoric/grass2.png",
-          "images/levels/prehistoric/grass3.png"
-        ].rand()),
-        x: level.position().x + rand(CANVAS_WIDTH) + CANVAS_WIDTH,
-        y: 310
-      }));
-
-      if(Math.random() < 0.5) {
-        generateStandingEnemies(level, rand(4) + 1);
-      }
 
       if (dino.boss()) {
         level.addGameObject(
@@ -197,12 +163,12 @@ $(function() {
     }
   }];
 
-  var useTheYawToChomp = DialogBox("Use the yaw to CHOMP!");
+  var pressDownToChomp = DialogBox("Press down to CHOMP!");
 
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
   addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance", function(level) {
     if (level.age() > 400 && level.age() < 600) {
-      useTheYawToChomp.draw(canvas);
+      pressDownToChomp.draw(canvas);
     }
   });
 });

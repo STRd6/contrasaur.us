@@ -62,9 +62,10 @@ $(function() {
         
         level.addGameObject(soldier);
       } else {
-        level.addGameObject(Parasoldier({
+        level.addGameObject(Soldier({
           xVelocity: 0, 
-          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20
+          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
+          y: -100
         }));
       }
     }

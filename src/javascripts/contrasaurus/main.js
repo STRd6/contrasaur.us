@@ -27,27 +27,23 @@ var stages = [];
 var weapons = [
   "battleAxe",
   "bazooka",
-  "bomb",
   "chainsaw",
   "flamethrower",
   "laserGun",
   "machineGun",
   "meat",
-  "shield",
-  "shotgun"
+  "shield"
 ];
 
 var weaponMap = {
   "battleAxe": BattleAxe,
   "bazooka": Bazooka,
-  "bomb": PrimalScream,
   "chainsaw": Chainsaw,
   "flamethrower": Flamethrower,
   "laserGun": LaserGun,
   "machineGun": MachineGun,
   "meat": Meat,
-  "shield": Shield,
-  "shotgun": Shotgun
+  "shield": Shield
 };
 
 var target;
@@ -243,20 +239,11 @@ $(function() {
     y: 100
   });
 
-  // Keyboard Bindings
-  $(document).bind('keydown', "esc", function() {
-    currentLevel.stop();
-  });
-
   $(document).bind('keydown', "0", function() {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
   });
 
-  $(document).bind('keydown', "d", function() {
-    debugHalt = true;
-  });
-
-  $(document).bind('keydown', "p", function() {
+  $(document).bind('keydown', "esc p", function() {
     if(currentLevel.togglePause()) {
       pauseDisplay.draw(canvas);
     }

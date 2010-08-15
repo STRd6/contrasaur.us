@@ -7,15 +7,11 @@ function Soldier(I) {
   var shootModelCounter = 0;
   var bitInHalf = false;
 
-  var runModel = Model.loadJSONUrl("data/sandinista/run.model.json", function(model) {
-    I.sprite = model.animation;
-  });
-
+  var runModel = Model.loadJSONUrl("data/sandinista/run.model.json");
   var shootModel = Model.loadJSONUrl("data/sandinista/shoot.model.json");
-
   var bitInHalfModel = Model.loadJSONUrl("data/sandinista/bit_in_half.model.json");
-
   var deathModel = Model.loadJSONUrl("data/sandinista/normal_death.model.json");
+  var parasoldierModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
 
   var currentModel = runModel;
 
@@ -34,9 +30,10 @@ function Soldier(I) {
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
 
-        I.hitCirles = shootModel.hitFrames;
-        I.sprite = shootModel.animation;
-        shootModelCounter = 8;
+        if (currentModel !== parasoldierModel) {
+          setModel(shootModel);
+          shootModelCounter = 8;
+        }
       }
     },
     hitCircles: currentModel.hitFrames,
@@ -64,16 +61,26 @@ function Soldier(I) {
     bite: function() {
       bitInHalf = true;
     },
+    
+    land: function(h) {
+      if(I.yVelocity >= 0) {
+        I.y = h - (I.radius + 1);
+        I.yVelocity = 0;
+        I.xVelocity = -2;
+        setModel(runModel);
+      }
+    },    
+
+    before: {
+      update: function() {
+        if(I.y < 200) {
+          setModel(parasoldierModel);
+        }
+      }
+    },
 
     after: {
       update: function() {
-        if (shootModelCounter < 0) {
-          I.sprite = runModel.animation;
-        }
-
-        shootModelCounter--;
-
-
         if (Math.random() < 0.05 && I.onFire) {
           I.xVelocity = I.xVelocity * -1;
         }
@@ -84,10 +91,7 @@ function Soldier(I) {
           I.hFlip = false;
         }
 
-        // TODO: check proxy
-        if (currentModel.hitFrame) {
-          I.hitCircles = currentModel.hitFrame();
-        }
+        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
@@ -104,16 +108,38 @@ function Soldier(I) {
       offset = 0;
     }
 
-    var effect = Effect($.extend(self.position(), {
+    var effectI = self.position();
+
+    var effect = Effect($.extend(effectI, {
       duration: 35,
       hFlip: true,
       sprite: deathAnimation,
       velocity: Point(0, 0),
       x: I.x + offset
     }));
+    
+    if(currentModel === parasoldierModel) {
+      effect.extend({
+        before: {
+          update: function() {            
+            if(effectI.y > CANVAS_HEIGHT - Floor.LEVEL) {
+              effectI.y = CANVAS_HEIGHT - Floor.LEVEL;
+              effectI.yVelocity = 0;
+            } else {
+              effectI.yVelocity += GRAVITY / 2;
+            }
+          }
+        }
+      });
+    }
 
     addGameObject(effect);
   });
+  
+  if(I.y < 200) {
+    setModel(parasoldierModel);
+    I.yVelocity = 2;
+  }
 
   return self;
 }
