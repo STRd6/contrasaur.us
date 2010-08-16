@@ -234,6 +234,10 @@ $(function() {
     y: 100
   });
 
+  $(document).bind("contextmenu", function() {
+    return false;
+  });
+
   $(document).bind('keydown', "0", function() {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
   });
