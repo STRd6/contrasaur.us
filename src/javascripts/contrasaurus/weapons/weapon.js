@@ -15,6 +15,7 @@ function Weapon(I) {
   I.sprite = I.sprite || Sprite.load("images/weapons/" + I.name + ".png");
 
   var lastPoint = -1;
+  var targetPosition = 0;
 
   var self = Accessory(I).extend({
     dino: function(newDino) {
@@ -48,12 +49,10 @@ function Weapon(I) {
 
         $.each(points, function(i, exitPoint) {
           var localPosition = t.transformPoint(exitPoint);
+          var direction = Point.direction(localPosition, targetPosition);
+          var centerDirection = Point.direction(center, localPosition);
 
-          // TODO: Better direction specification
-          // Assumes direction follows line from center of weapon to exit point
-          var direction = Math.atan2(localPosition.y - center.y, localPosition.x - center.x);
-
-          addGameObject(self.generateProjectile(direction, localPosition));
+          addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
         });
       }
     },
@@ -78,7 +77,9 @@ function Weapon(I) {
     },
 
     before: {
-      update: function() {
+      update: function(dino, levelPosition) {
+        targetPosition = target.add(levelPosition);
+
         if(I.ammo <= 0) {
           I.active = false;
         }

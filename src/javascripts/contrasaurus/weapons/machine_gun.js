@@ -31,6 +31,14 @@ function MachineGun(I) {
   }
 
   var self = Weapon(I).extend({
+    generateProjectile: function(direction, position, centerDirection) {
+      return Bullet({
+        theta: centerDirection,
+        x: position.x,
+        y: position.y
+      });
+    },
+
     getTransform: function() {
       var position = dinoTransform.transformPoint(self.position());
 

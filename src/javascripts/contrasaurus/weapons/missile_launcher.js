@@ -13,6 +13,10 @@ function MissileLauncher(I) {
 
   var self = Weapon(I).extend({
     generateProjectile: function(direction, position) {
+      $.extend(position, {
+        direction: direction
+      })
+
       return HomingMissile(position);
     }
   });
