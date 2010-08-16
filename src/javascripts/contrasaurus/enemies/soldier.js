@@ -120,6 +120,7 @@ function Soldier(I) {
     
     if(currentModel === parasoldierModel) {
       effect.extend({
+        getTransform: GameObject.velocityGetTransform(effectI),
         before: {
           update: function() {            
             if(effectI.y > CANVAS_HEIGHT - Floor.LEVEL) {
