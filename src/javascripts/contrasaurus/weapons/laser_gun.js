@@ -15,6 +15,8 @@ function LaserGun(I) {
 
   var self = Weapon(I).extend({
     generateProjectile: function(direction, position) {
+      Sound.play("laserGun");
+
       return Bullet({
         speed: 13,
         collideDamage: 3,

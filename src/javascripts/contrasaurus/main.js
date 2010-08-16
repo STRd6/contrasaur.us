@@ -158,6 +158,29 @@ function display(text) {
   displayTexts.push(GameText(text, dino.position()));
 }
 
+var Sound = (function() {
+  var sounds = {};
+
+  return {
+    play: function(name) {
+      if(!sounds[name]) {
+        var sound = $('<audio />').appendTo('#game_container').get(0);
+        sound.src = "sounds/" + name + ".mp3";
+
+        sounds[name] = sound;
+      }
+
+      sounds[name].play();
+    },
+
+    stop: function(name) {
+      if(sounds[name]) {
+        sounds[name].stop();
+      }
+    }
+  };
+}());
+
 function dropPowerup(imgFile, callback) {
   addGameObject(Powerup({
     callback: callback,

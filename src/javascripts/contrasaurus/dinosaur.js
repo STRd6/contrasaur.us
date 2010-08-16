@@ -164,6 +164,7 @@ function Dinosaur() {
 
     addWeapon: function(weapon) {
       weapons.push(weapon.dino(self));
+      Sound.play("reload");
     },
 
     airborne: function(value) {
