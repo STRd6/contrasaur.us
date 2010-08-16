@@ -6,8 +6,9 @@ function LaserGun(I) {
   var lastFrame = 0;
 
   $.reverseMerge(I, {
+    ammo: 256,
     attachment: "eye",
-    duration: 3000,
+    cooldown: 12,
     exitPoints: [Point(5, 2)],
     power: 0,
     radius: 5,

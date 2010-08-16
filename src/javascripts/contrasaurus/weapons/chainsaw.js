@@ -2,6 +2,8 @@ function Chainsaw(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    ammo: 2100,
+    autofire: true,
     duration: 1000,
     exitPoints: [Point(5, 10), Point(25, 10), Point(45, 10)],
     name: "chainsaw",
@@ -45,7 +47,7 @@ function Chainsaw(I) {
 
     before: {
       update: function() {
-        if (Math.random() < 0.001) {
+        if(I.ammo <= 0) {
           self.toss();
         }
 

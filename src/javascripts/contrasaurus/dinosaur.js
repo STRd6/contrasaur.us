@@ -1,3 +1,5 @@
+var shooting = false;
+
 function Dinosaur() {
   var width = 128;
   var height = 128;
@@ -109,9 +111,19 @@ function Dinosaur() {
     });
 
     $("#gameCanvas").mousedown(function(event) {
-      // Shoot?
-      toss();
+      if(event.button == 0) {
+        shooting = true;
+      } else {
+        toss();
+      }
+
+      return false;
+    }).mouseup(function() {
+      if(event.button == 0) {
+        shooting = false;
+      }
     });
+
   });
 
   function heal(amount) {

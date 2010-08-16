@@ -2,7 +2,8 @@ function BattleAxe(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    duration: 150,
+    ammo: 600,
+    autofire: true,
     exitPoints: [Point(10, -30)],
     name: "battleAxe",
     radius: 5,
@@ -29,7 +30,7 @@ function BattleAxe(I) {
 
     before: {
       update: function() {
-        if(I.age >= I.duration) {
+        if(I.ammo <= 0) {
           self.toss();
         }
 

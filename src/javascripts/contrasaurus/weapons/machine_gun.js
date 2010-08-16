@@ -3,17 +3,16 @@ function MachineGun(I) {
 
   var jitter = Math.PI / 12;
   var dinoTransform = Matrix.IDENTITY;
-  var bullets = 1024;
 
   $.reverseMerge(I, {
-    duration: -1,
+    ammo: 1024,
     exitPoints: [Point(50, 1)],
     name: "machineGun",
     throwable: {
       shoot: function(I) {
-        if(bullets > 0) {
+        if(I.ammo > 0) {
           addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }));
-          bullets--;
+          I.ammo--;
         }
       }
     }
@@ -24,7 +23,7 @@ function MachineGun(I) {
     var position = dino.position();
     var displacement = 0;
 
-    if(bullets > 0) {
+    if(I.ammo > 0 && shooting) {
       displacement = rand() * jitter - jitter / 2;
     }
 
@@ -43,12 +42,6 @@ function MachineGun(I) {
         dinoTransform = dino.getTransform();
 
         updateGunAngle(dino, levelPosition);
-
-        if(bullets == 0) {
-          I.power = 0;
-        }
-
-        bullets--;
       }
     }
   });

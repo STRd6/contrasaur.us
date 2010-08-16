@@ -4,16 +4,16 @@ var canvas;
 var dino;
 var healthBar;
 var killCounter = {
-      'bomber': 0,
-      'boss': 0,
-      'parasoldier': 0,
-      'sandinista': 0,
-      'scientist': 0,
-      'secret service': 0,
-      'tank': 0,
-      'utahraptor': 0,
-      'wolf': 0
-    };
+  'bomber': 0,
+  'boss': 0,
+  'parasoldier': 0,
+  'sandinista': 0,
+  'scientist': 0,
+  'secret service': 0,
+  'tank': 0,
+  'utahraptor': 0,
+  'wolf': 0
+};
 var floor;
 var bulletQueue = [];
 var dialogBox;
@@ -24,20 +24,11 @@ var displayTexts = [];
 var testExplosion = loadAnimation("images/effects/explosion.png", 25, 67, 171);
 var stages = [];
 
-var weapons = [
-  "battleAxe",
-  "bazooka",
-  "chainsaw",
-  "flamethrower",
-  "laserGun",
-  "machineGun",
-  "meat",
-  "shield"
-];
+var weapons = [];
 
 var weaponMap = {
   "battleAxe": BattleAxe,
-  "bazooka": Bazooka,
+  "missileLauncher": MissileLauncher,
   "chainsaw": Chainsaw,
   "flamethrower": Flamethrower,
   "laserGun": LaserGun,
@@ -45,6 +36,10 @@ var weaponMap = {
   "meat": Meat,
   "shield": Shield
 };
+
+$.each(weaponMap, function(name) {
+  weapons.push(name);
+});
 
 var target;
 
