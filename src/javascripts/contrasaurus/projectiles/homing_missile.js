@@ -1,8 +1,6 @@
 function HomingMissile(I) {
   I = I || {};
 
-  var direction = 0;
-
   $.reverseMerge(I, {
     collideDamage: 5,
     collisionType: "dinoBullet",
