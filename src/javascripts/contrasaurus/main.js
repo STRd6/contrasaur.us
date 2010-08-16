@@ -42,6 +42,8 @@ $.each(weaponMap, function(name) {
 });
 
 var target;
+var crosshair;
+var showCrosshair = false;
 
 var gameOver = false;
 var currentStage = -1;
@@ -65,7 +67,9 @@ function drawOverlay() {
 
   healthBar.value(dino.health());
 
-  canvas.fillCircle(target.x, target.y, 10, "rgba(255, 255, 0, 0.5)");
+  if(showCrosshair) {
+    crosshair.draw(canvas, target.x - crosshair.width/2, target.y - crosshair.height/2);
+  }
 
   // Score display
   $("#score").text(score);
@@ -172,6 +176,11 @@ function dropWeaponPowerup(imgFile, weaponClass) {
   });
 }
 
+function showStuff() {
+  showCrosshair = true;
+  $("#menu_container").show();
+}
+
 var weaponDivs = $.map(weapons, function(weaponClass) {
   var price = 500;
   return $("<div />").addClass("menu").attr("data-weaponClass", weaponClass)
@@ -199,6 +208,8 @@ function pay(amount) {
 }
 
 $(function() {
+  $("#menu_container").hide();
+
   dialogBox = DialogBox("GAME OVER");
   pauseDisplay = DialogBox("PAUSED", {
     height: CANVAS_HEIGHT,
@@ -212,6 +223,7 @@ $(function() {
   });
 
   target = Point();
+  crosshair = Sprite.load("images/crosshair.png");
 
   leaderBoard = DialogBox("ALL TIME LEADERS:", {
     height: 25,
@@ -232,10 +244,6 @@ $(function() {
     height: 25,
     lineHeight: 0,
     y: 100
-  });
-
-  $(document).bind("contextmenu", function() {
-    return false;
   });
 
   $(document).bind('keydown', "0", function() {
@@ -290,5 +298,7 @@ $(function() {
     var localX = event.pageX - offset.left;
 
     target = Point(localX, localY);
-  });
+  }).bind("contextmenu", function() {
+    return false;
+  });;
 });

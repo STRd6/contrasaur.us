@@ -73,6 +73,12 @@ $(function() {
     event: function() {
       dino.addJetpack();
     }
+  }, {
+    at: 100,
+    event: function() {
+      dino.addWeapon(MachineGun());
+      showStuff();
+    }
   }];
 
   addCutscene("", "By the power of science!", 3000);
@@ -86,9 +92,15 @@ $(function() {
     avatar: reaganAvatar
   });
 
+  var shootDialog = DialogBox("Aim with the mouse. Left click to fire weapons");
+
   addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi", function(level) {
-    if (level.age() > 200 && level.age() < 400) {
+    if (level.age() > 100 && level.age() < 300) {
       reaganMachineGun.draw(canvas);
+    }
+
+    if (level.age() > 450 && level.age() < 650) {
+      shootDialog.draw(canvas);
     }
 
     if (level.age() > 800 && level.age() < 1000) {

@@ -11,7 +11,7 @@ function Dinosaur() {
   var biteCounter = 0;
   var idleCounter = 0;
 
-  var x = (CANVAS_WIDTH - width) / 2;
+  var x = CANVAS_WIDTH / 2;
   var y = 150;
 
   var parasailing = false;
@@ -424,11 +424,9 @@ function Dinosaur() {
     sprite: Sprite.load("images/accessories/tophat.png")
   });
 
-  if(rand() < 1) {
+  if(false) {
     self.addAccessory(tophat);
   }
-
-  self.addJetpack();
 
   return self;
 }

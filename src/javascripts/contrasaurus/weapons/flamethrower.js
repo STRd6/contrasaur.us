@@ -4,9 +4,8 @@ function Flamethrower(I) {
   $.reverseMerge(I, {
     ammo: 128,
     attachment: "jaw",
-    cooldown: 24,
+    cooldown: 6,
     exitPoints: [Point(25, 0)],
-    power: 10,
     sprite: Animation.load("images/weapons/flame_jaw.png", 2, 58, 31, 3)
   });
 
