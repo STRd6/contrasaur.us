@@ -11,7 +11,7 @@ function Jetpack(I) {
     engaged: false,
     eventCallbacks: {
       engage: function() {
-        if(!I.engaged) {
+        if(!I.engaged ) {
           I.engaged = true;
           I.yImpulse = -1;
           dino.airborne(true);
@@ -34,7 +34,6 @@ function Jetpack(I) {
       canvas.withTransform(self.getTransform(), function() {
         jetpackSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
 
-        console.log(I.engaged);
         if (I.engaged) {
           fireSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
         }
@@ -54,6 +53,15 @@ function Jetpack(I) {
       dino.yVelocity(dino.yVelocity() + I.yImpulse);
 
       fireSprite.update();
+    },
+
+    yImpulse: function(newValue) {
+      if(newValue !== undefined) {
+        I.yImpulse = newValue;
+        return self;
+      } else {
+        return I.yImpulse;
+      }
     }
   })
   return self;

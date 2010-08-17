@@ -21,8 +21,6 @@ function Dinosaur() {
   var weapons = [];
   var activeWeapons = [];
 
-  var pitchAngle = 0;
-
   var modelPath = "data/dinosaur/";
   var extension = ".model.json";
   var standModel = Model.loadJSONUrl(modelPath + "stand" + extension);
@@ -210,10 +208,6 @@ function Dinosaur() {
         transform = Matrix.HORIZONTAL_FLIP;
       }
 
-      if(airborne) {
-        transform = transform.concat(Matrix.rotation(pitchAngle));
-      }
-
       return transform.translate(I.x, I.y);
     },
 
@@ -252,7 +246,10 @@ function Dinosaur() {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
         airborne = false;
-        pitchAngle = 0;
+
+        if(jetpack) {
+          jetpack.yImpulse(0);
+        }
       }
     },
 
@@ -262,21 +259,11 @@ function Dinosaur() {
         if(parasailing == true) {
           I.x = (CANVAS_WIDTH - width) / 2 - 100;
           I.y = 200;
-          pitchAngle = 0;
           airborne = true;
         }
         return self;
       } else {
         return parasailing;
-      }
-    },
-
-    pitchAngle: function(value) {
-      if(value !== undefined) {
-        pitchAngle += value;
-        return pitchAngle;
-      } else {
-        return pitchAngle;
       }
     },
 
