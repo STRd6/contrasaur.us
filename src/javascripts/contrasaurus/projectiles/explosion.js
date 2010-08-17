@@ -33,5 +33,7 @@ function Explosion(I) {
     }
   });
 
+  Sound.play("explosion");
+
   return self;
 }

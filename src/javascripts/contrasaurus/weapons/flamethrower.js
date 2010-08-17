@@ -11,6 +11,7 @@ function Flamethrower(I) {
 
   var self = Weapon(I).extend({
     generateProjectile: function(direction, position) {
+      Sound.play("flame");
       return Flame({ theta: direction, x: position.x, y: position.y });
     }
   });

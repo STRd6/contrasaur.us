@@ -8,6 +8,7 @@ function LaserGun(I) {
     attachment: "eye",
     cooldown: 12,
     exitPoints: [Point(5, 2)],
+    name: "laserGun",
     power: 0,
     radius: 5,
     sprite: monocle

@@ -101,6 +101,8 @@ Enemy.bloodSprayEffect = function(bullet) {
 };
 
 Enemy.sparkSprayEffect = function(bullet) {
+  Sound.play("ricochet" + (rand(4) + 2));
+
   var effect = Effect($.extend(bullet.position(), {
     duration: 9,
     sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16),

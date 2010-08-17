@@ -97,13 +97,16 @@ function Soldier(I) {
   });
 
   self.bind('destroy', function(self) {
+
     var deathAnimation;
     var offset;
 
     if(bitInHalf) {
+      Sound.play("chomp");
       deathAnimation = bitInHalfModel.animation;
       offset = 20;
     } else {
+      Sound.play("die");
       deathAnimation = deathModel.animation;
       offset = 0;
     }
