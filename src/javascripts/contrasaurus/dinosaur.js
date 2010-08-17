@@ -320,12 +320,13 @@ function Dinosaur() {
       update: function(levelPosition) {
         // Choose correct animation and hitFrames
 
+        var t = self.getTransform();
+
         if(biteCounter > 0) {
           biteCounter--;
 
           var bitePoint = currentModel.attachment("bite");
           if(bitePoint.x != 0) {
-            var t = self.getTransform();
             var p = t.transformPoint(bitePoint);
 
             addGameObject(Bullet({
@@ -352,6 +353,30 @@ function Dinosaur() {
               }
             }));
           }
+        }
+
+        if(jetpack && jetpack.engaged()) {
+          p = t.transformPoint(Point(-20, 20).add(currentModel.attachment("back")));
+          var jetFlame = Bullet({
+            collideDamage: 20,
+            effectCount: 0,
+            duration: 1,
+            radius: 20,
+            speed: 0,
+            sprite: Sprite.EMPTY,
+            x: p.x,
+            y: p.y
+          }).extend({
+            before: {
+              hit: function(other) {
+                if(other.burn) {
+                  other.burn(jetFlame);
+                }
+              }
+            }
+          });
+
+          addGameObject(jetFlame);
         }
 
         if(cryCounter > 0) {
