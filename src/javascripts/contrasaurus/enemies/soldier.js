@@ -126,7 +126,7 @@ function Soldier(I) {
         getTransform: GameObject.velocityGetTransform(effectI),
         before: {
           update: function() {            
-            if(effectI.y > CANVAS_HEIGHT - Floor.LEVEL) {
+            if(effectI.y >= CANVAS_HEIGHT - Floor.LEVEL) {
               effectI.y = CANVAS_HEIGHT - Floor.LEVEL;
               effectI.yVelocity = 0;
             } else {

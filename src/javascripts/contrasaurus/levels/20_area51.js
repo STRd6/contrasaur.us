@@ -1,21 +1,22 @@
 $(function() {
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/ground.png'),
+      image: Sprite.load('images/levels/area51/warehouse_floor.png'),
       parallaxRate: 0,
       position: {
         x: 0,
         y: CANVAS_HEIGHT - Floor.LEVEL
       },
-      repeat: true,
       width: 640
     }, {
-      image: Sprite.load("images/levels/area51/test_tube_background.png"),
-      parallaxRate: 0,
+      image: Sprite.load("images/levels/area51/warehouse.png"),
+      parallaxRate: 0.25,
       position: {
         x: 0,
         y: 0
-      }
+      },
+      repeat: true,
+      width: 1280
     }
   ], generateForegroundScenary());
 
@@ -56,7 +57,7 @@ $(function() {
     }
   }
 
-  var floor = Floor();
+  var floor = Floor({sprite: Sprite.EMPTY});
 
   var triggers = [{
     every: 1,
