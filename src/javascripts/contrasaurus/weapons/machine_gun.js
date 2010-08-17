@@ -32,7 +32,7 @@ function MachineGun(I) {
 
   var self = Weapon(I).extend({
     generateProjectile: function(direction, position, centerDirection) {
-      Sound.play(I.name + "1");
+      Sound.play(I.name);
 
       return Bullet({
         theta: centerDirection,

@@ -10,14 +10,8 @@ function Flamethrower(I) {
   });
 
   var self = Weapon(I).extend({
-    generateProjectile: function(unused, position) {
-      return Flame({ theta: I.direction, x: position.x, y: position.y });
-    },
-
-    before: {
-      update: function(dino) {
-        I.direction = dino.velocity().x / Math.abs(dino.velocity().x);
-      }
+    generateProjectile: function(direction, position) {
+      return Flame({ theta: direction, x: position.x, y: position.y });
     }
   });
   return self;

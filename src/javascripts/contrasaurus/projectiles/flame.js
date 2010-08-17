@@ -8,11 +8,8 @@ function Flame(I) {
   $.reverseMerge(I, {
     collideDamage: 0,
     duration: 20,
-    hFlip: true,
     sprite: Sprite.load("images/projectiles/flame2.png"),
-    radius: 18,
-    xVelocity: I.theta * 10,
-    yVelocity: Math.sin(I.theta) * speed
+    radius: 18
   });
 
   var self = Bullet(I).extend({
@@ -21,16 +18,6 @@ function Flame(I) {
     hit: function(other) {
       if(other.burn) {
         other.burn(self);
-      }
-    },
-
-    after: {
-      update: function() {
-        if(I.hFlip) {
-          I.theta = -5*Math.PI/4
-        }
-        I.theta -= Math.PI/48;
-        I.yVelocity = speed * Math.sin(I.theta);
       }
     }
   });
