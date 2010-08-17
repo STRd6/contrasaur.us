@@ -12,6 +12,7 @@ function Soldier(I) {
   var bitInHalfModel = Model.loadJSONUrl("data/sandinista/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/sandinista/normal_death.model.json");
   var parasoldierModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
+  var burningAnimation = Animation.load("images/enemies/burning_man.png", 20, 57, 89, 3);
 
   var currentModel = runModel;
 
@@ -97,25 +98,26 @@ function Soldier(I) {
   });
 
   self.bind('destroy', function(self) {
-
     var deathAnimation;
-    var offset;
+    var offset = 0;
 
-    if(bitInHalf) {
+    if(I.onFire) {
+      deathAnimation = burningAnimation;
+    } else if(bitInHalf) {
       Sound.play("chomp");
       deathAnimation = bitInHalfModel.animation;
       offset = 20;
     } else {
       Sound.play("die");
       deathAnimation = deathModel.animation;
-      offset = 0;
     }
 
     var effectI = self.position();
 
     var effect = Effect($.extend(effectI, {
-      duration: 35,
-      hFlip: true,
+      //TODO: This -1 is probably symptomatic of a deeper error
+      duration: deathAnimation.duration() - 1,
+      hFlip: I.hFlip,
       sprite: deathAnimation,
       velocity: Point(0, 0),
       x: I.x + offset

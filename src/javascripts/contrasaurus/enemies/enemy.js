@@ -62,12 +62,16 @@ function Enemy(I) {
         I.shootLogic();
         I.checkBounds.apply(self, arguments);
 
-        if(I.onFire && Math.random() < 0.1) {
-          //Smoke/flame
-          addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
-            sprite: Sprite.load("images/effects/smoke2.png"),
-            velocity: Point(0, 0)
-          })));
+        if(I.onFire) {
+          I.health--;
+
+          if(Math.random() < 0.1) {
+            //Smoke/flame
+            addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
+              sprite: Sprite.load("images/effects/smoke2.png"),
+              velocity: Point(0, 0)
+            })));
+          }
         }
       }
     }

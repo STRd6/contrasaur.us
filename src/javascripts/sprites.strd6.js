@@ -135,6 +135,10 @@
         frameData[currentFrame].draw(canvas, x, y, options);
       },
 
+      duration: function() {
+        return frameCount * delay;
+      },
+
       frame: function(newFrame) {
         if(newFrame !== undefined) {
           currentFrame = newFrame % frameCount;
