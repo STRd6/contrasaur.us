@@ -23,8 +23,12 @@ function MachineGun(I) {
     var position = dino.position();
     var displacement = 0;
 
-    if(I.ammo > 0 && shooting) {
-      displacement = rand() * jitter - jitter / 2;
+    if(shooting) {
+      if(I.ammo > 0) {
+        displacement = rand() * jitter - jitter / 2;
+      } else {
+        Sound.play("no_ammo");
+      }
     }
 
     I.rotation = Point.direction(position, target.add(levelPosition)) + displacement;

@@ -80,7 +80,7 @@ function Weapon(I) {
       update: function(dino, levelPosition) {
         targetPosition = target.add(levelPosition);
 
-        if(I.ammo <= 0) {
+        if(I.ammo <= 0 && I.name != "machineGun") {
           I.active = false;
         }
       }
