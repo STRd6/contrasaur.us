@@ -56,33 +56,31 @@ function Dinosaur() {
   var healthMax = I.health;
 
   $(function() {
-    
+
     $.each({
-      
+
       "w up space": function() {
-        if(!airborne) {
-          if(jetpack) {
-            jetpack.trigger('engage');
-          }
+        if(jetpack) {
+          jetpack.trigger('engage');
         }
       },
-      
+
       "t": function() {
         toss();
       },
-      
+
       "left a": function() {
         if (!parasailing) {
           I.xVelocity = -6;
         }
       },
-      
+
       "right d": function() {
         if (!parasailing) {
           I.xVelocity = 6;
         }
       },
-      
+
       "down s": function() {
         if (!parasailing) {
           if (biteCounter <= 0) {
@@ -90,14 +88,20 @@ function Dinosaur() {
             biteModel.animation.frame(0);
           }
         }
-      }   
+      }
     }, function(key, fn) {
       $(document).bind('keydown', key, function() {
         fn();
         return false;
       });
     });
-    
+
+    $(document).bind('keyup', 'w up space', function() {
+      if(jetpack) {
+        jetpack.trigger('disengage');
+      }
+    });
+
     $(document).bind('keyup', 'left a', function() {
       if (!parasailing) {
         I.xVelocity = 0;
@@ -205,7 +209,7 @@ function Dinosaur() {
       } else {
         transform = Matrix.HORIZONTAL_FLIP;
       }
-      
+
       if(airborne) {
         transform = transform.concat(Matrix.rotation(pitchAngle));
       }
@@ -249,10 +253,6 @@ function Dinosaur() {
         I.yVelocity = 0;
         airborne = false;
         pitchAngle = 0;
-
-        if(jetpack) {
-          jetpack.engaged(false);
-        }
       }
     },
 
