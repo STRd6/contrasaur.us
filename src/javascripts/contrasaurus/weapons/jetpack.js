@@ -53,15 +53,6 @@ function Jetpack(I) {
       dino.yVelocity(dino.yVelocity() + I.yImpulse);
 
       fireSprite.update();
-    },
-
-    yImpulse: function(newValue) {
-      if(newValue !== undefined) {
-        I.yImpulse = newValue;
-        return self;
-      } else {
-        return I.yImpulse;
-      }
     }
   })
   return self;

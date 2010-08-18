@@ -5,14 +5,13 @@ function SecretService(I) {
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   var shootModelCounter = 0;
+  var bitInHalf = false;
 
-  var runModel = Model.loadJSONUrl("data/secret_service/run.model.json", function(model) {
-    I.sprite = model.animation;
-  });
-
+  var runModel = Model.loadJSONUrl("data/secret_service/run.model.json");
   var shootModel = Model.loadJSONUrl("data/secret_service/shoot.model.json");
-
+  var bitInHalfModel = Model.loadJSONUrl("data/secret_service/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/secret_service/death.model.json");
+  var burningAnimation = Animation.load("images/enemies/burning_man.png", 20, 57, 89, 3);
 
   var currentModel = runModel;
 
@@ -31,8 +30,7 @@ function SecretService(I) {
           sprite: Sprite.load("images/effects/enemybullet1_small.png")
         });
 
-        I.hitCircles = shootModel.hitFrames;
-        I.sprite = shootModel.animation;
+        setModel(shootModel);
         shootModelCounter = 8;
       }
     },
@@ -51,6 +49,10 @@ function SecretService(I) {
   }
 
   var self = Enemy(I).extend({
+
+    bite: function() {
+      bitInHalf = true;
+    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -86,12 +88,29 @@ function SecretService(I) {
   });
 
   self.bind('destroy', function(self) {
-    var effect = Effect($.extend({ x: self.position().x, y: self.position().y }, {
-      duration: 35,
-      hFlip: true,
-      hitCircles: deathModel.hitFrames,
-      sprite: deathModel.animation,
-      velocity: Point(0, 0)
+    var deathAnimation;
+    var offset = 0;
+
+    if(I.onFire) {
+      deathAnimation = burningAnimation;
+    } else if(bitInHalf) {
+      Sound.play("chomp");
+      deathAnimation = bitInHalfModel.animation;
+      offset = 20;
+    } else {
+      Sound.play("die");
+      deathAnimation = deathModel.animation;
+    }
+
+    var effectI = self.position();
+
+    var effect = Effect($.extend(effectI, {
+      //TODO: This -1 is probably symptomatic of a deeper error
+      duration: deathAnimation.duration() - 1,
+      hFlip: I.hFlip,
+      sprite: deathAnimation,
+      velocity: Point(0, 0),
+      x: I.x + offset
     }));
 
     addGameObject(effect);

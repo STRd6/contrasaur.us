@@ -248,7 +248,7 @@ function Dinosaur() {
         airborne = false;
 
         if(jetpack) {
-          jetpack.yImpulse(0);
+          jetpack.trigger('disengage');
         }
       }
     },
