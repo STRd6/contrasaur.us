@@ -189,16 +189,35 @@ function display(text) {
 var Sound = (function() {
   var sounds = {};
 
-  return {
-    play: function(name) {
-      if(!sounds[name]) {
-        var sound = $('<audio />').appendTo('#game_container').get(0);
-        sound.src = "sounds/" + name + ".mp3";
+  function loadSoundChannel(name) {
+    var sound = $('<audio />').appendTo('#game_container').get(0);
+    sound.src = "sounds/" + name + ".mp3";
 
-        sounds[name] = sound;
+    return sound;
+  }
+
+  return {
+    play: function(name, maxChannels) {
+      // TODO: Too many channels crash Chrome!!!1
+      maxChannels = maxChannels || 1;
+
+      if(!sounds[name]) {
+        sounds[name] = [loadSoundChannel(name)];
       }
 
-      sounds[name].play();
+      var freeChannels = $.grep(sounds[name], function(sound) {
+        return sound.currentTime == sound.duration || sound.currentTime == 0
+      });
+
+      if(freeChannels[0]) {
+        freeChannels[0].play();
+      } else {
+        if(!maxChannels || sounds[name].length < maxChannels) {
+          var sound = loadSoundChannel(name);
+          sounds[name].push(sound);
+          sound.play();
+        }
+      }
     },
 
     stop: function(name) {
