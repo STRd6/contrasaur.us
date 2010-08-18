@@ -40,8 +40,13 @@ function Level(I) {
   function trackDino() {
     var dinoPosition = dino.position();
 
-    if(true) {
-      position.x = dinoPosition.x - CANVAS_WIDTH / 2
+    var wiggle = 100;
+    var screenCenterX = position.x + CANVAS_WIDTH / 2;
+
+    if(dinoPosition.x > screenCenterX + wiggle) {
+      position.x = (dinoPosition.x - wiggle) - CANVAS_WIDTH / 2;
+    } else if(dinoPosition.x < screenCenterX - wiggle) {
+      position.x = (dinoPosition.x + wiggle) - CANVAS_WIDTH / 2;
     }
   }
 
