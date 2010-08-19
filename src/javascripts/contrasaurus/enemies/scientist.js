@@ -2,6 +2,7 @@ function Scientist(I) {
   I = I || {};
 
   var exitPoint = Point(-15, -20);
+  var bitInHalf = false;
 
   var scientistModel = Model.loadJSONUrl("data/scientist/scientist.model.json", function(model) {
     I.sprite = model.animation;
@@ -36,6 +37,10 @@ function Scientist(I) {
 
   var self = Enemy(I).extend({
 
+    bite: function() {
+      bitInHalf = true;
+    },
+
     burn: function(flame) {
       if (!I.onFire) {
         I.onFire = true;
@@ -63,6 +68,6 @@ function Scientist(I) {
       }
     }
   });
-  
+
   return self;
 }

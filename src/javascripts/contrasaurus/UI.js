@@ -18,7 +18,7 @@ function ProgressBar(I) {
     vertical: false,
     element: $("#health")
   }, I);
-  
+
   var self = {
     value: function(newValue) {
       if(newValue != undefined) {
@@ -30,7 +30,7 @@ function ProgressBar(I) {
       }
     }
   };
-  
+
   return self;
 }
 
@@ -73,6 +73,7 @@ function DialogBox(text, I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    avatarWidth: 72,
     height:  Math.ceil(CANVAS_HEIGHT / 3),
     lineHeight: 16,
     margin: 16,
@@ -84,7 +85,7 @@ function DialogBox(text, I) {
     draw: function(canvas) {
       var textAlign = I.textAlign;
       var avatarMargin = I.margin;
-      
+
       if (textAlign) {
         canvas.textAlign(textAlign);
       }
@@ -93,7 +94,7 @@ function DialogBox(text, I) {
 
       if(I.avatar) {
         I.avatar.draw(canvas, I.margin, I.y);
-        avatarMargin = 72 + 2*I.margin;
+        avatarMargin = I.avatarWidth + 2*I.margin;
         canvas.fillColor("#FFF");
         canvas.fillWrappedText(text, avatarMargin, I.y + I.lineHeight, I.width - avatarMargin - I.margin);
       } else {
