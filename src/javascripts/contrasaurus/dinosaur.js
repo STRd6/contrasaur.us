@@ -267,6 +267,12 @@ function Dinosaur() {
       }
     },
 
+    weaponData: function() {
+      return $.map(weapons, function(weapon) {
+        return weapon.data();
+      });
+    },
+
     xVelocity: function(value) {
       if(value !== undefined) {
         I.xVelocity = value;

@@ -13,6 +13,7 @@ function Shield(I) {
   });
 
   var self = Weapon(I).extend({
+    data: $.noop,
     shoot: $.noop,
     addWeapon: function(weapon) {
       self.dino().addWeapon(weapon);

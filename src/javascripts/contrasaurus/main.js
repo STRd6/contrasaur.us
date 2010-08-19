@@ -71,6 +71,12 @@ function drawOverlay() {
     crosshair.draw(canvas, target.x - crosshair.width/2, target.y - crosshair.height/2);
   }
 
+  $.each(dino.weaponData(), function(i, data) {
+    data.sprite.draw(canvas, i*50 + 25, 25);
+    canvas.fillColor("#FFF");
+    canvas.fillText(data.ammo, i*50 + 25, 25);
+  });
+
   // Score display
   $("#score").text(score);
   $("#money .amount").text(money);

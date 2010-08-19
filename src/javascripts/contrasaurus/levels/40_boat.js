@@ -70,8 +70,6 @@ $(function() {
     water: true
   });
 
-  var counter = 0;
-
   var triggers = [{
     at: 0,
     event: function(level) {

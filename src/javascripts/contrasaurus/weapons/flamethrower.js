@@ -6,6 +6,7 @@ function Flamethrower(I) {
     attachment: "jaw",
     cooldown: 6,
     exitPoints: [Point(25, 0)],
+    name: "flamethrower",
     sprite: Animation.load("images/weapons/flame_jaw.png", 2, 58, 31, 3)
   });
 

@@ -30,6 +30,7 @@ function Jetpack(I) {
   });
 
   var self = Weapon(I).extend({
+    data: $.noop,
     draw: function(canvas) {
       canvas.withTransform(self.getTransform(), function() {
         jetpackSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
