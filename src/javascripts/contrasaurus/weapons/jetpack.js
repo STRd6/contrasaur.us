@@ -19,10 +19,29 @@ function Jetpack(I) {
           dino.airborne(true);
         }
       },
+      left: function() {
+        if(!I.engaged) {
+          I.engaged = true;
+          I.xImpulse = -0.5;
+          dino.yVelocity(0);
+          I.yImpulse = 0;
+          dino.airborne(true);
+        }
+      },
+      right: function() {
+        if(!I.engaged) {
+          I.engaged = true;
+          I.xImpulse = 0.5;
+          dino.yVelocity(0);
+          I.yImpulse = 0;
+          dino.airborne(true);
+        }
+      },
       disengage: function() {
         if(I.engaged) {
           I.engaged = false;
           I.yImpulse = 0;
+          I.xImpulse = 0;
         }
       }
     },
@@ -54,6 +73,7 @@ function Jetpack(I) {
 
     update: function() {
       dino.yVelocity(Math.max(dino.yVelocity() + I.yImpulse, maxSpeed));
+      dino.xVelocity(dino.xVelocity() + I.xImpulse);
 
       fireSprite.update();
 

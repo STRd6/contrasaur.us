@@ -71,11 +71,19 @@ function Dinosaur() {
         if (!parasailing) {
           I.xVelocity = -6;
         }
+
+        if (airborne) {
+          jetpack.trigger('left');
+        }
       },
 
       "right d": function() {
         if (!parasailing) {
           I.xVelocity = 6;
+        }
+
+        if(airborne) {
+          jetpack.trigger('right');
         }
       },
 
@@ -104,11 +112,19 @@ function Dinosaur() {
       if (!parasailing) {
         I.xVelocity = 0;
       }
+
+      if (airborne) {
+        jetpack.trigger('disengage');
+      }
     });
 
     $(document).bind('keyup', 'right d', function() {
       if (!parasailing) {
         I.xVelocity = 0;
+      }
+
+      if (airborne) {
+        jetpack.trigger('disengage');
       }
     });
 
