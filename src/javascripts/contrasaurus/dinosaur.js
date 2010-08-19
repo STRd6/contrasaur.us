@@ -427,7 +427,5 @@ function Dinosaur() {
     self.addAccessory(tophat);
   }
 
-  self.addJetpack();
-
   return self;
 }
