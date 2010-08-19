@@ -39,6 +39,8 @@ function GameObject(I) {
     },
 
     bind: function(event, callback) {
+      I.eventCallbacks[event] = I.eventCallbacks[event] || [];
+
       I.eventCallbacks[event].push(callback);
     },
 

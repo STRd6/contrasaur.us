@@ -11,40 +11,6 @@ function Jetpack(I) {
     attachment: "back",
     duration: -1,
     engaged: false,
-    eventCallbacks: {
-      engage: function() {
-        if(!I.engaged ) {
-          I.engaged = true;
-          I.yImpulse = -1;
-          dino.airborne(true);
-        }
-      },
-      left: function() {
-        if(!I.engaged) {
-          I.engaged = true;
-          I.xImpulse = -0.5;
-          dino.yVelocity(0);
-          I.yImpulse = 0;
-          dino.airborne(true);
-        }
-      },
-      right: function() {
-        if(!I.engaged) {
-          I.engaged = true;
-          I.xImpulse = 0.5;
-          dino.yVelocity(0);
-          I.yImpulse = 0;
-          dino.airborne(true);
-        }
-      },
-      disengage: function() {
-        if(I.engaged) {
-          I.engaged = false;
-          I.yImpulse = 0;
-          I.xImpulse = 0;
-        }
-      }
-    },
     sprite: jetpackSprite,
     xImpulse: 0,
     yImpulse: 0
@@ -101,6 +67,42 @@ function Jetpack(I) {
         addGameObject(jetFlame);
       }
     }
-  })
+  });
+
+  self.bind('engage', function() {
+    if(!I.engaged ) {
+      I.engaged = true;
+      I.yImpulse = -1;
+      dino.airborne(true);
+    }
+  });
+
+  self.bind('disengage', function() {
+    if(I.engaged) {
+      I.engaged = false;
+      I.yImpulse = 0;
+    }
+  });
+
+  self.bind('left', function() {
+    if(!I.engaged) {
+      I.engaged = true;
+      I.xImpulse = -0.5;
+      dino.yVelocity(0);
+      I.yImpulse = 0;
+      dino.airborne(true);
+    }
+  });
+
+  self.bind('right', function() {
+    if(!I.engaged) {
+      I.engaged = true;
+      I.xImpulse = 0.5;
+      dino.yVelocity(0);
+      I.yImpulse = 0;
+      dino.airborne(true);
+    }
+  });
+
   return self;
 }
