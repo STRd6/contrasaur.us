@@ -4,6 +4,7 @@ function Accessory(I) {
   $.reverseMerge(I, {
     attachment: "hand",
     direction: 0,
+    hitCircles: [],
     rotation: 0
   });
 
@@ -17,7 +18,9 @@ function Accessory(I) {
 
     getTransform: function() {
       return Matrix.rotation(I.rotation + I.direction).translate(I.x, I.y);
-    }
+    },
+
+    toss: $.noop
   });
 
   return self;

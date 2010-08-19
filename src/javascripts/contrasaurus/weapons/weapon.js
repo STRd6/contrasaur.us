@@ -7,7 +7,6 @@ function Weapon(I) {
     delay: 0,
     exitMode: "all",
     exitPoints: [Point(0, 0)],
-    hitCircles: [],
     theta: 0,
     throwable: false
   });
@@ -19,15 +18,6 @@ function Weapon(I) {
   var targetPosition = 0;
 
   var self = Accessory(I).extend({
-    dino: function(newDino) {
-      if(newDino !== undefined) {
-        I.dino = newDino;
-        return self;
-      } else {
-        return I.dino;
-      }
-    },
-
     generateProjectile: function(direction, position) {
       return Bullet({ theta: direction, x: position.x, y: position.y });
     },

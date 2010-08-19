@@ -165,7 +165,7 @@ function Dinosaur() {
     },
 
     addWeapon: function(weapon) {
-      weapons.push(weapon.dino(self));
+      weapons.push(weapon);
       Sound.play("reload");
     },
 
@@ -348,43 +348,21 @@ function Dinosaur() {
           }
         }
 
-        if(jetpack && jetpack.engaged()) {
-          p = t.transformPoint(Point(-20, 20).add(currentModel.attachment("back")));
-          var jetFlame = Bullet({
-            collideDamage: 20,
-            effectCount: 0,
-            duration: 1,
-            radius: 20,
-            speed: 0,
-            sprite: Sprite.EMPTY,
-            x: p.x,
-            y: p.y
-          }).extend({
-            before: {
-              hit: function(other) {
-                if(other.burn) {
-                  other.burn(jetFlame);
-                }
-              }
-            }
-          });
-
-          addGameObject(jetFlame);
-        }
-
         if(cryCounter > 0) {
           cryCounter--;
         }
 
         if(parasailing) {
+          var yDisplacement = CANVAS_HEIGHT/2 - I.y;
+
           I.xVelocity = 6;
-          I.yVelocity = Math.cos(I.age/2);
+          I.yVelocity = Math.cos(I.age/2) + 0.01*yDisplacement;
 
           setModel(flyModel);
         } else {
           if (airborne) {
             if(!jetpack || !jetpack.engaged()) {
-              I.yVelocity += GRAVITY;
+              I.yVelocity += GRAVITY * 3;
             }
 
             setModel(flyModel);
@@ -446,6 +424,8 @@ function Dinosaur() {
   if(false) {
     self.addAccessory(tophat);
   }
+
+  self.addJetpack();
 
   return self;
 }

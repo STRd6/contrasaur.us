@@ -5,6 +5,8 @@ function Jetpack(I) {
   var fireSprite = Animation.load("images/weapons/jetpack_fire.png", 4, 91, 89, 2);
   var jetpackSprite = Sprite.load("images/weapons/jetpack.png");
 
+  var maxSpeed = -4;
+
   $.reverseMerge(I, {
     attachment: "back",
     duration: -1,
@@ -29,7 +31,7 @@ function Jetpack(I) {
     yImpulse: 0
   });
 
-  var self = Weapon(I).extend({
+  var self = Accessory(I).extend({
     data: $.noop,
     draw: function(canvas) {
       canvas.withTransform(self.getTransform(), function() {
@@ -51,9 +53,33 @@ function Jetpack(I) {
     shoot: $.noop,
 
     update: function() {
-      dino.yVelocity(dino.yVelocity() + I.yImpulse);
+      dino.yVelocity(Math.max(dino.yVelocity() + I.yImpulse, maxSpeed));
 
       fireSprite.update();
+
+      if(I.engaged) {
+        var p = dino.getTransform().transformPoint(Point(-20, 20).add(self.position()));
+        var jetFlame = Bullet({
+          collideDamage: 20,
+          effectCount: 0,
+          duration: 1,
+          radius: 20,
+          speed: 0,
+          sprite: Sprite.EMPTY,
+          x: p.x,
+          y: p.y
+        }).extend({
+          before: {
+            hit: function(other) {
+              if(other.burn) {
+                other.burn(jetFlame);
+              }
+            }
+          }
+        });
+
+        addGameObject(jetFlame);
+      }
     }
   })
   return self;
