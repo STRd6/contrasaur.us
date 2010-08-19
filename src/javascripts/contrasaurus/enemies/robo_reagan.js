@@ -4,7 +4,7 @@ function RoboReagan(I) {
   var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json", function(model) {
     I.sprite = model.animation;
   });
-  
+
   var kneelAnimation = Animation.load("images/enemies/robo_reagan/reagan_knee_stand.png", 10, 42, 56, 3);
   var kneelFrame = 0;
 
@@ -12,11 +12,6 @@ function RoboReagan(I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
-    eventCallbacks: {
-      'destroy': function() {
-        //stuff goes here
-      }
-    },  
     health: 9000,
     pointsWorth: 1000000,          
     radius: 40,

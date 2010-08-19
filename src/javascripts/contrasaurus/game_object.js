@@ -9,7 +9,7 @@ function GameObject(I) {
     color: "#880",
     duration: -1,
     eventCallbacks: {
-      'destroy': $.noop
+      'destroy': []
     },
     health: 1,
     height: 10,
@@ -22,43 +22,6 @@ function GameObject(I) {
     y: 0,
     yVelocity: 0
   });
-
-  function dropPowerup(imgFile, callback) {
-    addGameObject(Powerup({
-      callback: callback,
-      sprite: Sprite.load(imgFile),
-      x: I.x + 50,
-      y: I.y - 80,
-      xVelocity: 2,
-      yVelocity: -12
-    }));
-  }
-
-  function dropMoney() {
-    addGameObject(Powerup({
-      callback: function(other) {
-        if (other.addMoney) {
-          other.addMoney(1000);
-        }
-      },
-      sprite: Sprite.load([
-        "images/accessories/coins.png",
-        "images/accessories/money.png"
-      ].rand()),
-      x: I.x,
-      y: I.y - 40 - rand(50),
-      xVelocity: (Math.random() < 0.5 ? rand(6) : -1*rand(6)),
-      yVelocity: -5*rand(4)
-    }));
-  }
-
-  function dropWeaponPowerup(imgFile, weaponClass) {
-    dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(weaponClass());
-      }
-    });
-  }
 
   function move() {
     I.x += I.xVelocity;
@@ -76,7 +39,7 @@ function GameObject(I) {
     },
 
     bind: function(event, callback) {
-      I.eventCallbacks[event] = callback;
+      I.eventCallbacks[event].push(callback);
     },
 
     collideDamage: function() { return I.collideDamage },
@@ -93,24 +56,6 @@ function GameObject(I) {
       if (I.active) {
         I.active = false;
         self.trigger('destroy');
-
-        //TODO: Move this into a destroy callback in enemy.js
-        if(I.drops && Math.random() < I.dropFrequency) {
-          var weapon = I.drops.rand();
-          dropWeaponPowerup(weapon, weaponMap[weapon]);
-        }
-
-        //TODO: Move this into a destroy callback in enemy.js
-        if(Math.random() < I.moneyFrequency) {
-          dropMoney();
-          dropMoney();
-          dropMoney();
-        }
-
-        //TODO: Move this into a destroy callback
-        if(I.type) {
-          killCounter[I.type]++;
-        }
       }
     },
 
@@ -195,11 +140,6 @@ function GameObject(I) {
         self.destroy();
         addScore(I.pointsWorth);
       }
-
-      // HAX: there is probably a better way to trigger the bite animation
-      if(I.collisionType === "biteTrigger") {
-        dino.bump();
-      }
     },
 
     midpoint: function() {
@@ -244,7 +184,13 @@ function GameObject(I) {
     },
 
     trigger: function(event) {
-      I.eventCallbacks[event](self);
+      var callbacks = I.eventCallbacks[event];
+
+      if(callbacks && callbacks.length) {
+        $.each(callbacks, function(i, callback) {
+          callback(self);
+        });
+      }
     },
 
     update: function() {

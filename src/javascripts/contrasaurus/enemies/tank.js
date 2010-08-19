@@ -9,24 +9,6 @@ function Tank(I) {
   });
 
   $.reverseMerge(I, {
-    eventCallbacks: {
-      'destroy': function() {
-        addGameObject(Grenade({
-          collideDamage: 5,
-          collisionType: "dinoBullet",
-          sprite: Sprite.load([
-            "images/effects/debris1.png",
-            "images/effects/debris2.png",
-            "images/effects/debris3.png",
-            "images/effects/debris4.png"
-          ].rand()),
-          x: self.position().x,
-          xVelocity: (Math.random() < 0.5) ? rand(10) : -1*rand(10),
-          y: self.position().y - 50,
-          yVelocity: -1*rand(10) - 5
-        }));
-      }
-    },    
     hFlip: true,
     health: 10,    
     hitCircles: tankModel.hitFrames,
@@ -60,6 +42,23 @@ function Tank(I) {
         I.hitCircles = tankModel.hitFrame();
       }
     }
+  });
+
+  self.bind('destroy', function() {
+    addGameObject(Grenade({
+      collideDamage: 5,
+      collisionType: "dinoBullet",
+      sprite: Sprite.load([
+        "images/effects/debris1.png",
+        "images/effects/debris2.png",
+        "images/effects/debris3.png",
+        "images/effects/debris4.png"
+      ].rand()),
+      x: self.position().x,
+      xVelocity: (Math.random() < 0.5) ? rand(10) : -1*rand(10),
+      y: self.position().y - 50,
+      yVelocity: -1*rand(10) - 5
+    }));
   });
 
   return self;

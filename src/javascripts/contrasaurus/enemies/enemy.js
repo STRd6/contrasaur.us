@@ -20,6 +20,43 @@ function Enemy(I) {
     yVelocity: 0
   });
 
+  function dropPowerup(imgFile, callback) {
+    addGameObject(Powerup({
+      callback: callback,
+      sprite: Sprite.load(imgFile),
+      x: I.x + 50,
+      y: I.y - 80,
+      xVelocity: 2,
+      yVelocity: -12
+    }));
+  }
+
+  function dropMoney() {
+    addGameObject(Powerup({
+      callback: function(other) {
+        if (other.addMoney) {
+          other.addMoney(1000);
+        }
+      },
+      sprite: Sprite.load([
+        "images/accessories/coins.png",
+        "images/accessories/money.png"
+      ].rand()),
+      x: I.x,
+      y: I.y - 40 - rand(50),
+      xVelocity: (Math.random() < 0.5 ? rand(6) : -1*rand(6)),
+      yVelocity: -5*rand(4)
+    }));
+  }
+
+  function dropWeaponPowerup(imgFile, weaponClass) {
+    dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
+      if(hitTarget.addWeapon) {
+        hitTarget.addWeapon(weaponClass());
+      }
+    });
+  }
+
   var self = GameObject(I).extend({
     burn: function(flame) {
       I.onFire = true;
@@ -74,6 +111,23 @@ function Enemy(I) {
           }
         }
       }
+    }
+  });
+
+  self.bind('destroy', function() {
+    if(I.drops && Math.random() < I.dropFrequency) {
+      var weapon = I.drops.rand();
+      dropWeaponPowerup(weapon, weaponMap[weapon]);
+    }
+
+    if(Math.random() < I.moneyFrequency) {
+      dropMoney();
+      dropMoney();
+      dropMoney();
+    }
+
+    if(I.type) {
+      killCounter[I.type]++;
     }
   });
 
