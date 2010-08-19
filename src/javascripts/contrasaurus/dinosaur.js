@@ -389,6 +389,8 @@ function Dinosaur() {
               idleCounter++;
             }
           }
+
+          I.y = I.y.clamp(0, CANVAS_HEIGHT);
         }
 
         $.each(weapons, function(i, weapon) {

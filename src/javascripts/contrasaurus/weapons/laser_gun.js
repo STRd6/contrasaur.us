@@ -19,7 +19,7 @@ function LaserGun(I) {
       Sound.play("laserGun");
 
       return Bullet({
-        speed: 13,
+        speed: 20,
         collideDamage: 3,
         health: 5000,
         hitCircles: [{"x": -15, "y": 0, "radius": 3}, {"x": 0, "y": 0, "radius": 3}, {"x": 15, "y": 0, "radius": 3}],

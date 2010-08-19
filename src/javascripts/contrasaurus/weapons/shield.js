@@ -16,11 +16,11 @@ function Shield(I) {
     data: $.noop,
     shoot: $.noop,
     addWeapon: function(weapon) {
-      self.dino().addWeapon(weapon);
+      dino.addWeapon(weapon);
     },
     bulletHitEffect: Enemy.sparkSprayEffect,
     land: function(ground) {
-      self.dino().land(ground);
+      dino.land(ground);
     }
   });
   return self;
