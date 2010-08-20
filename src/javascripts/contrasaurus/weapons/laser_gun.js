@@ -11,6 +11,7 @@ function LaserGun(I) {
     name: "laserGun",
     power: 0,
     radius: 5,
+    selectable: true,
     sprite: monocle
   });
 

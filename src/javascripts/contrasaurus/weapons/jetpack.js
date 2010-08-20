@@ -16,7 +16,7 @@ function Jetpack(I) {
     yImpulse: 0
   });
 
-  var self = Accessory(I).extend({
+  var self = Weapon(I).extend({
     data: $.noop,
     draw: function(canvas) {
       canvas.withTransform(self.getTransform(), function() {

@@ -20,6 +20,7 @@ function Dinosaur() {
   var airborne = true;
 
   var weapons = [];
+  var selectedWeapon;
 
   var modelPath = "data/dinosaur/";
   var extension = ".model.json";
@@ -96,7 +97,11 @@ function Dinosaur() {
             biteModel.animation.frame(0);
           }
         }
-      }
+      },
+
+      "+": nextWeapon,
+
+      "-": prevWeapon
     }, function(key, fn) {
       $(document).bind('keydown', key, function() {
         fn();
@@ -141,11 +146,64 @@ function Dinosaur() {
     }).mouseup(function() {
       if(event.button == 0) {
         shooting = false;
+      } else {
         secondaryShooting = false;
+      }
+    }).bind("mousewheel", function(event, delta) {
+      if(delta > 0) {
+        nextWeapon();
+      } else {
+        prevWeapon();
       }
     });
 
   });
+
+  function nextWeapon() {
+    var selectedIndex = weapons.indexOf(selectedWeapon);
+
+    var selectablesBefore = [];
+    var selectablesAfter = [];
+
+    $.each(weapons, function(index, weapon) {
+      if(weapon.selectable()) {
+        if(index < selectedIndex) {
+          selectablesBefore.push(index);
+        } else if(index > selectedIndex) {
+          selectablesAfter.push(index);
+        }
+      }
+    });
+
+    if(selectablesAfter.length > 0) {
+      selectedWeapon = weapons[Math.min.apply(null, selectablesAfter)];
+    } else if(selectablesBefore.length > 0) {
+      selectedWeapon = weapons[Math.min.apply(null, selectablesBefore)];
+    }
+  }
+
+  function prevWeapon() {
+    var selectedIndex = weapons.indexOf(selectedWeapon);
+
+    var selectablesBefore = [];
+    var selectablesAfter = [];
+
+    $.each(weapons, function(index, weapon) {
+      if(weapon.selectable()) {
+        if(index < selectedIndex) {
+          selectablesBefore.push(index);
+        } else if(index > selectedIndex) {
+          selectablesAfter.push(index);
+        }
+      }
+    });
+
+    if(selectablesBefore.length > 0) {
+      selectedWeapon = weapons[Math.max.apply(null, selectablesBefore)];
+    } else if(selectablesAfter.length > 0) {
+      selectedWeapon = weapons[Math.max.apply(null, selectablesAfter)];
+    }
+  }
 
   function heal(amount) {
     I.health = Math.clamp(I.health + amount, 0, healthMax);
@@ -171,7 +229,9 @@ function Dinosaur() {
   function updateWeapons(levelPosition) {
     var activeWeapons = [];
     $.each(weapons, function(i, weapon) {
-      weapon.update(self, levelPosition);
+      if(!weapon.selectable() || weapon == selectedWeapon) {
+        weapon.update(self, levelPosition);
+      }
 
       if(weapon.active()) {
         activeWeapons.push(weapon);
@@ -198,6 +258,11 @@ function Dinosaur() {
 
     addWeapon: function(weapon) {
       weapons.push(weapon);
+
+      if(weapon.selectable()) {
+        selectedWeapon = weapon;
+      }
+
       Sound.play("reload");
     },
 
@@ -267,8 +332,10 @@ function Dinosaur() {
         });
 
         $.each(weapons, function(i, weapon) {
-          weapon.attachment(currentModel);
-          weapon.draw(canvas);
+          if(!weapon.selectable() || weapon == selectedWeapon) {
+            weapon.attachment(currentModel);
+            weapon.draw(canvas);
+          }
         });
       });
 

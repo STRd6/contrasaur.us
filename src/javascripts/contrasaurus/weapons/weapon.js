@@ -9,6 +9,7 @@ function Weapon(I) {
     exitPoints: [Point(0, 0)],
     primaryShotCost: 1,
     secondaryShotCost: 3,
+    selectable: false,
     theta: 0,
     throwable: false
   });
@@ -85,6 +86,10 @@ function Weapon(I) {
           addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
         })
       }
+    },
+
+    selectable: function() {
+      return I.selectable;
     },
 
     toss: function() {
