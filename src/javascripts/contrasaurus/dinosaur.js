@@ -1,4 +1,5 @@
 var shooting = false;
+var secondaryShooting = false;
 
 function Dinosaur() {
   var width = 128;
@@ -132,13 +133,14 @@ function Dinosaur() {
       if(event.button == 0) {
         shooting = true;
       } else {
-        toss();
+        secondaryShooting = true;
       }
 
       return false;
     }).mouseup(function() {
       if(event.button == 0) {
         shooting = false;
+        secondaryShooting = false;
       }
     });
 

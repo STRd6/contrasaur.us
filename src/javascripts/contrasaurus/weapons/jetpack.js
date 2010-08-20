@@ -81,6 +81,7 @@ function Jetpack(I) {
     if(I.engaged) {
       I.engaged = false;
       I.yImpulse = 0;
+      I.xImpulse = 0;
     }
   });
 
