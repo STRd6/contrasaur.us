@@ -36,6 +36,8 @@ function Dinosaur() {
 
   var currentModel = standModel;
 
+  var timeTravel = TimeTravel();
+
   var I = {
     collideDamage: 2,
     collisionType: "dino",
@@ -243,6 +245,10 @@ function Dinosaur() {
           -I.sprite.height/2
         );
 
+        canvas.withTransform(Matrix.scale(8, 8), function() {
+          timeTravel.draw(canvas, -I.sprite.width/16, -I.sprite.height/16);
+        });
+
         $.each(accessories, function(i, accessory) {
           accessory.attachment(currentModel);
           accessory.draw(canvas);
@@ -310,6 +316,8 @@ function Dinosaur() {
     },
     before: {
       update: function() {
+        timeTravel.update();
+
         if(!airborne && (biteCounter > 0 || cryCounter > 0)) {
           I.xVelocity = 0;
         }

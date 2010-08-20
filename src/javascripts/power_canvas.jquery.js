@@ -117,6 +117,12 @@
         return context.measureText(text).width;
       },
 
+      putImageData: function(imageData, x, y) {
+        context.putImageData(imageData, x, y);
+
+        return this;
+      },
+
       strokeColor: function(color) {
         if(color) {
           context.strokeStyle = color;
