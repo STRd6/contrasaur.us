@@ -20,7 +20,6 @@ function Dinosaur() {
   var airborne = true;
 
   var weapons = [];
-  var activeWeapons = [];
 
   var modelPath = "data/dinosaur/";
   var extension = ".model.json";
@@ -167,6 +166,19 @@ function Dinosaur() {
 
       tossed = tossed || weapon.toss();
     });
+  }
+
+  function updateWeapons(levelPosition) {
+    var activeWeapons = [];
+    $.each(weapons, function(i, weapon) {
+      weapon.update(self, levelPosition);
+
+      if(weapon.active()) {
+        activeWeapons.push(weapon);
+      }
+    });
+
+    weapons = activeWeapons;
   }
 
   var self = GameObject(I).extend({
@@ -419,16 +431,7 @@ function Dinosaur() {
           I.y = I.y.clamp(0, CANVAS_HEIGHT);
         }
 
-        $.each(weapons, function(i, weapon) {
-          weapon.update(self, levelPosition);
-
-          if(weapon.active()) {
-            activeWeapons.push(weapon);
-          }
-        });
-
-        weapons = activeWeapons;
-        activeWeapons = [];
+        updateWeapons(levelPosition);
 
         // Stay in screen
         if (I.x < levelPosition.x + I.radius) {

@@ -20,7 +20,8 @@ function MachineGun(I) {
 
   // Adjust machine gun angle
   function updateGunAngle(dino, levelPosition) {
-    var position = dino.position();
+    var t = dino.getTransform().concat(self.getTransform());
+    var position = t.transformPoint(Point(0, 0));
     var displacement = 0;
 
     if(shooting) {
