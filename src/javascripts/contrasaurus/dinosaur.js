@@ -28,6 +28,7 @@ function Dinosaur() {
   var walkModel = Model.loadJSONUrl(modelPath + "walk" + extension);
   var flyModel = Model.loadJSONUrl(modelPath + "fly" + extension);
   var biteModel = Model.loadJSONUrl(modelPath + "bite" + extension);
+  var flyBiteModel = Model.loadJSONUrl(modelPath + "fly_bite" + extension);
   var cryModel = Model.loadJSONUrl(modelPath + "cry" + extension);
   var idle1Model = Model.loadJSONUrl(modelPath + "idle1" + extension);
   var idle2Model = Model.loadJSONUrl(modelPath + "idle2" + extension);
@@ -91,11 +92,15 @@ function Dinosaur() {
       },
 
       "down s": function() {
-        if (!parasailing) {
-          if (biteCounter <= 0) {
+        if (biteCounter <= 0) {
+          if(airborne) {
+            biteCounter = 15;
+          } else {
             biteCounter = 24;
-            biteModel.animation.frame(0);
           }
+
+          biteModel.animation.frame(0);
+          flyBiteModel.animation.frame(0);
         }
       },
 
@@ -457,46 +462,49 @@ function Dinosaur() {
           cryCounter--;
         }
 
+        // Flight velocities
         if(parasailing) {
           var yDisplacement = CANVAS_HEIGHT/2 - I.y;
 
           I.xVelocity = 6;
           I.yVelocity = Math.cos(I.age/2) + 0.01*yDisplacement;
-
-          setModel(flyModel);
-        } else {
-          if (airborne) {
-            if(!jetpack || !jetpack.engaged()) {
-              I.yVelocity += GRAVITY * 3;
-            }
-
-            setModel(flyModel);
-          } else {
-            // TODO: Maybe a state machine?
-            if (biteCounter > 0) {
-              setModel(biteModel);
-              idleCounter = 0;
-            } else if(cryCounter > 0) {
-              setModel(cryModel);
-              idleCounter = 0;
-            } else if(I.xVelocity != 0) {
-              setModel(walkModel);
-              idleCounter = 0;
-            } else {
-              if(idleCounter == 0) {
-                setModel(idle1Model);
-              } else if(Math.floor(idleCounter / 128) % 2 == 1) {
-                setModel(idle2Model);
-              } else {
-                setModel(idle1Model);
-              }
-
-              idleCounter++;
-            }
+        } else if(airborne) {
+          if(!jetpack || !jetpack.engaged()) {
+            I.yVelocity += GRAVITY * 3;
           }
-
-          I.y = I.y.clamp(0, CANVAS_HEIGHT);
         }
+
+        // TODO: Big mess-o-models... Maybe a state machine?
+        if (airborne) {
+          if(biteCounter > 0) {
+            setModel(flyBiteModel);
+          } else {
+            setModel(flyModel);
+          }
+        } else {
+          if (biteCounter > 0) {
+            setModel(biteModel);
+            idleCounter = 0;
+          } else if(cryCounter > 0) {
+            setModel(cryModel);
+            idleCounter = 0;
+          } else if(I.xVelocity != 0) {
+            setModel(walkModel);
+            idleCounter = 0;
+          } else {
+            if(idleCounter == 0) {
+              setModel(idle1Model);
+            } else if(Math.floor(idleCounter / 128) % 2 == 1) {
+              setModel(idle2Model);
+            } else {
+              setModel(idle1Model);
+            }
+
+            idleCounter++;
+          }
+        }
+
+        I.y = I.y.clamp(0, CANVAS_HEIGHT);
 
         updateWeapons(levelPosition);
 

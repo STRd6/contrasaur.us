@@ -173,7 +173,7 @@ function nextFrame() {
     });
 
     var attachmentPointsCopy = {};
-    frames[0].attachmentPoints.each(function(name, point) {
+    $.each(frames[0].attachmentPoints, function(name, point) {
       attachmentPointsCopy[name] = $.extend({}, point);
     });
 
@@ -369,7 +369,7 @@ function loadAnimationJSON(url) {
     animation = a;
     currentFrame = a.frame();
     animationJSON = data;
-    frames = [];
+    frames = [{attachmentPoints: {}, circles: []}];
   });
 }
 

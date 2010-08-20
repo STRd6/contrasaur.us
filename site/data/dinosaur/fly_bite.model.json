@@ -1,0 +1,356 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 5,
+    "height": 136,
+    "width": 285,
+    "url": "images/contrasaurus/fly_bite.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "hat": {
+          "x": 89,
+          "y": -68,
+          "direction": 0
+        },
+        "eye": {
+          "x": 94,
+          "y": -53,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -5,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 115,
+          "y": -14,
+          "direction": 0
+        }
+      },
+      "circles": [
+        {
+          "x": 15,
+          "y": 2,
+          "radius": 36
+        },
+        {
+          "x": 86,
+          "y": -35,
+          "radius": 30
+        },
+        {
+          "x": 115,
+          "y": -30,
+          "radius": 24
+        },
+        {
+          "x": -114,
+          "y": 37,
+          "radius": 27
+        },
+        {
+          "x": -34,
+          "y": 10,
+          "radius": 30
+        },
+        {
+          "x": -77,
+          "y": 21,
+          "radius": 20
+        },
+        {
+          "x": 53,
+          "y": -24,
+          "radius": 20
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": 15,
+          "y": 2,
+          "radius": 36
+        },
+        {
+          "x": 86,
+          "y": -35,
+          "radius": 30
+        },
+        {
+          "x": 113,
+          "y": -28,
+          "radius": 26
+        },
+        {
+          "x": -114,
+          "y": 37,
+          "radius": 27
+        },
+        {
+          "x": -34,
+          "y": 10,
+          "radius": 30
+        },
+        {
+          "x": -77,
+          "y": 21,
+          "radius": 20
+        },
+        {
+          "x": 53,
+          "y": -24,
+          "radius": 20
+        }
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 89,
+          "y": -68,
+          "direction": 0
+        },
+        "eye": {
+          "x": 94,
+          "y": -53,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -5,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 115,
+          "y": -14,
+          "direction": 0
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": 15,
+          "y": 2,
+          "radius": 36
+        },
+        {
+          "x": 86,
+          "y": -35,
+          "radius": 30
+        },
+        {
+          "x": 123,
+          "y": -47,
+          "radius": 15
+        },
+        {
+          "x": -114,
+          "y": 37,
+          "radius": 27
+        },
+        {
+          "x": -34,
+          "y": 10,
+          "radius": 30
+        },
+        {
+          "x": -77,
+          "y": 21,
+          "radius": 20
+        },
+        {
+          "x": 53,
+          "y": -24,
+          "radius": 20
+        },
+        {
+          "x": 118,
+          "y": -9,
+          "radius": 13
+        }
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 89,
+          "y": -68,
+          "direction": 0
+        },
+        "eye": {
+          "x": 94,
+          "y": -53,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -5,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 115,
+          "y": -6,
+          "direction": 0.2617993877991494
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": 15,
+          "y": 2,
+          "radius": 36
+        },
+        {
+          "x": 86,
+          "y": -35,
+          "radius": 30
+        },
+        {
+          "x": 120,
+          "y": -53,
+          "radius": 15
+        },
+        {
+          "x": -114,
+          "y": 37,
+          "radius": 27
+        },
+        {
+          "x": -34,
+          "y": 10,
+          "radius": 30
+        },
+        {
+          "x": -77,
+          "y": 21,
+          "radius": 20
+        },
+        {
+          "x": 53,
+          "y": -24,
+          "radius": 20
+        },
+        {
+          "x": 118,
+          "y": -9,
+          "radius": 13
+        }
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 80,
+          "y": -66,
+          "direction": -0.17453292519943295
+        },
+        "eye": {
+          "x": 89,
+          "y": -55,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -5,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 114,
+          "y": -7,
+          "direction": 0.17453292519943295
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": 15,
+          "y": 2,
+          "radius": 36
+        },
+        {
+          "x": 89,
+          "y": -34,
+          "radius": 29
+        },
+        {
+          "x": 119,
+          "y": -28,
+          "radius": 22
+        },
+        {
+          "x": -114,
+          "y": 37,
+          "radius": 27
+        },
+        {
+          "x": -34,
+          "y": 10,
+          "radius": 30
+        },
+        {
+          "x": -77,
+          "y": 21,
+          "radius": 20
+        },
+        {
+          "x": 53,
+          "y": -24,
+          "radius": 20
+        }
+      ],
+      "attachmentPoints": {
+        "hat": {
+          "x": 88,
+          "y": -64,
+          "direction": 0
+        },
+        "eye": {
+          "x": 94,
+          "y": -49,
+          "direction": 0
+        },
+        "hand": {
+          "x": 100,
+          "y": -5,
+          "direction": 0
+        },
+        "back": {
+          "x": 3,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 115,
+          "y": -14,
+          "direction": 0
+        },
+        "bite": {
+          "x": 122,
+          "y": -24,
+          "direction": 0
+        }
+      }
+    }
+  ]
+}
