@@ -64,4 +64,18 @@ $(function() {
     equalEnough(matrix.tx, 0, 0.00001);
     equalEnough(matrix.ty, 0, 0.00001);
   });
+
+  test("Maths", function() {
+    var a = Matrix(12, 3, 3, 1, 7, 9);
+    var b = Matrix(3, 8, 3, 2, 1, 5);
+
+    var c = a.concat(b);
+
+    equals(c.a, 60);
+    equals(c.b, 17);
+    equals(c.c, 42);
+    equals(c.d, 11);
+    equals(c.tx, 34);
+    equals(c.ty, 17);
+  });
 });
