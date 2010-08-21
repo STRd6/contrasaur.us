@@ -32,6 +32,13 @@ $(function() {
     equals(matrix.b, 0, "b");
     equals(matrix.c, 0, "c");
     equals(matrix.d, 2, "d");
+
+    matrix = Matrix.scale(3);
+
+    equals(matrix.a, 3, "a");
+    equals(matrix.b, 0, "b");
+    equals(matrix.c, 0, "c");
+    equals(matrix.d, 3, "d");
   });
 
   test("Matrix.rotation", function() {

@@ -53,6 +53,10 @@
       tx: tx || 0,
       ty: ty || 0,
 
+      /**
+       * Return the result of this matrix (A) multiplied by another matrix (B), i.e. A x B
+       * http://mathworld.wolfram.com/MatrixMultiplication.html
+       */
       concat: function(matrix) {
         return Matrix(
           this.a * matrix.a + this.c * matrix.b,
@@ -71,6 +75,10 @@
         );
       },
 
+      /**
+       * Returns the inverse of the matrix.
+       * http://mathworld.wolfram.com/MatrixInverse.html
+       */
       inverse: function() {
         var determinant = this.a * this.d - this.b * this.c;
         return Matrix(
@@ -91,6 +99,10 @@
         return Matrix.scale(sx, sy).concat(this);
       },
 
+      /**
+       * Transforms a point by multiplying it through the matrix.
+       * Returns the new point.
+       */
       transformPoint: function(point) {
         return Point(
           this.a * point.x + this.c * point.y + this.tx,
@@ -131,8 +143,11 @@
 
   /**
    * Returns a matrix that corresponds to a scaling by factors of sx, sy.
+   * If only one parameter is given the matrix is scaled uniformly.
    */
   Matrix.scale = function(sx, sy) {
+    sy = sy || sx;
+
     return Matrix(sx, 0, 0, sy);
   };
 
