@@ -333,7 +333,7 @@ function Dinosaur() {
 
         if(timeTravelling) {
           canvas.withTransform(Matrix.scale(8, 8), function() {
-            timeTravel.draw(canvas, -I.sprite.width/16, -I.sprite.height/16);
+            timeTravel.draw(canvas, -I.sprite.width/16 - 5, -I.sprite.height/16 - 10);
           });
         }
 
