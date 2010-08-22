@@ -2,6 +2,7 @@ function Utahraptor(I) {
   I = I || {};
 
   var raptorAnimation = loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3);
+  var bitInHalf = false;
 
   $.reverseMerge(I, {
     collideDamage: 0,
@@ -20,6 +21,10 @@ function Utahraptor(I) {
 
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
+
+    bite: function() {
+      bitInHalf = true;
+    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -42,6 +47,14 @@ function Utahraptor(I) {
           I.xVelocity = I.xVelocity * -1;
         }
       }
+    }
+  });
+
+  self.bind('destroy', function(self) {
+    if(bitInHalf) {
+      Sound.play("chomp");
+    } else {
+      Sound.play("die");
     }
   });
 

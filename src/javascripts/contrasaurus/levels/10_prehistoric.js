@@ -167,7 +167,7 @@ $(function() {
     }
   }];
 
-  var pressDownToChomp = DialogBox("Press down to CHOMP!");
+  var pressDownToChomp = DialogBox("Press space to CHOMP!");
 
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
   var level = addLevel({
