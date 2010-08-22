@@ -17,8 +17,6 @@ function Level(I) {
 
   $.reverseMerge(I, {
     triggers: [],
-    afterStep: $.noop,
-    beforeStep: $.noop
   });
 
   if (I.audio) {
@@ -68,6 +66,11 @@ function Level(I) {
 
     // Draw Foregrounds
     I.scene.drawForegrounds(position, canvas);
+
+    // Draw Overlays
+    if(I.description) {
+      canvas.fillText(I.description, 0, 0);
+    }
   }
 
   function resetCollidables() {
@@ -215,9 +218,9 @@ function Level(I) {
           return;
         }
         activateTriggers();
-        I.beforeStep(self);
+        self.trigger("beforeStep");
         self.step();
-        I.afterStep(self);
+        self.trigger("afterStep");
         step++;
       }, MILLISECONDS_PER_FRAME);
     },
@@ -294,6 +297,12 @@ function Level(I) {
       return paused;
     }
   };
+
+  $.extend(self, Bindable());
+
+  $.each(I.platforms, function(i, platform) {
+    self.addGameObject(platform);
+  });
 
   return self;
 }

@@ -8,9 +8,6 @@ function GameObject(I) {
     collisionType: "none",
     color: "#880",
     duration: -1,
-    eventCallbacks: {
-      'destroy': []
-    },
     health: 1,
     height: 10,
     pointsWorth: 0,
@@ -36,12 +33,6 @@ function GameObject(I) {
       } else {
         return I.active;
       }
-    },
-
-    bind: function(event, callback) {
-      I.eventCallbacks[event] = I.eventCallbacks[event] || [];
-
-      I.eventCallbacks[event].push(callback);
     },
 
     collideDamage: function() { return I.collideDamage },
@@ -185,16 +176,6 @@ function GameObject(I) {
       }
     },
 
-    trigger: function(event) {
-      var callbacks = I.eventCallbacks[event];
-
-      if(callbacks && callbacks.length) {
-        $.each(callbacks, function(i, callback) {
-          callback(self);
-        });
-      }
-    },
-
     update: function() {
       I.age++;
       move();
@@ -241,6 +222,8 @@ function GameObject(I) {
       return self;
     }
   };
+
+  self.extend(Bindable());
 
   return self;
 }

@@ -14,8 +14,6 @@ var killCounter = {
   'utahraptor': 0,
   'wolf': 0
 };
-var floor;
-var bulletQueue = [];
 var dialogBox;
 var pauseDisplay;
 var debugHalt = false;
@@ -127,27 +125,18 @@ function overlayUpdate(){
   }
 }
 
-function addLevel(scene, platforms, triggers, audio, afterStep) {
-  var level = Level({
-    audio: audio,
+function addLevel(I) {
+  var level = Level($.extend({
     canvas: canvas,
-    scene: scene,
-    afterStep: function(level) {
-      overlayUpdate(level);
-      if (afterStep) {
-        afterStep(level);
-      }
-    },
-    triggers: triggers,
     completed: nextStage
-  });
+  }, I));
 
-  $.each(platforms, function(i, platform) {
-    level.addGameObject(platform);
-  });
+  level.bind("afterStep", overlayUpdate);
   level.addGameObject(dino);
 
   stages.push(level);
+
+  return level;
 }
 
 function addCutscene(image, text, duration, avatar) {

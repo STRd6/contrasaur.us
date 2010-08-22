@@ -113,6 +113,11 @@ $(function() {
     }
   }];
 
-  addCutscene("", "...", 4000);
-  addLevel(scene, [floor], triggers, "Lady Gaga - Telephone");
+  addCutscene("", "He will be a great asset to us in assisting the Contras...", 4000);
+  addLevel({
+    scene: scene,
+    platforms: [floor],
+    triggers: triggers,
+    audio: "Lady Gaga - Telephone"
+  });
 });

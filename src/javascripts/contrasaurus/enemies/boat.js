@@ -8,67 +8,6 @@ function Boat(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "dino",
-    eventCallbacks: {
-      'destroy': function() {
-        addGameObject(Explosion({
-          collisionDamage: 20,
-          collisionType: "dinoBullet",
-          duration: 10,
-          eventCallbacks: {
-            'complete': function() {
-              addGameObject(Explosion({
-                collisionDamage: 20,
-                collisionType: "dinoBullet",
-                duration: 10,
-                eventCallbacks: {
-                  'complete': function() {
-                    addGameObject(Explosion({
-                      collisionDamage: 5,
-                      collisionType: "dinoBullet",
-                      x: I.x + 70,
-                      y: I.y
-                    }));
-                  }
-                },
-                x: I.x + 50,
-                y: I.y
-              }));
-            }
-          },
-          x: I.x + 30,
-          y: I.y
-        }));
-
-        addGameObject(Explosion({
-          collisionDamage: 20,
-          collisionType: "dinoBullet",
-          duration: 10,
-          eventCallbacks: {
-            'complete': function() {
-              addGameObject(Explosion({
-                collisionDamage: 20,
-                collisionType: "dinoBullet",
-                duration: 10,
-                eventCallbacks: {
-                  'complete': function() {
-                    addGameObject(Explosion({
-                      collisionDamage: 5,
-                      collisionType: "dinoBullet",
-                      x: I.x - 70,
-                      y: I.y
-                    }));
-                  }
-                },
-                x: I.x - 50,
-                y: I.y
-              }));
-            }
-          },
-          x: I.x - 30,
-          y: I.y
-        }));
-      }
-    },
     health: 50,
     hitCircles: boatModel.hitFrames,
     onFire: false,

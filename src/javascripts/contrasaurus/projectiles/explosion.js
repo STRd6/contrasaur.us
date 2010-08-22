@@ -5,10 +5,6 @@ function Explosion(I) {
     collideDamage: 1,
     collisionType: "enemyBullet",    
     duration: 25,    
-    eventCallbacks: {
-      'complete': $.noop,
-      'destroy': $.noop
-    },
     hitCircles: [{"x": 0, "y": 20, "radius": 25}, {"x": 0, "y": -40, "radius": 25}],
     sprite: loadAnimation("images/effects/explosion.png", 25, 67, 171),
     radius: 20,

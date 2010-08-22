@@ -6,6 +6,7 @@ function Meat(I) {
   $.reverseMerge(I, {
     duration: 50,
     exitPoints: [],
+    name: "meat",
     sprite: Sprite.EMPTY
   });
 
@@ -15,6 +16,7 @@ function Meat(I) {
         dino.heal(healthPerUpdate);
       },
     },
+    data: $.noop,
     draw: $.noop
   });
 

@@ -111,5 +111,10 @@ $(function() {
     }
   }];
 
-  addLevel(scene, [floor], triggers, "Lady Gaga - Alejandro");
+  addLevel({
+    scene: scene,
+    platforms: [floor],
+    triggers: triggers,
+    audio: "Lady Gaga - Alejandro"
+  });
 });

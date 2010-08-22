@@ -166,7 +166,14 @@ $(function() {
   var pressDownToChomp = DialogBox("Press down to CHOMP!");
 
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
-  addLevel(scene, [floor], triggers, "Lady Gaga - Bad Romance", function(level) {
+  var level = addLevel({
+    audio: "Lady Gaga - Bad Romance",
+    scene: scene,
+    platforms: [floor],
+    triggers: triggers
+  });
+
+  level.bind("afterStep", function(level) {
     if (level.age() > 400 && level.age() < 600) {
       pressDownToChomp.draw(canvas);
     }

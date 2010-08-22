@@ -78,7 +78,12 @@ $(function(){
 
   addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1000);
 
-  addLevel(scene, [floor], triggers, "Dragonforce - My Spirit Will Go On");
+  addLevel({
+    scene: scene,
+    platforms: [floor],
+    triggers: triggers,
+    audio: "Dragonforce - My Spirit Will Go On"
+  });
 
   addCutscene("images/levels/cutscenes/finale.png", "Everything is going according to plan...", 6000);
 });

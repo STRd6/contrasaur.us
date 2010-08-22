@@ -95,7 +95,14 @@ $(function() {
 
   var shootDialog = DialogBox("Aim with the mouse. Left click to fire weapons");
 
-  addLevel(scene, [floor], triggers, "Lady Gaga - Paparazzi", function(level) {
+  var level = addLevel({
+    scene: scene,
+    platforms: [floor],
+    triggers: triggers,
+    audio: "Lady Gaga - Paparazzi"
+  });
+
+  level.bind("afterStep", function(level) {
     if (level.age() > 100 && level.age() < 300) {
       reaganMachineGun.draw(canvas);
     }
