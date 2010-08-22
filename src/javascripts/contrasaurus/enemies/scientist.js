@@ -69,5 +69,13 @@ function Scientist(I) {
     }
   });
 
+  self.bind('destroy', function(self) {
+    if(bitInHalf) {
+      Sound.play("chomp");
+    } else {
+      Sound.play("die");
+    }
+  });
+
   return self;
 }

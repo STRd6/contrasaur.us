@@ -61,7 +61,7 @@ function Dinosaur() {
 
     $.each({
 
-      "w up space": function() {
+      "w up": function() {
         if(jetpack) {
           jetpack.trigger('engage');
         }
@@ -91,7 +91,7 @@ function Dinosaur() {
         }
       },
 
-      "down s": function() {
+      "space": function() {
         if (biteCounter <= 0) {
           if(airborne) {
             biteCounter = 15;
@@ -114,7 +114,7 @@ function Dinosaur() {
       });
     });
 
-    $(document).bind('keyup', 'w up space', function() {
+    $(document).bind('keyup', 'w up', function() {
       if(jetpack) {
         jetpack.trigger('disengage');
       }
@@ -221,6 +221,7 @@ function Dinosaur() {
 
   function toss() {
     var tossed = false;
+    secondaryShooting = false;
 
     $.each(weapons, function(i, weapon) {
       if(tossed) {
@@ -269,6 +270,8 @@ function Dinosaur() {
       }
 
       Sound.play("reload");
+      shooting = false;
+      secondaryShooting = false;
     },
 
     airborne: function(value) {

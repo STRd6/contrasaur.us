@@ -168,7 +168,7 @@ $(function() {
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
   var level = addLevel({
     audio: "Lady Gaga - Bad Romance",
-    description: "BC 3,7000: Prehistoric Utah",
+    description: "BC 3,700: Prehistoric Utah",
     scene: scene,
     platforms: [floor],
     triggers: triggers

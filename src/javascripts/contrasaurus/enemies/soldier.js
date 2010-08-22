@@ -62,7 +62,7 @@ function Soldier(I) {
     bite: function() {
       bitInHalf = true;
     },
-    
+
     land: function(h) {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
@@ -70,7 +70,7 @@ function Soldier(I) {
         I.xVelocity = -2;
         setModel(runModel);
       }
-    },    
+    },
 
     before: {
       update: function() {
@@ -122,12 +122,12 @@ function Soldier(I) {
       velocity: Point(0, 0),
       x: I.x + offset
     }));
-    
+
     if(currentModel === parasoldierModel) {
       effect.extend({
         getTransform: GameObject.velocityGetTransform(effectI),
         before: {
-          update: function() {            
+          update: function() {
             if(effectI.y >= CANVAS_HEIGHT - Floor.LEVEL) {
               effectI.y = CANVAS_HEIGHT - Floor.LEVEL;
               effectI.yVelocity = 0;
@@ -141,7 +141,7 @@ function Soldier(I) {
 
     addGameObject(effect);
   });
-  
+
   if(I.y < 200) {
     setModel(parasoldierModel);
     I.yVelocity = 2;
