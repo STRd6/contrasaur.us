@@ -65,6 +65,11 @@ $(function() {
       generateEnemies(level);
     }
   }, {
+    at: 60,
+    event: function() {
+      dino.timeTravel(false);
+    }
+  }, {
     at: 2000,
     event: function(level) {
       level.complete();

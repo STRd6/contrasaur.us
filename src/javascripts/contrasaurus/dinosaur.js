@@ -37,6 +37,7 @@ function Dinosaur() {
 
   var currentModel = standModel;
 
+  var timeTravelling = false;
   var timeTravel = TimeTravel();
 
   var I = {
@@ -330,9 +331,11 @@ function Dinosaur() {
           -I.sprite.height/2
         );
 
-        canvas.withTransform(Matrix.scale(8, 8), function() {
-          timeTravel.draw(canvas, -I.sprite.width/16, -I.sprite.height/16);
-        });
+        if(timeTravelling) {
+          canvas.withTransform(Matrix.scale(8, 8), function() {
+            timeTravel.draw(canvas, -I.sprite.width/16, -I.sprite.height/16);
+          });
+        }
 
         $.each(accessories, function(i, accessory) {
           accessory.attachment(currentModel);
@@ -378,6 +381,10 @@ function Dinosaur() {
       }
     },
 
+    timeTravel: function(val) {
+      timeTravelling = val;
+    },
+
     weaponData: function() {
       return $.map(weapons, function(weapon) {
         return weapon.data();
@@ -403,7 +410,9 @@ function Dinosaur() {
     },
     before: {
       update: function() {
-        timeTravel.update();
+        if(timeTravelling) {
+          timeTravel.update();
+        }
 
         if(!airborne && (biteCounter > 0 || cryCounter > 0)) {
           I.xVelocity = 0;

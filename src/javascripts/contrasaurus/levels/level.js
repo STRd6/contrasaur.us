@@ -153,6 +153,13 @@ function Level(I) {
       gameObjectsQueue.push(gameObject);
     },
 
+    after: function(steps, fn) {
+      I.triggers.push({
+        at: step + steps,
+        event: fn
+      })
+    },
+
     age: function() {
       return step;
     },

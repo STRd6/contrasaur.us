@@ -153,8 +153,12 @@ $(function() {
       });
 
       brontosaurus.bind('destroy', function() {
-        currentLevel.complete();
+        dino.timeTravel(true);
         dino.boss(false);
+
+        level.after(60, function() {
+          level.complete();
+        });
       });
 
       dino.boss(brontosaurus);

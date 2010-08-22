@@ -114,10 +114,16 @@ function TimeTravel() {
 
           var d2sine = Math.sin((d + t)/8);
 
+          var alpha = 255;
+
+          if(d > 19) {
+            alpha = ((24 - d)/5*255).clamp(0, 255);
+          }
+
           imageData.data[index + 0] = (d2sine * 255).clamp(0, 255);
           imageData.data[index + 1] = (125 + d2sine * 80).clamp(0, 255);
           imageData.data[index + 2] = (235 + d2sine * 20).clamp(0, 255);
-          imageData.data[index + 3] = (255 * (1 - d/(size/2 - movement))).clamp(0, 255);
+          imageData.data[index + 3] = alpha;
         }
       }
 
