@@ -96,10 +96,11 @@ $(function() {
   var shootDialog = DialogBox("Aim with the mouse. Left click to fire weapons");
 
   var level = addLevel({
-    scene: scene,
+    audio: "Lady Gaga - Paparazzi",
+    description: "AD 1984: Area 51",
     platforms: [floor],
-    triggers: triggers,
-    audio: "Lady Gaga - Paparazzi"
+    scene: scene,
+    triggers: triggers
   });
 
   level.bind("afterStep", function(level) {

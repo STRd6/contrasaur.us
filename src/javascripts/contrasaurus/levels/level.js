@@ -16,7 +16,8 @@ function Level(I) {
   var intervalId;
 
   $.reverseMerge(I, {
-    triggers: [],
+    textColor: "#FFF",
+    triggers: []
   });
 
   if (I.audio) {
@@ -69,7 +70,10 @@ function Level(I) {
 
     // Draw Overlays
     if(I.description) {
-      canvas.fillText(I.description, 0, 0);
+      var textMargin = 12;
+      var descriptionWidth = canvas.measureText(I.description);
+      canvas.fillColor(I.textColor);
+      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), 16);
     }
   }
 
