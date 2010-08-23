@@ -13,8 +13,8 @@ function LaserGun(I) {
     radius: 5,
     secondaryFn: function(direction, localPosition, centerDirection) {
       addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
-      addGameObject(self.generateWaveProjectile(direction, localPosition, -1));
-      addGameObject(self.generateWaveProjectile(direction, localPosition, 1));
+      addGameObject(self.generateWaveProjectile(direction, localPosition, 10));
+      addGameObject(self.generateWaveProjectile(direction, localPosition, -10));
     },
     selectable: true,
     sprite: monocle
@@ -25,7 +25,7 @@ function LaserGun(I) {
       Sound.play("laserGun");
 
       return Bullet({
-        speed: 20,
+        speed: 15,
         collideDamage: 3,
         health: 5000,
         hitCircles: [{"x": -15, "y": 0, "radius": 3}, {"x": 0, "y": 0, "radius": 3}, {"x": 15, "y": 0, "radius": 3}],
@@ -36,14 +36,14 @@ function LaserGun(I) {
       });
     },
 
-    generateWaveProjectile: function(direction, position, yVelocity) {
+    generateWaveProjectile: function(direction, position, amplitude) {
       Sound.play("laserGun");
 
       return Laser({
+        amplitude: amplitude,
         theta: direction,
         x: position.x,
-        y: position.y,
-        yVelocity: yVelocity
+        y: position.y
       });
     }
 
