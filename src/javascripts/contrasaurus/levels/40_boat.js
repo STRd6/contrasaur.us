@@ -10,7 +10,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      width: 1800
+      velocity: Point(-4, 0)
     },
     {
       image: Sprite.load(imgPath + "midground.png"),
@@ -20,7 +20,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      width: 4650
+      velocity: Point(-4, 0)
     },
     {
       image: Sprite.load(imgPath + "foreground.png"),
@@ -30,7 +30,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      width: 2200
+      velocity: Point(-4, 0)
     }
   ], [
     {
@@ -38,10 +38,10 @@ $(function() {
       parallaxRate: 1,
       position: {
         x: 0,
-        y: 320
+        y: 320,
       },
       repeat: true,
-      width: 2200
+      velocity: Point(-4, 0)
     },
     {
       image: Sprite.load(imgPath + "water_midground.png"),
@@ -51,7 +51,7 @@ $(function() {
         y: 320
       },
       repeat: true,
-      width: 2400
+      velocity: Point(-4, 0)
     },
     {
       image: Sprite.load(imgPath + "water_foreground.png"),
@@ -61,7 +61,7 @@ $(function() {
         y: 320
       },
       repeat: true,
-      width: 2600
+      velocity: Point(-4, 0)
     }
   ]);
 
