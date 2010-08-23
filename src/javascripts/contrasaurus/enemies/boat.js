@@ -42,7 +42,7 @@ function Boat(I) {
       }
       return t.translate(I.x, I.y);
     },
-    
+
     sink: $.noop,
 
     before: {
@@ -74,7 +74,7 @@ function Boat(I) {
           );
 
           addGameObject(Effect($.extend(smokePosition.add(Circle(-400, 0, 5).randomPoint()), {
-            sprite: Sprite.load("images/effects/smoke2.png"),
+            sprite: Sprite.load("images/effects/smoke.png"),
             velocity: Point(0, 0)
           })));
         }

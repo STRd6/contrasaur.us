@@ -7,8 +7,11 @@ function Weapon(I) {
     delay: 0,
     exitMode: "all",
     exitPoints: [Point(0, 0)],
+    primaryFn: function(direction, localPosition, centerDirection) {
+      addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
+    },
     primaryShotCost: 1,
-    secondaryFn: $.noop,
+    secondaryFn: toss,
     secondaryShotCost: 3,
     selectable: false,
     theta: 0,
@@ -20,6 +23,25 @@ function Weapon(I) {
 
   var lastPoint = -1;
   var targetPosition = 0;
+
+  function toss() {
+    if(I.throwable) {
+      I.active = false;
+
+      var position = dino.position();
+      // TODO: Targeted throws
+
+      addGameObject(ThrownItem($.extend({
+        weaponName: I.name,
+        x: position.x,
+        y: position.y
+      }, I.throwable)));
+
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   var self = Accessory(I).extend({
     generateProjectile: function(direction, position) {
@@ -54,13 +76,10 @@ function Weapon(I) {
           var centerDirection = Point.direction(center, localPosition);
 
           if (mode == 'primary') {
-            addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
+            I.primaryFn(direction, localPosition, centerDirection);
             I.ammo -= I.primaryShotCost;
           } else if (mode == 'secondary') {
-            if (I.secondaryFn == $.noop) {
-              I.secondaryFn = self.toss();
-            }
-            I.secondaryFn();
+            I.secondaryFn(direction, localPosition, centerDirection);
             I.ammo -= I.secondaryShotCost;
           }
         });
@@ -71,24 +90,7 @@ function Weapon(I) {
       return I.selectable;
     },
 
-    toss: function() {
-      if(I.throwable) {
-        I.active = false;
-
-        var position = dino.position();
-        // TODO: Targeted throws
-
-        addGameObject(ThrownItem($.extend({
-          weaponName: I.name,
-          x: position.x,
-          y: position.y
-        }, I.throwable)));
-
-        return true;
-      } else {
-        return false;
-      }
-    },
+    toss: toss,
 
     before: {
       update: function(dino, levelPosition) {

@@ -1,7 +1,7 @@
 function Utahraptor(I) {
   I = I || {};
 
-  var raptorAnimation = loadAnimation("images/enemies/dinofodder1_run.png", 8, 69, 34, 3);
+  var raptorAnimation = loadAnimation("images/enemies/dinofodder_run.png", 8, 69, 34, 3);
   var bitInHalf = false;
 
   $.reverseMerge(I, {
@@ -53,8 +53,6 @@ function Utahraptor(I) {
   self.bind('destroy', function(self) {
     if(bitInHalf) {
       Sound.play("chomp");
-    } else {
-      Sound.play("die");
     }
   });
 

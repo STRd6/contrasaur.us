@@ -105,7 +105,7 @@ function Enemy(I) {
           if(Math.random() < 0.1) {
             //Smoke/flame
             addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
-              sprite: Sprite.load("images/effects/smoke2.png"),
+              sprite: Sprite.load("images/effects/smoke.png"),
               velocity: Point(0, 0)
             })));
           }

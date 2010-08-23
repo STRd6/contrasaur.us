@@ -8,7 +8,7 @@ function Flame(I) {
   $.reverseMerge(I, {
     collideDamage: 0,
     duration: 20,
-    sprite: Sprite.load("images/projectiles/flame2.png"),
+    sprite: Sprite.load("images/projectiles/flame.png"),
     radius: 18
   });
 

@@ -89,7 +89,7 @@ $(function() {
 
   addCutscene("", "By the power of science!", 3000);
 
-  var reaganAvatar = Sprite.load("images/avatars/reagan2.png");
+  var reaganAvatar = Sprite.load("images/avatars/reagan.png");
   var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons.", {
     avatar: reaganAvatar
   });
