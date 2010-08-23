@@ -44,5 +44,15 @@ function WhiteHouse(I) {
     }
   });
 
+  self.bind('destroy', function() {
+    addGameObject(Effect({
+      duration: -1,
+      sprite: destroyedSprite,
+      velocity: Point(),
+      x: I.x,
+      y: I.y
+    }));
+  });
+
   return self;
 }

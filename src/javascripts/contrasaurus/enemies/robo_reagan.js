@@ -7,8 +7,17 @@ function RoboReagan(I) {
 
   var kneelAnimation = Animation.load("images/enemies/robo_reagan/reagan_knee_stand.png", 10, 42, 56, 3);
   var kneelFrame = 0;
+  var kneelDuration = 100;
+  var standDuration = 180;
+  var shakeFist = false;
+  var flying = false;
 
   var currentModel = hoverModel;
+
+  function setModel(model) {
+    currentModel = model;
+    I.sprite = currentModel.animation;
+  }
 
   $.reverseMerge(I, {
     collideDamage: 1,
@@ -16,18 +25,20 @@ function RoboReagan(I) {
     pointsWorth: 1000000,          
     radius: 40,
     shootLogic: function() {
-      self.shoot(
-        Math.random() * (Math.PI), {
-          x: self.midpoint().x,
-          y: self.midpoint().y,
-          sprite: Sprite.load("images/effects/enemybullet1_small.png")
-        }
-      );
+      if(flying) {
+        self.shoot(
+          Math.random() * (Math.PI), {
+            x: self.midpoint().x,
+            y: self.midpoint().y,
+            sprite: Sprite.load("images/effects/enemybullet1_small.png")
+          }
+        );
 
-      if(rand(20) == 0) {
-        addGameObject(HomingMissile($.extend({
-          collisionType: "enemyBullet"
-        }, self.position())));
+        if(rand(20) == 0) {
+          addGameObject(HomingMissile($.extend({
+            collisionType: "enemyBullet"
+          }, self.position())));
+        }
       }
     },
     sprite: hoverModel.animation,
@@ -36,13 +47,37 @@ function RoboReagan(I) {
   });
 
   var self = Boss(I).extend({
-    before: {
+    after: {
       update: function() {
-        // Move Around
-        I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
-        I.y = centralPoint.y +  25 * Math.cos(I.age / 13);
+        if(flying) {
+          // Move Around
+          I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
+          I.y = centralPoint.y +  25 * Math.cos(I.age / 13);
 
-        I.hitCircles = currentModel.hitFrame();
+          I.hitCircles = currentModel.hitFrame();
+        } else {
+          if(I.age < kneelDuration) {
+            I.y = CANVAS_HEIGHT - Floor.LEVEL - 40;
+            I.sprite = kneelAnimation;
+            I.sprite.frame(kneelFrame);
+          } else if(I.age < standDuration) {
+            if(shakeFist) {
+              I.sprite.frame((I.sprite.frame() % 2) + 8);
+            } else {
+              if(I.sprite.frame() > 8) {
+                shakeFist = true;
+              }
+            }
+          } else {
+            I.sprite = hoverModel.animation;
+            I.y -= 2;
+
+            if(I.y < centralPoint.y) {
+              flying = true;
+              setModel(hoverModel);
+            }
+          }
+        }
       }
     }
   });

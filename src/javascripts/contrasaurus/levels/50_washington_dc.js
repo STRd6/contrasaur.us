@@ -40,7 +40,7 @@ $(function(){
 
         whiteHouse.bind('destroy', function() {
           var roboReagan = RoboReagan({
-            x: level.position().x + 320
+            x: whiteHouse.position().x
           });
 
           dino.boss(roboReagan);
