@@ -32,17 +32,8 @@ $(function(){
   var triggers = [{
       at: 1000,
       event: function(level) {
-        whiteHouse = Boss({
-          health: 1000,
-          hitCircles: [
-{"x":-156,"y":34,"radius":62},{"x":3,"y":0,"radius":117},{"x":247,"y":-55,"radius":38},{"x":240,"y":29,"radius":43},{"x":-174,"y":-43,"radius":55},{"x":-242,"y":16,"radius":44},{"x":-242,"y":-13,"radius":43},{"x":238,"y":-17,"radius":45},{"x":140,"y":4,"radius":74},{"x":224,"y":-66,"radius":32},{"x":179,"y":-37,"radius":58},{"x":-239,"y":-50,"radius":49}
-          ],
-          x: level.position().x + CANVAS_WIDTH + 100,
-          y: 190,
-          shootLogic: $.noop,
-          sprite: Sprite.load('images/levels/washington_dc/whiteHouse.png')
-        }).extend({
-          bulletHitEffect: Enemy.sparkSprayEffect
+        whiteHouse = WhiteHouse({
+          x: level.position().x + CANVAS_WIDTH + 100
         });
 
         dino.boss(whiteHouse);
