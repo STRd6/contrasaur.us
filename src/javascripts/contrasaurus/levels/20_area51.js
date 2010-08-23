@@ -15,8 +15,7 @@ $(function() {
         x: 0,
         y: 0
       },
-      repeat: true,
-      width: 1280
+      repeat: true
     }
   ], generateForegroundScenary());
 
@@ -30,8 +29,7 @@ $(function() {
           x: rand(1920),
           y: 250
         },
-        repeat: true,
-        width: 1920
+        every: 1920
       });
     });
 

@@ -1,4 +1,5 @@
-debugCounts = true;
+debugCounts = false;
+hideBackgrounds = false;
 
 function Level(I) {
   var position = {
@@ -57,7 +58,9 @@ function Level(I) {
     // Draw Backgrounds
     canvas.fill(backgroundColor);
 
-    I.scene.drawBackgrounds(position, canvas);
+    if(!hideBackgrounds) {
+      I.scene.drawBackgrounds(position, canvas);
+    }
 
     canvas.withTransform(getTransform(), function() {
       $.each(gameObjects, function(i, gameObject) {
@@ -65,8 +68,9 @@ function Level(I) {
       });
     });
 
-    // Draw Foregrounds
-    I.scene.drawForegrounds(position, canvas);
+    if(!hideBackgrounds) {
+      I.scene.drawForegrounds(position, canvas);
+    }
 
     // Draw Overlays
     if(I.description) {

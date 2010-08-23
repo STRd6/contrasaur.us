@@ -5,11 +5,29 @@ function Scene(backgrounds, foregrounds) {
         var x = layer.position.x - (position.x * layer.parallaxRate);
         var y = layer.position.y -position.y * layer.parallaxRate;
 
+        var imgWidth = layer.image.width;
+        var x1 = Math.mod(-x, imgWidth);
+        var x2 = Math.mod(-x + CANVAS_WIDTH, imgWidth);
+
         if(layer.repeat) {
-          // X-Reapeat Tiling
-          while(x < position.x + CANVAS_WIDTH) {
-            layer.image.draw(canvas, x, y);
-            x += layer.width;
+          if(x2 < x1) {
+            layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH - x2);
+            layer.image.draw(canvas, CANVAS_WIDTH - x2, y, 0, 0, x2);
+          } else {
+            layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH);
+          }
+        } else if(layer.every) {
+          x1 = Math.mod(x, layer.every);
+          x2 = Math.mod(x + imgWidth, layer.every);
+
+          if(x1 < CANVAS_WIDTH) {
+            layer.image.draw(canvas, x1, y);
+          }
+
+          // TODO: This is grody.
+          if(x2 < x1) {
+            var r = Math.mod(-x2, imgWidth);
+            layer.image.draw(canvas, 0, y, r, 0, imgWidth - r);
           }
         } else {
           x = layer.position.x;

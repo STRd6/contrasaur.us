@@ -24,8 +24,7 @@ $(function() {
           x: rand(1920),
           y: 325 + rand(150)
         },
-        repeat: true,
-        width: 1920
+        every: 1920
       });
     });
 
@@ -41,8 +40,7 @@ $(function() {
           x: i * 150 + rand(50),
           y: 225 + rand(80)
         },
-        repeat: true,
-        width: 1000
+        every: 1000
       });
     });
 
@@ -57,8 +55,7 @@ $(function() {
           x: i * 100,
           y: 400
         },
-        repeat: true,
-        width: 1200
+        every: 1200
       });
     });
 
@@ -72,9 +69,7 @@ $(function() {
       position: {
         x: 0,
         y: CANVAS_HEIGHT - Floor.LEVEL
-      },
-      repeat: true,
-      width: 640
+      }
     },
     {
       image: Sprite.load(imgPath + "volcano_background.png"),
@@ -83,8 +78,7 @@ $(function() {
         x: 0,
         y: 0
       },
-      repeat: true,
-      width: 1500
+      repeat: true
     },
     {
       image: Sprite.load(imgPath + "volcano_midground.png"),
@@ -93,8 +87,7 @@ $(function() {
         x: 0,
         y: 0
       },
-      repeat: true,
-      width: 6161
+      repeat: true
     },
     {
       image: Sprite.load(imgPath + "volcano_grassy_foreground.png"),
@@ -103,8 +96,7 @@ $(function() {
         x: 0,
         y: 4
       },
-      repeat: true,
-      width: 10000
+      repeat: true
     }
   ], generateForegroundScenary());
 

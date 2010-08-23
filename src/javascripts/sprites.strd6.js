@@ -43,16 +43,16 @@
     return {
       update: $.noop,
 
-      draw: function(canvas, x, y) {
+      draw: function(canvas, x, y, sx, sy, swidth, sheight) {
         canvas.drawImage(image,
-          sourceX,
-          sourceY,
-          width,
-          height,
+          sx || sourceX,
+          sy || sourceY,
+          swidth || width,
+          sheight || height,
           x,
           y,
-          width,
-          height
+          swidth || width,
+          sheight || height
         );
       },
 
