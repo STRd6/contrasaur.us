@@ -7,3 +7,8 @@ task :build do
   puts `cp src/javascripts/test/matrix.js site/javascripts/test/`
   puts `staticmatic build .`
 end
+
+task :doc do
+  puts `java -jar jsdoc-toolkit/jsrun.jar jsdoc-toolkit/app/run.js -c=jsdoc.conf`
+end
+
