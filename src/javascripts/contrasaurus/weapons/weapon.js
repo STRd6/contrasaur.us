@@ -19,7 +19,10 @@ function Weapon(I) {
   });
 
   I.sprite = I.sprite || Sprite.load("images/weapons/" + I.name + ".png");
-  var ammoSprite = Sprite.load("images/ammo/" + I.name + ".png");
+
+  if(I.name) {
+    var ammoSprite = Sprite.load("images/ammo/" + I.name + ".png");
+  }
 
   var lastPoint = -1;
   var targetPosition = 0;
