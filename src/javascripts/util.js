@@ -1,3 +1,11 @@
+/**
+ * Generate uniformly distributed random numbers.
+ *
+ * @param {Number} [n]
+ * @returns A Random integers from [0, n) if n is given, otherwise a random float
+ * between 0 and 1.
+ * @type Number
+ */
 function rand(n) {
   if(n !== undefined) {
     return Math.floor(Math.random() * n);
@@ -42,10 +50,18 @@ Array.prototype.remove = function(object) {
 };
 
 /**
- * Returns a mod useful for array wrapping.
+ * A mod method useful for array wrapping. The range of the function is
+ * constrained to remain in bounds of array indices.
+ *
+ * <pre>
+ * Example:
+ * Math.mod(-1, 5) === 4
+ * </pre>
  *
  * @param {Number} n
  * @param {Number} base
+ * @returns An integer between 0 and (base - 1) if base is positive.
+ * @type Number
  */
 Math.mod = function(n, base) {
   var result = n % base;
@@ -61,6 +77,17 @@ Math.clamp = function(val, min, max) {
   return Math.min(Math.max(val, min), max);
 };
 
+/**
+ * Returns a number whose value is limited to the given range.
+ *
+ * Example: limit the output of this computation to between 0 and 255
+ * (x * 255).clamp(0, 255)
+ *
+ * @param {Number} min The lower boundary of the output range
+ * @param {Number} max The upper boundary of the output range
+ * @returns A number in the range [min, max]
+ * @type Number
+ */
 Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
