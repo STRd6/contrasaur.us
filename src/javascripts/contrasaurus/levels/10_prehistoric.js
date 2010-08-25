@@ -132,12 +132,12 @@ $(function() {
       }
     }
   }, {
-    at: 1000,
+    at: 495,
     event: function() {
       meteorsActive = true;
     }
   }, {
-    at: 2500,
+    at: 1300,
     event: function(level) {
       brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 100,
@@ -171,7 +171,7 @@ $(function() {
   });
 
   level.bind("afterStep", function(level) {
-    if (level.age() > 400 && level.age() < 600) {
+    if (level.age() > 300 && level.age() < 500) {
       pressDownToChomp.draw(canvas);
     }
   });
