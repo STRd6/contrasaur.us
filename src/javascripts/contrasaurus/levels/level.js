@@ -21,8 +21,36 @@ function Level(I) {
     triggers: []
   });
 
+  function BGMusic(name) {
+    var audio = $('<audio src="audio/' + name + '.mp3"></audio>').appendTo('#game_container');
+
+    return {
+      fadeOut: function() {
+        audio.animate({volume: 0}, 5000, function() {
+          this.pause();
+        });
+      },
+
+      play: function() {
+        try {
+          audio.get(0).play();
+        } catch(e) {
+          console.log(e);
+        }
+      },
+
+      pause: function() {
+        try {
+          audio.get(0).pause();
+        } catch(e) {
+          console.log(e);
+        }
+      }
+    };
+  }
+
   if (I.audio) {
-    var backgroundMusic = $('<audio src="audio/' + I.audio + '.mp3"></audio>').appendTo('#game_container');
+    var backgroundMusic = BGMusic(I.audio);
   }
 
   function activateTriggers() {
@@ -225,7 +253,7 @@ function Level(I) {
     
     start: function() {
       if (backgroundMusic) {
-        backgroundMusic.get(0).play();
+        backgroundMusic.play();
       }
 
       intervalId = setInterval(function() {
@@ -242,9 +270,7 @@ function Level(I) {
 
     stop: function() {
       if (backgroundMusic) {
-        backgroundMusic.animate({volume: 0}, 5000, function() {
-          this.pause();
-        });
+        backgroundMusic.fadeOut();
       }
 
       clearInterval(intervalId);
@@ -304,9 +330,9 @@ function Level(I) {
       paused = !paused;
 
       if(paused) {
-        backgroundMusic.get(0).pause();
+        backgroundMusic.pause();
       } else {
-        backgroundMusic.get(0).play();
+        backgroundMusic.play();
       }
 
       return paused;
