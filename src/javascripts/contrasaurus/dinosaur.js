@@ -253,7 +253,11 @@ function Dinosaur() {
     },
 
     addJetpack: function(I) {
-      self.addWeapon(Jetpack(I));
+      if(!jetpack) {
+        jetpack = Jetpack(I);
+
+        self.addWeapon(jetpack);
+      }
     },
 
     addMoney: function(amount) {

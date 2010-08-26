@@ -6,8 +6,8 @@ function Scene(backgrounds, foregrounds) {
         var y = layer.position.y -position.y * layer.parallaxRate;
 
         var imgWidth = layer.image.width;
-        var x1 = Math.mod(-x, imgWidth);
-        var x2 = Math.mod(-x + CANVAS_WIDTH, imgWidth);
+        var x1 = Math.floor(Math.mod(-x, imgWidth));
+        var x2 = Math.ceil(Math.mod(-x + CANVAS_WIDTH, imgWidth));
 
         if(layer.repeat) {
           if(x2 < x1) {
@@ -17,8 +17,8 @@ function Scene(backgrounds, foregrounds) {
             layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH);
           }
         } else if(layer.every) {
-          x1 = Math.mod(x, layer.every);
-          x2 = Math.mod(x + imgWidth, layer.every);
+          x1 = Math.floor(Math.mod(x, layer.every));
+          x2 = Math.ceil(Math.mod(x + imgWidth, layer.every));
 
           if(x1 < CANVAS_WIDTH) {
             layer.image.draw(canvas, x1, y);
