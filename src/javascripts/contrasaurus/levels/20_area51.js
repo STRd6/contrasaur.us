@@ -38,21 +38,42 @@ $(function() {
 
   function generateEnemies(level) {
     if (Math.random() < 0.01) {
-      var scientist = Scientist({
+      level.addGameObject(Scientist({
         theta: - 5 * Math.PI / 6,
         hFlip: true,
         x: level.position().x + CANVAS_WIDTH + 20,
         xVelocity: 0
-      });
-
-      var wolf = Wolf({
-        hFlip: true,
-        x: level.position().x + CANVAS_WIDTH + 20,
-        xVelocity: 0
-      });
-
-      level.addGameObject([scientist, scientist, wolf].rand());
+      }));
     }
+  }
+
+  function generateMutants(level) {
+    level.addGameObject(Mutant({
+      hFlip: true,
+      x: level.position().x + CANVAS_WIDTH + 20,
+      y: 0,
+      yVelocity: 1
+    }));
+
+    level.addGameObject(Mutant({
+      hFlip: true,
+      x: level.position().x + CANVAS_WIDTH + 60,
+      y: 0,
+      yVelocity: 1
+    }));
+
+    level.addGameObject(Mutant({
+      hFlip: true,
+      x: level.position().x + CANVAS_WIDTH - 20,
+      y: 0,
+      yVelocity: 1
+    }));
+    level.addGameObject(Mutant({
+      hFlip: true,
+      x: level.position().x + CANVAS_WIDTH + 100,
+      y: 0,
+      yVelocity: 1
+    }));
   }
 
   var floor = Floor({sprite: Sprite.EMPTY});
@@ -75,13 +96,35 @@ $(function() {
   }, {
     at: 800,
     event: function() {
-      dino.addJetpack();
+      dino.addJetpack({
+        keyDown: dino.keyDown()
+      });
     }
   }, {
     at: 100,
     event: function() {
       dino.addWeapon(MachineGun());
       showStuff();
+    }
+  }, {
+    at: 1250,
+    event: function() {
+      generateMutants(level);
+    }
+  }, {
+    at: 1255,
+    event: function() {
+      generateMutants(level);
+    }
+  }, {
+    at: 1260,
+    event: function() {
+      generateMutants(level);
+    }
+  }, {
+    at: 1265,
+    event: function() {
+      generateMutants(level);
     }
   }];
 
@@ -93,6 +136,10 @@ $(function() {
   });
 
   var reaganJetpack = DialogBox("A jetpack will enable him to soar like the majestic condor and rain fire down upon our enemies.", {
+    avatar: reaganAvatar
+  });
+
+  var reaganTest = DialogBox("Commence test 1: Release the abominations!", {
     avatar: reaganAvatar
   });
 
@@ -117,6 +164,10 @@ $(function() {
 
     if (level.age() > 800 && level.age() < 1000) {
       reaganJetpack.draw(canvas);
+    }
+
+    if (level.age() > 1200 && level.age() < 1400) {
+      reaganTest.draw(canvas);
     }
   });
 });

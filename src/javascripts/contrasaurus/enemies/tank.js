@@ -10,9 +10,9 @@ function Tank(I) {
 
   $.reverseMerge(I, {
     hFlip: true,
-    health: 10,    
+    health: 10,
     hitCircles: tankModel.hitFrames,
-    pointsWorth: 5000,    
+    pointsWorth: 5000,
     shootLogic: function() {
       // Shoot
       if (Math.random() < 0.05) {
@@ -27,11 +27,11 @@ function Tank(I) {
           collideDamage: 7
         });
       }
-    },    
+    },
     sprite: tankModel.animation,
     type: 'tank',
     xVelocity: -0.5,
-    y: CANVAS_HEIGHT - Floor.LEVEL    
+    y: CANVAS_HEIGHT - Floor.LEVEL
   });
 
   var self = Enemy(I).extend({

@@ -253,9 +253,7 @@ function Dinosaur() {
     },
 
     addJetpack: function(I) {
-      jetpack = Jetpack(I);
-
-      self.addWeapon(jetpack);
+      self.addWeapon(Jetpack(I));
     },
 
     addMoney: function(amount) {
@@ -378,6 +376,10 @@ function Dinosaur() {
       } else {
         return jetpackOn;
       }
+    },
+
+    keyDown: function() {
+      return keyDown;
     },
 
     land: function(h) {
@@ -564,10 +566,6 @@ function Dinosaur() {
   if(false) {
     self.addAccessory(tophat);
   }
-
-  self.addJetpack({
-    keyDown: keyDown
-  });
 
   return self;
 }

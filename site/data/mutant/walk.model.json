@@ -1,0 +1,161 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 10,
+    "height": 51,
+    "width": 42,
+    "url": "images/enemies/mutant/walk.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 6,
+          "y": -9,
+          "radius": 15
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": 6,
+          "y": -9,
+          "radius": 15
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 6,
+          "y": -9,
+          "radius": 15
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 1,
+          "y": -10,
+          "radius": 13
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 13
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -1,
+          "y": -11,
+          "radius": 13
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": -11,
+          "radius": 13
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -1,
+          "y": -11,
+          "radius": 13
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 13
+        },
+        {
+          "x": 0,
+          "y": 15,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 6,
+          "y": -9,
+          "radius": 15
+        },
+        {
+          "x": -2,
+          "y": 14,
+          "radius": 12
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}
