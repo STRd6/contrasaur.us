@@ -6,6 +6,8 @@ function Dinosaur() {
   var height = 128;
 
   var jetpack;
+  var jetpackOn = false;
+  var jetpackAngle = 0;
 
   var currentHealth = 0;
   var cryCounter = 0;
@@ -21,6 +23,8 @@ function Dinosaur() {
 
   var weapons = [];
   var selectedWeapon;
+
+  var keyDown = {};
 
   var modelPath = "data/dinosaur/";
   var extension = ".model.json";
@@ -63,36 +67,35 @@ function Dinosaur() {
     $.each({
 
       "w up": function() {
-        if(jetpack) {
-          jetpack.trigger('engage');
-        }
+        keyDown["up"] = true;
       },
 
       "t": function() {
+        keyDown["t"] = true;
         toss();
       },
 
       "left a": function() {
-        if (!parasailing) {
-          I.xVelocity = -6;
-        }
+        keyDown["left"] = true;
 
-        if (airborne) {
-          jetpack.trigger('left');
+        if (!airborne) {
+          I.xVelocity = -6;
         }
       },
 
       "right d": function() {
-        if (!parasailing) {
+        keyDown["right"] = true;
+        if (!airborne) {
           I.xVelocity = 6;
-        }
-
-        if(airborne) {
-          jetpack.trigger('right');
         }
       },
 
+      "down s": function() {
+        keyDown["down"] = true;
+      },
+
       "space": function() {
+        keyDown["space"] = true;
         if (biteCounter <= 0) {
           if(airborne) {
             biteCounter = 15;
@@ -116,29 +119,26 @@ function Dinosaur() {
     });
 
     $(document).bind('keyup', 'w up', function() {
-      if(jetpack) {
-        jetpack.trigger('disengage');
-      }
+      keyDown["up"] = false;
     });
 
     $(document).bind('keyup', 'left a', function() {
-      if (!parasailing) {
-        I.xVelocity = 0;
-      }
+      keyDown["left"] = false;
 
-      if (airborne) {
-        jetpack.trigger('disengage');
+      if(!airborne) {
+        I.xVelocity = 0;
       }
     });
 
     $(document).bind('keyup', 'right d', function() {
-      if (!parasailing) {
+      keyDown["right"] = false;
+      if(!airborne) {
         I.xVelocity = 0;
       }
+    });
 
-      if (airborne) {
-        jetpack.trigger('disengage');
-      }
+    $(document).bind('keyup', 'down s', function() {
+      keyDown["down"] = false;
     });
 
     $("#gameCanvas").mousedown(function(event) {
@@ -162,7 +162,6 @@ function Dinosaur() {
         prevWeapon();
       }
     });
-
   });
 
   function nextWeapon() {
@@ -253,8 +252,8 @@ function Dinosaur() {
       accessories.push(accessory);
     },
 
-    addJetpack: function() {
-      jetpack = Jetpack();
+    addJetpack: function(I) {
+      jetpack = Jetpack(I);
 
       self.addWeapon(jetpack);
     },
@@ -309,9 +308,17 @@ function Dinosaur() {
       var transform;
 
       if (parasailing || I.xVelocity > 0 || lastDirection > 0) {
-        transform = Matrix.IDENTITY;
+        if (airborne) {
+          transform = Matrix.rotation(jetpackAngle).concat(Matrix.IDENTITY);
+        } else {
+          transform = Matrix.IDENTITY;
+        }
       } else {
-        transform = Matrix.HORIZONTAL_FLIP;
+        if (airborne) {
+          transform = Matrix.rotation(jetpackAngle).concat(Matrix.HORIZONTAL_FLIP);
+        } else {
+          transform = Matrix.HORIZONTAL_FLIP;
+        }
       }
 
       return transform.translate(I.x, I.y);
@@ -355,15 +362,30 @@ function Dinosaur() {
       }
     },
 
+    jetpackAngle: function(value) {
+      if (value !== undefined) {
+        jetpackAngle = value;
+        return self;
+      } else {
+        return jetpackAngle;
+      }
+    },
+
+    jetpackOn: function(value) {
+      if (value !== undefined) {
+        jetpackOn = value;
+        return self;
+      } else {
+        return jetpackOn;
+      }
+    },
+
     land: function(h) {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
         airborne = false;
-
-        if(jetpack) {
-          jetpack.trigger('disengage');
-        }
+        jetpackAngle = 0;
       }
     },
 
@@ -480,10 +502,10 @@ function Dinosaur() {
 
           I.xVelocity = 6;
           I.yVelocity = Math.cos(I.age/2) + 0.01*yDisplacement;
-        } else if(airborne) {
-          if(!jetpack || !jetpack.engaged()) {
-            I.yVelocity += GRAVITY * 3;
-          }
+        } else if(airborne && !jetpackOn) {
+          I.yVelocity += GRAVITY * 3;
+        } else if(airborne && jetpackOn) {
+          I.yVelocity += GRAVITY / 2;
         }
 
         // TODO: Big mess-o-models... Maybe a state machine?
@@ -542,6 +564,10 @@ function Dinosaur() {
   if(false) {
     self.addAccessory(tophat);
   }
+
+  self.addJetpack({
+    keyDown: keyDown
+  });
 
   return self;
 }

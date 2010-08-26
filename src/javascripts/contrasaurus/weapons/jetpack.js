@@ -5,45 +5,67 @@ function Jetpack(I) {
   var fireSprite = Animation.load("images/weapons/jetpack_fire.png", 4, 91, 89, 2);
   var jetpackSprite = Sprite.load("images/weapons/jetpack.png");
 
-  var maxSpeed = -4;
+  var acceleration = 0;
+  var keyDown = I.keyDown;
+
+  var keyImpulses = {
+    left: Point(-0.5, 0),
+    right: Point(0.5, 0),
+    up: Point(0, -1.25),
+    down: Point()
+  };
 
   $.reverseMerge(I, {
     attachment: "back",
     duration: -1,
-    engaged: false,
-    sprite: jetpackSprite,
-    xImpulse: 0,
-    yImpulse: 0
+    sprite: jetpackSprite
   });
 
   var self = Weapon(I).extend({
     data: $.noop,
-    draw: function(canvas) {
-      canvas.withTransform(self.getTransform(), function() {
-        jetpackSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
-
-        if (I.engaged) {
-          fireSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
-        }
-      });
-    },
-
-    engaged: function(value) {
-      if (value !== undefined) {
-        I.engaged = value;
-      }
-      return I.engaged;
-    },
 
     shoot: $.noop,
 
     update: function() {
-      dino.yVelocity(Math.max(dino.yVelocity() + I.yImpulse, maxSpeed));
-      dino.xVelocity(dino.xVelocity() + I.xImpulse);
+      var impulse = Point(0, 0);
+      $.each(keyImpulses, function(key, value) {
+        if (keyDown[key]) {
+          impulse = impulse.add(value);
+        }
+      });
+
+      if(dino.airborne()) {
+        if (impulse.x < 0) {
+          acceleration = -0.2;
+          dino.jetpackAngle((dino.jetpackAngle() - Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+        } else if (impulse.x > 0) {
+          acceleration = 0.2
+          dino.jetpackAngle((dino.jetpackAngle() + Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+        }
+        dino.xVelocity((dino.xVelocity() + impulse.x + acceleration).clamp(-10, 10));
+      }
+      dino.yVelocity((dino.yVelocity() + impulse.y).clamp(-10, 20));
+
+      if (impulse.y < 0) {
+        if (dino.xVelocity() < 0) {
+          dino.jetpackAngle((dino.jetpackAngle() + Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+        }
+
+        if (dino.xVelocity() > 0) {
+          dino.jetpackAngle((dino.jetpackAngle() - Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+        }
+      }
+
+      if (Math.abs(impulse.x) > 0 || impulse.y < 0) {
+        dino.jetpackOn(true);
+        dino.airborne(true);
+      } else {
+        dino.jetpackOn(false);
+      }
 
       fireSprite.update();
 
-      if(I.engaged) {
+      if(dino.jetpackOn()) {
         var p = dino.getTransform().transformPoint(Point(-20, 20).add(self.position()));
         var jetFlame = Bullet({
           collideDamage: 20,
@@ -66,42 +88,16 @@ function Jetpack(I) {
 
         addGameObject(jetFlame);
       }
-    }
-  });
+    },
 
-  self.bind('engage', function() {
-    if(!I.engaged ) {
-      I.engaged = true;
-      I.yImpulse = -1;
-      dino.airborne(true);
-    }
-  });
-
-  self.bind('disengage', function() {
-    if(I.engaged) {
-      I.engaged = false;
-      I.yImpulse = 0;
-      I.xImpulse = 0;
-    }
-  });
-
-  self.bind('left', function() {
-    if(!I.engaged) {
-      I.engaged = true;
-      I.xImpulse = -0.5;
-      dino.yVelocity(0);
-      I.yImpulse = 0;
-      dino.airborne(true);
-    }
-  });
-
-  self.bind('right', function() {
-    if(!I.engaged) {
-      I.engaged = true;
-      I.xImpulse = 0.5;
-      dino.yVelocity(0);
-      I.yImpulse = 0;
-      dino.airborne(true);
+    after: {
+      draw: function(canvas) {
+        canvas.withTransform(self.getTransform(), function() {
+          if (dino.jetpackOn() && dino.airborne()) {
+            fireSprite.draw(canvas, -I.sprite.width/2, -I.sprite.height/2);
+          }
+        });
+      }
     }
   });
 
