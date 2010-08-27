@@ -14,8 +14,7 @@ function Scientist(I) {
         var transform = self.getTransform();
 
         var p = transform.transformPoint(exitPoint);
-        //var d = transform.deltaTransformPoint(exitDirection);
-        var theta = 2*(Math.PI)/3 //Math.atan2(d.y, -d.x);
+        var theta = 2*(Math.PI)/3;
 
         self.shoot(theta, {
           collisionType: "enemyBullet",
@@ -24,7 +23,7 @@ function Scientist(I) {
           y: p.y,
           radius: 2,
           theta: theta,
-          yVelocity: Math.clamp(-1*rand(15), -15, -2)
+          yVelocity: (-1*rand(15)).clamp(-15, -2)
         });
       }
     },

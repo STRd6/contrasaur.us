@@ -1,0 +1,226 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 13,
+    "height": 51,
+    "width": 60,
+    "url": "images/enemies/mutant/die.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 14,
+          "y": -8,
+          "radius": 15
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": 14,
+          "y": -7,
+          "radius": 15
+        },
+        {
+          "x": 6,
+          "y": 16,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 13,
+          "y": -1,
+          "radius": 15
+        },
+        {
+          "x": -6,
+          "y": 21,
+          "radius": 6
+        },
+        {
+          "x": 8,
+          "y": 19,
+          "radius": 8
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 6,
+          "y": -3,
+          "radius": 12
+        },
+        {
+          "x": -8,
+          "y": 22,
+          "radius": 6
+        },
+        {
+          "x": 12,
+          "y": 18,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 5,
+          "y": -4,
+          "radius": 11
+        },
+        {
+          "x": 13,
+          "y": 17,
+          "radius": 11
+        },
+        {
+          "x": -8,
+          "y": 22,
+          "radius": 6
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 1,
+          "y": -2,
+          "radius": 11
+        },
+        {
+          "x": 7,
+          "y": 17,
+          "radius": 10
+        },
+        {
+          "x": -9,
+          "y": 22,
+          "radius": 5
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -7,
+          "y": 8,
+          "radius": 11
+        },
+        {
+          "x": 9,
+          "y": 19,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -15,
+          "y": 18,
+          "radius": 10
+        },
+        {
+          "x": 4,
+          "y": 19,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -15,
+          "y": 19,
+          "radius": 9
+        },
+        {
+          "x": 3,
+          "y": 19,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -18,
+          "y": 19,
+          "radius": 9
+        },
+        {
+          "x": -1,
+          "y": 19,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -16,
+          "y": 19,
+          "radius": 9
+        },
+        {
+          "x": 3,
+          "y": 18,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -15,
+          "y": 19,
+          "radius": 9
+        },
+        {
+          "x": 4,
+          "y": 19,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -10,
+          "y": 19,
+          "radius": 9
+        },
+        {
+          "x": 7,
+          "y": 20,
+          "radius": 8
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

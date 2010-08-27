@@ -211,7 +211,7 @@ function Dinosaur() {
   }
 
   function heal(amount) {
-    I.health = Math.clamp(I.health + amount, 0, healthMax);
+    I.health = (I.health + amount).clamp(0, healthMax);
   }
 
   function setModel(model) {

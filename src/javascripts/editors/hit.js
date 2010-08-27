@@ -21,7 +21,7 @@ $('#editorCanvas').powerCanvas({init: function(canvas) {
       var transform = this.getTransform();
 
       if(frames && frames[currentFrame]) {
-        
+
         $.each(frames[currentFrame].attachmentPoints, function(name, point) {
           // Clean Point
           point.direction = point.direction || 0;
@@ -205,7 +205,7 @@ function generateComponentMethods(component, creator) {
     grow: function(delta) {
       var c = active[component];
       if(c) {
-        c.radius = Math.clamp(delta + c.radius, 1, 1000);
+        c.radius = (delta + c.radius).clamp(1, 1000);
       }
     },
 

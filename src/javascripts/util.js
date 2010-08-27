@@ -122,7 +122,7 @@ function after(method, interception) {
 jQuery.extend({
   reverseMerge: function(target) {
     var i = 1, length = arguments.length;
-    
+
     for( ; i < length; i++) {
       var object = arguments[i];
 
@@ -132,7 +132,7 @@ jQuery.extend({
         }
       }
     }
-    
+
     return target;
   }
 });

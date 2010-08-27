@@ -89,7 +89,7 @@ $(function() {
       dino.timeTravel(false);
     }
   }, {
-    at: 2000,
+    at: 3000,
     event: function(level) {
       level.complete();
     }

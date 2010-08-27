@@ -3,19 +3,21 @@ function Mutant(I) {
 
   var bitInHalf = false;
 
-  var mutantModel = Model.loadJSONUrl("data/mutant/walk.model.json", function(model) {
+  var walkModel = Model.loadJSONUrl("data/mutant/walk.model.json", function(model) {
     I.sprite = model.animation;
   });
+  var deathModel = Model.loadJSONUrl("data/mutant/death.model.json");
 
   $.reverseMerge(I, {
     checkBounds: $.noop,
+    hitCircles: walkModel.hitFrames,
     health: 100,
     moneyFrequency: 0,
     nutrition: -20,
     pointsWorth: 5000,
     radius: 20,
     shootLogic: $.noop,
-    sprite: mutantModel.animation,
+    sprite: walkModel.animation,
     type: 'mutant',
     xVelocity: -1*rand(2),
     y: CANVAS_HEIGHT - Floor.LEVEL,
@@ -48,17 +50,35 @@ function Mutant(I) {
           I.yVelocity += GRAVITY;
         }
 
-        if (mutantModel.hitFrame) {
-          I.hitCircles = mutantModel.hitFrame();
+        if (walkModel.hitFrame) {
+          I.hitCircles = walkModel.hitFrame();
         }
       }
     }
   });
 
   self.bind('destroy', function(self) {
+    var deathAnimation;
+
     if(bitInHalf) {
       Sound.play("chomp");
+    } else {
+      Sound.play("die");
+      deathAnimation = deathModel.animation;
     }
+
+    var effectI = self.position();
+
+    var effect = Effect($.extend(effectI, {
+      //TODO: This -1 is probably symptomatic of a deeper error
+      duration: deathAnimation.duration() - 1,
+      hFlip: I.hFlip,
+      sprite: deathAnimation,
+      velocity: Point(0, 0),
+      x: I.x
+    }));
+
+    addGameObject(effect);
   });
 
   return self;
