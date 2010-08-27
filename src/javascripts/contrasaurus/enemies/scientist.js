@@ -19,6 +19,7 @@ function Scientist(I) {
 
         self.shoot(theta, {
           collisionType: "enemyBullet",
+          dropFrequency: 0,
           x: p.x,
           y: p.y,
           radius: 2,
