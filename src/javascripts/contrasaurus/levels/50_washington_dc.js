@@ -1,17 +1,5 @@
-$(function(){
-  var scene = Scene(
-    [{
-      image: Sprite.load('images/levels/ground.png'),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: CANVAS_HEIGHT - Floor.LEVEL
-      },
-      repeat: true,
-      width: 640
-    }],
-    []
-  );
+$(function() {
+  var imgPath = "images/levels/washington_dc/";
 
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
@@ -26,6 +14,39 @@ $(function(){
     }
   }
 
+  function generateForegroundScenary() {
+    foregrounds = [];
+
+    (5).times(function(i) {
+      foregrounds.push({
+        image: Sprite.load([
+          imgPath + "bush.png",
+          imgPath + "hedge.png"
+        ].rand()),
+        parallaxRate: 1,
+        position: {
+          x: i * 150 + rand(50),
+          y: 300 + rand(80)
+        },
+        every: 1000
+      });
+    });
+
+    return foregrounds;
+  }
+
+  var scene = Scene(
+    [{
+      image: Sprite.load('images/levels/ground.png'),
+      parallaxRate: 0,
+      position: {
+        x: 0,
+        y: CANVAS_HEIGHT - Floor.LEVEL
+      },
+      repeat: true,
+      width: 640
+    }], generateForegroundScenary());
+
   var whiteHouse;
   var floor = Floor();
 
@@ -35,6 +56,18 @@ $(function(){
         whiteHouse = WhiteHouse({
           x: level.position().x + CANVAS_WIDTH + 100
         });
+
+        level.addGameObject(GameObject({
+          sprite: Sprite.load(imgPath + "minitreebush.png"),
+          x: dino.position().x + CANVAS_WIDTH + 25,
+          y: 300
+        }));
+
+        level.addGameObject(GameObject({
+          sprite: Sprite.load(imgPath + "minitreebush.png"),
+          x: dino.position().x + CANVAS_WIDTH - 586 - 25,
+          y: 300
+        }));
 
         dino.boss(whiteHouse);
 
