@@ -5,7 +5,6 @@ function Soldier(I) {
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   var shootModelCounter = 0;
-  var bitInHalf = false;
 
   var runModel = Model.loadJSONUrl("data/sandinista/run.model.json");
   var shootModel = Model.loadJSONUrl("data/sandinista/shoot.model.json");
@@ -17,6 +16,7 @@ function Soldier(I) {
   var currentModel = runModel;
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     shootLogic: function() {
       if (Math.random() < 0.075) {
         var transform = self.getTransform();
@@ -59,10 +59,6 @@ function Soldier(I) {
       }
     },
 
-    bite: function() {
-      bitInHalf = true;
-    },
-
     land: function(h) {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
@@ -103,7 +99,7 @@ function Soldier(I) {
 
     if(I.onFire) {
       deathAnimation = burningAnimation;
-    } else if(bitInHalf) {
+    } else if(I.bitInHalf) {
       Sound.play("chomp");
       deathAnimation = bitInHalfModel.animation;
       offset = 20;
@@ -146,6 +142,8 @@ function Soldier(I) {
     setModel(parasoldierModel);
     I.yVelocity = 2;
   }
+
+  self.extend(Biteable(I));
 
   return self;
 }
