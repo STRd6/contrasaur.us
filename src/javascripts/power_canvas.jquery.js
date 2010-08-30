@@ -76,6 +76,12 @@
         return this;
       },
 
+      centerText: function(text, y) {
+        var textWidth = $canvas.measureText(text);
+
+        $canvas.fillText(text, (canvas.width - textWidth) / 2, y);
+      },
+
       fillText: function(text, x, y) {
         context.fillText(text, x, y);
 
