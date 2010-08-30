@@ -25,9 +25,9 @@ function warning(message) {
 }
 
 /**
- * Randomly select an element from the array.
+ * Randomly select an element from the array. The array remains unmodified.
  *
- * @return a random element from an array
+ * @returns A random element from an array, or undefined if the array is empty.
  */
 Array.prototype.rand = function() {
   return this[rand(this.length)];
