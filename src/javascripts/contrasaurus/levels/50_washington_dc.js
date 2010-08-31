@@ -15,7 +15,7 @@ $(function() {
   }
 
   function generateForegroundScenary() {
-    foregrounds = [];
+    var foregrounds = [];
 
     (5).times(function(i) {
       foregrounds.push({
@@ -37,14 +37,22 @@ $(function() {
 
   var scene = Scene(
     [{
-      image: Sprite.load('images/levels/ground.png'),
+      image: Sprite.load('images/levels/washington_dc/background.png'),
+      parallaxRate: 0.25,
+      position: Point(0, 0),
+      repeat: true
+    }, {
+      image: Sprite.load('images/levels/washington_dc/midground.png'),
+      parallaxRate: 0.5,
+      position: Point(0, 0),
+      repeat: true
+    }, {
+      image: Sprite.load('images/levels/washington_dc/ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
         y: CANVAS_HEIGHT - Floor.LEVEL
-      },
-      repeat: true,
-      width: 640
+      }
     }], generateForegroundScenary());
 
   var whiteHouse;
