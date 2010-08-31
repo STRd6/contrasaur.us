@@ -56,7 +56,9 @@ $(function() {
     }], generateForegroundScenary());
 
   var whiteHouse;
-  var floor = Floor();
+  var floor = Floor({
+    sprite: Sprite.EMPTY
+  });
 
   var triggers = [{
       at: 1000,
