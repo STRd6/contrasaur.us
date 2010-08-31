@@ -1,6 +1,6 @@
 - @layout = 'application'
 
-#title 
+#title
   %h1 Contrasaurus
 
 #debug
@@ -20,8 +20,9 @@
       %span.label score
       %span#score 0
     .clear
+  #level_objectives
   %canvas#gameCanvas{:width => 640, :height => 480}
-    %p 
+    %p
       HTML5 canvas not supported by your browser.
       = link "Learn more here", "http://www.google.com/chrome"
     #tilt
@@ -30,9 +31,9 @@
     %span.label Inventory
 
   .store
-    %span.label 
+    %span.label
       Store
-      %span#money 
+      %span#money
         $
         %span.amount 0
 

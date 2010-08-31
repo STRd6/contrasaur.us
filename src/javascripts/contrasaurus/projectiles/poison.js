@@ -8,6 +8,7 @@ function Poison(I) {
     radius: 4,
     rotation: 0,
     rotationalVelocity: -Math.PI / 16,
+    sound: "gloop",
     speed: 10,
     sprite: Sprite.load("images/projectiles/test_tube.png")
   });
@@ -17,6 +18,7 @@ function Poison(I) {
       I.active = false;
       addGameObject(Explosion({
         duration: 7,
+        sound: I.sound,
         sprite: loadAnimation("images/effects/poison_explosion_32x32.png", 7, 32, 32),
         x: I.x,
         y: I.y
@@ -34,7 +36,7 @@ function Poison(I) {
     hit: function() {
       detonate();
     },
-    
+
     after: {
       update: function() {
         I.rotation += I.rotationalVelocity;

@@ -250,10 +250,19 @@ function Level(I) {
 
       return nearest;
     },
-    
+
     start: function() {
       if (backgroundMusic) {
         backgroundMusic.play();
+        $('#level_objectives img').remove();
+
+        if(I.objectiveImage) {
+          $('<img src=' + I.objectiveImage + '>').appendTo('#level_objectives');
+        }
+        $('#level_objectives p').remove();
+        if(I.objective) {
+          $('<p>' + I.objective + '</p>').appendTo('#level_objectives');
+        }
       }
 
       intervalId = setInterval(function() {

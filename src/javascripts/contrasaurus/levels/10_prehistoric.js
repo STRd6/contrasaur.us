@@ -166,6 +166,8 @@ $(function() {
     audio: "Lady Gaga - Bad Romance",
     description: "BC 3,700: Prehistoric Utah",
     scene: scene,
+    objective: "Eat",
+    objectiveImage: 'images/enemies/dinofodder.png',
     platforms: [floor],
     triggers: triggers
   });

@@ -59,11 +59,11 @@ $(function() {
           x: level.position().x + CANVAS_WIDTH + 20,
           xVelocity: -2
         });
-        
+
         level.addGameObject(soldier);
       } else {
         level.addGameObject(Soldier({
-          xVelocity: 0, 
+          xVelocity: 0,
           x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
           y: -100
         }));
@@ -116,6 +116,8 @@ $(function() {
   addCutscene("", "He will be a great asset to us in assisting the Contras...", 4000);
   addLevel({
     scene: scene,
+    objective: "obey",
+    objectiveImage: "images/enemies/robo_reagan/reagan_thumb.png",
     platforms: [floor],
     triggers: triggers,
     audio: "Lady Gaga - Telephone"

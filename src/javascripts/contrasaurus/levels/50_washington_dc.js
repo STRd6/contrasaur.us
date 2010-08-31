@@ -114,6 +114,8 @@ $(function() {
 
   addLevel({
     scene: scene,
+    objective: "Destroy",
+    objectiveImage: 'images/levels/washington_dc/whiteHouse_thumb.png',
     platforms: [floor],
     triggers: triggers,
     audio: "Dragonforce - My Spirit Will Go On"
