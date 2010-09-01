@@ -5,6 +5,7 @@ function Utahraptor(I) {
   var bitInHalf = false;
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     collideDamage: 0,
     drops: ["meat"],
     health: 1,
@@ -21,10 +22,6 @@ function Utahraptor(I) {
 
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
-
-    bite: function() {
-      bitInHalf = true;
-    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -50,11 +47,7 @@ function Utahraptor(I) {
     }
   });
 
-  self.bind('destroy', function(self) {
-    if(bitInHalf) {
-      Sound.play("chomp");
-    }
-  });
+  self.extend(Biteable(I));
 
   return self;
 }

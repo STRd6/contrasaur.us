@@ -100,7 +100,6 @@ function Soldier(I) {
     if(I.onFire) {
       deathAnimation = burningAnimation;
     } else if(I.bitInHalf) {
-      Sound.play("chomp");
       deathAnimation = bitInHalfModel.animation;
       offset = 20;
     } else {

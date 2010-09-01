@@ -5,7 +5,6 @@ function SecretService(I) {
   var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
 
   var shootModelCounter = 0;
-  var bitInHalf = false;
 
   var runModel = Model.loadJSONUrl("data/secret_service/run.model.json");
   var shootModel = Model.loadJSONUrl("data/secret_service/shoot.model.json");
@@ -16,6 +15,7 @@ function SecretService(I) {
   var currentModel = runModel;
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     shootLogic: function() {
       if (Math.random() < 0.075) {
         var transform = self.getTransform();
@@ -49,10 +49,6 @@ function SecretService(I) {
   }
 
   var self = Enemy(I).extend({
-
-    bite: function() {
-      bitInHalf = true;
-    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -93,8 +89,7 @@ function SecretService(I) {
 
     if(I.onFire) {
       deathAnimation = burningAnimation;
-    } else if(bitInHalf) {
-      Sound.play("chomp");
+    } else if(I.bitInHalf) {
       deathAnimation = bitInHalfModel.animation;
       offset = 20;
     } else {
@@ -115,6 +110,8 @@ function SecretService(I) {
 
     addGameObject(effect);
   });
+
+  self.extend(Biteable(I));
 
   return self;
 }

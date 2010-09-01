@@ -6,15 +6,16 @@ function Brontosaurus(I) {
   });
 
   $.reverseMerge(I, {
-    y: CANVAS_HEIGHT - Floor.LEVEL,
-    health: 1000,
+    bitInHalf: false,
     hFlip: true,
-    pointsWorth: 50000,
-    radius: 90,
+    health: 1000,
     hitCircles: brontoModel.hitFrames,
     nutrition: 25,
+    pointsWorth: 50000,
+    radius: 90,
+    shootLogic: $.noop,
     sprite: brontoModel.animation,
-    shootLogic: $.noop
+    y: CANVAS_HEIGHT - Floor.LEVEL
   });
 
   var self = Boss(I).extend({
@@ -26,6 +27,8 @@ function Brontosaurus(I) {
       }
     }
   });
+
+  self.extend(Biteable(I));
 
   return self;
 }

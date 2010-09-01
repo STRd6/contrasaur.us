@@ -9,6 +9,7 @@ function Mutant(I) {
   var deathModel = Model.loadJSONUrl("data/mutant/death.model.json");
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     checkBounds: $.noop,
     hitCircles: walkModel.hitFrames,
     health: 100,
@@ -24,9 +25,6 @@ function Mutant(I) {
   });
 
   var self = Enemy(I).extend({
-    bite: function() {
-      bitInHalf = true;
-    },
 
     bulletHitEffect: Enemy.bloodSprayEffect,
 
@@ -60,12 +58,8 @@ function Mutant(I) {
   self.bind('destroy', function(self) {
     var deathAnimation;
 
-    if(bitInHalf) {
-      Sound.play("chomp");
-    } else {
-      Sound.play("die");
-      deathAnimation = deathModel.animation;
-    }
+    Sound.play("die");
+    deathAnimation = deathModel.animation;
 
     var effectI = self.position();
 
@@ -80,6 +74,8 @@ function Mutant(I) {
 
     addGameObject(effect);
   });
+
+  self.extend(Biteable(I));
 
   return self;
 }

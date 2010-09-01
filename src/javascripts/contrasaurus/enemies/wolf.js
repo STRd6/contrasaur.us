@@ -4,6 +4,7 @@ function Wolf(I) {
   var bitInHalf = false;
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     shootLogic: $.noop,
     sprite: Sprite.load("images/enemies/patch_wolf.png"),
     type: 'wolf',
@@ -13,10 +14,6 @@ function Wolf(I) {
   });
 
   var self = Enemy(I).extend({
-
-    bite: function() {
-      bitInHalf = true;
-    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -36,12 +33,12 @@ function Wolf(I) {
   });
 
   self.bind('destroy', function(self) {
-    if(bitInHalf) {
-      Sound.play("chomp");
-    } else {
+    if(!bitInHalf) {
       Sound.play("die");
     }
   });
+
+  self.extend(Biteable(I));
 
   return self;
 }

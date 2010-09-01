@@ -9,6 +9,7 @@ function Scientist(I) {
   });
 
   $.reverseMerge(I, {
+    bitInHalf: false,
     shootLogic: function() {
       if (Math.random() < 0.035) {
         var transform = self.getTransform();
@@ -36,10 +37,6 @@ function Scientist(I) {
   });
 
   var self = Enemy(I).extend({
-
-    bite: function() {
-      bitInHalf = true;
-    },
 
     burn: function(flame) {
       if (!I.onFire) {
@@ -70,12 +67,12 @@ function Scientist(I) {
   });
 
   self.bind('destroy', function(self) {
-    if(bitInHalf) {
-      Sound.play("chomp");
-    } else {
+    if(!bitInHalf) {
       Sound.play("die");
     }
   });
+
+  self.extend(Biteable(I));
 
   return self;
 }
