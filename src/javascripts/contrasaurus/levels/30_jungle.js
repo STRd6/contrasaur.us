@@ -63,9 +63,11 @@ $(function() {
         level.addGameObject(soldier);
       } else {
         level.addGameObject(Soldier({
+          airborne: true,
           xVelocity: 0,
           x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
-          y: -100
+          y: -100,
+          yVelocity: 2
         }));
       }
     }

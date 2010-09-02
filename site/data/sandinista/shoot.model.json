@@ -8,7 +8,13 @@
   },
   "frames": [
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 3,
+          "y": -19,
+          "direction": -0.5711986642890533
+        }
+      },
       "circles": [
         {
           "x": -21,
@@ -38,7 +44,13 @@
       ]
     },
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 8,
+          "y": -20,
+          "direction": -0.5711986642890533
+        }
+      },
       "circles": [
         {
           "x": -17,
@@ -68,7 +80,13 @@
       ]
     },
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 3,
+          "y": -19,
+          "direction": -0.5711986642890533
+        }
+      },
       "circles": [
         {
           "x": -22,
@@ -98,7 +116,13 @@
       ]
     },
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 9,
+          "y": -19,
+          "direction": -0.4487989505128276
+        }
+      },
       "circles": [
         {
           "x": -15,
