@@ -8,11 +8,9 @@ var killCounter = {
   'boss': 0,
   'parasoldier': 0,
   'sandinista': 0,
-  'scientist': 0,
   'secret service': 0,
   'tank': 0,
-  'utahraptor': 0,
-  'wolf': 0
+  'utahraptor': 0
 };
 var dialogBox;
 var pauseDisplay;
@@ -31,8 +29,7 @@ var weaponMap = {
   "flamethrower": Flamethrower,
   "laserGun": LaserGun,
   "machineGun": MachineGun,
-  "meat": Meat,
-  "shield": Shield
+  "meat": Meat
 };
 
 $.each(weaponMap, function(name) {
