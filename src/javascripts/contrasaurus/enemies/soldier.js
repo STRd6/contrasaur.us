@@ -72,9 +72,9 @@ function Soldier(I) {
 
     before: {
       update: function() {
-        if (currentModel !== parasoldierModel && shootModelCounter <= 0 && Math.random() < 0.005) {
+        if (currentModel !== parasoldierModel && shootModelCounter <= 0 && Math.random() < 0.015) {
           setModel(shootModel);
-          shootModelCounter = 24;
+          shootModelCounter = 8;
         }
 
         if(I.airborne) {

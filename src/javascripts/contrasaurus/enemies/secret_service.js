@@ -17,21 +17,27 @@ function SecretService(I) {
   $.reverseMerge(I, {
     bitInHalf: false,
     shootLogic: function() {
-      if (Math.random() < 0.075) {
-        var transform = self.getTransform();
+      if (shootModelCounter > 0) {
+        shootModelCounter--;
+        var t = self.getTransform();
 
-        var p = transform.transformPoint(exitPoint);
-        var d = transform.deltaTransformPoint(exitDirection);
-        var theta = Math.atan2(d.y, d.x);
+        var shootPoint = currentModel.attachment("shot");
+        var direction = shootPoint.direction;
 
-        self.shoot(theta, {
-          x: p.x,
-          y: p.y,
-          sprite: Sprite.load("images/effects/enemybullet1_small.png")
-        });
+        var p = t.transformPoint(shootPoint);
 
-        setModel(shootModel);
-        shootModelCounter = 8;
+        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+        var theta = Point.direction(Point(0,0), tmpPoint);
+
+        if(shootPoint.x != 0) {
+          addGameObject(Bullet({
+            collisionType: "enemyBullet",
+            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
+            theta: theta,
+            x: p.x,
+            y: p.y
+          }));
+        }
       }
     },
     hitCircles: currentModel.hitFrames,
@@ -57,14 +63,23 @@ function SecretService(I) {
       }
     },
 
-    after: {
+    before: {
       update: function() {
-        if (shootModelCounter < 0) {
-          setModel(runModel);
+        if (shootModelCounter <= 0 && Math.random() < 0.01) {
+          setModel(shootModel);
+          shootModelCounter = 8;
         }
 
-        shootModelCounter--;
+        if (shootModelCounter > 0) {
+          setModel(shootModel);
+        } else {
+          setModel(runModel);
+        }
+      }
+    },
 
+    after: {
+      update: function() {
         if (Math.random() < 0.05 && I.onFire) {
           I.xVelocity = I.xVelocity * -1;
         }
