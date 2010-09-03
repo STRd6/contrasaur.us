@@ -56,16 +56,19 @@ function Jetpack(I) {
         }
       }
 
+      if (Math.abs(impulse.y < 0)) {
+        dino.airborne(true);
+      }
+
       if (Math.abs(impulse.x) > 0 || impulse.y < 0) {
         dino.jetpackOn(true);
-        dino.airborne(true);
       } else {
         dino.jetpackOn(false);
       }
 
       fireSprite.update();
 
-      if(dino.jetpackOn()) {
+      if(dino.jetpackOn() && dino.airborne()) {
         var p = dino.getTransform().transformPoint(Point(-20, 20).add(self.position()));
         var jetFlame = Bullet({
           collideDamage: 20,

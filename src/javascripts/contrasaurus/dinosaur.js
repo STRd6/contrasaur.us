@@ -118,28 +118,28 @@ function Dinosaur() {
       });
     });
 
-    $(document).bind('keyup', 'w up', function() {
-      keyDown["up"] = false;
-    });
+    // $(document).bind('keyup', 'w up', function() {
+    //   keyDown["up"] = false;
+    // });
 
-    $(document).bind('keyup', 'left a', function() {
-      keyDown["left"] = false;
+    // $(document).bind('keyup', 'left a', function() {
+    //   keyDown["left"] = false;
+    //
+    //   if(!airborne) {
+    //     I.xVelocity = 0;
+    //   }
+    // });
 
-      if(!airborne) {
-        I.xVelocity = 0;
-      }
-    });
-
-    $(document).bind('keyup', 'right d', function() {
-      keyDown["right"] = false;
-      if(!airborne) {
-        I.xVelocity = 0;
-      }
-    });
-
-    $(document).bind('keyup', 'down s', function() {
-      keyDown["down"] = false;
-    });
+    // $(document).bind('keyup', 'right d', function() {
+    //   keyDown["right"] = false;
+    //   if(!airborne) {
+    //     I.xVelocity = 0;
+    //   }
+    // });
+    //
+    // $(document).bind('keyup', 'down s', function() {
+    //   keyDown["down"] = false;
+    // });
 
     $("#gameCanvas").mousedown(function(event) {
       if(event.button == 0) {
@@ -391,6 +391,7 @@ function Dinosaur() {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
         airborne = false;
+        jetpackOn = false;
         jetpackAngle = 0;
       }
     },
