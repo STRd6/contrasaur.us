@@ -1,17 +1,17 @@
-function control(character) {
+function Control(character, keyDown) {
   $.each({
 
     "w up": function() {
-      character.keyDown().up = true;
+      keyDown.up = true;
     },
 
     "t": function() {
-      character.keyDown().t = true;
+      keyDown.t = true;
       character.toss();
     },
 
     "left a": function() {
-      character.keyDown().left = true;
+      keyDown.left = true;
 
       if (!character.airborne()) {
         character.xVelocity(-6);
@@ -19,18 +19,18 @@ function control(character) {
     },
 
     "right d": function() {
-      character.keyDown().right = true;
+      keyDown.right = true;
       if (!character.airborne()) {
         character.xVelocity(6);
       }
     },
 
     "down s": function() {
-      character.keyDown().down = true;
+      keyDown.down = true;
     },
 
     "space": function() {
-      character.keyDown.space = true;
+      keyDown.space = true;
       character.bite();
     },
 
@@ -45,11 +45,11 @@ function control(character) {
   });
 
   $(document).bind('keyup', 'w up', function() {
-    character.keyDown().up = false;
+    keyDown.up = false;
   });
 
   $(document).bind('keyup', 'left a', function() {
-    character.keyDown().left = false;
+    keyDown.left = false;
 
     if(!character.airborne()) {
       character.xVelocity(0);
@@ -57,14 +57,14 @@ function control(character) {
   });
 
   $(document).bind('keyup', 'right d', function() {
-    character.keyDown().right = false;
+    keyDown.right = false;
     if(!character.airborne()) {
       character.xVelocity(0);
     }
   });
 
   $(document).bind('keyup', 'down s', function() {
-    character.keyDown().down = false;
+    keyDown.down = false;
   });
 
   $("#gameCanvas").mousedown(function(event) {

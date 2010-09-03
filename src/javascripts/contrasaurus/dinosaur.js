@@ -489,7 +489,7 @@ function Dinosaur() {
     self.addAccessory(tophat);
   }
 
-  control(self);
+  Control(self, keyDown);
 
   return self;
 }
