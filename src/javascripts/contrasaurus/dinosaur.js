@@ -62,108 +62,6 @@ function Dinosaur() {
   var lastDirection = 1;
   var healthMax = I.health;
 
-  $(function() {
-
-    $.each({
-
-      "w up": function() {
-        keyDown["up"] = true;
-      },
-
-      "t": function() {
-        keyDown["t"] = true;
-        toss();
-      },
-
-      "left a": function() {
-        keyDown["left"] = true;
-
-        if (!airborne) {
-          I.xVelocity = -6;
-        }
-      },
-
-      "right d": function() {
-        keyDown["right"] = true;
-        if (!airborne) {
-          I.xVelocity = 6;
-        }
-      },
-
-      "down s": function() {
-        keyDown["down"] = true;
-      },
-
-      "space": function() {
-        keyDown["space"] = true;
-        if (biteCounter <= 0) {
-          if(airborne) {
-            biteCounter = 15;
-          } else {
-            biteCounter = 24;
-          }
-
-          biteModel.animation.frame(0);
-          flyBiteModel.animation.frame(0);
-        }
-      },
-
-      "+": nextWeapon,
-
-      "-": prevWeapon
-    }, function(key, fn) {
-      $(document).bind('keydown', key, function() {
-        fn();
-        return false;
-      });
-    });
-
-    // $(document).bind('keyup', 'w up', function() {
-    //   keyDown["up"] = false;
-    // });
-
-    // $(document).bind('keyup', 'left a', function() {
-    //   keyDown["left"] = false;
-    //
-    //   if(!airborne) {
-    //     I.xVelocity = 0;
-    //   }
-    // });
-
-    // $(document).bind('keyup', 'right d', function() {
-    //   keyDown["right"] = false;
-    //   if(!airborne) {
-    //     I.xVelocity = 0;
-    //   }
-    // });
-    //
-    // $(document).bind('keyup', 'down s', function() {
-    //   keyDown["down"] = false;
-    // });
-
-    $("#gameCanvas").mousedown(function(event) {
-      if(event.button == 0) {
-        shooting = true;
-      } else {
-        secondaryShooting = true;
-      }
-
-      return false;
-    }).mouseup(function() {
-      if(event.button == 0) {
-        shooting = false;
-      } else {
-        secondaryShooting = false;
-      }
-    }).bind("mousewheel", function(event, delta) {
-      if(delta > 0) {
-        nextWeapon();
-      } else {
-        prevWeapon();
-      }
-    });
-  });
-
   function nextWeapon() {
     var selectedIndex = weapons.indexOf(selectedWeapon);
 
@@ -284,6 +182,19 @@ function Dinosaur() {
       }
     },
 
+    bite: function() {
+      if (biteCounter <= 0) {
+        if(airborne) {
+          biteCounter = 15;
+        } else {
+          biteCounter = 24;
+        }
+
+        biteModel.animation.frame(0);
+        flyBiteModel.animation.frame(0);
+      }
+    },
+
     boss: function(value) {
       if (value !== undefined) {
         boss = value;
@@ -396,6 +307,8 @@ function Dinosaur() {
       }
     },
 
+    nextWeapon: nextWeapon,
+
     parasailing: function(newValue) {
       if(newValue != undefined) {
         parasailing = newValue;
@@ -410,9 +323,13 @@ function Dinosaur() {
       }
     },
 
+    prevWeapon: prevWeapon,
+
     timeTravel: function(val) {
       timeTravelling = val;
     },
+
+    toss: toss,
 
     weaponData: function() {
       return $.map(weapons, function(weapon) {
@@ -571,6 +488,8 @@ function Dinosaur() {
   if(false) {
     self.addAccessory(tophat);
   }
+
+  control(self);
 
   return self;
 }
