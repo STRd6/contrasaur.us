@@ -1,14 +1,14 @@
 function Meteor(I) {
   I = I || {};
 
-  var meteor1Tile = Sprite.load("images/levels/prehistoric/meteor1.png");
-  var meteor2Tile = Sprite.load("images/levels/prehistoric/meteor2.png");
+  var meteorA = loadAnimation("images/levels/prehistoric/meteorA.png", 4, 50, 30);
+  var meteorB = loadAnimation("images/levels/prehistoric/meteorB.png", 4, 50, 30);
 
   $.reverseMerge(I, {
-    width: 42,
+    width: 50,
     health: 1,
-    height: 36,
-    radius: 12,
+    height: 30,
+    radius: 25,
     collideDamage: 5,
     collisionType: "levelHazard",
     xVelocity: [
@@ -16,7 +16,7 @@ function Meteor(I) {
       -3
     ].rand(),
     yVelocity: 5,
-    sprite: meteor1Tile
+    sprite: meteorA
   })
 
   var self = Bullet(I).extend({
@@ -38,7 +38,7 @@ function Meteor(I) {
         self.trigger('destroy');
       },
       update: function() {
-        I.sprite = I.xVelocity < 0 ? meteor1Tile: meteor2Tile;
+        I.sprite = I.xVelocity < 0 ? meteorA: meteorB;
         I.yVelocity += GRAVITY/2;
       }
     }
