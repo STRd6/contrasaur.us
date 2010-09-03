@@ -10,6 +10,10 @@
 
     var context;
 
+    /**
+     * @name PowerCanvas
+     * @constructor
+     */
     var $canvas = $(canvas).extend({
       drawLine: function(x1, y1, x2, y2, width) {
         width = width || 3;
@@ -28,6 +32,19 @@
         return this;
       },
 
+      /**
+       * Passes this canvas to the block with the given matrix transformation
+       * applied. All drawing methods called within the block will draw
+       * into the canvas with the transformation applied. The transformation
+       * is removed at the end of the block, even if the block throws an error.
+       *
+       * @name withTransform
+       * @methodOf PowerCanvas#
+       *
+       * @param {Matrix} matrix
+       * @param {Function} block
+       * @returns this
+       */
       withTransform: function(matrix, block) {
         context.save();
 
@@ -41,10 +58,12 @@
         );
 
         try {
-          block();
+          block(this);
         } finally {
           context.restore();
         }
+
+        return this;
       },
 
       clear: function() {
