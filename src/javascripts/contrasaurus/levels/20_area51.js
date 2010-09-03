@@ -63,9 +63,7 @@ $(function() {
   }, {
     at: 800,
     event: function() {
-      dino.addJetpack({
-        keyDown: dino.keyDown()
-      });
+      dino.addJetpack();
     }
   }, {
     at: 100,

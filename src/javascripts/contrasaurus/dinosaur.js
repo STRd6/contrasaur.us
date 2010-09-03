@@ -150,9 +150,11 @@ function Dinosaur() {
       accessories.push(accessory);
     },
 
-    addJetpack: function(I) {
+    addJetpack: function() {
       if(!jetpack) {
-        jetpack = Jetpack(I);
+        jetpack = Jetpack({
+          keyDown: keyDown
+        });
 
         self.addWeapon(jetpack);
       }
@@ -293,10 +295,6 @@ function Dinosaur() {
       }
     },
 
-    keyDown: function() {
-      return keyDown;
-    },
-
     land: function(h) {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
@@ -322,6 +320,8 @@ function Dinosaur() {
         return parasailing;
       }
     },
+
+    sink: $.noop,
 
     prevWeapon: prevWeapon,
 

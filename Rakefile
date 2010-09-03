@@ -9,6 +9,5 @@ task :build do
 end
 
 task :doc do
-  puts `java -jar jsdoc-toolkit/jsrun.jar jsdoc-toolkit/app/run.js -c=jsdoc.conf`
+  puts `java -jar ~/jsdoc-toolkit/jsrun.jar ~/jsdoc-toolkit/app/run.js -c=jsdoc.conf`
 end
-
