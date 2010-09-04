@@ -76,8 +76,9 @@ function DialogBox(text, I) {
     avatarWidth: 72,
     height:  Math.ceil(CANVAS_HEIGHT / 3),
     lineHeight: 16,
-    margin: 16,
-    y: Math.floor((CANVAS_HEIGHT * 2) / 3),
+    margin: 32,
+    sprite: Sprite.load("images/dialogbox_75.png"),
+    y: Math.floor((CANVAS_HEIGHT * 2) / 3) + 30,
     width: CANVAS_WIDTH
   });
 
@@ -89,14 +90,14 @@ function DialogBox(text, I) {
       if (textAlign) {
         canvas.textAlign(textAlign);
       }
-      canvas.fillColor("rgba(0, 0, 0, 0.75)");
-      canvas.fillRect(0, I.y, I.width, I.height);
+
+      I.sprite.draw(canvas, 0, 320);
 
       if(I.avatar) {
         I.avatar.draw(canvas, I.margin, I.y);
         avatarMargin = I.avatarWidth + 2*I.margin;
         canvas.fillColor("#FFF");
-        canvas.fillWrappedText(text, avatarMargin, I.y + I.lineHeight, I.width - avatarMargin - I.margin);
+        canvas.fillWrappedText(text, avatarMargin, I.y + I.lineHeight, I.width - avatarMargin - I.margin - 30);
       } else {
         canvas.fillColor("#FFF");
         canvas.fillWrappedText(text, avatarMargin, I.y, I.width - avatarMargin - I.margin);

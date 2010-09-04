@@ -38,7 +38,7 @@ function Meteor(I) {
         self.trigger('destroy');
       },
       update: function() {
-        I.sprite = I.xVelocity < 0 ? meteorA: meteorB;
+        I.sprite = I.xVelocity < 0 ? meteorA : meteorB;
         I.yVelocity += GRAVITY/2;
       }
     }
