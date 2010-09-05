@@ -1,5 +1,6 @@
 $(function() {
   var imgPath = "images/levels/washington_dc/";
+  var destroyWhitehouseAge = 0;
 
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
@@ -86,6 +87,7 @@ $(function() {
             x: whiteHouse.position().x
           });
 
+          destroyWhitehouseAge = level.age();
           dino.boss(roboReagan);
 
           roboReagan.bind('destroy', function() {
@@ -112,7 +114,14 @@ $(function() {
 
   addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1000);
 
-  addLevel({
+  var roboreaganAvatar = Sprite.load("images/avatars/roboreagan.png");
+
+  var roboreaganDialog = DialogBox("You have only seen 1% of my true power", {
+    avatar: roboreaganAvatar,
+    avatarWidth: 100
+  });
+
+  var level = addLevel({
     scene: scene,
     objective: "Destroy",
     objectiveImage: 'images/levels/washington_dc/whiteHouse_thumb.png',
@@ -122,4 +131,10 @@ $(function() {
   });
 
   addCutscene("images/levels/cutscenes/finale.png", "Everything is going according to plan...", 6000);
+
+  level.bind("afterStep", function(level) {
+    if (level.age() > destroyWhitehouseAge && (level.age() < destroyWhitehouseAge + 200) && destroyWhitehouseAge > 0) {
+      roboreaganDialog.draw(canvas);
+    }
+  });
 });
