@@ -8,7 +8,14 @@ function WhiteHouse(I) {
   $.reverseMerge(I, {
     health: 1000,
     hitCircles: [
-      {"x":-156,"y":34,"radius":62},{"x":3,"y":0,"radius":117},{"x":247,"y":-55,"radius":38},{"x":240,"y":29,"radius":43},{"x":-174,"y":-43,"radius":55},{"x":-242,"y":16,"radius":44},{"x":-242,"y":-13,"radius":43},{"x":238,"y":-17,"radius":45},{"x":140,"y":4,"radius":74},{"x":224,"y":-66,"radius":32},{"x":179,"y":-37,"radius":58},{"x":-239,"y":-50,"radius":49}
+    { "x": -132, "y": 32, "radius": 140 },
+    { "x": 133, "y": 32, "radius": 139 },
+    { "x": 0, "y": -98, "radius": 60 },
+    { "x": 0, "y": 132, "radius": 40 },
+    { "x": -238, "y": -80, "radius": 48 },
+    { "x": 238, "y": -78, "radius": 48 },
+    { "x": -239, "y": 145, "radius": 27 },
+    { "x": 238, "y": 144, "radius": 28 }
     ],
     y: 190,
     shootLogic: $.noop,
