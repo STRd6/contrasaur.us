@@ -12,7 +12,7 @@ function Mutant(I) {
     bitInHalf: false,
     checkBounds: $.noop,
     hitCircles: walkModel.hitFrames,
-    health: 100,
+    health: 80,
     moneyFrequency: 0,
     nutrition: -20,
     pointsWorth: 5000,
