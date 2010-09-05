@@ -19,33 +19,24 @@ $(function() {
     }
   ], []);
 
-  function generateMutants(level) {
-    level.addGameObject(Mutant({
-      hFlip: true,
-      x: level.position().x + CANVAS_WIDTH + 20,
-      y: 0,
-      yVelocity: 1
-    }));
-
-    level.addGameObject(Mutant({
-      hFlip: true,
-      x: level.position().x + CANVAS_WIDTH + 60,
-      y: 0,
-      yVelocity: 1
-    }));
-
-    level.addGameObject(Mutant({
-      hFlip: true,
-      x: level.position().x + CANVAS_WIDTH - 20,
-      y: 0,
-      yVelocity: 1
-    }));
-    level.addGameObject(Mutant({
-      hFlip: true,
-      x: level.position().x + CANVAS_WIDTH + 100,
-      y: 0,
-      yVelocity: 1
-    }));
+  function generateMutants(level, number) {
+    if (number) {
+      (number).times(function(i) {
+        level.addGameObject(Mutant({
+          hFlip: true,
+          x: level.position().x + CANVAS_WIDTH + i*20,
+          y: 0,
+          yVelocity: 1
+        }));
+      });
+    } else {
+      level.addGameObject(Mutant({
+        hFlip: true,
+        x: level.position().x + CANVAS_WIDTH + 20,
+        y: 0,
+        yVelocity: 1
+      }));
+    }
   }
 
   var floor = Floor({sprite: Sprite.EMPTY});
@@ -56,14 +47,24 @@ $(function() {
       dino.timeTravel(false);
     }
   }, {
-    at: 3000,
+    at: 350,
+    event: function(level) {
+      generateMutants(level, 3);
+    }
+  }, {
+    at: 2200,
     event: function(level) {
       level.complete();
     }
   }, {
     at: 800,
     event: function() {
-      dino.addJetpack();
+      dino.addWeapon(Flamethrower());
+    }
+  }, {
+    at: 1025,
+    event: function() {
+      generateMutants(level, 5);
     }
   }, {
     at: 100,
@@ -72,40 +73,53 @@ $(function() {
       showStuff();
     }
   }, {
-    at: 1250,
+    at: 1400,
     event: function() {
-      generateMutants(level);
+      dino.addWeapon(Chainsaw());
     }
   }, {
-    at: 1255,
+    at: 1650,
     event: function() {
-      generateMutants(level);
+      generateMutants(level, 5);
     }
   }, {
-    at: 1260,
+    at: 1655,
     event: function() {
-      generateMutants(level);
+      generateMutants(level, 5);
     }
   }, {
-    at: 1265,
+    at: 1660,
     event: function() {
-      generateMutants(level);
+      generateMutants(level, 5);
+    }
+  }, {
+    at: 1665,
+    event: function() {
+      generateMutants(level, 5);
     }
   }];
 
   addCutscene("", "By the power of science!", 3000);
 
   var reaganAvatar = Sprite.load("images/avatars/reagan.png");
-  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons.", {
-    avatar: reaganAvatar
+  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", {
+    avatar: reaganAvatar,
+    avatarWidth: 100
   });
 
-  var reaganJetpack = DialogBox("A jetpack will enable him to soar like the majestic condor and rain fire down upon our enemies.", {
-    avatar: reaganAvatar
+  var reaganFlamejaw = DialogBox("FLAMEJAW!", {
+    avatar: reaganAvatar,
+    avatarWidth: 100
   });
 
-  var reaganTest = DialogBox("Commence test 1: Release the abominations!", {
-    avatar: reaganAvatar
+  var reaganChainsaw = DialogBox("Unleash the true power of Contrasaurus", {
+    avatar: reaganAvatar,
+    avatarWidth: 100
+  });
+
+  var reaganTest = DialogBox("Release the abominations!", {
+    avatar: reaganAvatar,
+    avatarWidth: 100
   });
 
   var shootDialog = DialogBox("Aim with the mouse. Left click to fire weapons");
@@ -130,10 +144,14 @@ $(function() {
     }
 
     if (level.age() > 800 && level.age() < 1000) {
-      reaganJetpack.draw(canvas);
+      reaganFlamejaw.draw(canvas);
     }
 
-    if (level.age() > 1200 && level.age() < 1400) {
+    if (level.age() > 1400 && level.age() < 1600) {
+      reaganChainsaw.draw(canvas);
+    }
+
+    if (level.age() > 1600 && level.age() < 1800) {
       reaganTest.draw(canvas);
     }
   });

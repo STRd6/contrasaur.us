@@ -98,10 +98,12 @@ $(function() {
     every: 30,
     event: function(level) {
       level.addGameObject(Soldier({
-          xVelocity: 3,
-          x: level.position().x + rand(CANVAS_WIDTH - CANVAS_WIDTH/2) + CANVAS_WIDTH/2,
-          y: -20
-        }));
+        airborne: true,
+        xVelocity: -3,
+        x: level.position().x + rand(CANVAS_WIDTH - CANVAS_WIDTH/2) + CANVAS_WIDTH/2,
+        y: -20,
+        yVelocity: 2
+      }));
     }
   }, {
     at: 2000,

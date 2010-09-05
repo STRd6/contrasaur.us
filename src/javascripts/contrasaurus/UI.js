@@ -74,12 +74,12 @@ function DialogBox(text, I) {
 
   $.reverseMerge(I, {
     avatarWidth: 72,
-    height:  Math.ceil(CANVAS_HEIGHT / 3),
+    height: Math.ceil(CANVAS_HEIGHT / 3),
     lineHeight: 16,
     margin: 32,
     sprite: Sprite.load("images/dialogbox_75.png"),
-    y: Math.floor((CANVAS_HEIGHT * 2) / 3) + 30,
-    width: CANVAS_WIDTH
+    width: CANVAS_WIDTH,
+    y: Math.floor((CANVAS_HEIGHT * 2) / 3) + 30
   });
 
   return {
@@ -94,10 +94,10 @@ function DialogBox(text, I) {
       I.sprite.draw(canvas, 0, 320);
 
       if(I.avatar) {
-        I.avatar.draw(canvas, I.margin, I.y);
-        avatarMargin = I.avatarWidth + 2*I.margin;
+        I.avatar.draw(canvas, 0, Math.floor((CANVAS_HEIGHT * 2) / 3));
+        avatarMargin = I.avatarWidth;
         canvas.fillColor("#FFF");
-        canvas.fillWrappedText(text, avatarMargin, I.y + I.lineHeight, I.width - avatarMargin - I.margin - 30);
+        canvas.fillWrappedText(text, avatarMargin, I.y + 15, I.width - avatarMargin - I.margin);
       } else {
         canvas.fillColor("#FFF");
         canvas.fillWrappedText(text, avatarMargin, I.y, I.width - avatarMargin - I.margin);
