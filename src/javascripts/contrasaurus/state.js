@@ -14,7 +14,6 @@ function State(I) {
       I.age++;
 
       if (I.age == I.duration) {
-        debugger;
         self.trigger("complete");
       }
     }

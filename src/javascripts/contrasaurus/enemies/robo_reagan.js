@@ -6,8 +6,6 @@ function RoboReagan(I) {
   });
 
   var kneelAnimation = Animation.load("images/enemies/robo_reagan/reagan_knee_stand.png", 10, 42, 56, 3);
-  var kneelFrame = 0;
-  var flying = false;
 
   var states = {
     battle: State({
@@ -19,7 +17,6 @@ function RoboReagan(I) {
     }),
     takeOff: State({
       complete: function() {
-        flying = true;
         currentState = states.battle;
       },
       duration: 80,
@@ -28,7 +25,6 @@ function RoboReagan(I) {
         I.y -= 2;
 
         if(I.y < centralPoint.y) {
-          flying = true;
           setModel(hoverModel);
         }
       }
@@ -37,7 +33,7 @@ function RoboReagan(I) {
       complete: function() {
         currentState = states.takeOff;
       },
-      duration: 40,
+      duration: 50,
       update: function() {
         I.sprite.frame((I.sprite.frame() % 2) + 8);
       }
@@ -56,7 +52,7 @@ function RoboReagan(I) {
       update: function() {
         I.y = CANVAS_HEIGHT - Floor.LEVEL - 40;
         I.sprite = kneelAnimation;
-        I.sprite.frame(kneelFrame);
+        I.sprite.frame(0);
       }
     })
   };
@@ -75,7 +71,7 @@ function RoboReagan(I) {
     pointsWorth: 1000000,
     radius: 40,
     shootLogic: function() {
-      if(flying) {
+      if(currentState === states.battle) {
         self.shoot(
           Math.random() * (Math.PI), {
             x: self.midpoint().x,
