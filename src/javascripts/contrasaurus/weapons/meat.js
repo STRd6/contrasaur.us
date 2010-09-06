@@ -4,6 +4,7 @@ function Meat(I) {
   var healthPerUpdate = 3;
 
   $.reverseMerge(I, {
+    ammoSprite: Sprite.EMPTY,
     duration: 50,
     exitPoints: [],
     name: "meat",
