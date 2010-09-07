@@ -25,7 +25,7 @@ function Scene(backgrounds, foregrounds) {
           }
 
           // TODO: This is grody.
-          if(x2 < x1) {
+          if(x2 > 0 && x2 < x1) {
             var r = Math.mod(-x2, imgWidth);
             layer.image.draw(canvas, 0, y, r, 0, imgWidth - r);
           }
