@@ -248,10 +248,12 @@ function Dinosaur() {
           parasailTile.draw(canvas, -150, -170);
         }
 
-        I.sprite.draw(canvas,
-          -I.sprite.width/2,
-          -I.sprite.height/2
-        );
+        if(I.sprite) {
+          I.sprite.draw(canvas,
+            -I.sprite.width/2,
+            -I.sprite.height/2
+          );
+        }
 
         if(timeTravelling) {
           canvas.withTransform(Matrix.scale(8, 8), function() {
