@@ -1,4 +1,4 @@
-var Sound = (function() {
+var Sound = (function($) {
   // TODO: detecting audio with canPlay is f***ed
   // Hopefully get more robust later
   // audio.canPlayType("audio/ogg") === "maybe" WTF?
@@ -12,8 +12,20 @@ var Sound = (function() {
 
     return sound;
   }
+  
+  function Sound(name, maxChannels) {
+    return {
+      play: function() {
+        Sound.play(name, maxChannels);
+      },
 
-  return {
+      stop: function() {
+        Sound.stop(name);
+      }
+    }
+  }
+
+  return $.extend(Sound, {
     play: function(name, maxChannels) {
       // TODO: Too many channels crash Chrome!!!1
       maxChannels = maxChannels || 1;
@@ -42,5 +54,5 @@ var Sound = (function() {
         sounds[name].stop();
       }
     }
-  };
-}());
+  });
+}(jQuery));
