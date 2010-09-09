@@ -1,0 +1,146 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 10,
+    "height": 56,
+    "width": 42,
+    "url": "images/enemies/robo_reagan/reagan_knee_stand.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -2,
+          "y": 12,
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 11,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 1,
+          "y": 12,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 2,
+          "y": 2,
+          "radius": 11
+        },
+        {
+          "x": 1,
+          "y": 17,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -6,
+          "radius": 11
+        },
+        {
+          "x": -1,
+          "y": 16,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 17,
+          "radius": 11
+        },
+        {
+          "x": -5,
+          "y": -5,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 12,
+          "radius": 12
+        },
+        {
+          "x": -4,
+          "y": -7,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 12,
+          "radius": 12
+        },
+        {
+          "x": -5,
+          "y": -8,
+          "radius": 9
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 12,
+          "radius": 12
+        },
+        {
+          "x": -4,
+          "y": -8,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -2,
+          "y": 12,
+          "radius": 12
+        },
+        {
+          "x": -4,
+          "y": -7,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

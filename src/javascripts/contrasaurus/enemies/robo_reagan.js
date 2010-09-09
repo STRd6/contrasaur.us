@@ -1,23 +1,56 @@
 function RoboReagan(I) {
   I = I || {};
 
-  var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json", function(model) {
-    I.sprite = model.animation;
-  });
+  var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json");
+  var kneelModel = Model.loadJSONUrl("data/robo_reagan/kneel.model.json");
 
-  var kneelAnimation = Animation.load("images/enemies/robo_reagan/reagan_knee_stand.png", 10, 42, 56, 3);
+  var shooting = false;
 
   var states = {
+    endBattle: State({
+      update: function() {
+        I.x = centralPoint.x + 150 * Math.sin(I.age / 11);
+        I.y = centralPoint.y +  40 * Math.cos(I.age / 13);
+        I.hitCircles = hoverModel.hitFrame();
+      }
+    }),
     battle: State({
       update: function() {
         I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
         I.y = centralPoint.y +  25 * Math.cos(I.age / 13);
-        I.hitCircles = currentModel.hitFrame();
+        I.hitCircles = hoverModel.hitFrame();
+        if(I.health < 4500) { // TODO: make different events to transition states better
+          currentState = states.endBattle;
+          I.shootLogic = function() {
+            self.shoot(
+              Math.random() * (Math.PI), {
+                x: self.midpoint().x,
+                y: self.midpoint().y,
+                sprite: Sprite.load("images/effects/enemybullet1_small.png")
+              }
+            );
+
+            if(rand(20) == 0) {
+              addGameObject(HomingMissile($.extend({
+                collisionType: "enemyBullet"
+              }, self.position())));
+            }
+          }
+        }
       }
     }),
     takeOff: State({
       complete: function() {
         currentState = states.battle;
+        I.shootLogic = function() {
+          self.shoot(
+            Math.random() * (Math.PI), {
+              x: self.midpoint().x,
+              y: self.midpoint().y,
+              sprite: Sprite.load("images/effects/enemybullet1_small.png")
+            }
+          );
+        }
       },
       duration: 80,
       update: function() {
@@ -25,7 +58,8 @@ function RoboReagan(I) {
         I.y -= 2;
 
         if(I.y < centralPoint.y) {
-          setModel(hoverModel);
+          I.sprite = hovelModel.animation;
+          I.hitCircles = hoverModel.hitFrame();
         }
       }
     }),
@@ -36,13 +70,17 @@ function RoboReagan(I) {
       duration: 50,
       update: function() {
         I.sprite.frame((I.sprite.frame() % 2) + 8);
+        I.hitCircles = kneelModel.hitFrame();
       }
     }),
     stand: State({
       complete: function() {
         currentState = states.shakeFist;
       },
-      duration: 20
+      duration: 20,
+      update: function() {
+        I.hitCircles = kneelModel.hitFrame();
+      }
     }),
     kneel: State({
       complete: function() {
@@ -51,43 +89,24 @@ function RoboReagan(I) {
       duration: 100,
       update: function() {
         I.y = CANVAS_HEIGHT - Floor.LEVEL - 40;
-        I.sprite = kneelAnimation;
+        I.sprite = kneelModel.animation;
         I.sprite.frame(0);
-      }
+        I.hitCircles = kneelModel.hitFrame();
+      },
+      sprite: kneelModel.animation
     })
   };
 
-  var currentModel = hoverModel;
   var currentState = states.kneel;
-
-  function setModel(model) {
-    currentModel = model;
-    I.sprite = currentModel.animation;
-  }
 
   $.reverseMerge(I, {
     collideDamage: 1,
     health: 9000,
+    hitCircles: currentState.hitCircles,
     pointsWorth: 1000000,
     radius: 40,
-    shootLogic: function() {
-      if(currentState === states.battle) {
-        self.shoot(
-          Math.random() * (Math.PI), {
-            x: self.midpoint().x,
-            y: self.midpoint().y,
-            sprite: Sprite.load("images/effects/enemybullet1_small.png")
-          }
-        );
-
-        if(rand(20) == 0) {
-          addGameObject(HomingMissile($.extend({
-            collisionType: "enemyBullet"
-          }, self.position())));
-        }
-      }
-    },
-    sprite: hoverModel.animation,
+    shootLogic: $.noop,
+    sprite: currentState.sprite,
     x: rand(CANVAS_WIDTH),
     y: 60
   });

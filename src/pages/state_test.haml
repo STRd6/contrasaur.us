@@ -39,16 +39,17 @@
 
 :javascript
   var canvas;
-  var roboReagan = RoboReagan();
+  var roboReagan = RoboReagan({
+    x: 400
+  });
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
 
-    debugger;
     canvas = _canvas;
     canvas.font("bold 1.2em 'Monaco', 'Inconsolata', 'consolas', 'Courier New', 'andale mono', 'lucida console', 'monospace'");
 
     var loadingInterval = setInterval(function() {
       roboReagan.update();
-      roboReagan.draw();
+      roboReagan.draw(canvas);
     }, 33);
   }});

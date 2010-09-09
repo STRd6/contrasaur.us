@@ -8,7 +8,7 @@ function Meteor(I) {
     width: 50,
     health: 1,
     height: 30,
-    radius: 25,
+    radius: 15,
     collideDamage: 5,
     collisionType: "levelHazard",
     xVelocity: [

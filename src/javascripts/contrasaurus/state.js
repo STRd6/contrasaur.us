@@ -5,10 +5,14 @@ function State(I) {
     age: 0,
     complete: $.noop,
     duration: 1,
-    update: $.noop
+    hitCircles: [],
+    update: $.noop,
+    sprite: Sprite.EMPTY
   });
 
   var self = {
+    hitCircles: I.hitCircles,
+    sprite: I.sprite,
     update: function() {
       I.update();
       I.age++;
