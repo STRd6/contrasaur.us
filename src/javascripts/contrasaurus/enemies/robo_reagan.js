@@ -94,11 +94,11 @@ function RoboReagan(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     health: 9000,
-    hitCircles: currentState.hitCircles,
+    hitCircles: kneelModel.hitFrames,
     pointsWorth: 1000000,
     radius: 40,
     shootLogic: $.noop,
-    sprite: currentState.sprite,
+    sprite: kneelModel.animation,
     x: rand(CANVAS_WIDTH),
     y: 60
   });

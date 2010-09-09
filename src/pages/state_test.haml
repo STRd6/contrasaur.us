@@ -39,8 +39,11 @@
 
 :javascript
   var canvas;
-  var roboReagan = RoboReagan({
-    x: 400
+  var secretService = SecretService({
+    theta: - 5 * Math.PI / 6,
+    hFlip: true,
+    x: 200,
+    xVelocity: -2
   });
 
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
@@ -49,7 +52,7 @@
     canvas.font("bold 1.2em 'Monaco', 'Inconsolata', 'consolas', 'Courier New', 'andale mono', 'lucida console', 'monospace'");
 
     var loadingInterval = setInterval(function() {
-      roboReagan.update();
-      roboReagan.draw(canvas);
+      secretService.update();
+      secretService.draw(canvas);
     }, 33);
   }});

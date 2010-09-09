@@ -26,6 +26,7 @@ function State(I) {
 
   self.bind("complete", function() {
     I.complete();
+    I.age = 0;
   });
 
   return self;
