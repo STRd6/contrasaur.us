@@ -4,20 +4,18 @@ function RoboReagan(I) {
   var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json");
   var kneelModel = Model.loadJSONUrl("data/robo_reagan/kneel.model.json");
 
-  var shooting = false;
-
   var states = {
     endBattle: State({
       update: function() {
-        I.x = centralPoint.x + 150 * Math.sin(I.age / 11);
-        I.y = centralPoint.y +  40 * Math.cos(I.age / 13);
+        I.x = centralPoint.x + 175 * Math.sin(I.age / 11);
+        I.y = centralPoint.y + 30 * Math.cos(I.age / 13);
         I.hitCircles = hoverModel.hitFrame();
       }
     }),
     battle: State({
       update: function() {
         I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
-        I.y = centralPoint.y +  25 * Math.cos(I.age / 13);
+        I.y = centralPoint.y + 25 * Math.cos(I.age / 13);
         I.hitCircles = hoverModel.hitFrame();
         if(I.health < 4500) { // TODO: make different events to transition states better
           currentState = states.endBattle;
@@ -56,11 +54,6 @@ function RoboReagan(I) {
       update: function() {
         I.sprite = hoverModel.animation;
         I.y -= 2;
-
-        if(I.y < centralPoint.y) {
-          I.sprite = hovelModel.animation;
-          I.hitCircles = hoverModel.hitFrame();
-        }
       }
     }),
     shakeFist: State({
@@ -92,8 +85,7 @@ function RoboReagan(I) {
         I.sprite = kneelModel.animation;
         I.sprite.frame(0);
         I.hitCircles = kneelModel.hitFrame();
-      },
-      sprite: kneelModel.animation
+      }
     })
   };
 

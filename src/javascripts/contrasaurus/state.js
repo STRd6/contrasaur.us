@@ -5,13 +5,12 @@ function State(I) {
     age: 0,
     complete: $.noop,
     duration: 1,
-    hitCircles: [],
-    update: $.noop,
-    sprite: Sprite.EMPTY
+    model: Model.loadJSONUrl("data/robo_reagan/kneel.model.json"),
+    update: $.noop
   });
 
   var self = {
-    hitCircles: I.hitCircles,
+    model: I.model,
     sprite: I.sprite,
     update: function() {
       I.update();
