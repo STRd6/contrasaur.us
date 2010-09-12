@@ -14,7 +14,6 @@ function Soldier(I) {
 
   $.reverseMerge(I, {
     airborne: false,
-    bitInHalf: false,
     shootLogic: function() {
       if (shootModelCounter > 0) {
         shootModelCounter--;

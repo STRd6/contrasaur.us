@@ -1,15 +1,12 @@
 function Mutant(I) {
   I = I || {};
 
-  var bitInHalf = false;
-
   var walkModel = Model.loadJSONUrl("data/mutant/walk.model.json", function(model) {
     I.sprite = model.animation;
   });
   var deathModel = Model.loadJSONUrl("data/mutant/death.model.json");
 
   $.reverseMerge(I, {
-    bitInHalf: false,
     checkBounds: $.noop,
     hitCircles: walkModel.hitFrames,
     health: 80,

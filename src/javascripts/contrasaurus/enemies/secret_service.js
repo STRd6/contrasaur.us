@@ -60,7 +60,6 @@ function SecretService(I) {
   var currentState = states.run
 
   $.reverseMerge(I, {
-    bitInHalf: false,
     shootLogic: $.noop,
     hitCircles: runModel.hitFrames,
     nutrition: 25,

@@ -6,7 +6,6 @@ function Brontosaurus(I) {
   });
 
   $.reverseMerge(I, {
-    bitInHalf: false,
     hFlip: true,
     health: 1000,
     hitCircles: brontoModel.hitFrames,
