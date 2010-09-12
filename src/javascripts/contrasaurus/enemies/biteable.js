@@ -1,4 +1,9 @@
 function Biteable(I) {
+  I = I || {};
+
+  $.reverseMerge(I, {
+    bitInHalf: false
+  });
 
   return {
     bite: function() {

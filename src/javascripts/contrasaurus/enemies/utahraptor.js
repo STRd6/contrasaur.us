@@ -2,7 +2,6 @@ function Utahraptor(I) {
   I = I || {};
 
   var raptorAnimation = loadAnimation("images/enemies/dinofodder_run.png", 8, 69, 34, 3);
-  var bitInHalf = false;
 
   $.reverseMerge(I, {
     bitInHalf: false,
