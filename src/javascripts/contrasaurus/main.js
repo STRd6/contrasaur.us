@@ -66,12 +66,6 @@ function drawOverlay() {
     crosshair.draw(canvas, target.x - crosshair.width/2, target.y - crosshair.height/2);
   }
 
-  $.each(dino.weaponData(), function(i, data) {
-    data.sprite.draw(canvas, i*50 + 25, 25);
-    canvas.fillColor("#FFF");
-    canvas.fillText(data.ammo, i*50 + 25, 25);
-  });
-
   // Score display
   $("#score").text(score);
   $("#money .amount").text(money);
@@ -150,58 +144,7 @@ function display(text) {
   displayTexts.push(GameText(text, dino.position()));
 }
 
-function dropPowerup(imgFile, callback) {
-  addGameObject(Powerup({
-    callback: callback,
-    sprite: Sprite.load(imgFile),
-    x: dino.position().x,
-    xVelocity: dino.velocity().x,
-    yVelocity: 0
-  }));
-}
-
-function dropWeaponPowerup(imgFile, weaponClass) {
-  dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
-    if(hitTarget.addWeapon) {
-      hitTarget.addWeapon(weaponClass());
-    }
-  });
-}
-
-function showStuff() {
-  showCrosshair = true;
-  $("#menu_container").show();
-}
-
-var weaponDivs = $.map(weapons, function(weaponClass) {
-  var price = 500;
-  return $("<div />").addClass("menu").attr("data-weaponClass", weaponClass)
-    .append($("<img />").attr("src", "images/menu/" + weaponClass + ".png"))
-    .append($("<div class='price'>$<span class='amount'>"+price+"</span></div>"));
-});
-
-function randomWeapon() {
-  return weaponDivs.rand().clone();
-}
-
-function weaponDisposal(object) {
-  object.remove();
-}
-
-function pay(amount) {
-  console.log("Pay: " + amount + " of " + money);
-
-  if(money >= amount) {
-    money -= amount;
-    return true;
-  } else {
-    return false;
-  }
-}
-
 $(function() {
-  $("#menu_container").hide();
-
   var doctorAvatar = Sprite.load("images/doctor.png");
   dialogBox = DialogBox("He is dead...", {
     avatar: doctorAvatar,
@@ -257,34 +200,6 @@ $(function() {
   $(document).keydown(function(e) {
     if(e.keyCode >= 49 && e.keyCode <= 57) {
       nextStage(e.keyCode - 48);
-    }
-  });
-
-  (3).times(function() {
-    $("#menu_container .store").append(randomWeapon());
-  });
-
-  (4).times(function() {
-    $("#menu_container .inventory").append(randomWeapon());
-  });
-
-  $(".store .menu").live("click", function() {
-    if(pay(+$(this).find(".price .amount").text())) {
-      $("#menu_container .inventory").append(this);
-      $("#menu_container .store").append(randomWeapon());
-    }
-  });
-
-  $(".inventory .menu").live("click", function() {
-    if (!$(this).attr("data-used")) {
-      var weaponClass = $(this).attr("data-weaponClass");
-      dropWeaponPowerup(
-        weaponClass,
-        weaponMap[weaponClass]
-      );
-      weaponDisposal($(this));
-
-      $(this).attr("data-used", 'true');
     }
   });
 

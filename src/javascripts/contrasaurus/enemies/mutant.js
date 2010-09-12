@@ -10,7 +10,6 @@ function Mutant(I) {
     checkBounds: $.noop,
     hitCircles: walkModel.hitFrames,
     health: 80,
-    moneyFrequency: 0,
     nutrition: -20,
     pointsWorth: 5000,
     radius: 20,

@@ -70,7 +70,6 @@ $(function() {
     at: 100,
     event: function() {
       dino.addWeapon(MachineGun());
-      showStuff();
     }
   }, {
     at: 1400,

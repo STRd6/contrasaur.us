@@ -172,8 +172,10 @@ function Dinosaur() {
       }
 
       Sound.play("reload");
+
       shooting = false;
       secondaryShooting = false;
+      showCrosshair = true;
     },
 
     airborne: function(value) {

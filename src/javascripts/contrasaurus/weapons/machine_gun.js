@@ -8,7 +8,6 @@ function MachineGun(I) {
     ammo: 1024,
     exitPoints: [Point(50, 1)],
     name: "machineGun",
-    selectable: true,
     throwable: {
       shoot: function(I) {
         if(I.ammo > 0) {

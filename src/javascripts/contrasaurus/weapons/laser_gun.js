@@ -16,7 +16,6 @@ function LaserGun(I) {
       addGameObject(self.generateWaveProjectile(direction, localPosition, 10));
       addGameObject(self.generateWaveProjectile(direction, localPosition, -10));
     },
-    selectable: true,
     sprite: monocle
   });
 

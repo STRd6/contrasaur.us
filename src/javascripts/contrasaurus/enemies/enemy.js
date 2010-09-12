@@ -5,11 +5,8 @@ function Enemy(I) {
     checkBounds: GameObject.generateCheckBounds(I, 100),
     collideDamage: 1,
     collisionType: "enemy",
-    drops: weapons,
-    dropFrequency: 0.2,
     health: 3,
     hFlip: false,
-    moneyFrequency: 0.2,
     nutrition: 0,
     onFire: false,
     pointsWorth: 1000,
@@ -19,43 +16,6 @@ function Enemy(I) {
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
-
-  function dropPowerup(imgFile, callback) {
-    addGameObject(Powerup({
-      callback: callback,
-      sprite: Sprite.load(imgFile),
-      x: I.x + 50,
-      y: I.y - 80,
-      xVelocity: 2,
-      yVelocity: -12
-    }));
-  }
-
-  function dropMoney() {
-    addGameObject(Powerup({
-      callback: function(other) {
-        if (other.addMoney) {
-          other.addMoney(1000);
-        }
-      },
-      sprite: Sprite.load([
-        "images/accessories/coins.png",
-        "images/accessories/money.png"
-      ].rand()),
-      x: I.x,
-      y: I.y - 40 - rand(50),
-      xVelocity: (Math.random() < 0.5 ? rand(6) : -1*rand(6)),
-      yVelocity: -5*rand(4)
-    }));
-  }
-
-  function dropWeaponPowerup(imgFile, weaponClass) {
-    dropPowerup("images/weapons/" + imgFile + ".png", function(hitTarget) {
-      if(hitTarget.addWeapon) {
-        hitTarget.addWeapon(weaponClass());
-      }
-    });
-  }
 
   var self = GameObject(I).extend({
     burn: function(flame) {
@@ -115,17 +75,6 @@ function Enemy(I) {
   });
 
   self.bind('destroy', function() {
-    if(I.drops && Math.random() < I.dropFrequency) {
-      var weapon = I.drops.rand();
-      dropWeaponPowerup(weapon, weaponMap[weapon]);
-    }
-
-    if(Math.random() < I.moneyFrequency) {
-      dropMoney();
-      dropMoney();
-      dropMoney();
-    }
-
     if(I.type) {
       killCounter[I.type]++;
     }
