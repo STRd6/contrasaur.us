@@ -28,7 +28,7 @@ var Sound = (function($) {
   return $.extend(Sound, {
     play: function(name, maxChannels) {
       // TODO: Too many channels crash Chrome!!!1
-      maxChannels = maxChannels || 1;
+      maxChannels = maxChannels || 2;
 
       if(!sounds[name]) {
         sounds[name] = [loadSoundChannel(name)];
