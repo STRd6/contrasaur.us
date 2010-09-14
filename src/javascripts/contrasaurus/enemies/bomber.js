@@ -29,7 +29,7 @@ function Bomber(I) {
     hFlip: true,
     xVelocity: I.xVelocity || -5,
     yVelocity: 0,
-    health: 5,
+    health: 20,
     color: "#088",
     pointsWorth: 5000,
     shootLogic: function() {
@@ -55,6 +55,20 @@ function Bomber(I) {
         I.hitCircles = bomberModel.hitFrame();
       }
     }
+  });
+
+  self.bind('destroy', function() {
+    addGameObject(Grenade({
+      collideDamage: 10,
+      collisionType: "dinoBullet",
+      hFlip: I.hFlip,
+      rotationalVelocity: -Math.PI / 32,
+      sprite: I.sprite,
+      x: I.x,
+      xVelocity: I.xVelocity,
+      y: I.y,
+      yVelocity: 0
+    }));
   });
 
   return self;

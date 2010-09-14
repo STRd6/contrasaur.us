@@ -255,7 +255,13 @@ GameObject.velocityGetTransform = function(I) {
 
 GameObject.rotationGetTransform = function(I) {
   return function() {
-    return Matrix.rotation(I.rotation).translate(I.x, I.y);
+    var t = Matrix.rotation(I.rotation).translate(I.x, I.y);
+
+    if(I.hFlip) {
+      t = t.concat(Matrix.HORIZONTAL_FLIP);
+    }
+
+    return t;
   };
 };
 
