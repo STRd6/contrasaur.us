@@ -53,13 +53,6 @@ function Soldier(I) {
   }
 
   var self = Enemy(I).extend({
-    burn: function(flame) {
-      if (!I.onFire) {
-        I.onFire = true;
-        I.xVelocity = I.xVelocity * 2.5;
-      }
-    },
-
     land: function(h) {
       if(I.yVelocity >= 0) {
         I.y = h - (I.radius + 1);
@@ -84,8 +77,8 @@ function Soldier(I) {
           setModel(runModel);
         }
 
-        if (Math.random() < 0.05 && I.onFire) {
-          I.xVelocity = I.xVelocity * -1;
+        if (I.onFire) {
+          self.flail();
         }
 
         if (I.xVelocity < 0) {
@@ -144,6 +137,7 @@ function Soldier(I) {
   });
 
   self.extend(Biteable(I));
+  self.extend(Burnable(I));
 
   return self;
 }

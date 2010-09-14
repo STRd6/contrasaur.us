@@ -57,6 +57,7 @@ function Enemy(I) {
       },
       update: function() {
         I.shootLogic();
+
         I.checkBounds.apply(self, arguments);
 
         if(I.onFire) {

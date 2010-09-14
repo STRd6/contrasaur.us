@@ -5,14 +5,34 @@ function State(I) {
     age: 0,
     complete: $.noop,
     duration: 1,
+    hitCircles: [],
     model: Model.loadJSONUrl("data/robo_reagan/kneel.model.json"),
+    shootLogic: $.noop,
+    sprite: Sprite.EMPTY,
     update: $.noop
   });
 
   var self = {
+    hitCircles: function() {
+      return I.hitCircles;
+    },
     model: I.model,
-    sprite: I.sprite,
+    shootLogic: function() {
+      return I.shootLogic;
+    },
+    sprite: function(value) {
+      if (value === undefined) {
+        return I.sprite;
+      } else {
+        I.sprite = value;
+        return self;
+      }
+    },
     update: function() {
+      I.model.update();
+      I.sprite = I.model.animation;
+      I.hitCircles = I.model.hitFrame();
+
       I.update();
       I.age++;
 

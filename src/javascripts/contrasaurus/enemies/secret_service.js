@@ -13,57 +13,47 @@ function SecretService(I) {
   var states = {
     shoot: State({
       complete: function() {
-        currentState = states.run;
-        I.sprite = runModel.animation;
-        I.hitCircles = runModel.hitFrame();
-        I.shootLogic = $.noop;
+        I.currentState = states.run;
       },
       duration: 8,
-      update: function() {
-        I.hitCircles = shootModel.hitFrame();
+      model: shootModel,
+      shootLogic: function() {
+        var t = self.getTransform();
+
+        var shootPoint = states.shoot.model.attachment("shot");
+        var direction = shootPoint.direction;
+
+        var p = t.transformPoint(shootPoint);
+
+        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+        var theta = Point.direction(Point(0,0), tmpPoint);
+
+        if(shootPoint.x != 0) {
+          addGameObject(Bullet({
+            collisionType: "enemyBullet",
+            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
+            theta: theta,
+            x: p.x,
+            y: p.y
+          }));
+        }
       }
     }),
     run: State({
+      model: runModel,
+      shootLogic: $.noop,
       update: function() {
-        I.sprite = runModel.animation;
-        I.hitCircles = runModel.hitFrame();
         if(Math.random() < 0.01) {
-          currentState = states.shoot;
-          I.sprite = shootModel.animation;
-          I.hitCircles = shootModel.hitFrame();
-          I.shootLogic = function() {
-            var t = self.getTransform();
-
-            var shootPoint = shootModel.attachment("shot");
-            var direction = shootPoint.direction;
-
-            var p = t.transformPoint(shootPoint);
-
-            var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-            var theta = Point.direction(Point(0,0), tmpPoint);
-
-            if(shootPoint.x != 0) {
-              addGameObject(Bullet({
-                collisionType: "enemyBullet",
-                sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-                theta: theta,
-                x: p.x,
-                y: p.y
-              }));
-            }
-          }
+          I.currentState = states.shoot;
         }
       }
     })
   };
 
-  var currentState = states.run
-
   $.reverseMerge(I, {
-    shootLogic: $.noop,
-    hitCircles: runModel.hitFrames,
+    currentState: states.run,
     nutrition: 25,
-    sprite: runModel.animation,
+    shootLogic: $.noop,
     type: 'secret service',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
@@ -71,20 +61,16 @@ function SecretService(I) {
   });
 
   var self = Enemy(I).extend({
-
-    burn: function(flame) {
-      if (!I.onFire) {
-        I.onFire = true;
-        I.xVelocity = I.xVelocity * 2.5;
-      }
-    },
-
     after: {
       update: function() {
-        currentState.update();
+        $.each(states, function(i, state) {
+          state.update();
+        });
 
-        if (Math.random() < 0.05 && I.onFire) {
-          I.xVelocity = I.xVelocity * -1;
+        I.shootLogic = I.currentState.shootLogic();
+
+        if (I.onFire) {
+          self.flail();
         }
 
         if (I.xVelocity < 0) {
@@ -98,13 +84,16 @@ function SecretService(I) {
 
   self.bind('destroy', function(self) {
     var deathAnimation;
-    var offset = 0;
+    var xOffset = 0;
+    var yOffset = 0;
 
     if(I.onFire) {
       deathAnimation = burningAnimation;
+      yOffset = -13;
+      xOffset = 2;
     } else if(I.bitInHalf) {
       deathAnimation = bitInHalfModel.animation;
-      offset = 20;
+      xOffset = 20;
     } else {
       Sound.play("die");
       deathAnimation = deathModel.animation;
@@ -118,13 +107,16 @@ function SecretService(I) {
       hFlip: I.hFlip,
       sprite: deathAnimation,
       velocity: Point(0, 0),
-      x: I.x + offset
+      x: I.x + xOffset,
+      y: I.y + yOffset
     }));
 
     addGameObject(effect);
   });
 
   self.extend(Biteable(I));
+  self.extend(Burnable(I));
+  self.extend(Stateful($.extend(I, { self: self })));
 
   return self;
 }
