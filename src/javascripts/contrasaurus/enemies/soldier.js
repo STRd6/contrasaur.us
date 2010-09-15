@@ -1,25 +1,28 @@
 function Soldier(I) {
   I = I || {};
 
-  var shootModelCounter = 0;
-
   var runModel = Model.loadJSONUrl("data/sandinista/run.model.json");
   var shootModel = Model.loadJSONUrl("data/sandinista/shoot.model.json");
   var bitInHalfModel = Model.loadJSONUrl("data/sandinista/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/sandinista/normal_death.model.json");
-  var parasoldierModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
+  var parasailModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
   var burningAnimation = Animation.load("images/enemies/burning_man.png", 20, 57, 89, 3);
 
-  var currentModel = runModel;
-
-  $.reverseMerge(I, {
-    airborne: false,
-    shootLogic: function() {
-      if (shootModelCounter > 0) {
-        shootModelCounter--;
+  var states = {
+    parasail: State({
+      model: parasailModel,
+      shootLogic: $.noop
+    }),
+    shoot: State({
+      complete: function() {
+        I.currentState = states.run;
+      },
+      duration: 8,
+      model: shootModel,
+      shootLogic: function() {
         var t = self.getTransform();
 
-        var shootPoint = currentModel.attachment("shot");
+        var shootPoint = states.shoot.model.attachment("shot");
         var direction = shootPoint.direction;
 
         var p = t.transformPoint(shootPoint);
@@ -37,48 +40,54 @@ function Soldier(I) {
           }));
         }
       }
-    },
-    hitCircles: currentModel.hitFrames,
+    }),
+    run: State({
+      model: runModel,
+      shootLogic: $.noop,
+      update: function() {
+        if(Math.random() < 0.01) {
+          I.currentState = states.shoot;
+        }
+      }
+    })
+  };
+
+  $.reverseMerge(I, {
+    airborne: false,
+    currentState: states.run,
+    shootLogic: $.noop,
     nutrition: 50,
-    sprite: currentModel.animation,
     type: 'sandinista',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
     yVelocity: 0
   });
 
-  function setModel(model) {
-    currentModel = model;
-    I.sprite = currentModel.animation;
-  }
-
   var self = Enemy(I).extend({
     land: function(h) {
-      if(I.yVelocity >= 0) {
+      if(I.airborne) {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
         I.xVelocity = -2;
         I.airborne = false;
+        I.currentState = states.run;
       }
     },
 
-    before: {
+    after: {
       update: function() {
-        if (currentModel !== parasoldierModel && shootModelCounter <= 0 && Math.random() < 0.015) {
-          setModel(shootModel);
-          shootModelCounter = 8;
-        }
+        $.each(states, function(i, state) {
+          state.update();
+        });
 
-        if(I.airborne) {
-          setModel(parasoldierModel);
-        } else if (shootModelCounter > 0) {
-          setModel(shootModel);
-        } else {
-          setModel(runModel);
-        }
+        I.shootLogic = I.currentState.shootLogic();
 
         if (I.onFire) {
           self.flail();
+        }
+
+        if (I.airborne) {
+          I.currentState = states.parasail;
         }
 
         if (I.xVelocity < 0) {
@@ -86,21 +95,22 @@ function Soldier(I) {
         } else {
           I.hFlip = false;
         }
-
-        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
 
   self.bind('destroy', function(self) {
     var deathAnimation;
-    var offset = 0;
+    var xOffset = 0;
+    var yOffset = 0;
 
     if(I.onFire) {
       deathAnimation = burningAnimation;
+      yOffset = -13;
+      xOffset = 2;
     } else if(I.bitInHalf) {
       deathAnimation = bitInHalfModel.animation;
-      offset = 20;
+      xOffset = 20;
     } else {
       Sound.play("die");
       deathAnimation = deathModel.animation;
@@ -114,10 +124,11 @@ function Soldier(I) {
       hFlip: I.hFlip,
       sprite: deathAnimation,
       velocity: Point(0, 0),
-      x: I.x + offset
+      x: I.x + xOffset,
+      y: I.y + yOffset
     }));
 
-    if(currentModel === parasoldierModel) {
+    if(I.currentState === states.parasail) {
       effect.extend({
         getTransform: GameObject.velocityGetTransform(effectI),
         before: {
@@ -138,6 +149,7 @@ function Soldier(I) {
 
   self.extend(Biteable(I));
   self.extend(Burnable(I));
+  self.extend(Stateful(I));
 
   return self;
 }
