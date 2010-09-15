@@ -8,7 +8,6 @@ function Utahraptor(I) {
     collideDamage: 0,
     health: 1,
     nutrition: 10,
-    pointsWorth: 1000,
     radius: 18,
     shootLogic: $.noop,
     sprite: raptorAnimation,

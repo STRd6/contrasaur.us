@@ -6,9 +6,9 @@ function Brontosaurus(I) {
   });
 
   $.reverseMerge(I, {
-    health: 1000,
+    health: 500,
     hitCircles: brontoModel.hitFrames,
-    nutrition: 25,
+    nutrition: 0,
     pointsWorth: 50000,
     radius: 90,
     shootLogic: $.noop,

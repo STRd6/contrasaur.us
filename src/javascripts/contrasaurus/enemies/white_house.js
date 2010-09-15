@@ -22,7 +22,6 @@ function WhiteHouse(I) {
     sprite: fullSprite
   });
 
-  var shakeAmplitude = 0;
   var healthMax = I.health;
 
   var self = Boss(I).extend({
@@ -30,26 +29,14 @@ function WhiteHouse(I) {
 
     before: {
       update: function() {
-        if(shakeAmplitude > 0.1) {
-          shakeAmplitude = shakeAmplitude * 0.7;
-        } else {
-          shakeAmplitude = 0;
-        }
-
-        I.x += shakeAmplitude * Math.sin(I.age);
-
         if(I.health < healthMax / 2) {
           I.sprite = damagedSprite;
         }
       }
-    },
-
-    after: {
-      hit: function(other) {
-        shakeAmplitude += other.collideDamage();
-      }
     }
   });
+
+  self.extend(Shakeable(I));
 
   self.bind('destroy', function() {
     addGameObject(Effect({

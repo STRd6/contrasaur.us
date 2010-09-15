@@ -395,7 +395,7 @@ function Dinosaur() {
             var p = t.transformPoint(bitePoint);
 
             addGameObject(Bullet({
-              collideDamage: 20,
+              collideDamage: 10,
               dispersion: 30,
               effectCount: 5,
               duration: 1,

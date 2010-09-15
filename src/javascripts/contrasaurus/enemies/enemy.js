@@ -109,7 +109,7 @@ Enemy.bloodSprayEffect = function(bullet) {
 };
 
 Enemy.sparkSprayEffect = function(bullet) {
-  Sound.play("ricochet" + (rand(4) + 2));
+  Sound.play("ricochet" + (rand(4) + 2), 1);
 
   var effect = Effect($.extend(bullet.position(), {
     duration: 9,
