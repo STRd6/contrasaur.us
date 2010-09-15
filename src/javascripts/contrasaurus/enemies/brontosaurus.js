@@ -20,12 +20,6 @@ function Brontosaurus(I) {
   var self = Boss(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
 
-    getTransform: function() {
-      var t = Matrix.HORIZONTAL_FLIP;
-
-      return t.translate(I.x, I.y);
-    },
-
     before: {
       update: function() {
         I.hitCircles = brontoModel.hitFrame();
