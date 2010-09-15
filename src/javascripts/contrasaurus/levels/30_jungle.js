@@ -54,7 +54,6 @@ $(function() {
     if (Math.random() < 0.03) {
       if (Math.random() < 0.5) {
         var soldier = Soldier({
-          theta: - 5 * Math.PI / 6,
           hFlip: true,
           x: level.position().x + CANVAS_WIDTH + 20,
           xVelocity: -2
@@ -73,9 +72,10 @@ $(function() {
     }
 
     if (Math.random() < 0.01) {
-      level.addGameObject(Tank(
-        {xVelocity: -0.5, x: level.position().x + CANVAS_WIDTH + 20}
-      ));
+      level.addGameObject(Tank({
+        xVelocity: -0.5,
+        x: level.position().x + CANVAS_WIDTH + 20
+      }));
     }
 
     if (bombingRunActive) {

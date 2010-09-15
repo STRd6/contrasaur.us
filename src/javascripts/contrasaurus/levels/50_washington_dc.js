@@ -5,7 +5,6 @@ $(function() {
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
       var secretService = SecretService({
-        theta: - 5 * Math.PI / 6,
         hFlip: true,
         x: level.position().x + CANVAS_WIDTH + 20,
         xVelocity: -2
