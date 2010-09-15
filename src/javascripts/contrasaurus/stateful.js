@@ -7,7 +7,9 @@ function Stateful(I) {
 
   return {
     draw: function(canvas) {
-      canvas.withTransform(I.self.getTransform(), function() {
+      var self = this;
+
+      canvas.withTransform(self.getTransform(), function() {
         if (I.currentState.sprite()) {
           I.currentState.sprite().draw(canvas, -I.currentState.sprite().width/2, -I.currentState.sprite().height/2);
         } else {
@@ -17,11 +19,13 @@ function Stateful(I) {
       });
 
       if (GameObject.DEBUG_HIT) {
-        I.self.drawHitCircles(canvas);
+        self.drawHitCircles(canvas);
       }
     },
     getCircles: function() {
-      var componentCircles = $.map(I.self.components(), function(component) {
+      var self = this;
+
+      var componentCircles = $.map(self.components(), function(component) {
         var transform = component.getTransform();
         return $.map(component.getCircles(), function(circle) {
           var point = transform.transformPoint(component.position());
@@ -43,20 +47,20 @@ function Stateful(I) {
           radius: I.radius,
           x: 0,
           y: 0,
-          component: I.self
+          component: self
         }];
       }
 
       var circles = componentCircles.concat(objectCircles);
 
-      var transform = I.self.getTransform();
+      var transform = self.getTransform();
       return $.map(circles, function(circle) {
         var point = transform.transformPoint(circle);
         return {
           x: point.x,
           y: point.y,
           radius: circle.radius,
-          component: circle.component || I.self
+          component: circle.component || self
         };
       });
     },
