@@ -1,7 +1,7 @@
 function Tank(I) {
   I = I || {};
 
-  var gunAngle = 13 * Math.PI / 12;;
+  var gunAngle = 13 * Math.PI / 12;
   var exitPoint = Point(60, -23);
 
   var tankModel = Model.loadJSONUrl("data/tank/tank.model.json", function(model) {
@@ -9,8 +9,9 @@ function Tank(I) {
   });
 
   $.reverseMerge(I, {
-    health: 10,
+    health: 60,
     hitCircles: tankModel.hitFrames,
+    maxShakeAmplitude: 7,
     pointsWorth: 5000,
     shootLogic: function() {
       // Shoot
@@ -42,6 +43,8 @@ function Tank(I) {
       }
     }
   });
+
+  self.extend(Shakeable(I));
 
   self.bind('destroy', function() {
     addGameObject(Grenade({
