@@ -6,7 +6,6 @@ function Brontosaurus(I) {
   });
 
   $.reverseMerge(I, {
-    hFlip: true,
     health: 1000,
     hitCircles: brontoModel.hitFrames,
     nutrition: 25,
@@ -14,11 +13,18 @@ function Brontosaurus(I) {
     radius: 90,
     shootLogic: $.noop,
     sprite: brontoModel.animation,
+    xVelocity: 0,
     y: CANVAS_HEIGHT - Floor.LEVEL
   });
 
   var self = Boss(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
+
+    getTransform: function() {
+      var t = Matrix.HORIZONTAL_FLIP;
+
+      return t.translate(I.x, I.y);
+    },
 
     before: {
       update: function() {

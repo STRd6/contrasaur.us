@@ -89,12 +89,6 @@ function Soldier(I) {
         if (I.airborne) {
           I.currentState = states.parasail;
         }
-
-        if (I.xVelocity < 0) {
-          I.hFlip = true;
-        } else {
-          I.hFlip = false;
-        }
       }
     }
   });

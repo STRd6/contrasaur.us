@@ -9,7 +9,6 @@ function Tank(I) {
   });
 
   $.reverseMerge(I, {
-    hFlip: true,
     health: 10,
     hitCircles: tankModel.hitFrames,
     pointsWorth: 5000,

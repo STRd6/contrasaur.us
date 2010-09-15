@@ -6,7 +6,6 @@ function Enemy(I) {
     collideDamage: 1,
     collisionType: "enemy",
     health: 3,
-    hFlip: false,
     nutrition: 0,
     onFire: false,
     pointsWorth: 1000,
@@ -14,6 +13,7 @@ function Enemy(I) {
     type: '',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
+    xVelocity: -2,
     yVelocity: 0
   });
 
@@ -37,7 +37,7 @@ function Enemy(I) {
 
     getTransform: function() {
       var t;
-      if(I.hFlip) {
+      if(I.xVelocity < 0) {
         t =  Matrix.HORIZONTAL_FLIP;
       } else {
         t = Matrix.IDENTITY;

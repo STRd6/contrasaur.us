@@ -9,7 +9,7 @@ function Utahraptor(I) {
     health: 1,
     nutrition: 10,
     pointsWorth: 1000,
-    radius: 20,
+    radius: 18,
     shootLogic: $.noop,
     sprite: raptorAnimation,
     type: 'utahraptor',
@@ -20,25 +20,14 @@ function Utahraptor(I) {
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
 
-    burn: function(flame) {
-      if (!I.onFire) {
-        I.onFire = true;
-        I.xVelocity = I.xVelocity * 2.5;
-      }
-    },
-
     after: {
       update: function() {
         if (Math.random() < 0.5 && I.xVelocity > 0) {
           I.xVelocity += Math.random() * 0.1;
         }
-        if (Math.random() < 0.01) {
-          I.xVelocity = I.xVelocity * -1;
-        }
-        I.hFlip = I.xVelocity <= 0;
 
-        if (Math.random() < 0.05 && I.onFire) {
-          I.xVelocity = I.xVelocity * -1;
+        if (Math.random() < 0.01) {
+          I.xVelocity = -I.xVelocity;
         }
       }
     }

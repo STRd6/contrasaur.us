@@ -1,9 +1,7 @@
 function SecretService(I) {
   I = I || {};
 
-  var exitPoint = Point(10, -20);
-  var exitDirection = Point(Math.sqrt(3) / 2, -0.5);
-
+  var standModel = Model.loadJSONUrl("data/secret_service/stand.model.json");
   var runModel = Model.loadJSONUrl("data/secret_service/run.model.json");
   var shootModel = Model.loadJSONUrl("data/secret_service/shoot.model.json");
   var bitInHalfModel = Model.loadJSONUrl("data/secret_service/bit_in_half.model.json");
@@ -46,8 +44,25 @@ function SecretService(I) {
         if(Math.random() < 0.01) {
           I.currentState = states.shoot;
         }
+
+        // if (Math.random() < 0.005) {
+        //   I.currentState = states.stand;
+        // }
       }
-    })
+    })//,
+    // stand: State({
+    //   complete: function() {
+    //     I.currentState = states.run;
+    //     I.xVelocity = -2;
+    //   },
+    //   duration: 64,
+    //   model: standModel,
+    //   shootLogic: $.noop,
+    //   update: function() {
+    //     I.currentState.sprite(I.currentState.sprite().frame(0));
+    //     I.xVelocity = 0;
+    //   }
+    // })
   };
 
   $.reverseMerge(I, {
@@ -71,12 +86,6 @@ function SecretService(I) {
 
         if (I.onFire) {
           self.flail();
-        }
-
-        if (I.xVelocity < 0) {
-          I.hFlip = true;
-        } else {
-          I.hFlip = false;
         }
       }
     }
@@ -116,7 +125,7 @@ function SecretService(I) {
 
   self.extend(Biteable(I));
   self.extend(Burnable(I));
-  self.extend(Stateful($.extend(I, { self: self })));
+  self.extend(Stateful(I));
 
   return self;
 }

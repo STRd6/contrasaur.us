@@ -20,17 +20,10 @@ function Bomber(I) {
   }
 
   $.reverseMerge(I, {
-    x: 650,
-    y: 40,
-    width: 71,
-    hitCircles: bomberModel.hitFrames,
-    height: 44,
-    radius: 22,
-    hFlip: true,
-    xVelocity: I.xVelocity || -5,
-    yVelocity: 0,
-    health: 20,
     color: "#088",
+    health: 20,
+    height: 44,
+    hitCircles: bomberModel.hitFrames,
     pointsWorth: 5000,
     shootLogic: function() {
       if (cooldown > 0) {
@@ -42,10 +35,12 @@ function Bomber(I) {
       }
     },
     sprite: bomberModel.animation,
-    type: 'bomber'
+    type: 'bomber',
+    radius: 22,
+    width: 71,
+    xVelocity: -5,
+    yVelocity: 0
   });
-
-  I.hFlip = I.xVelocity <= 0;
 
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
@@ -61,8 +56,8 @@ function Bomber(I) {
     addGameObject(Grenade({
       collideDamage: 10,
       collisionType: "dinoBullet",
-      hFlip: I.hFlip,
-      rotationalVelocity: -Math.PI / 32,
+      hFlip: true,
+      rotationalVelocity: -Math.PI / 60,
       sprite: I.sprite,
       x: I.x,
       xVelocity: I.xVelocity,

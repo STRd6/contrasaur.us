@@ -16,20 +16,13 @@ function Mutant(I) {
     shootLogic: $.noop,
     sprite: walkModel.animation,
     type: 'mutant',
-    xVelocity: -1*rand(2),
+    xVelocity: -(rand(2) + 0.1),
     y: CANVAS_HEIGHT - Floor.LEVEL,
   });
 
   var self = Enemy(I).extend({
 
     bulletHitEffect: Enemy.bloodSprayEffect,
-
-    burn: function(flame) {
-      if (!I.onFire) {
-        I.onFire = true;
-        I.xVelocity = I.xVelocity * 2.5;
-      }
-    },
 
     land: function(h) {
       if(I.yVelocity >= 0) {
@@ -72,6 +65,7 @@ function Mutant(I) {
   });
 
   self.extend(Biteable(I));
+  self.extend(Burnable(I));
 
   return self;
 }
