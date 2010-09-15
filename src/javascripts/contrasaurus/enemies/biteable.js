@@ -8,7 +8,7 @@ function Biteable(I) {
   return {
     bite: function() {
       I.bitInHalf = true;
-      Sound.play("chomp");
+      Sound.play("chomp", 1);
     },
   };
 }

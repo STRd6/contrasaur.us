@@ -156,6 +156,7 @@ $(function() {
       dino.boss(brontosaurus);
 
       level.addGameObject(brontosaurus);
+      level.lockCamera(level.position().x, level.position().x + 100);
     }
   }];
 

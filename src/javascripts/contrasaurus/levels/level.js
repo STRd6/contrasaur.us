@@ -16,6 +16,11 @@ function Level(I) {
   var paused = false;
   var intervalId;
 
+  var cameraLock = {
+    min: -Infinity,
+    max: Infinity
+  };
+
   $.reverseMerge(I, {
     textColor: "#FFF",
     triggers: []
@@ -76,6 +81,8 @@ function Level(I) {
     } else if(dinoPosition.x < screenCenterX - wiggle) {
       position.x = (dinoPosition.x + wiggle) - CANVAS_WIDTH / 2;
     }
+    
+    position.x = position.x.clamp(cameraLock.min, cameraLock.max);
   }
 
   function getTransform() {
@@ -213,6 +220,11 @@ function Level(I) {
 
     enemies: function() {
       return oldEnemies;
+    },
+
+    lockCamera: function(min, max) {
+      cameraLock.min = min;
+      cameraLock.max = max;
     },
 
     position: function() {
