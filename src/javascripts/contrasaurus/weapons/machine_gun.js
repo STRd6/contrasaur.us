@@ -5,7 +5,7 @@ function MachineGun(I) {
   var dinoTransform = Matrix.IDENTITY;
 
   $.reverseMerge(I, {
-    ammo: 1024,
+    ammo: Infinity,
     exitPoints: [Point(50, 1)],
     name: "machineGun",
     throwable: {
