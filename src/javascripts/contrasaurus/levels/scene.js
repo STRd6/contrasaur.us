@@ -11,7 +11,9 @@ function Scene(backgrounds, foregrounds) {
 
         if(layer.repeat) {
           if(x2 < x1) {
-            layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH - x2);
+            if(CANVAS_WIDTH - x2 > 0) {
+              layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH - x2);
+            }
             layer.image.draw(canvas, CANVAS_WIDTH - x2, y, 0, 0, x2);
           } else {
             layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH);
