@@ -81,7 +81,7 @@ $(function() {
     if (bombingRunActive) {
       if (bombingRunCount % planeDelay == 0) {
         level.addGameObject(Bomber({
-          x: level.position().x + CANVAS_WIDTH + 100 - bombingRunCount,
+          x: level.position().x - 50 - bombingRunCount,
           y: 40
         }));
       }

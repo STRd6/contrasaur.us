@@ -15,12 +15,11 @@ function Bomber(I) {
       xVelocity: I.xVelocity,
       x: self.position().x,
       y: self.position().y
-      //position: self.position()
     }));
   }
 
   $.reverseMerge(I, {
-    color: "#088",
+    checkBounds: GameObject.generateCheckBounds(I, 200),
     health: 20,
     height: 44,
     hitCircles: bomberModel.hitFrames,
@@ -38,7 +37,7 @@ function Bomber(I) {
     type: 'bomber',
     radius: 22,
     width: 71,
-    xVelocity: -5,
+    xVelocity: 5,
     yVelocity: 0
   });
 
@@ -56,8 +55,8 @@ function Bomber(I) {
     addGameObject(Grenade({
       collideDamage: 10,
       collisionType: "dinoBullet",
-      hFlip: true,
-      rotationalVelocity: -Math.PI / 60,
+      hFlip: I.hFlip,
+      rotationalVelocity: Math.random() * Math.PI / 12,
       sprite: I.sprite,
       x: I.x,
       xVelocity: I.xVelocity,
