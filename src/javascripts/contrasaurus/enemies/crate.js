@@ -12,8 +12,7 @@ function Crate(I) {
     shootLogic: $.noop,
     sprite: normalSprite,
     type: 'crate',
-    y: CANVAS_HEIGHT - Floor.LEVEL,
-    xVelocity: 0
+    y: CANVAS_HEIGHT - Floor.LEVEL
   });
 
   var healthMax = I.health;
