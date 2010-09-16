@@ -79,13 +79,17 @@ $(function() {
     }
 
     if (bombingRunActive) {
+      var PlaneClass = (numPlanes % 2) ? Fighter : Bomber;
+
       if (bombingRunCount % planeDelay == 0) {
-        level.addGameObject(Bomber({
+        level.addGameObject(PlaneClass({
           x: level.position().x - 50 - bombingRunCount,
           y: 40
         }));
       }
+
       bombingRunCount++;
+
       if (bombingRunCount >= planeDelay * numPlanes) {
         bombingRunActive = false;
         bombingRunCount = 0;
