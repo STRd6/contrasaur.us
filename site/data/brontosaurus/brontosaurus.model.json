@@ -2,9 +2,9 @@
   "animation": {
     "delay": 1,
     "frames": 1,
-    "height": 354,
-    "width": 751,
-    "url": "images/enemies/brontosaurus.png"
+    "height": 341,
+    "width": 299,
+    "url": "images/enemies/brontosaurus/walk.png"
   },
   "frames": [
     {

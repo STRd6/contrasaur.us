@@ -137,7 +137,7 @@ $(function() {
       meteorsActive = true;
     }
   }, {
-    at: 1300,
+    at: 200,
     event: function(level) {
       brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 100,
@@ -156,7 +156,7 @@ $(function() {
       dino.boss(brontosaurus);
 
       level.addGameObject(brontosaurus);
-      level.lockCamera(level.position().x, level.position().x + 100);
+      level.lockCamera(level.position().x, level.position().x + 250);
     }
   }];
 
