@@ -122,7 +122,6 @@ function Level(I) {
 
     if(fadeAmount != 0) {
       var fadeColor = "rgba(0, 0, 0, " + fadeAmount.clamp(0, 1) + ")";
-      console.log(fadeColor);
       canvas.fill(fadeColor);
     }
   }
