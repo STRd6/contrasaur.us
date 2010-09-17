@@ -148,6 +148,10 @@ $(function() {
         dino.timeTravel(true);
         dino.boss(false);
 
+        level.after(130, function() {
+          level.fadeOut(20);
+        });
+
         level.after(150, function() {
           level.complete();
         });

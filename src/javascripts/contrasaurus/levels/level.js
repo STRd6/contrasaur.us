@@ -11,10 +11,15 @@ function Level(I) {
   var gameObjectsQueue = [];
   var oldEnemies = [];
   var collidables;
+
   var backgroundColor = "#A2EEFF";
   var step = 0;
   var paused = false;
   var intervalId;
+
+  var fadeAmount = 0;
+  var fadeDuration;
+  var fadeStart;
 
   var cameraLock = {
     min: -Infinity,
@@ -113,6 +118,12 @@ function Level(I) {
       var descriptionWidth = canvas.measureText(I.description);
       canvas.fillColor(I.textColor);
       canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), 16);
+    }
+
+    if(fadeAmount != 0) {
+      var fadeColor = "rgba(0, 0, 0, " + fadeAmount.clamp(0, 1) + ")";
+      console.log(fadeColor);
+      canvas.fill(fadeColor);
     }
   }
 
@@ -222,6 +233,11 @@ function Level(I) {
       return oldEnemies;
     },
 
+    fadeOut: function(duration) {
+      fadeStart = step;
+      fadeDuration = duration;
+    },
+
     lockCamera: function(min, max) {
       cameraLock.min = min;
       cameraLock.max = max;
@@ -297,7 +313,7 @@ function Level(I) {
       clearInterval(intervalId);
     },
 
-    step: function step() {
+    step: function() {
       if (debugHalt) {
         debugger;
       }
@@ -328,6 +344,11 @@ function Level(I) {
       gameObjectsQueue = [];
 
       trackDino();
+
+      // Update fade
+      if(fadeStart) {
+        fadeAmount = (step - fadeStart) / fadeDuration;
+      }
 
       // TODO: Move this somewhere
       score += collidables.dinoBullet.length;
