@@ -36,8 +36,12 @@ function Brontosaurus(I) {
   self.extend(Biteable(I));
 
   self.bind('destroy', function() {
-    // TODO: Flicker and add hella explosions!!
+    addGameObject(EffectGenerator($.extend(self.position(), {
+      radius: 100
+    })));
+
     addGameObject(Effect($.extend(self.position(), {
+      duration: 100,
       rotation: 0,
       sprite: sadSprite,
       velocity: Point(0, 0)

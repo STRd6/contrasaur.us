@@ -1,8 +1,13 @@
 function Effect(I) {
+  I = I || {};
+
   $.reverseMerge(I, {
-    duration: 33,
-    rotation: Math.atan2(I.velocity.y, I.velocity.x)
+    duration: 33
   });
+
+  if(I.rotation == undefined) {
+    I.rotation = Math.atan2(I.velocity.y, I.velocity.x);
+  }
 
   var self = GameObject(I).extend({
     getTransform: function() {

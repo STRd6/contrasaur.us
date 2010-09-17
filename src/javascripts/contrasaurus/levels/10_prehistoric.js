@@ -137,7 +137,7 @@ $(function() {
       meteorsActive = true;
     }
   }, {
-    at: 200,
+    at: 1200,
     event: function(level) {
       brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 100,
@@ -148,7 +148,7 @@ $(function() {
         dino.timeTravel(true);
         dino.boss(false);
 
-        level.after(60, function() {
+        level.after(150, function() {
           level.complete();
         });
       });

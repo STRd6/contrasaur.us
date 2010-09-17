@@ -90,8 +90,11 @@ $(function() {
           dino.boss(roboReagan);
 
           roboReagan.bind('destroy', function() {
-            level.complete();
             dino.boss(false);
+
+            level.after(150, function() {
+              level.complete();
+            });
           });
           level.addGameObject(roboReagan);
         });

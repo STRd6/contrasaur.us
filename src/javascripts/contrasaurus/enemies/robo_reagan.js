@@ -93,7 +93,7 @@ function RoboReagan(I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
-    health: 9000,
+    health: 5000,
     hitCircles: kneelModel.hitFrames,
     pointsWorth: 1000000,
     radius: 40,
@@ -109,6 +109,12 @@ function RoboReagan(I) {
         currentState.update();
       }
     }
+  });
+
+  self.bind('destroy', function() {
+    addGameObject(EffectGenerator($.extend(self.position(), {
+      radius: 50
+    })));
   });
 
   var centralPoint = self.position().add(Point());
