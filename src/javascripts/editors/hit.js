@@ -295,7 +295,7 @@ keyEvents = {
   "tab": function() {
     Circles.next();
   },
-  "d": function() {
+  "d del": function() {
     Circles.remove();
   }
 }
