@@ -3,7 +3,7 @@ function Brontosaurus(I) {
 
   var sadSprite = Sprite.load("images/enemies/brontosaurus/pain.png");
 
-  var brontoModel = Model.loadJSONUrl("data/brontosaurus/brontosaurus.model.json", function(model) {
+  var brontoModel = Model.loadJSONUrl("data/brontosaurus/walk.model.json", function(model) {
     I.sprite = model.animation;
   });
 
