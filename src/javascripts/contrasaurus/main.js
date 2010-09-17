@@ -13,7 +13,13 @@ var killCounter = {
   'utahraptor': 0
 };
 var dialogBox;
-var pauseDisplay;
+var pauseDisplay = {
+  draw: function(canvas) {
+    canvas.fill("rgba(0, 0, 0, 0.66)");
+    canvas.fillColor("#FFF");
+    canvas.centerText("PAUSED", 230);
+  }
+};
 var debugHalt = false;
 var currentLevel;
 var displayTexts = [];
@@ -151,10 +157,6 @@ $(function() {
     avatarWidth: 162
   });
 
-  pauseDisplay = DialogBox("PAUSED", {
-    height: CANVAS_HEIGHT,
-    y: 0
-  });
   dino = Dinosaur();
   healthBar = ProgressBar({
     colorMap: healthColorMap,
