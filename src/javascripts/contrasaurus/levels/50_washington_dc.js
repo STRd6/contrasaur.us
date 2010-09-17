@@ -92,10 +92,15 @@ $(function() {
           roboReagan.bind('destroy', function() {
             dino.boss(false);
 
+            level.after(130, function() {
+              level.fadeOut(20);
+            });
+
             level.after(150, function() {
               level.complete();
             });
           });
+          
           level.addGameObject(roboReagan);
         });
 
