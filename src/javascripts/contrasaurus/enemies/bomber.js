@@ -4,10 +4,6 @@ function Bomber(I) {
   var bombs = 6;
   var cooldown = 0;
 
-  var bomberModel = Model.loadJSONUrl("data/bomber/bomber.model.json", function(model) {
-    I.sprite = model.animation;
-  });
-
   function dropBomb() {
     cooldown += 10;
     bombs--;
@@ -22,7 +18,6 @@ function Bomber(I) {
     checkBounds: GameObject.generateCheckBounds(I, 200),
     health: 20,
     height: 44,
-    hitCircles: bomberModel.hitFrames,
     pointsWorth: 5000,
     shootLogic: function() {
       if (cooldown > 0) {
@@ -33,7 +28,6 @@ function Bomber(I) {
         dropBomb();
       }
     },
-    sprite: bomberModel.animation,
     type: 'bomber',
     radius: 22,
     width: 71,
@@ -41,12 +35,16 @@ function Bomber(I) {
     yVelocity: 0
   });
 
+  I.model = Model.loadJSONUrl("data/planes/" + I.type + ".model.json", function(model) {
+    I.sprite = model.animation;
+  });
+
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
 
     after: {
       update: function() {
-        I.hitCircles = bomberModel.hitFrame();
+        I.hitCircles = I.model.hitFrame();
       }
     }
   });
