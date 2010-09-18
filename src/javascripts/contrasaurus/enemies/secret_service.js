@@ -13,7 +13,7 @@ function SecretService(I) {
       complete: function() {
         I.currentState = states.run;
       },
-      duration: 8,
+      duration: 24,
       model: shootModel,
       shootLogic: function() {
         var t = self.getTransform();
@@ -38,17 +38,11 @@ function SecretService(I) {
       }
     }),
     run: State({
-      model: runModel,
-      shootLogic: $.noop,
-      update: function() {
-        if(Math.random() < 0.01) {
-          I.currentState = states.shoot;
-        }
-
-        // if (Math.random() < 0.005) {
-        //   I.currentState = states.stand;
-        // }
-      }
+      complete: function() {
+        I.currentState = states.shoot;
+      },
+      duration: 24,
+      model: runModel
     })//,
     // stand: State({
     //   complete: function() {
@@ -78,10 +72,6 @@ function SecretService(I) {
   var self = Enemy(I).extend({
     after: {
       update: function() {
-        $.each(states, function(i, state) {
-          state.update();
-        });
-
         I.shootLogic = I.currentState.shootLogic();
 
         if (I.onFire) {

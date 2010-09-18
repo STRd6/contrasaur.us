@@ -22,6 +22,7 @@ function Stateful(I) {
         self.drawHitCircles(canvas);
       }
     },
+    
     getCircles: function() {
       var self = this;
 
@@ -64,5 +65,11 @@ function Stateful(I) {
         };
       });
     },
+
+    before: {
+      update: function() {
+        I.currentState.update();
+      }
+    }
   };
 }

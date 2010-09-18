@@ -17,7 +17,7 @@ function Soldier(I) {
       complete: function() {
         I.currentState = states.run;
       },
-      duration: 8,
+      duration: 24,
       model: shootModel,
       shootLogic: function() {
         var t = self.getTransform();
@@ -42,13 +42,12 @@ function Soldier(I) {
       }
     }),
     run: State({
+      complete: function() {
+        I.currentState = states.shoot;
+      },
+      duration: 24,
       model: runModel,
-      shootLogic: $.noop,
-      update: function() {
-        if(Math.random() < 0.01) {
-          I.currentState = states.shoot;
-        }
-      }
+      shootLogic: $.noop
     })
   };
 
@@ -76,10 +75,6 @@ function Soldier(I) {
 
     after: {
       update: function() {
-        $.each(states, function(i, state) {
-          state.update();
-        });
-
         I.shootLogic = I.currentState.shootLogic();
 
         if (I.onFire) {
