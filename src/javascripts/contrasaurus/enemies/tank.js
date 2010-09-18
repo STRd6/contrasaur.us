@@ -12,6 +12,7 @@ function Tank(I) {
     health: 60,
     hitCircles: tankModel.hitFrames,
     maxShakeAmplitude: 7,
+    nutrition: -10,
     pointsWorth: 5000,
     shootLogic: function() {
       // Shoot
