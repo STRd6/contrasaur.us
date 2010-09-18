@@ -113,6 +113,15 @@ $(function() {
       generateEnemies(level);
     }
   }, {
+    at: 10,
+    event: function(level) {
+      addGameObject(Crate({
+        weaponClass: function() {return "jetpack";},
+        x: level.position().x + CANVAS_WIDTH,
+        y: 320
+      }));
+    }
+  }, {
     at: 3000,
     event: function(level) {
       level.complete();

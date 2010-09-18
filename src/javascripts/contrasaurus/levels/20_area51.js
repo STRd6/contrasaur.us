@@ -39,6 +39,14 @@ $(function() {
     }
   }
 
+  function addCrate(weaponClass) {
+    addGameObject(Crate({
+      weaponClass: weaponClass,
+      x: level.position().x + CANVAS_WIDTH,
+      y: 320
+    }));
+  }
+
   var floor = Floor({sprite: Sprite.EMPTY});
 
   var triggers = [{
@@ -59,7 +67,7 @@ $(function() {
   }, {
     at: 800,
     event: function() {
-      dino.addWeapon(Flamethrower());
+      addCrate(Flamethrower);
     }
   }, {
     at: 1025,
@@ -69,12 +77,12 @@ $(function() {
   }, {
     at: 100,
     event: function() {
-      dino.addWeapon(MachineGun());
+      addCrate(MachineGun);
     }
   }, {
     at: 1400,
     event: function() {
-      dino.addWeapon(Chainsaw());
+      addCrate(Chainsaw);
     }
   }, {
     at: 1650,

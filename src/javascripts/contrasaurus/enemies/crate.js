@@ -12,6 +12,7 @@ function Crate(I) {
     shootLogic: $.noop,
     sprite: normalSprite,
     type: 'crate',
+    weaponClass: MissileLauncher,
     y: CANVAS_HEIGHT - Floor.LEVEL
   });
 
@@ -30,6 +31,16 @@ function Crate(I) {
   });
 
   self.extend(Shakeable(I));
+
+  self.bind("destroy", function() {
+    if(I.weaponClass) {
+      addGameObject(Powerup({
+        weaponClass: I.weaponClass,
+        x: I.x,
+        y: I.y
+      }));
+    }
+  });
 
   return self;
 }

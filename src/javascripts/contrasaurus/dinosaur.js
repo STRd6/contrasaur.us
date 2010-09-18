@@ -165,10 +165,14 @@ function Dinosaur() {
     },
 
     addWeapon: function(weapon) {
-      weapons.push(weapon);
+      if(weapon == "jetpack") {
+        self.addJetpack();
+      } else {
+        weapons.push(weapon);
 
-      if(weapon.selectable()) {
-        selectedWeapon = weapon;
+        if(weapon.selectable()) {
+          selectedWeapon = weapon;
+        }
       }
 
       Sound.play("reload");

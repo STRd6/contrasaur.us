@@ -1,14 +1,13 @@
 function Powerup(I) {
   $.reverseMerge(I, {
-    callback: $.noop,
-    color: "#F0F",
     radius: 20,
     width: 15,
     height: 15,
     pointsWorth: 1000,
     collisionType: "enemyBullet",
     rotationVelocity: Math.PI / 24,
-    rotation: rand() * Math.PI
+    rotation: rand() * Math.PI,
+    weaponClass: MissileLauncher
   });
 
   return GameObject(I).extend({
@@ -28,7 +27,9 @@ function Powerup(I) {
 
     after: {
       hit: function(other) {
-        I.callback(other);
+        if(other.addWeapon) {
+          other.addWeapon(I.weaponClass());
+        }
       },
 
       update: GameObject.generateCheckBounds(I)
