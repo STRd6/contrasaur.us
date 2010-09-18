@@ -12,7 +12,6 @@ var killCounter = {
   'tank': 0,
   'utahraptor': 0
 };
-var dialogBox;
 var pauseDisplay = {
   draw: function(canvas) {
     canvas.fill("rgba(0, 0, 0, 0.66)");
@@ -37,6 +36,18 @@ var weaponMap = {
   "machineGun": MachineGun,
   "meat": Meat
 };
+
+var highScores = [[30000, "Condor"], [20000, "Dr. Werewolf"], [10000, "Zuch"]];
+var cookieScores = [];
+var playerCookieScores = [];
+
+if (readCookie("highScore")) {
+  cookieScores = readCookie("highScore").split(";");
+}
+
+$.each(cookieScores, function(i, cookieScore) {
+  playerCookieScores.push([cookieScore, "You"]);
+});
 
 $.each(weaponMap, function(name) {
   weapons.push(name);
@@ -114,11 +125,27 @@ function overlayUpdate(){
   if (dino.health() <= 0) {
     endGame();
 
-    dialogBox.draw(canvas);
-    leaderBoard.draw(canvas);
-    leader1.draw(canvas);
-    leader2.draw(canvas);
-    leader3.draw(canvas);
+    var sortedHighScores = highScores.sort().reverse();
+
+    var leaderDisplay = {
+      draw: function(canvas) {
+        canvas.fill("rgba(0, 0, 0, 0.66)");
+        canvas.fillColor("#FFF");
+        canvas.centerText("ALL TIME LEADERS:", 200);
+        canvas.centerText(sortedHighScores[0][1] + ": " + sortedHighScores[0][0], 230);
+        canvas.centerText(sortedHighScores[1][1] + ": " + sortedHighScores[1][0], 260);
+        canvas.centerText(sortedHighScores[2][1] + ": " + sortedHighScores[2][0], 290);
+      }
+    };
+
+    cookieScores.push(score);
+    playerCookieScores.push([score, "You"]);
+
+    highScores = highScores.concat(playerCookieScores);
+    createCookie("highScore", cookieScores.join(";"));
+    sortedHighScores = highScores.sort().reverse();
+
+    leaderDisplay.draw(canvas);
   }
 }
 
@@ -150,12 +177,36 @@ function display(text) {
   displayTexts.push(GameText(text, dino.position()));
 }
 
+function createCookie(name, value, days) {
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    var expires = "; expires=" + date.toGMTString();
+  } else {
+   var expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) {
+      return c.substring(nameEQ.length, c.length);
+    }
+  }
+  return null;
+}
+
+function eraseCookie(name) {
+  createCookie(name, "", -1);
+}
+
 $(function() {
   var doctorAvatar = Sprite.load("images/doctor.png");
-  dialogBox = DialogBox("He is dead...", {
-    avatar: doctorAvatar,
-    avatarWidth: 162
-  });
 
   dino = Dinosaur();
   healthBar = ProgressBar({
@@ -166,27 +217,6 @@ $(function() {
 
   target = Point();
   crosshair = Sprite.load("images/crosshair.png");
-
-  leaderBoard = DialogBox("ALL TIME LEADERS:", {
-    height: 25,
-    lineHeight: 0,
-    y: 25
-  });
-  leader1 = DialogBox("Condor: 3,492,192", {
-    height: 25,
-    lineHeight: 0,
-    y: 50
-  });
-  leader2 = DialogBox("Dr. Werewolf: 3,182,019", {
-    height: 25,
-    lineHeight: 0,
-    y: 75
-  });
-  leader3 = DialogBox("Zuch: 3,052,222", {
-    height: 25,
-    lineHeight: 0,
-    y: 100
-  });
 
   $(document).bind('keydown', "0", function() {
     GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
