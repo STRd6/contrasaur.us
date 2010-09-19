@@ -477,10 +477,8 @@ function Dinosaur() {
         // Stay in screen
         if (I.x < levelPosition.x + I.radius) {
           I.x = levelPosition.x + I.radius;
-          I.xVelocity = Math.abs(I.xVelocity);
         } else if (I.x > levelPosition.x + CANVAS_WIDTH - I.radius) {
           I.x = levelPosition.x + CANVAS_WIDTH - I.radius;
-          I.xVelocity = -Math.abs(I.xVelocity);
         }
 
         I.hitCircles = currentModel.hitFrame();
