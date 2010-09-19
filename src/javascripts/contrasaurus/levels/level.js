@@ -76,15 +76,18 @@ function Level(I) {
   }
 
   function trackDino() {
+    var dinoVelocity = dino.velocity();
     var dinoPosition = dino.position();
+
+    var weightedX = dinoPosition.x + (1.25 * dinoVelocity.x * dinoVelocity.x * dinoVelocity.x.sign());
 
     var wiggle = 80;
     var screenCenterX = position.x + CANVAS_WIDTH / 2;
 
-    if(dinoPosition.x > screenCenterX + wiggle) {
-      position.x = (dinoPosition.x - wiggle) - CANVAS_WIDTH / 2;
-    } else if(dinoPosition.x < screenCenterX - wiggle) {
-      position.x = (dinoPosition.x + wiggle) - CANVAS_WIDTH / 2;
+    if(weightedX > screenCenterX + wiggle) {
+      position.x = (weightedX - wiggle) - CANVAS_WIDTH / 2;
+    } else if(weightedX < screenCenterX - wiggle) {
+      position.x = (weightedX + wiggle) - CANVAS_WIDTH / 2;
     }
     
     position.x = position.x.clamp(cameraLock.min, cameraLock.max);

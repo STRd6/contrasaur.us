@@ -111,6 +111,10 @@ Number.prototype.times = function(iterator, context) {
   return i;
 }
 
+Number.prototype.sign = function() {
+  return this / Math.abs(this);
+}
+
 function before(method, interception) {
   return function() {
     interception.apply(this, arguments);
