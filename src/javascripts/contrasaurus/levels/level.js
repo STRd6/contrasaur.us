@@ -24,6 +24,8 @@ function Level(I) {
   var dialogStop;
   var displayDialog;
 
+  var prevDelta = 0;
+
   var cameraLock = {
     min: -Infinity,
     max: Infinity
@@ -87,12 +89,19 @@ function Level(I) {
     var wiggle = 80;
     var screenCenterX = position.x + CANVAS_WIDTH / 2;
 
+    var delta = 0;
+
     if(weightedX > screenCenterX + wiggle) {
-      position.x = (weightedX - wiggle) - CANVAS_WIDTH / 2;
+      delta = ((weightedX - wiggle) - CANVAS_WIDTH / 2) - position.x;
     } else if(weightedX < screenCenterX - wiggle) {
-      position.x = (weightedX + wiggle) - CANVAS_WIDTH / 2;
+      delta = (weightedX + wiggle) - CANVAS_WIDTH / 2 - position.x;
     }
-    
+
+    delta = delta.clamp(-2 + prevDelta, 2 + prevDelta);
+    prevDelta = delta;
+
+    position.x += delta;
+
     position.x = position.x.clamp(cameraLock.min, cameraLock.max);
   }
 
