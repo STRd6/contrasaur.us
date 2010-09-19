@@ -73,10 +73,6 @@ Math.mod = function(n, base) {
   return result;
 };
 
-Math.clamp = function(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-};
-
 /**
  * Returns a number whose value is limited to the given range.
  *
@@ -111,8 +107,17 @@ Number.prototype.times = function(iterator, context) {
   return i;
 }
 
+/**
+ * @returns The sign of this number, 0 if the number is 0.
+ */
 Number.prototype.sign = function() {
-  return this / Math.abs(this);
+  if(this > 0) {
+    return 1;
+  } else if (this < 0) {
+    return -1;
+  } else {
+    return 0;
+  }
 }
 
 function before(method, interception) {
