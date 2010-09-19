@@ -1,5 +1,6 @@
 $(function() {
   var imgPath = "images/levels/parasail/";
+  var levelVelocity = Point(-4, 0);
 
   var scene = Scene([
     {
@@ -10,7 +11,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     },
     {
       image: Sprite.load(imgPath + "midground.png"),
@@ -20,7 +21,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     },
     {
       image: Sprite.load(imgPath + "foreground.png"),
@@ -30,7 +31,7 @@ $(function() {
         y: 0
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     }
   ], [
     {
@@ -41,7 +42,7 @@ $(function() {
         y: 320,
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     },
     {
       image: Sprite.load(imgPath + "water_midground.png"),
@@ -51,7 +52,7 @@ $(function() {
         y: 320
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     },
     {
       image: Sprite.load(imgPath + "water_foreground.png"),
@@ -61,7 +62,7 @@ $(function() {
         y: 320
       },
       repeat: true,
-      velocity: Point(-4, 0)
+      velocity: levelVelocity
     }
   ]);
 
