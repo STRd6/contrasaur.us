@@ -475,10 +475,10 @@ function Dinosaur() {
         updateWeapons(levelPosition);
 
         // Stay in screen
-        if (I.x < levelPosition.x + I.radius) {
-          I.x = levelPosition.x + I.radius;
-        } else if (I.x > levelPosition.x + CANVAS_WIDTH - I.radius) {
-          I.x = levelPosition.x + CANVAS_WIDTH - I.radius;
+        if (I.x < levelPosition.x + width) {
+          I.x = levelPosition.x + width;
+        } else if (I.x > levelPosition.x + CANVAS_WIDTH - width) {
+          I.x = levelPosition.x + CANVAS_WIDTH - width;
         }
 
         I.hitCircles = currentModel.hitFrame();

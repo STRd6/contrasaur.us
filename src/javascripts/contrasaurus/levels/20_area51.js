@@ -25,7 +25,7 @@ $(function() {
     number.times(function(i) {
       var mutant = Mutant({
         hFlip: true,
-        x: level.position().x + CANVAS_WIDTH + i*20,
+        x: level.position().x + CANVAS_WIDTH / 2 + rand(CANVAS_WIDTH / 2),
         y: 0,
         yVelocity: 0.01
       });
@@ -56,6 +56,78 @@ $(function() {
     addGameObject(crate);
   }
 
+  function machineGunTrial(level) {
+    level.lockCamera(level.position().x, level.position().x + 250);
+
+    level.after(180, function() {
+      generateMutants(level, 3, function() {
+        level.unlockCamera();
+
+        level.after(300, flameThrowerTrial);
+      });
+    });
+
+    addCrate(MachineGun, function() {
+      level.dialog(DialogBox("No weapon in the arsenals of the world is so formidable as a tyrannosaurus rex with a machine gun.", {
+        avatar: reaganAvatar,
+        avatarWidth: 100
+      }), 150);
+
+      level.after(220, function() {
+        level.dialog(DialogBox("Aim with the mouse. Left click to fire weapons"), 90);
+      });
+    });
+  }
+
+  function flameThrowerTrial(level) {
+    level.lockCamera(level.position().x, level.position().x + 250);
+
+    level.after(180, function() {
+      generateMutants(level, 5, function() {
+        level.unlockCamera();
+
+        level.after(300, chainsawTrial);
+      });
+    });
+
+    addCrate(Flamethrower, function() {
+      level.dialog(DialogBox("FLAME JAW!", {
+        avatar: reaganAvatar,
+        avatarWidth: 100
+      }), 150);
+    });
+  }
+
+  function chainsawTrial(level) {
+    level.dialog(DialogBox("Release the abominations!", {
+      avatar: reaganAvatar,
+      avatarWidth: 100
+    }), 100);
+
+    level.after(30, function() {
+      level.lockCamera(level.position().x, level.position().x + 250);
+
+      generateMutants(level, 20, function() {
+        level.unlockCamera();
+
+        level.after(30, function() {
+          level.fadeOut(10);
+
+          level.after(10, function() {
+            level.complete();
+          });
+        });
+      });
+    });
+
+    addCrate(Chainsaw, function() {
+      level.dialog(DialogBox("CH-CH-CH-CH-CHAINSAW!", {
+        avatar: reaganAvatar,
+        avatarWidth: 100
+      }), 150);
+    });
+  }
+
   var floor = Floor({sprite: Sprite.EMPTY});
 
   var triggers = [{
@@ -64,83 +136,13 @@ $(function() {
       dino.timeTravel(false);
     }
   }, {
-    at: 2200,
-    event: function(level) {
-      level.complete();
-    }
-  }, {
-    at: 800,
-    event: function() {
-      addCrate(Flamethrower);
-    }
-  }, {
-    at: 1025,
-    event: function() {
-      generateMutants(level, 5);
-    }
-  }, {
     at: 100,
-    event: function(level) {
-      addCrate(MachineGun, function() {
-        level.dialog(DialogBox("No weapon in the arsenals of the world is so formidable as a tyrannosaurus rex with a machine gun.", {
-          avatar: reaganAvatar,
-          avatarWidth: 100
-        }), 150);
-
-        level.after(180, function() {
-          generateMutants(level, 3);
-        });
-
-        level.after(220, function() {
-          level.dialog(DialogBox("Aim with the mouse. Left click to fire weapons"), 90);
-        });
-      });
-    }
-  }, {
-    at: 1400,
-    event: function() {
-      addCrate(Chainsaw);
-    }
-  }, {
-    at: 1650,
-    event: function() {
-      generateMutants(level, 5);
-    }
-  }, {
-    at: 1655,
-    event: function() {
-      generateMutants(level, 5);
-    }
-  }, {
-    at: 1660,
-    event: function() {
-      generateMutants(level, 5);
-    }
-  }, {
-    at: 1665,
-    event: function() {
-      generateMutants(level, 5);
-    }
+    event: machineGunTrial
   }];
 
   addCutscene("", "By the power of science!", 3000);
 
   var reaganAvatar = Sprite.load("images/avatars/reagan.png");
-
-  var reaganFlamejaw = DialogBox("FLAMEJAW!", {
-    avatar: reaganAvatar,
-    avatarWidth: 100
-  });
-
-  var reaganChainsaw = DialogBox("Unleash the true power of Contrasaurus", {
-    avatar: reaganAvatar,
-    avatarWidth: 100
-  });
-
-  var reaganTest = DialogBox("Release the abominations!", {
-    avatar: reaganAvatar,
-    avatarWidth: 100
-  });
 
   var level = addLevel({
     audio: "Lady Gaga - Paparazzi",
@@ -150,19 +152,5 @@ $(function() {
     platforms: [floor],
     scene: scene,
     triggers: triggers
-  });
-
-  level.bind("afterStep", function(level) {
-    if (level.age() > 800 && level.age() < 1000) {
-      reaganFlamejaw.draw(canvas);
-    }
-
-    if (level.age() > 1400 && level.age() < 1600) {
-      reaganChainsaw.draw(canvas);
-    }
-
-    if (level.age() > 1600 && level.age() < 1800) {
-      reaganTest.draw(canvas);
-    }
   });
 });

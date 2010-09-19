@@ -7,7 +7,15 @@ function Mutant(I) {
   var deathModel = Model.loadJSONUrl("data/mutant/death.model.json");
 
   $.reverseMerge(I, {
-    checkBounds: $.noop,
+    checkBounds: function(position) {
+      if (I.x < position.x + I.radius) {
+        I.x = position.x + I.radius;
+        I.xVelocity = Math.abs(I.xVelocity);
+      } else if (I.x > position.x + CANVAS_WIDTH - I.radius) {
+        I.x = position.x + CANVAS_WIDTH - I.radius;
+        I.xVelocity = -Math.abs(I.xVelocity);
+      }
+    },
     hitCircles: walkModel.hitFrames,
     health: 80,
     nutrition: -20,
@@ -16,7 +24,7 @@ function Mutant(I) {
     shootLogic: $.noop,
     sprite: walkModel.animation,
     type: 'mutant',
-    xVelocity: -(rand(2) + 0.1),
+    xVelocity: -(rand(11) + 1) / 4,
     y: CANVAS_HEIGHT - Floor.LEVEL,
   });
 
