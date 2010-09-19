@@ -21,6 +21,9 @@ function Level(I) {
   var fadeDuration;
   var fadeStart;
 
+  var dialogStop;
+  var displayDialog;
+
   var cameraLock = {
     min: -Infinity,
     max: Infinity
@@ -121,6 +124,10 @@ function Level(I) {
       var descriptionWidth = canvas.measureText(I.description);
       canvas.fillColor(I.textColor);
       canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), 16);
+    }
+
+    if(displayDialog) {
+      displayDialog.draw(canvas);
     }
 
     if(fadeAmount != 0) {
@@ -231,6 +238,13 @@ function Level(I) {
       return results;
     },
 
+    dialog: function(dialog, duration) {
+      duration = duration || 100;
+
+      displayDialog = dialog;
+      dialogStop = step + duration;
+    },
+
     enemies: function() {
       return oldEnemies;
     },
@@ -243,6 +257,11 @@ function Level(I) {
     lockCamera: function(min, max) {
       cameraLock.min = min;
       cameraLock.max = max;
+    },
+
+    unlockCamera: function() {
+      cameraLock.min = -Infinity;
+      cameraLock.max = Infinity;
     },
 
     position: function() {
@@ -365,6 +384,11 @@ function Level(I) {
         });
 
         $("#debug").html(html);
+      }
+
+      // Update dialogs
+      if(step > dialogStop) {
+        displayDialog = null;
       }
 
       draw(canvas);

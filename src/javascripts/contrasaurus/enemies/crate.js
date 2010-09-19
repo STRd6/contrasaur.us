@@ -5,9 +5,11 @@ function Crate(I) {
   var damagedSprite = Sprite.load("images/enemies/crate/damaged.png");
 
   $.reverseMerge(I, {
+    checkBounds: $.noop,
     collideDamage: 0,
     health: 100,
     maxShakeAmplitude: 7,
+    pointsWorth: 5000,
     radius: 34,
     shootLogic: $.noop,
     sprite: normalSprite,
@@ -34,11 +36,7 @@ function Crate(I) {
 
   self.bind("destroy", function() {
     if(I.weaponClass) {
-      addGameObject(Powerup({
-        weaponClass: I.weaponClass,
-        x: I.x,
-        y: I.y
-      }));
+      dino.addWeapon(I.weaponClass());
     }
   });
 

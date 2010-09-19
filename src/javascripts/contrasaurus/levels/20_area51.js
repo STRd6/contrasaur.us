@@ -19,32 +19,41 @@ $(function() {
     }
   ], []);
 
-  function generateMutants(level, number) {
-    if (number) {
-      (number).times(function(i) {
-        level.addGameObject(Mutant({
-          hFlip: true,
-          x: level.position().x + CANVAS_WIDTH + i*20,
-          y: 0,
-          yVelocity: 1
-        }));
-      });
-    } else {
-      level.addGameObject(Mutant({
+  function generateMutants(level, number, annihilationCallback) {
+    var destroyedCount = 0;
+
+    number.times(function(i) {
+      var mutant = Mutant({
         hFlip: true,
-        x: level.position().x + CANVAS_WIDTH + 20,
+        x: level.position().x + CANVAS_WIDTH + i*20,
         y: 0,
-        yVelocity: 1
-      }));
-    }
+        yVelocity: 0.01
+      });
+
+      mutant.bind('destroy', function() {
+        destroyedCount += 1;
+
+        if(destroyedCount == number && annihilationCallback) {
+          annihilationCallback();
+        }
+      });
+
+      level.addGameObject(mutant);
+    });
   }
 
-  function addCrate(weaponClass) {
-    addGameObject(Crate({
+  function addCrate(weaponClass, onDestroy) {
+    var crate = Crate({
       weaponClass: weaponClass,
       x: level.position().x + CANVAS_WIDTH,
       y: 320
-    }));
+    });
+
+    if(onDestroy) {
+      crate.bind('destroy', onDestroy);
+    }
+
+    addGameObject(crate);
   }
 
   var floor = Floor({sprite: Sprite.EMPTY});
@@ -53,11 +62,6 @@ $(function() {
     at: 60,
     event: function() {
       dino.timeTravel(false);
-    }
-  }, {
-    at: 350,
-    event: function(level) {
-      generateMutants(level, 3);
     }
   }, {
     at: 2200,
@@ -76,8 +80,21 @@ $(function() {
     }
   }, {
     at: 100,
-    event: function() {
-      addCrate(MachineGun);
+    event: function(level) {
+      addCrate(MachineGun, function() {
+        level.dialog(DialogBox("No weapon in the arsenals of the world is so formidable as a tyrannosaurus rex with a machine gun.", {
+          avatar: reaganAvatar,
+          avatarWidth: 100
+        }), 150);
+
+        level.after(180, function() {
+          generateMutants(level, 3);
+        });
+
+        level.after(220, function() {
+          level.dialog(DialogBox("Aim with the mouse. Left click to fire weapons"), 90);
+        });
+      });
     }
   }, {
     at: 1400,
@@ -109,10 +126,6 @@ $(function() {
   addCutscene("", "By the power of science!", 3000);
 
   var reaganAvatar = Sprite.load("images/avatars/reagan.png");
-  var reaganMachineGun = DialogBox("With a machine gun the blood of his enemies will trickle down like the money of American oil tycoons", {
-    avatar: reaganAvatar,
-    avatarWidth: 100
-  });
 
   var reaganFlamejaw = DialogBox("FLAMEJAW!", {
     avatar: reaganAvatar,
@@ -129,8 +142,6 @@ $(function() {
     avatarWidth: 100
   });
 
-  var shootDialog = DialogBox("Aim with the mouse. Left click to fire weapons");
-
   var level = addLevel({
     audio: "Lady Gaga - Paparazzi",
     description: "AD 1984: Area 51",
@@ -142,14 +153,6 @@ $(function() {
   });
 
   level.bind("afterStep", function(level) {
-    if (level.age() > 100 && level.age() < 300) {
-      reaganMachineGun.draw(canvas);
-    }
-
-    if (level.age() > 450 && level.age() < 650) {
-      shootDialog.draw(canvas);
-    }
-
     if (level.age() > 800 && level.age() < 1000) {
       reaganFlamejaw.draw(canvas);
     }
