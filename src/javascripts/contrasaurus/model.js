@@ -13,9 +13,17 @@ function Model(animation, frames, hitFrames) {
      * Returns the array of circles representing the current hit frame.
      */
     hitFrame: function() {
-      return frames[animation.frame()].circles;
+      var curFrame = frames[animation.frame()];
+
+      if(curFrame) {
+        return curFrame.circles;
+      } else {
+        return [];
+      }
     },
+
     hitFrames: hitFrames,
+
     attachment: function(name) {
       var currentFrame = frames[animation.frame()];
       if(currentFrame.attachmentPoints) {
@@ -39,6 +47,7 @@ function Model(animation, frames, hitFrames) {
       }
 
     },
+
     update: function() {
       animation.update();
     }
