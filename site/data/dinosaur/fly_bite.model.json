@@ -1,6 +1,7 @@
 {
   "animation": {
     "delay": 3,
+    "destinationOffset": { "x": 1, "y": -1 },
     "frames": 5,
     "height": 136,
     "width": 285,
