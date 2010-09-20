@@ -127,13 +127,7 @@ function GameObject(I) {
       }
     },
 
-    hit: function(other) {
-      I.health = I.health - other.collideDamage();
-      if (I.health <= 0) {
-        self.destroy();
-        addScore(I.pointsWorth);
-      }
-    },
+    hit: $.noop,
 
     midpoint: function() {
       return {

@@ -1,5 +1,5 @@
 function Flame(I) {
-  var speed = 15;
+  I = I || {};
 
   $.reverseMerge(I, {
     theta: Math.PI/4
@@ -7,6 +7,7 @@ function Flame(I) {
 
   $.reverseMerge(I, {
     collideDamage: 0,
+    damageType: "fire",
     duration: 20,
     sprite: Sprite.load("images/projectiles/flame.png"),
     radius: 18
@@ -21,5 +22,6 @@ function Flame(I) {
       }
     }
   });
+
   return self;
 }

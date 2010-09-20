@@ -10,7 +10,7 @@ function Ramp(I) {
 
   var checkBounds = GameObject.generateCheckBounds(I, 100);
 
-  var self = GameObject(I).extend({
+  var self = Enemy(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
     
     crush: function() {

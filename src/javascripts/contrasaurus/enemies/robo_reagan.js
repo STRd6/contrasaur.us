@@ -97,7 +97,6 @@ function RoboReagan(I) {
     hitCircles: kneelModel.hitFrames,
     pointsWorth: 1000000,
     radius: 40,
-    shootLogic: $.noop,
     sprite: kneelModel.animation,
     x: rand(CANVAS_WIDTH),
     y: 60

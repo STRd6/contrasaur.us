@@ -10,6 +10,7 @@ function Enemy(I) {
     onFire: false,
     pointsWorth: 1000,
     radius: 18,
+    shootLogic: $.noop,
     type: '',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
@@ -22,6 +23,15 @@ function Enemy(I) {
     },
 
     bulletHitEffect: Enemy.bloodSprayEffect,
+
+    hit: function(other) {
+      I.health = I.health - other.collideDamage();
+
+      if (I.health <= 0) {
+        self.destroy();
+        addScore(I.pointsWorth);
+      }
+    },
 
     land: $.noop,
 
@@ -49,11 +59,6 @@ function Enemy(I) {
     },
 
     after: {
-      hit: function(other) {
-        if(other.bump) {
-          other.bump();
-        }
-      },
       update: function() {
         I.shootLogic();
 

@@ -11,7 +11,6 @@ function Crate(I) {
     maxShakeAmplitude: 7,
     pointsWorth: 5000,
     radius: 34,
-    shootLogic: $.noop,
     sprite: normalSprite,
     type: 'crate',
     weaponClass: MissileLauncher,

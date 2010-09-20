@@ -323,6 +323,8 @@ function Level(I) {
         }
       }
 
+      dino.position(Point(CANVAS_WIDTH / 2, dino.position().y));
+
       intervalId = setInterval(function() {
         if (paused) {
           return;

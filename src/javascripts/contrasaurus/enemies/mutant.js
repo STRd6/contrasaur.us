@@ -21,7 +21,6 @@ function Mutant(I) {
     nutrition: -20,
     pointsWorth: 5000,
     radius: 20,
-    shootLogic: $.noop,
     sprite: walkModel.animation,
     type: 'mutant',
     xVelocity: -(rand(11) + 1) / 4,

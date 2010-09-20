@@ -9,7 +9,6 @@ function Utahraptor(I) {
     health: 1,
     nutrition: 10,
     radius: 18,
-    shootLogic: $.noop,
     sprite: raptorAnimation,
     type: 'utahraptor',
     xVelocity: -0.5,

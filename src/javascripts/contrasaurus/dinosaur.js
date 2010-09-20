@@ -14,9 +14,6 @@ function Dinosaur() {
   var biteCounter = 0;
   var idleCounter = 0;
 
-  var x = CANVAS_WIDTH / 2;
-  var y = 150;
-
   var parasailing = false;
   var boss = false;
   var airborne = true;
@@ -51,8 +48,8 @@ function Dinosaur() {
     health: 500,
     radius: 72,
     sprite: currentModel.animation,
-    x: x,
-    y: y,
+    x: CANVAS_WIDTH / 2,
+    y: 150,
     xVelocity: 0,
     yVelocity: 6
   };
@@ -246,6 +243,15 @@ function Dinosaur() {
     },
 
     heal: heal,
+
+    hit: function(other) {
+      I.health = I.health - other.collideDamage();
+
+      if (I.health <= 0) {
+        self.destroy();
+        addScore(I.pointsWorth);
+      }
+    },
 
     draw: function(canvas) {
 

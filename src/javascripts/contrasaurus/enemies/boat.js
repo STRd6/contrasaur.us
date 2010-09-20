@@ -14,12 +14,11 @@ function Boat(I) {
     sprite: boatModel.animation
   });
 
-
   var maxHealth = I.health;
   var jumping = false;
   var jumpImpulse = -10;
 
-  var self = GameObject(I).extend({
+  var self = Enemy(I).extend({
     bounce: function (ramp) {
       if(I.yVelocity > 3) {
         ramp.crush();

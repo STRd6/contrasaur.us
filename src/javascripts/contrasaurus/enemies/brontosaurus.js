@@ -6,7 +6,6 @@ function Brontosaurus(I) {
     nutrition: 0,
     pointsWorth: 50000,
     radius: 90,
-    shootLogic: $.noop,
     xVelocity: 0,
     y: CANVAS_HEIGHT - Floor.LEVEL
   });

@@ -18,7 +18,6 @@ function WhiteHouse(I) {
       { "x": 238, "y": 144, "radius": 28 }
     ],
     y: 190,
-    shootLogic: $.noop,
     sprite: fullSprite
   });
 
