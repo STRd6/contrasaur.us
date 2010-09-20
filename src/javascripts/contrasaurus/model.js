@@ -81,6 +81,11 @@ Model.loadJSONUrl = function(url, callback) {
           circle.x += data.animation.destinationOffset.x;
           circle.y += data.animation.destinationOffset.y;
         });
+
+        $.each(frame.attachmentPoints, function(key, point) {
+          point.x += data.animation.destinationOffset.x;
+          point.y += data.animation.destinationOffset.y;
+        });
       });
     }
   });
