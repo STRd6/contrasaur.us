@@ -20,7 +20,7 @@ function WhiteHouse(I) {
       { "x": -239, "y": 145, "radius": 27 },
       { "x": 238, "y": 144, "radius": 28 }
     ],
-    y: 190,
+    y: 170,
     sprite: fullSprite
   });
 

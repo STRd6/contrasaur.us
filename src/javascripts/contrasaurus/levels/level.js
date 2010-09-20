@@ -9,6 +9,7 @@ function Level(I) {
 
   var gameObjects = [];
   var gameObjectsQueue = [];
+  var prependGameObjectsQueue = [];
   var oldEnemies = [];
   var collidables;
 
@@ -223,6 +224,10 @@ function Level(I) {
       gameObjectsQueue.push(gameObject);
     },
 
+    prependGameObject: function(gameObject) {
+      prependGameObjectsQueue.push(gameObject);
+    },
+
     after: function(steps, fn) {
       I.triggers.push({
         at: step + steps,
@@ -374,6 +379,8 @@ function Level(I) {
       handleCollisions(collidables);
 
       // Add Queued Game Objects
+      Array.prototype.unshift.apply(gameObjects, prependGameObjectsQueue);
+      prependGameObjectsQueue = [];
       Array.prototype.push.apply(gameObjects, gameObjectsQueue);
       gameObjectsQueue = [];
 

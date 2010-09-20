@@ -55,7 +55,6 @@ $(function() {
       }
     }], generateForegroundScenary());
 
-  var whiteHouse;
   var floor = Floor({
     sprite: Sprite.EMPTY
   });
@@ -63,7 +62,7 @@ $(function() {
   var triggers = [{
       at: 1000,
       event: function(level) {
-        whiteHouse = WhiteHouse({
+        var whiteHouse = WhiteHouse({
           x: level.position().x + CANVAS_WIDTH + 100
         });
 
@@ -104,7 +103,7 @@ $(function() {
           level.addGameObject(roboReagan);
         });
 
-        level.addGameObject(whiteHouse);
+        level.prependGameObject(whiteHouse);
       }
     }, {
     every: 1,
