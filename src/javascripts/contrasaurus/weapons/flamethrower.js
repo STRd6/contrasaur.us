@@ -7,7 +7,13 @@ function Flamethrower(I) {
     cooldown: 6,
     exitPoints: [Point(25, 0)],
     name: "flamethrower",
-    sprite: Animation.load("images/weapons/flame_jaw.png", 2, 58, 31, 3)
+    sprite: Animation.load({
+      url: "images/weapons/flame_jaw.png",
+      frames: 2,
+      width: 58,
+      height: 31,
+      delay: 3
+    })
   });
 
   var self = Weapon(I).extend({

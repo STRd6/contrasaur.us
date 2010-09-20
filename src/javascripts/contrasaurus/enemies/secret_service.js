@@ -6,7 +6,13 @@ function SecretService(I) {
   var shootModel = Model.loadJSONUrl("data/secret_service/shoot.model.json");
   var bitInHalfModel = Model.loadJSONUrl("data/secret_service/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/secret_service/death.model.json");
-  var burningAnimation = Animation.load("images/enemies/burning_man.png", 20, 57, 89, 3);
+  var burningAnimation = Animation.load({
+    url: "images/enemies/burning_man.png",
+    frames: 20,
+    width: 57,
+    height: 89,
+    delay: 3
+  });
 
   var states = {
     shoot: State({

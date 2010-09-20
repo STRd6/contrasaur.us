@@ -1,7 +1,13 @@
 function LaserGun(I) {
   I = I || {};
 
-  var monocle = Animation.load("images/weapons/laser_eye.png", 4, 28, 26, 4);
+  var monocle = Animation.load({
+    url: "images/weapons/laser_eye.png",
+    frames: 4,
+    width: 28,
+    height: 26,
+    delay: 4
+  });
 
   $.reverseMerge(I, {
     ammo: 256,

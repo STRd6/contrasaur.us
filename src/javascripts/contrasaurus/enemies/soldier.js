@@ -6,7 +6,13 @@ function Soldier(I) {
   var bitInHalfModel = Model.loadJSONUrl("data/sandinista/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/sandinista/normal_death.model.json");
   var parasailModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
-  var burningAnimation = Animation.load("images/enemies/burning_man.png", 20, 57, 89, 3);
+  var burningAnimation = Animation.load({
+    url: "images/enemies/burning_man.png",
+    frames: 20,
+    width: 57,
+    height: 89,
+    delay: 3
+  });
 
   var states = {
     parasail: State({

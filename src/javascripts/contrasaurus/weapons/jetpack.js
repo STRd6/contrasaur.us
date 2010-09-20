@@ -1,8 +1,13 @@
 function Jetpack(I) {
-
   I = I || {};
 
-  var fireSprite = Animation.load("images/weapons/jetpack_fire.png", 4, 91, 89, 2);
+  var fireSprite = Animation.load({
+    url: "images/weapons/jetpack_fire.png",
+    frames: 4,
+    width: 91,
+    height: 89,
+    delay: 2
+  });
   var jetpackSprite = Sprite.load("images/weapons/jetpack.png");
 
   var acceleration = 0;

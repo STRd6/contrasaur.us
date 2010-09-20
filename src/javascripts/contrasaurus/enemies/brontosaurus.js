@@ -11,8 +11,45 @@ function Brontosaurus(I) {
   });
 
   var states = {
+    angry: State({
+      complete: function() {
+        I.currentState = states.attack;
+      },
+      duration: 18,
+      model: Model.loadJSONUrl("data/brontosaurus/angry.model.json"),
+      update: function() {
+        I.xVelocity = 0;
+      }
+    }),
+    attack: State({
+      complete: function() {
+        I.currentState = states.stand;
+      },
+      duration: 48,
+      model: Model.loadJSONUrl("data/brontosaurus/attack.model.json"),
+      update: function() {
+        I.xVelocity = 0;
+      }
+    }),
+    stand: State({
+      complete: function() {
+        I.currentState = states.angry;
+      },
+      duration: 12,
+      model: Model.loadJSONUrl("data/brontosaurus/stand.model.json"),
+      update: function() {
+        I.xVelocity = 0;
+      }
+    }),
     walk: State({
-      model: Model.loadJSONUrl("data/brontosaurus/walk.model.json")
+      complete: function() {
+        I.currentState = states.stand;
+      },
+      duration: 54,
+      model: Model.loadJSONUrl("data/brontosaurus/walk.model.json"),
+      update: function() {
+        I.xVelocity = -1;
+      }
     })
   };
 

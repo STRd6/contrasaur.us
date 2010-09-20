@@ -124,7 +124,11 @@
     return self;
   };
 
-  var Animation = function(frameData, delay) {
+  var Animation = function(options) {
+    var frameData = options.frameData;
+    var delay = options.delay;
+    var destinationOffset = options.destinationOffset || Point(0, 0);
+
     var count = 0;
     var currentFrame = 0;
     var frameCount = frameData.length;
@@ -132,7 +136,11 @@
 
     return {
       draw: function(canvas, x, y, options) {
-        frameData[currentFrame].draw(canvas, x, y, options);
+        frameData[currentFrame].draw(canvas, 
+          x + destinationOffset.x,
+          y + destinationOffset.y,
+          options
+        );
       },
 
       duration: function() {
@@ -163,9 +171,15 @@
     };
   };
 
-  Animation.load = function(url, frames, width, height, delay, proxy, callback) {
+  Animation.load = function(options, proxy, callback) {
     var img = new Image();
     proxy = proxy || LoaderProxy();
+
+    var url = options.url;
+    var frames = options.frames;
+    var delay = options.delay;
+    var width = options.width;
+    var height = options.height;
 
     proxy.width = width;
     proxy.height = height;
@@ -177,7 +191,11 @@
         frameData[i] = Sprite(img, i * width, 0, width, height);
       });
 
-      $.extend(proxy, Animation(frameData, delay));
+      $.extend(proxy, Animation({
+        delay: delay,
+        destinationOffset: options.destinationOffset,
+        frameData: frameData
+      }));
 
       if(callback) {
         callback(proxy);
@@ -203,7 +221,7 @@
       }
     };
 
-    Animation.load(data.url, data.frames, data.width, data.height, data.delay, proxy, animCallback);
+    Animation.load(data, proxy, animCallback);
 
     return proxy;
   };
@@ -244,5 +262,13 @@
     };
   };
 
-  window["loadAnimation"] = Animation.load;
+  window["loadAnimation"] = function(url, frames, width, height, delay) {
+    return Animation.load({
+      url: url,
+      frames: frames,
+      width: width,
+      height: height,
+      delay: delay
+    });
+  };
 })();
