@@ -2,7 +2,7 @@ function MissileLauncher(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    ammo: 200,
+    ammo: Infinity,
     attachment: "back",
     cooldown: 6,
     exitMode: "cycle",

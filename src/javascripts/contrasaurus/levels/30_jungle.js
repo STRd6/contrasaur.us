@@ -113,10 +113,19 @@ $(function() {
       generateEnemies(level);
     }
   }, {
-    at: 10,
+    at: 1000,
     event: function(level) {
       addGameObject(Crate({
         weaponClass: function() {return "jetpack";},
+        x: level.position().x + CANVAS_WIDTH,
+        y: 320
+      }));
+    }
+  }, {
+    at: 2000,
+    event: function(level) {
+      addGameObject(Crate({
+        weaponClass: MissileLauncher,
         x: level.position().x + CANVAS_WIDTH,
         y: 320
       }));
