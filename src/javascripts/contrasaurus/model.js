@@ -74,6 +74,15 @@ Model.loadJSONUrl = function(url, callback) {
     var model = Model(Animation.loadJSON(data.animation, null, animCallback), data.frames, data.hitFrames);
 
     $.extend(proxy, model);
+
+    if(data.animation.destinationOffset) {
+      $.each(proxy.frames, function(i, frame) {
+        $.each(frame.circles, function(j, circle) {
+          circle.x += data.animation.destinationOffset.x;
+          circle.y += data.animation.destinationOffset.y;
+        });
+      });
+    }
   });
 
   return proxy;
