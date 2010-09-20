@@ -125,16 +125,16 @@ function overlayUpdate(){
   if (dino.health() <= 0) {
     endGame();
 
-    var sortedHighScores = highScores.sort().reverse();
-
     var leaderDisplay = {
       draw: function(canvas) {
+        debugger;
+        highScores.sort().reverse();
         canvas.fill("rgba(0, 0, 0, 0.66)");
         canvas.fillColor("#FFF");
         canvas.centerText("ALL TIME LEADERS:", 200);
-        canvas.centerText(sortedHighScores[0][1] + ": " + sortedHighScores[0][0], 230);
-        canvas.centerText(sortedHighScores[1][1] + ": " + sortedHighScores[1][0], 260);
-        canvas.centerText(sortedHighScores[2][1] + ": " + sortedHighScores[2][0], 290);
+        canvas.centerText(highScores[0][1] + ": " + highScores[0][0], 230);
+        canvas.centerText(highScores[1][1] + ": " + highScores[1][0], 260);
+        canvas.centerText(highScores[2][1] + ": " + highScores[2][0], 290);
       }
     };
 
@@ -143,7 +143,6 @@ function overlayUpdate(){
 
     highScores = highScores.concat(playerCookieScores);
     createCookie("highScore", cookieScores.join(";"));
-    sortedHighScores = highScores.sort().reverse();
 
     leaderDisplay.draw(canvas);
   }
