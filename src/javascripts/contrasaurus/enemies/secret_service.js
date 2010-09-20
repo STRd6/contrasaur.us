@@ -73,10 +73,6 @@ function SecretService(I) {
     after: {
       update: function() {
         I.shootLogic = I.currentState.shootLogic();
-
-        if (I.onFire) {
-          self.flail();
-        }
       }
     }
   });

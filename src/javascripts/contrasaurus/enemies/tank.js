@@ -9,6 +9,9 @@ function Tank(I) {
   });
 
   $.reverseMerge(I, {
+    damageTable: {
+      fire: 0,
+    },
     health: 60,
     hitCircles: tankModel.hitFrames,
     maxShakeAmplitude: 7,

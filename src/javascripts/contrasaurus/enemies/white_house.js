@@ -6,6 +6,9 @@ function WhiteHouse(I) {
   var destroyedSprite = Sprite.load('images/levels/washington_dc/whiteHouse_destroyed.png');
 
   $.reverseMerge(I, {
+    damageTable: {
+      fire: 0.25,
+    },
     health: 1000,
     hitCircles: [
       { "x": -132, "y": 32, "radius": 140 },

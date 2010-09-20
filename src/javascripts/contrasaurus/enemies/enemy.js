@@ -5,6 +5,7 @@ function Enemy(I) {
     checkBounds: GameObject.generateCheckBounds(I, 100),
     collideDamage: 1,
     collisionType: "enemy",
+    damageTable: {},
     health: 3,
     nutrition: 0,
     onFire: false,
@@ -18,14 +19,20 @@ function Enemy(I) {
   });
 
   var self = GameObject(I).extend({
-    burn: function(flame) {
-      I.onFire = true;
-    },
-
     bulletHitEffect: Enemy.bloodSprayEffect,
 
     hit: function(other) {
-      I.health = I.health - other.collideDamage();
+      var damageFactor;
+
+      if(other.damageType) {
+        damageFactor = I.damageTable[other.damageType()]
+      }
+
+      if(damageFactor === undefined) {
+        damageFactor = 1;
+      }
+
+      I.health = I.health - other.collideDamage() * damageFactor;
 
       if (I.health <= 0) {
         self.destroy();
@@ -63,18 +70,6 @@ function Enemy(I) {
         I.shootLogic();
 
         I.checkBounds.apply(self, arguments);
-
-        if(I.onFire) {
-          I.health--;
-
-          if(Math.random() < 0.1) {
-            //Smoke/flame
-            addGameObject(Effect($.extend(self.position().add(Circle(0, 0, 5).randomPoint()), {
-              sprite: Sprite.load("images/effects/smoke.png"),
-              velocity: Point(0, 0)
-            })));
-          }
-        }
       }
     }
   });

@@ -77,10 +77,6 @@ function Soldier(I) {
       update: function() {
         I.shootLogic = I.currentState.shootLogic();
 
-        if (I.onFire) {
-          self.flail();
-        }
-
         if (I.airborne) {
           I.currentState = states.parasail;
         }

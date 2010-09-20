@@ -72,6 +72,7 @@ function Jetpack(I) {
         var p = dino.getTransform().transformPoint(Point(-20, 20).add(self.position()));
         var jetFlame = Bullet({
           collideDamage: 20,
+          damageType: "fire",
           effectCount: 0,
           duration: 1,
           radius: 20,

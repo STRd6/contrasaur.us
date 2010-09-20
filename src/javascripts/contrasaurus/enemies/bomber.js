@@ -16,6 +16,9 @@ function Bomber(I) {
 
   $.reverseMerge(I, {
     checkBounds: GameObject.generateCheckBounds(I, 200),
+    damageTable: {
+      fire: 0,
+    },
     health: 20,
     height: 44,
     pointsWorth: 5000,

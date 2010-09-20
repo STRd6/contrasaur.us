@@ -7,6 +7,9 @@ function Crate(I) {
   $.reverseMerge(I, {
     checkBounds: $.noop,
     collideDamage: 0,
+    damageTable: {
+      fire: 0.25
+    },
     health: 100,
     maxShakeAmplitude: 7,
     pointsWorth: 5000,

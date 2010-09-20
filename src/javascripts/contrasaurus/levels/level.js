@@ -98,11 +98,13 @@ function Level(I) {
     }
 
     delta = delta.clamp(-2 + prevDelta, 2 + prevDelta);
-    prevDelta = delta;
+
+    var oldPosition = position.x;
 
     position.x += delta;
-
     position.x = position.x.clamp(cameraLock.min, cameraLock.max);
+
+    prevDelta = position.x - oldPosition;
   }
 
   function getTransform() {
