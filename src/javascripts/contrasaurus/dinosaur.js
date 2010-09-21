@@ -344,6 +344,15 @@ function Dinosaur() {
       return jetpack;
     },
 
+    hit: function(other) {
+      I.health = I.health - other.collideDamage();
+
+      if (I.health <= 0) {
+        self.destroy();
+        addScore(I.pointsWorth);
+      }
+    },
+
     heal: heal,
 
     jetpackAngle: function(value) {
