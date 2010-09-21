@@ -3,6 +3,10 @@ function Control(character, keyDown) {
 
     "w up": function() {
       keyDown.up = true;
+
+      if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
+        character.transition(character.states().fly);
+      }
     },
 
     "t": function() {
@@ -13,15 +17,25 @@ function Control(character, keyDown) {
     "left a": function() {
       keyDown.left = true;
 
-      if (!character.airborne()) {
+      if (!character.airborne() && (character.currentState() !== character.states().bite)) {
         character.xVelocity(-6);
+        character.transition(character.states().walk);
+      } else {
+        if (!character.states().flyBite) {
+          character.transition(character.state().fly);
+        }
       }
     },
 
     "right d": function() {
       keyDown.right = true;
-      if (!character.airborne()) {
+      if (!character.airborne() && (character.currentState() !== character.states().bite)) {
         character.xVelocity(6);
+        character.transition(character.states().walk);
+      } else {
+        if (!character.states().flyBite) {
+          character.transition(character.state().fly);
+        }
       }
     },
 
@@ -32,6 +46,8 @@ function Control(character, keyDown) {
     "space": function() {
       keyDown.space = true;
       character.bite();
+
+      character.transition(character.states().bite);
     },
 
      "+": character.nextWeapon(),
@@ -53,6 +69,7 @@ function Control(character, keyDown) {
 
     if(!character.airborne()) {
       character.xVelocity(0);
+      character.transition(character.states().idle1);
     }
   });
 
@@ -60,6 +77,7 @@ function Control(character, keyDown) {
     keyDown.right = false;
     if(!character.airborne()) {
       character.xVelocity(0);
+      character.transition(character.states().idle1);
     }
   });
 

@@ -22,7 +22,7 @@ function Stateful(I) {
         self.drawHitCircles(canvas);
       }
     },
-    
+
     getCircles: function() {
       var self = this;
 
@@ -65,7 +65,13 @@ function Stateful(I) {
         };
       });
     },
-
+    transition: function(state) {
+      if (I.currentState.allowedTransitions) {
+        if (I.currentState.allowedTransitions.indexOf(state) > 0) {
+          I.currentState = state;
+        }
+      }
+    },
     before: {
       update: function() {
         I.currentState.update();

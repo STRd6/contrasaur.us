@@ -1,3 +1,4 @@
+
 var shooting = false;
 var secondaryShooting = false;
 
@@ -10,9 +11,6 @@ function Dinosaur() {
   var jetpackAngle = 0;
 
   var currentHealth = 0;
-  var cryCounter = 0;
-  var biteCounter = 0;
-  var idleCounter = 0;
 
   var parasailing = false;
   var boss = false;
@@ -36,7 +34,113 @@ function Dinosaur() {
 
   var parasailTile = Sprite.load("images/levels/parasail/sail.png");
 
-  var currentModel = standModel;
+  var states = {
+    bite: State({
+      complete: function() {
+        I.currentState = states.idle1;
+      },
+      duration: 24,
+      model: biteModel,
+      update: function() {
+        var bitePoint = states.bite.model.attachment("bite");
+        if(bitePoint.x != 0) {
+          var t = self.getTransform();
+          var p = t.transformPoint(bitePoint);
+
+          addGameObject(Bullet({
+            collideDamage: 10,
+            dispersion: 30,
+            effectCount: 5,
+            duration: 1,
+            radius: 30,
+            speed: 0,
+            sprite: Sprite.EMPTY,
+            x: p.x,
+            y: p.y
+          }).extend({
+            before: {
+              hit: function(other) {
+                if(other.bite) {
+                  other.bite();
+                }
+
+                if(other.nutrify) {
+                  other.nutrify(self);
+                }
+              }
+            }
+          }));
+        }
+      }
+    }),
+    fly: State({
+      model: flyModel
+    }),
+    flyBite: State({
+      complete: function() {
+        I.currentState = states.fly;
+      },
+      duration: 15,
+      model: flyBiteModel,
+      update: function() {
+        var bitePoint = states.flyBite.model.attachment("bite");
+        if(bitePoint.x != 0) {
+          var t = self.getTransform();
+          var p = t.transformPoint(bitePoint);
+
+          addGameObject(Bullet({
+            collideDamage: 10,
+            dispersion: 30,
+            effectCount: 5,
+            duration: 1,
+            radius: 30,
+            speed: 0,
+            sprite: Sprite.EMPTY,
+            x: p.x,
+            y: p.y
+          }).extend({
+            before: {
+              hit: function(other) {
+                if(other.bite) {
+                  other.bite();
+                }
+
+                if(other.nutrify) {
+                  other.nutrify(self);
+                  // put cry transition here
+                }
+              }
+            }
+          }));
+        }
+      }
+    }),
+    idle1: State({
+      model: idle1Model,
+      update: function() {
+        if (Math.random() < 0.01) {
+          I.currentState = states.idle2;
+        }
+      }
+    }),
+    idle2: State({
+      complete: function() {
+        I.currentState = states.idle1;
+      },
+      duration: 36,
+      model: idle2Model
+    }),
+    walk: State({
+      model: walkModel
+    })
+  };
+
+  states.bite.allowedTransitions = [states.idle1, states.walk];
+  states.fly.allowedTransitions = [states.flyBite, states.idle1, states.walk];
+  states.flyBite.allowedTransitions = [states.fly, states.idle1, states.walk];
+  states.idle1.allowedTransitions = [states.bite, states.fly, states.idle1, states.idle2, states.walk];
+  states.idle2.allowedTransitions = [states.bite, states.fly, states.idle1, states.walk];
+  states.walk.allowedTransitions = [states.bite, states.fly, states.idle1];
 
   var timeTravelling = false;
   var timeTravel = TimeTravel();
@@ -44,12 +148,11 @@ function Dinosaur() {
   var I = {
     collideDamage: 2,
     collisionType: "dino",
-    hitCircles: currentModel.hitFrames,
+    currentState: states.idle1,
     health: 500,
     radius: 72,
-    sprite: currentModel.animation,
     x: CANVAS_WIDTH / 2,
-    y: 150,
+    y: CANVAS_HEIGHT - Floor.LEVEL,
     xVelocity: 0,
     yVelocity: 6
   };
@@ -107,11 +210,6 @@ function Dinosaur() {
 
   function heal(amount) {
     I.health = (I.health + amount).clamp(0, healthMax);
-  }
-
-  function setModel(model) {
-    currentModel = model;
-    I.sprite = currentModel.animation;
   }
 
   function toss() {
@@ -188,15 +286,11 @@ function Dinosaur() {
     },
 
     bite: function() {
-      if (biteCounter <= 0) {
-        if(airborne) {
-          biteCounter = 15;
-        } else {
-          biteCounter = 24;
-        }
-
-        biteModel.animation.frame(0);
-        flyBiteModel.animation.frame(0);
+      if (airborne) {
+        I.currentState = states.flyBite;
+      } else {
+        I.currentState = states.bite;
+        I.xVelocity = 0;
       }
     },
 
@@ -222,6 +316,10 @@ function Dinosaur() {
       return weapons;
     },
 
+    currentState: function() {
+      return I.currentState;
+    },
+
     getTransform: function() {
       var transform;
 
@@ -242,54 +340,11 @@ function Dinosaur() {
       return transform.translate(I.x, I.y);
     },
 
+    hasJetpack: function() {
+      return jetpack;
+    },
+
     heal: heal,
-
-    hit: function(other) {
-      I.health = I.health - other.collideDamage();
-
-      if (I.health <= 0) {
-        self.destroy();
-        addScore(I.pointsWorth);
-      }
-    },
-
-    draw: function(canvas) {
-
-      canvas.withTransform(self.getTransform(), function() {
-        if(parasailing) {
-          parasailTile.draw(canvas, -150, -170);
-        }
-
-        if(I.sprite) {
-          I.sprite.draw(canvas,
-            -I.sprite.width/2,
-            -I.sprite.height/2
-          );
-        }
-
-        if(timeTravelling) {
-          canvas.withTransform(Matrix.scale(8, 8), function() {
-            timeTravel.draw(canvas, -I.sprite.width/16 - 5, -I.sprite.height/16 - 10);
-          });
-        }
-
-        $.each(accessories, function(i, accessory) {
-          accessory.attachment(currentModel);
-          accessory.draw(canvas);
-        });
-
-        $.each(weapons, function(i, weapon) {
-          if(!weapon.selectable() || weapon == selectedWeapon) {
-            weapon.attachment(currentModel);
-            weapon.draw(canvas);
-          }
-        });
-      });
-
-      if (GameObject.DEBUG_HIT) {
-        self.drawHitCircles(canvas);
-      }
-    },
 
     jetpackAngle: function(value) {
       if (value !== undefined) {
@@ -310,12 +365,17 @@ function Dinosaur() {
     },
 
     land: function(h) {
-      if(I.yVelocity >= 0) {
+      if (airborne) {
         I.y = h - (I.radius + 1);
         I.yVelocity = 0;
         airborne = false;
         jetpackOn = false;
         jetpackAngle = 0;
+        if (I.xVelocity != 0) {
+          self.transition(states.walk);
+        } else if (I.xVelocity == 0) {
+          self.transition(states.idle1);
+        }
       }
     },
 
@@ -338,6 +398,10 @@ function Dinosaur() {
     sink: $.noop,
 
     prevWeapon: prevWeapon,
+
+    states: function() {
+      return states;
+    },
 
     timeTravel: function(val) {
       timeTravelling = val;
@@ -374,10 +438,6 @@ function Dinosaur() {
           timeTravel.update();
         }
 
-        if(!airborne && (biteCounter > 0 || cryCounter > 0)) {
-          I.xVelocity = 0;
-        }
-
         if(I.xVelocity != 0) {
           lastDirection = I.xVelocity;
         }
@@ -387,53 +447,13 @@ function Dinosaur() {
     },
     after: {
       hit: function(other) {
-        if (I.health < currentHealth && !airborne && biteCounter <= 0) {
+        if (I.health < currentHealth && !airborne) {
           // No stun for now, not fun yet
+          // Add it for eating mutants and tanks with a stun proportional to their nutrition value
           //cryCounter += (currentHealth - I.health) / 2;
         }
       },
       update: function(levelPosition) {
-        // Choose correct animation and hitFrames
-
-        var t = self.getTransform();
-
-        if(biteCounter > 0) {
-          biteCounter--;
-
-          var bitePoint = currentModel.attachment("bite");
-          if(bitePoint.x != 0) {
-            var p = t.transformPoint(bitePoint);
-
-            addGameObject(Bullet({
-              collideDamage: 10,
-              dispersion: 30,
-              effectCount: 5,
-              duration: 1,
-              radius: 30,
-              speed: 0,
-              sprite: Sprite.EMPTY,
-              x: p.x,
-              y: p.y
-            }).extend({
-              before: {
-                hit: function(other) {
-                  if(other.bite) {
-                    other.bite();
-                  }
-
-                  if(other.nutrify) {
-                    other.nutrify(self);
-                  }
-                }
-              }
-            }));
-          }
-        }
-
-        if(cryCounter > 0) {
-          cryCounter--;
-        }
-
         // Flight velocities
         if(parasailing) {
           var yDisplacement = CANVAS_HEIGHT/2 - I.y;
@@ -446,48 +466,20 @@ function Dinosaur() {
           I.yVelocity += GRAVITY / 2;
         }
 
-        // TODO: Big mess-o-models... Maybe a state machine?
-        if (airborne) {
-          if(biteCounter > 0) {
-            setModel(flyBiteModel);
-          } else {
-            setModel(flyModel);
-          }
-        } else {
-          if (biteCounter > 0) {
-            setModel(biteModel);
-            idleCounter = 0;
-          } else if(cryCounter > 0) {
-            setModel(cryModel);
-            idleCounter = 0;
-          } else if(I.xVelocity != 0) {
-            setModel(walkModel);
-            idleCounter = 0;
-          } else {
-            if(idleCounter == 0) {
-              setModel(idle1Model);
-            } else if(Math.floor(idleCounter / 128) % 2 == 1) {
-              setModel(idle2Model);
-            } else {
-              setModel(idle1Model);
-            }
-
-            idleCounter++;
-          }
-        }
-
         I.y = I.y.clamp(0, CANVAS_HEIGHT);
+
+        dino.addJetpack();
 
         updateWeapons(levelPosition);
 
         // Stay in screen
-        if (I.x < levelPosition.x + width) {
-          I.x = levelPosition.x + width;
-        } else if (I.x > levelPosition.x + CANVAS_WIDTH - width) {
-          I.x = levelPosition.x + CANVAS_WIDTH - width;
+        if (I.x < levelPosition.x + I.radius) {
+          I.x = levelPosition.x + I.radius;
+          I.xVelocity = Math.abs(I.xVelocity);
+        } else if (I.x > levelPosition.x + CANVAS_WIDTH - I.radius) {
+          I.x = levelPosition.x + CANVAS_WIDTH - I.radius;
+          I.xVelocity = -Math.abs(I.xVelocity);
         }
-
-        I.hitCircles = currentModel.hitFrame();
       }
     }
   });
@@ -502,6 +494,45 @@ function Dinosaur() {
   }
 
   Control(self, keyDown);
+  self.extend(Stateful(I));
+
+  self.draw = function(canvas) {
+
+    canvas.withTransform(self.getTransform(), function() {
+      if(parasailing) {
+        parasailTile.draw(canvas, -150, -170);
+      }
+
+      if(I.currentState.sprite()) {
+        I.currentState.sprite().draw(canvas,
+          -I.currentState.sprite().width/2,
+          -I.currentState.sprite().height/2
+        );
+      }
+
+      if(timeTravelling) {
+        canvas.withTransform(Matrix.scale(8, 8), function() {
+          timeTravel.draw(canvas, -I.currentState.sprite().width/16 - 5, -I.currentState.sprite().height/16 - 10);
+        });
+      }
+
+      $.each(accessories, function(i, accessory) {
+        accessory.attachment(I.currentState.model);
+        accessory.draw(canvas);
+      });
+
+      $.each(weapons, function(i, weapon) {
+        if(!weapon.selectable() || weapon == selectedWeapon) {
+          weapon.attachment(I.currentState.model);
+          weapon.draw(canvas);
+        }
+      });
+    });
+
+    if (GameObject.DEBUG_HIT) {
+      self.drawHitCircles(canvas);
+    }
+  };
 
   return self;
 }

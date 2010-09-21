@@ -39,7 +39,7 @@ function Jetpack(I) {
         }
       });
 
-      if(dino.airborne()) {
+      if (dino.airborne()) {
         if (impulse.x < 0) {
           acceleration = -0.2;
           dino.jetpackAngle((dino.jetpackAngle() - Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
@@ -49,7 +49,10 @@ function Jetpack(I) {
         }
         dino.xVelocity((dino.xVelocity() + impulse.x + acceleration).clamp(-10, 10));
       }
-      dino.yVelocity((dino.yVelocity() + impulse.y).clamp(-10, 20));
+
+      if (dino.currentState() !== dino.states().bite) {
+        dino.yVelocity((dino.yVelocity() + impulse.y).clamp(-10, 20));
+      }
 
       if (impulse.y < 0) {
         if (dino.xVelocity() < 0) {
@@ -69,6 +72,7 @@ function Jetpack(I) {
         dino.jetpackOn(true);
       } else {
         dino.jetpackOn(false);
+        acceleration = 0;
       }
 
       fireSprite.update();

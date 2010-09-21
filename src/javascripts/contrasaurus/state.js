@@ -3,6 +3,7 @@ function State(I) {
 
   $.reverseMerge(I, {
     age: 0,
+    allowedTransitions: null,
     complete: $.noop,
     duration: 1,
     hitCircles: [],
