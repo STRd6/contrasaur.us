@@ -269,7 +269,13 @@
           "radius": 44
         }
       ],
-      "attachmentPoints": {}
+      "attachmentPoints": {
+        "boom": {
+          "x": -20,
+          "y": 180,
+          "direction": 0
+        }
+      }
     }
   ]
 }

@@ -6,6 +6,14 @@ function Stateful(I) {
   });
 
   return {
+    currentModel: function() {
+      if(I.currentState) {
+        return I.currentState.model;
+      } else {
+        return undefined;
+      }
+    },
+
     draw: function(canvas) {
       var self = this;
 

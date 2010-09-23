@@ -6,6 +6,26 @@ function Brontosaurus(I) {
     nutrition: 0,
     pointsWorth: 50000,
     radius: 90,
+    shootLogic: function() {
+      var currentModel = self.currentModel();
+      var boomPoint = currentModel.attachment("boom");
+
+      if(boomPoint.x != 0) {
+        var point = self.getTransform().transformPoint(boomPoint);
+
+        addGameObject(Bullet({
+          collideDamage: 15,
+          collisionType: "enemyBullet",
+          duration: 1,
+          radius: 100,
+          sprite: Sprite.EMPTY,
+          theta: 0,
+          velocity: 0,
+          x: point.x,
+          y: point.y
+        }));
+      }
+    },
     xVelocity: 0,
     y: CANVAS_HEIGHT - Floor.LEVEL
   });
@@ -35,7 +55,7 @@ function Brontosaurus(I) {
       complete: function() {
         I.currentState = states.angry;
       },
-      duration: 12,
+      duration: 40,
       model: Model.loadJSONUrl("data/brontosaurus/stand.model.json"),
       update: function() {
         I.xVelocity = 0;
