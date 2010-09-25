@@ -137,7 +137,12 @@ $(function() {
     }
   }];
 
-  addCutscene("", "He will be a great asset to us in assisting the Contras...", 4000);
+  addCutscene(
+    "images/levels/cutscenes/south_america.png",
+    "He will be a great asset to us in assisting the Contras...",
+    4000
+  );
+
   addLevel({
     scene: scene,
     objective: "obey",
