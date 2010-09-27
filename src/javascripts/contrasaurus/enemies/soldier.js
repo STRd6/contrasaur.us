@@ -5,7 +5,17 @@ function Soldier(I) {
   var shootModel = Model.loadJSONUrl("data/sandinista/shoot.model.json");
   var bitInHalfModel = Model.loadJSONUrl("data/sandinista/bit_in_half.model.json");
   var deathModel = Model.loadJSONUrl("data/sandinista/normal_death.model.json");
-  var parasailModel = Model.loadJSONUrl("data/parasoldier/parasoldier.model.json");
+  var parachuteFallModel = Model.loadJSONUrl("data/sandinista/parasoldier_fall.model.json");
+  var parachuteShootModel = Model.loadJSONUrl("data/sandinista/parasoldier_shoot.model.json");
+
+  var parachuteSprite = Animation.load({
+    url: "images/enemies/soldier_parachute.png",
+    frames: 4,
+    width: 76,
+    height: 41,
+    delay: 3
+  });
+
   var burningAnimation = Animation.load({
     url: "images/enemies/burning_man.png",
     frames: 20,
@@ -15,9 +25,42 @@ function Soldier(I) {
   });
 
   var states = {
-    parasail: State({
-      model: parasailModel,
-      shootLogic: $.noop
+    parachuteFall: State({
+      model: parachuteFallModel,
+      shootLogic: $.noop,
+      update: function() {
+        if (Math.random() < 0.03) {
+          I.currentState = states.parachuteShoot;
+        }
+      }
+    }),
+    parachuteShoot: State({
+      complete: function() {
+        I.currentState = states.parachuteFall;
+      },
+      duration: 12,
+      model: parachuteShootModel,
+      shootLogic: function() {
+        var t = self.getTransform();
+
+        var shootPoint = states.shoot.model.attachment("shot");
+        var direction = shootPoint.direction;
+
+        var p = t.transformPoint(shootPoint);
+
+        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+        var theta = Point.direction(Point(0,0), tmpPoint);
+
+        if(shootPoint.x != 0) {
+          addGameObject(Bullet({
+            collisionType: "enemyBullet",
+            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
+            theta: theta,
+            x: p.x - 15,
+            y: p.y + 4
+          }));
+        }
+      }
     }),
     shoot: State({
       complete: function() {
@@ -78,13 +121,13 @@ function Soldier(I) {
         I.currentState = states.run;
       }
     },
-
     after: {
       update: function() {
         I.shootLogic = I.currentState.shootLogic();
+        parachuteSprite.update();
 
-        if (I.airborne) {
-          I.currentState = states.parasail;
+        if (I.airborne && I.currentState !== states.parachuteShoot) {
+          I.currentState = states.parachuteFall;
         }
       }
     }
@@ -119,7 +162,7 @@ function Soldier(I) {
       y: I.y + yOffset
     }));
 
-    if(I.currentState === states.parasail) {
+    if(I.currentState === states.parachuteFall) {
       effect.extend({
         getTransform: GameObject.velocityGetTransform(effectI),
         before: {
@@ -141,6 +184,29 @@ function Soldier(I) {
   self.extend(Biteable(I));
   self.extend(Burnable(I));
   self.extend(Stateful(I));
+
+  self.draw = function(canvas) {
+    var self = this;
+
+    canvas.withTransform(self.getTransform(), function() {
+      if (I.currentState.sprite()) {
+        I.currentState.sprite().draw(canvas, -I.currentState.sprite().width/2, -I.currentState.sprite().height/2);
+      } else {
+        canvas.fillColor(I.color);
+        canvas.fillRect(-I.width/2, -I.height/2, I.width, I.height);
+      }
+    });
+
+    canvas.withTransform(self.getTransform(), function() {
+      if (I.airborne) {
+        parachuteSprite.draw(canvas, -I.currentState.sprite().width/2, -I.currentState.sprite().height/2 - 30);
+      }
+    });
+
+    if (GameObject.DEBUG_HIT) {
+      self.drawHitCircles(canvas);
+    }
+  }
 
   return self;
 }

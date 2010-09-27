@@ -73,6 +73,13 @@ function Dinosaur() {
         }
       }
     }),
+    cry: State({
+      complete: function() {
+        I.currentState = states.idle1;
+      },
+      duration: 12,
+      model: cryModel
+    }),
     fly: State({
       model: flyModel
     }),
@@ -107,7 +114,6 @@ function Dinosaur() {
 
                 if(other.nutrify) {
                   other.nutrify(self);
-                  // put cry transition here
                 }
               }
             }

@@ -7,7 +7,7 @@ function State(I) {
     complete: $.noop,
     duration: 1,
     hitCircles: [],
-    model: Model.loadJSONUrl("data/robo_reagan/kneel.model.json"),
+    model: null,
     shootLogic: $.noop,
     sprite: Sprite.EMPTY,
     update: $.noop

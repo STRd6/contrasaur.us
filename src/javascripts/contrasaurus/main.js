@@ -127,7 +127,6 @@ function overlayUpdate(){
 
     var leaderDisplay = {
       draw: function(canvas) {
-        debugger;
         highScores.sort().reverse();
         canvas.fill("rgba(0, 0, 0, 0.66)");
         canvas.fillColor("#FFF");
