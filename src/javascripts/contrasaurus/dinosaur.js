@@ -386,9 +386,10 @@ function Dinosaur() {
         airborne = false;
         jetpackOn = false;
         jetpackAngle = 0;
-        if (I.xVelocity != 0) {
+        if (I.xVelocity != 0 && (keyDown.left || keyDown.right)) {
           self.transition(states.walk);
-        } else if (I.xVelocity == 0) {
+        } else {
+          I.xVelocity = 0;
           self.transition(states.idle1);
         }
       }
