@@ -162,7 +162,7 @@ function Soldier(I) {
       y: I.y + yOffset
     }));
 
-    if(I.currentState === states.parachuteFall) {
+    if(I.airborne) {
       effect.extend({
         getTransform: GameObject.velocityGetTransform(effectI),
         before: {
