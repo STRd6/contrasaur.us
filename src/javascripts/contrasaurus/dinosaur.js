@@ -23,7 +23,6 @@ function Dinosaur() {
 
   var modelPath = "data/dinosaur/";
   var extension = ".model.json";
-  var standModel = Model.loadJSONUrl(modelPath + "stand" + extension);
   var walkModel = Model.loadJSONUrl(modelPath + "walk" + extension);
   var flyModel = Model.loadJSONUrl(modelPath + "fly" + extension);
   var biteModel = Model.loadJSONUrl(modelPath + "bite" + extension);
