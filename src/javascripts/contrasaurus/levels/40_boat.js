@@ -1,6 +1,6 @@
 $(function() {
   var imgPath = "images/levels/parasail/";
-  var levelVelocity = Point(-4, 0);
+  var levelVelocity = Point(-6, 0);
 
   var scene = Scene([
     {
@@ -77,7 +77,7 @@ $(function() {
       dino.parasailing(true);
 
       var boat = Boat({
-        x: 460,
+        x: 540,
         y: 285
       });
 
@@ -101,7 +101,7 @@ $(function() {
       level.addGameObject(Soldier({
         airborne: true,
         xVelocity: -3,
-        x: level.position().x + rand(CANVAS_WIDTH - CANVAS_WIDTH/2) + CANVAS_WIDTH/2,
+        x: level.position().x + CANVAS_WIDTH + 20,
         y: -20,
         yVelocity: 2
       }));

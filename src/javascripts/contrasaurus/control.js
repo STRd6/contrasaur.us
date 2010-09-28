@@ -29,6 +29,7 @@ function Control(character, keyDown) {
 
     "right d": function() {
       keyDown.right = true;
+
       if (!character.airborne() && (character.currentState() !== character.states().bite)) {
         character.xVelocity(6);
         character.transition(character.states().walk);

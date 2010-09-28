@@ -277,8 +277,6 @@ function Dinosaur() {
 
       Sound.play("reload");
 
-      shooting = false;
-      secondaryShooting = false;
       showCrosshair = true;
     },
 
@@ -399,7 +397,7 @@ function Dinosaur() {
     parasailing: function(newValue) {
       if(newValue != undefined) {
         parasailing = newValue;
-        if(parasailing == true) {
+        if(parasailing) {
           I.x = (CANVAS_WIDTH - width) / 2 - 100;
           I.y = 200;
           airborne = true;
@@ -471,17 +469,29 @@ function Dinosaur() {
       update: function(levelPosition) {
         // Flight velocities
         if(parasailing) {
-          var yDisplacement = CANVAS_HEIGHT/2 - I.y;
+          I.yVelocity = 0;
+          I.xVelocity = 3;
 
-          I.xVelocity = 6;
-          I.yVelocity = Math.cos(I.age/2) + 0.01*yDisplacement;
+          if(keyDown.down) {
+            I.y += 6;
+          }
+          if(keyDown.up) {
+            I.y -= 6;
+          }
+          if(keyDown.left) {
+            I.xVelocity = 1;
+          }
+          if(keyDown.right) {
+            I.xVelocity = 5;
+          }
+
         } else if(airborne && !jetpackOn) {
           I.yVelocity += GRAVITY * 3;
         } else if(airborne && jetpackOn) {
           I.yVelocity += GRAVITY / 2;
         }
 
-        I.y = I.y.clamp(0, CANVAS_HEIGHT);
+        I.y = I.y.clamp(30, CANVAS_HEIGHT);
 
         dino.addJetpack();
 
