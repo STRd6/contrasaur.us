@@ -82,30 +82,34 @@ function Level(I) {
   }
 
   function trackDino() {
-    var dinoVelocity = dino.velocity();
-    var dinoPosition = dino.position();
+    if(dino.parasailing()) {
+      position.x += 4;
+    } else {
+      var dinoVelocity = dino.velocity();
+      var dinoPosition = dino.position();
 
-    var weightedX = dinoPosition.x + (1.25 * dinoVelocity.x * dinoVelocity.x * dinoVelocity.x.sign());
+      var weightedX = dinoPosition.x + (1.25 * dinoVelocity.x * dinoVelocity.x * dinoVelocity.x.sign());
 
-    var wiggle = 80;
-    var screenCenterX = position.x + CANVAS_WIDTH / 2;
+      var wiggle = 80;
+      var screenCenterX = position.x + CANVAS_WIDTH / 2;
 
-    var delta = 0;
+      var delta = 0;
 
-    if(weightedX > screenCenterX + wiggle) {
-      delta = ((weightedX - wiggle) - CANVAS_WIDTH / 2) - position.x;
-    } else if(weightedX < screenCenterX - wiggle) {
-      delta = (weightedX + wiggle) - CANVAS_WIDTH / 2 - position.x;
+      if(weightedX > screenCenterX + wiggle) {
+        delta = ((weightedX - wiggle) - CANVAS_WIDTH / 2) - position.x;
+      } else if(weightedX < screenCenterX - wiggle) {
+        delta = (weightedX + wiggle) - CANVAS_WIDTH / 2 - position.x;
+      }
+
+      delta = delta.clamp(-2 + prevDelta, 2 + prevDelta);
+
+      var oldPosition = position.x;
+
+      position.x += delta;
+      position.x = position.x.clamp(cameraLock.min, cameraLock.max);
+
+      prevDelta = position.x - oldPosition;
     }
-
-    delta = delta.clamp(-2 + prevDelta, 2 + prevDelta);
-
-    var oldPosition = position.x;
-
-    position.x += delta;
-    position.x = position.x.clamp(cameraLock.min, cameraLock.max);
-
-    prevDelta = position.x - oldPosition;
   }
 
   function getTransform() {

@@ -327,8 +327,13 @@ function Dinosaur() {
       var transform;
 
       if (parasailing || I.xVelocity > 0 || lastDirection > 0) {
+        var rotationAngle = jetpackAngle;
+        if(parasailing) {
+          rotationAngle = rotationAngle + Math.PI / 24;
+        }
+
         if (airborne) {
-          transform = Matrix.rotation(jetpackAngle).concat(Matrix.IDENTITY);
+          transform = Matrix.rotation(rotationAngle).concat(Matrix.IDENTITY);
         } else {
           transform = Matrix.IDENTITY;
         }
@@ -470,7 +475,7 @@ function Dinosaur() {
         // Flight velocities
         if(parasailing) {
           I.yVelocity = 0;
-          I.xVelocity = 3;
+          I.xVelocity = 4;
 
           if(keyDown.down) {
             I.y += 6;
@@ -479,10 +484,10 @@ function Dinosaur() {
             I.y -= 6;
           }
           if(keyDown.left) {
-            I.xVelocity = 1;
+            I.xVelocity = 0;
           }
           if(keyDown.right) {
-            I.xVelocity = 5;
+            I.xVelocity = 10;
           }
 
         } else if(airborne && !jetpackOn) {

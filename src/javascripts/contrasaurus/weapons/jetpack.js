@@ -40,13 +40,20 @@ function Jetpack(I) {
       });
 
       if (dino.airborne()) {
+        var jetpackAngle = dino.jetpackAngle();
+        if(jetpackAngle != 0) {
+          jetpackAngle = jetpackAngle * 0.95;
+        }
+
         if (impulse.x < 0) {
           acceleration = -0.2;
-          dino.jetpackAngle((dino.jetpackAngle() - Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+          jetpackAngle = (jetpackAngle - Math.PI/256).clamp(-Math.PI/12, Math.PI/12);
         } else if (impulse.x > 0) {
           acceleration = 0.2
-          dino.jetpackAngle((dino.jetpackAngle() + Math.PI/256).clamp(-Math.PI/12, Math.PI/12));
+          jetpackAngle = (jetpackAngle + Math.PI/256).clamp(-Math.PI/12, Math.PI/12);
         }
+
+        dino.jetpackAngle(jetpackAngle);
         dino.xVelocity((dino.xVelocity() + impulse.x + acceleration).clamp(-10, 10));
       }
 

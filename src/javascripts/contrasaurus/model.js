@@ -59,6 +59,9 @@ function Model(animation, frames, hitFrames) {
  */
 Model.loadJSONUrl = function(url, callback) {
   var proxy = {
+    hitFrame: function() {
+      return [];
+    },
     hitFrames: $.noop,
     update: $.noop,
     url: url
