@@ -12,10 +12,16 @@ function Ramp(I) {
 
   var self = Enemy(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
-    
+
     crush: function() {
       I.active = false;
       //TODO Debris
+    },
+
+    getTransform: function() {
+      var t = Matrix.IDENTITY;
+
+      return t.translate(I.x, I.y);
     },
 
     sink: $.noop,
