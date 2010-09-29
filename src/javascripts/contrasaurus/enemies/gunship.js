@@ -2,6 +2,7 @@ function Gunship(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    components: [],
     health: 2000,
     hFlip: false,
     x: 550,
@@ -9,7 +10,8 @@ function Gunship(I) {
     y: 240
   });
 
-  var shipModel = Model.loadJSONUrl("data/gunship/ship.model.json");
+  var shipModel = Model.loadJSONUrl("data/gunship/hull.model.json");
+  var lob1Model = Model.loadJSONUrl("data/gunship/lob1.model.json");
 
   var states = {
     attack: State({
@@ -19,12 +21,60 @@ function Gunship(I) {
       }
     })
   };
+  
+  function ShipComponent(I) {
+    I = I || {};
 
-  var boatTarget = Point(I.x, I.y);
+    $.reverseMerge(I, {
+      //TODO: Load exit points from model
+      exitPoints: [Point(0, 0)]
+    });
+    
+    var self = GameObject(I).extend({
+      getCircles: function() {
+        return I.model.hitFrame();
+      },
+
+      shoot: function(transform) {
+        var netTransform = transform.concat(self.getTransform());
+
+        $.each(I.exitPoints, function(i, exitPoint) {
+          var levelPosition = netTransform.transformPoint(exitPoint);
+
+          addGameObject(Bullet({
+            collisionType: "enemyBullet",
+            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
+            theta: Math.PI,
+            x: levelPosition.x,
+            y: levelPosition.y
+          }));
+        });
+      },
+
+      before: {
+        update: function() {
+          I.sprite = I.model.animation;
+        }
+      }
+    });
+    
+    return self;
+  }
+
+  I.components.push(ShipComponent({
+    model: lob1Model,
+    y: -90
+  }));
+
+  var boatTarget = Point(I.x - 25, I.y);
   I.currentState = states.attack;
 
   var self = Boss(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
+
+    components: function() {
+      return I.components;
+    },
 
     getTransform: function() {
       return Matrix.translation(I.x, I.y);
@@ -33,11 +83,29 @@ function Gunship(I) {
     before: {
       update: function(position) {
         I.x = position.x + boatTarget.x + 20 * Math.sin(I.age/20);
+
+        I.components.each(function(component) {
+          component.update();
+          //TODO: Shoot in a sequence, not constantly
+          component.shoot(self.getTransform());
+        });
       }
     }
   });
 
   self.extend(Stateful(I));
+
+  self.extend({
+    after: {
+      draw: function(canvas) {
+        canvas.withTransform(self.getTransform(), function() {
+          $.each(I.components, function(i, component) {
+            component.draw(canvas);
+          });
+        });
+      }
+    }
+  });
 
   self.bind('destroy', function() {
     addGameObject(EffectGenerator($.extend(self.position(), {

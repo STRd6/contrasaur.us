@@ -50,6 +50,32 @@ Array.prototype.remove = function(object) {
 };
 
 /**
+ * Call the given iterator once for each element in the array,
+ * passing in the element as the first argument, the index of
+ * the element as the second argument, and this array as the
+ * third argument.
+ *
+ * @param {Function} iterator Function to be called once for
+ * each element in the array.
+ * @param {Object} [context] Optional context parameter to be
+ * used as `this` when calling the iterator function.
+ *
+ * @returns `this` to enable method chaining.
+ */
+Array.prototype.each = function(iterator, context) {
+  if(this.forEach) {
+    this.forEach(iterator, context);
+  } else {
+    var len = this.length;
+    for(var i = 0; i < len; i++) {
+      iterator.call(context, this[i], i, this);
+    }
+  }
+
+  return this;
+};
+
+/**
  * A mod method useful for array wrapping. The range of the function is
  * constrained to remain in bounds of array indices.
  *

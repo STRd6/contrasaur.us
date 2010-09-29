@@ -1,0 +1,26 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 68,
+    "width": 230,
+    "url": "images/enemies/gunboat/lob1.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 79,
+          "y": 17,
+          "radius": 17
+        },
+        {
+          "x": 94,
+          "y": 16,
+          "radius": 18
+        }
+      ]
+    }
+  ]
+}
