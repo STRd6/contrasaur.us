@@ -204,7 +204,6 @@ function eraseCookie(name) {
 }
 
 $(function() {
-  var doctorAvatar = Sprite.load("images/doctor.png");
 
   dino = Dinosaur();
   healthBar = ProgressBar({
