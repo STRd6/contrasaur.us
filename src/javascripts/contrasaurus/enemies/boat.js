@@ -61,18 +61,14 @@ function Boat(I) {
           I.y = position.y + boatTarget.y + 5 * Math.sin(I.age/13);
         }
 
-        if(I.health < maxHealth / 2) {
-          I.onFire = true;
-        }
-
-        if(I.onFire && Math.random() < 0.4) {
+        if((I.health < maxHealth / 2) && (Math.random() < 0.4)) {
           //Smoke/flame
           var smokePosition = Point(
-            self.position().x - 80 - rand(20),
-            self.position().y + 20
+            I.x - 80 - rand(20),
+            I.y + 20
           );
 
-          addGameObject(Effect($.extend(smokePosition.add(Circle(-400, 0, 5).randomPoint()), {
+          addGameObject(Effect($.extend(smokePosition.add(Circle(0, 0, 5).randomPoint()), {
             sprite: Sprite.load("images/effects/smoke.png"),
             velocity: Point(0, 0)
           })));
