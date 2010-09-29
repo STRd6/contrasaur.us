@@ -99,7 +99,7 @@ $(function() {
               level.complete();
             });
           });
-          
+
           level.addGameObject(roboReagan);
         });
 
@@ -111,6 +111,18 @@ $(function() {
       generateEnemies(level);
     }
   }];
+
+  addCutscene(
+    "images/levels/cutscenes/hero_ceremony.png",
+    "To Contrasaur, the greatest of American heros, for his valiant work in Nicaragua",
+    3000
+  );
+
+  addCutscene(
+    "",
+    "Later that night...",
+    1000
+  );
 
   addCutscene(
     "images/levels/cutscenes/lincoln_memorial.png",
