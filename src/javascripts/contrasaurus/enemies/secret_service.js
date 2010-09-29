@@ -48,21 +48,29 @@ function SecretService(I) {
         I.currentState = states.shoot;
       },
       duration: 24,
-      model: runModel
-    })//,
-    // stand: State({
-    //   complete: function() {
-    //     I.currentState = states.run;
-    //     I.xVelocity = -2;
-    //   },
-    //   duration: 64,
-    //   model: standModel,
-    //   shootLogic: $.noop,
-    //   update: function() {
-    //     I.currentState.sprite(I.currentState.sprite().frame(0));
-    //     I.xVelocity = 0;
-    //   }
-    // })
+      model: runModel,
+      update: function() {
+        if (Math.random() < 0.001) {
+          I.currentState = states.stand;
+        }
+      }
+    }),
+    stand: State({
+      complete: function() {
+        I.currentState = states.run;
+        I.xVelocity = -2;
+        addGameObject(Tank({
+          xVelocity: -0.5,
+          x: currentLevel.position().x + CANVAS_WIDTH + 20
+        }));
+      },
+      duration: 60,
+      model: standModel,
+      shootLogic: $.noop,
+      update: function() {
+        I.xVelocity = 0;
+      }
+    })
   };
 
   $.reverseMerge(I, {
