@@ -120,8 +120,23 @@ $(function() {
   }, {
     at: 2000,
     event: function(level) {
-      level.complete();
-      dino.parasailing(false);
+      var gunship = Gunship();
+      level.addGameObject(gunship);
+
+      dino.boss(gunship);
+
+      gunship.bind("destroy", function() {
+        level.after(140, function() {
+          level.fadeOut(10);
+        });
+
+        level.after(150, function() {
+          level.complete();
+
+          dino.boss(false);
+          dino.parasailing(false);
+        });
+      });
     }
   }];
 

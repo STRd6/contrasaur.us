@@ -22,6 +22,8 @@ function Boss(I) {
       return healthBar;
     },
 
+    sink: $.noop,
+
     after: {
       update: function() {
         if(healthBar) {
