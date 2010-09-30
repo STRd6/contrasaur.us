@@ -1,6 +1,9 @@
 function Cutscene(imageURL, text, duration, avatar, completedCallback) {
   var imageTile = Sprite.load(imageURL);
-  var dialogBox = DialogBox(text, {avatar: avatar});
+  var dialogBox = DialogBox({
+    text: text,
+    avatar: avatar
+  });
   var stopped = true;
   var intervalId;
 
@@ -15,6 +18,7 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
 
     draw: function(canvas) {
       imageTile.draw(canvas, (canvas.width() - imageTile.width)/2, 0);
+      dialogBox.update();
       dialogBox.draw(canvas);
     },
 

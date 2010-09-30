@@ -189,11 +189,10 @@ function Soldier(I) {
     var self = this;
 
     canvas.withTransform(self.getTransform(), function() {
-      if (I.currentState.sprite()) {
+      if (I.currentState.sprite() && I.currentState.sprite() !== Sprite.EMPTY) {
         I.currentState.sprite().draw(canvas, -I.currentState.sprite().width/2, -I.currentState.sprite().height/2);
       } else {
-        canvas.fillColor(I.color);
-        canvas.fillRect(-I.width/2, -I.height/2, I.width, I.height);
+        console.log("no soldier sprite")
       }
     });
 

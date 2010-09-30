@@ -68,13 +68,13 @@ $(function() {
     });
 
     addCrate(MachineGun, function() {
-      level.dialog(DialogBox("No weapon in the arsenals of the world is so formidable as a tyrannosaurus rex with a machine gun.", {
-        avatar: reaganAvatar,
-        avatarWidth: 100
+      level.dialog(DialogBox({
+        text: "No weapon in the arsenals of the world is so formidable as a tyrannosaurus rex with a machine gun.",
+        avatar: reaganAvatar
       }), 150);
 
       level.after(220, function() {
-        level.dialog(DialogBox("Aim with the mouse. Left click to fire weapons"), 90);
+        level.dialog(DialogBox({ text: "Aim with the mouse. Left click to fire weapons" }), 90);
       });
     });
   }
@@ -91,17 +91,17 @@ $(function() {
     });
 
     addCrate(Flamethrower, function() {
-      level.dialog(DialogBox("FLAME JAW!", {
+      level.dialog(DialogBox({
         avatar: reaganAvatar,
-        avatarWidth: 100
+        text: "FLAME JAW!"
       }), 150);
     });
   }
 
   function chainsawTrial(level) {
-    level.dialog(DialogBox("Release the abominations!", {
+    level.dialog(DialogBox({
       avatar: reaganAvatar,
-      avatarWidth: 100
+      text: "Release the abominations!"
     }), 100);
 
     level.after(30, function() {
@@ -121,9 +121,9 @@ $(function() {
     });
 
     addCrate(Chainsaw, function() {
-      level.dialog(DialogBox("CH-CH-CH-CH-CHAINSAW!", {
+      level.dialog(DialogBox({
         avatar: reaganAvatar,
-        avatarWidth: 100
+        text: "CH-CH-CH-CH-CHAINSAW!"
       }), 150);
     });
   }

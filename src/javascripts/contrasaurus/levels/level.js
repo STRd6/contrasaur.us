@@ -143,6 +143,9 @@ function Level(I) {
     }
 
     if(displayDialog) {
+      if (displayDialog.update) {
+        displayDialog.update();
+      }
       displayDialog.draw(canvas);
     }
 

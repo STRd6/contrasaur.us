@@ -164,7 +164,9 @@ $(function() {
     }
   }];
 
-  var pressDownToChomp = DialogBox("Press space to CHOMP!");
+  var pressDownToChomp = DialogBox({
+    text: "Press space to CHOMP!"
+  });
 
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago...", 3000);
   var level = addLevel({
@@ -179,6 +181,7 @@ $(function() {
 
   level.bind("afterStep", function(level) {
     if (level.age() > 300 && level.age() < 500) {
+      pressDownToChomp.update();
       pressDownToChomp.draw(canvas);
     }
   });

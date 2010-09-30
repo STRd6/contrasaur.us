@@ -134,9 +134,9 @@ $(function() {
 
   var roboreaganAvatar = Sprite.load("images/avatars/roboreagan.png");
 
-  var roboreaganDialog = DialogBox("You have only seen 1% of my true power", {
+  var roboreaganDialog = DialogBox({
     avatar: roboreaganAvatar,
-    avatarWidth: 100
+    text: "You have only seen 1% of my true power"
   });
 
   var level = addLevel({
