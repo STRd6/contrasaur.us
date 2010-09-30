@@ -18,7 +18,7 @@ function Control(character, keyDown) {
       keyDown.left = true;
 
       if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-        character.xVelocity(-6);
+        character.xVelocity(-WALK_VELOCITY);
         character.transition(character.states().walk);
       } else {
         if (!character.states().flyBite) {
@@ -31,7 +31,7 @@ function Control(character, keyDown) {
       keyDown.right = true;
 
       if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-        character.xVelocity(6);
+        character.xVelocity(WALK_VELOCITY);
         character.transition(character.states().walk);
       } else {
         if (!character.states().flyBite) {

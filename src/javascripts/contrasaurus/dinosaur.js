@@ -1,3 +1,4 @@
+var WALK_VELOCITY = 6;
 
 var shooting = false;
 var secondaryShooting = false;
@@ -136,7 +137,12 @@ function Dinosaur() {
       model: idle2Model
     }),
     walk: State({
-      model: walkModel
+      model: walkModel,
+      update: function() {
+        if (I.xVelocity > WALK_VELOCITY) {
+          I.xVelocity = (I.xVelocity - 0.2).clamp(WALK_VELOCITY, I.xVelocity);
+        }
+      }
     })
   };
 
@@ -452,6 +458,8 @@ function Dinosaur() {
     },
     before: {
       update: function() {
+        console.log(I.xVelocity);
+
         if(timeTravelling) {
           timeTravel.update();
         }
