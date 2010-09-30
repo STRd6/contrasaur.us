@@ -27,7 +27,7 @@ function Brontosaurus(I) {
       }
     },
     xVelocity: 0,
-    y: CANVAS_HEIGHT - Floor.LEVEL
+    y: 170
   });
 
   var states = {

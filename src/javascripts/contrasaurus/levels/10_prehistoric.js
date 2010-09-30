@@ -140,8 +140,7 @@ $(function() {
     at: 1200,
     event: function(level) {
       brontosaurus = Brontosaurus({
-        x: level.position().x + CANVAS_WIDTH + 160,
-        y: 170
+        x: level.position().x + CANVAS_WIDTH + 160
       });
 
       brontosaurus.bind('destroy', function() {

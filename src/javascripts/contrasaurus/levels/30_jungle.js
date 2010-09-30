@@ -73,7 +73,6 @@ $(function() {
 
     if (Math.random() < 0.01) {
       level.addGameObject(Tank({
-        xVelocity: -0.5,
         x: level.position().x + CANVAS_WIDTH + 20
       }));
     }

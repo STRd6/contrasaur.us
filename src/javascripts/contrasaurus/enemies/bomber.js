@@ -56,7 +56,6 @@ function Bomber(I) {
     addGameObject(Grenade({
       collideDamage: 10,
       collisionType: "dinoBullet",
-      hFlip: I.hFlip,
       rotationalVelocity: Math.random() * Math.PI / 12,
       sprite: I.sprite,
       x: I.x,

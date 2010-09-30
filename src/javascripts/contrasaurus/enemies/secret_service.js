@@ -61,12 +61,9 @@ function SecretService(I) {
         I.xVelocity = -2;
         addGameObject([
           Tank({
-            xVelocity: -0.5,
             x: currentLevel.position().x + CANVAS_WIDTH + 40
           }),
           Fighter({
-            airborne: true,
-            hFlip: true,
             xVelocity: -3,
             x: currentLevel.position().x + CANVAS_WIDTH + 40,
             y: 60,
