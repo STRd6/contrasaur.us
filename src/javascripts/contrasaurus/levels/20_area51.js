@@ -131,6 +131,15 @@ $(function() {
   var floor = Floor({sprite: Sprite.EMPTY});
 
   var triggers = [{
+      at: 0,
+      event: function(level) {
+        level.addGameObject(GameObject({
+          sprite: Sprite.load("images/teleporter.png"),
+          x: 300,
+          y: 300
+        }));
+      }
+  }, {
     at: 60,
     event: function() {
       dino.timeTravel(false);
