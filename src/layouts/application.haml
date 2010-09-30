@@ -10,6 +10,8 @@
 
     = javascripts("contrasaurus")
 
+    = partial 'analytics'
+
   %body
     = yield
     .clear
@@ -39,5 +41,3 @@
           document.getElementById('fb-root').appendChild(e);
         }());
       </script>
-
-    = partial 'analytics'
