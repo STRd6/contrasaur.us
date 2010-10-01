@@ -180,7 +180,7 @@ function Dinosaur() {
 
   var accessories = [];
 
-  var lastDirection = 0;
+  var lastDirection = 1;
   var healthMax = I.health;
 
   function nextWeapon() {
