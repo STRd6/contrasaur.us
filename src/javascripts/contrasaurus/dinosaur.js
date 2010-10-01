@@ -37,7 +37,13 @@ function Dinosaur() {
   var states = {
     bite: State({
       complete: function() {
-        I.currentState = states.idle1;
+        if (I.poisoned) {
+          I.poisoned = false;
+          I.currentState = states.cry;
+        } else {
+          I.currentState = states.idle1;
+        }
+
       },
       duration: 24,
       model: biteModel,
@@ -77,8 +83,11 @@ function Dinosaur() {
       complete: function() {
         I.currentState = states.idle1;
       },
-      duration: 12,
-      model: cryModel
+      duration: 16,
+      model: cryModel,
+      update: function() {
+        I.xVelocity = 0;
+      }
     }),
     fly: State({
       model: flyModel
@@ -147,7 +156,7 @@ function Dinosaur() {
   };
 
   states.bite.allowedTransitions = [states.idle1, states.walk];
-  states.fly.allowedTransitions = [states.flyBite, states.idle1, states.walk];
+  states.fly.allowedTransitions = [states.flyBite, states.cry, states.idle1, states.walk];
   states.flyBite.allowedTransitions = [states.fly, states.idle1, states.walk];
   states.idle1.allowedTransitions = [states.bite, states.fly, states.idle1, states.idle2, states.walk];
   states.idle2.allowedTransitions = [states.bite, states.fly, states.idle1, states.walk];
@@ -161,6 +170,7 @@ function Dinosaur() {
     collisionType: "dino",
     currentState: states.idle1,
     health: 500,
+    poisoned: false,
     radius: 72,
     x: CANVAS_WIDTH / 2,
     y: CANVAS_HEIGHT - Floor.LEVEL,
@@ -421,6 +431,10 @@ function Dinosaur() {
 
     sink: $.noop,
 
+    poison: function() {
+      I.poisoned = true;
+    },
+
     prevWeapon: prevWeapon,
 
     states: function() {
@@ -470,13 +484,6 @@ function Dinosaur() {
       }
     },
     after: {
-      hit: function(other) {
-        if (I.health < currentHealth && !airborne) {
-          // No stun for now, not fun yet
-          // Add it for eating mutants and tanks with a stun proportional to their nutrition value
-          //cryCounter += (currentHealth - I.health) / 2;
-        }
-      },
       update: function(levelPosition) {
         // Flight velocities
         if(parasailing) {

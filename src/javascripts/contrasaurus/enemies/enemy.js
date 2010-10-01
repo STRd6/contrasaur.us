@@ -62,6 +62,9 @@ function Enemy(I) {
     },
 
     nutrify: function(other) {
+      if (I.nutrition < 0) {
+        other.poison();
+      }
       other.heal(I.nutrition);
     },
 
