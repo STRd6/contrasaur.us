@@ -17,7 +17,9 @@ function State(I) {
     hitCircles: function() {
       return I.hitCircles;
     },
-    model: I.model,
+    model: function() {
+      return I.model;
+    },
     shootLogic: function() {
       return I.shootLogic;
     },

@@ -8,7 +8,7 @@ function Stateful(I) {
   return {
     currentModel: function() {
       if(I.currentState) {
-        return I.currentState.model;
+        return I.currentState.model();
       } else {
         return undefined;
       }

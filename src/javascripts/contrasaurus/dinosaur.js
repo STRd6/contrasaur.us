@@ -42,7 +42,7 @@ function Dinosaur() {
       duration: 24,
       model: biteModel,
       update: function() {
-        var bitePoint = states.bite.model.attachment("bite");
+        var bitePoint = states.bite.model().attachment("bite");
         if(bitePoint.x != 0) {
           var t = self.getTransform();
           var p = t.transformPoint(bitePoint);
@@ -90,7 +90,7 @@ function Dinosaur() {
       duration: 15,
       model: flyBiteModel,
       update: function() {
-        var bitePoint = states.flyBite.model.attachment("bite");
+        var bitePoint = states.flyBite.model().attachment("bite");
         if(bitePoint.x != 0) {
           var t = self.getTransform();
           var p = t.transformPoint(bitePoint);
@@ -458,8 +458,6 @@ function Dinosaur() {
     },
     before: {
       update: function() {
-        console.log(I.xVelocity);
-
         if(timeTravelling) {
           timeTravel.update();
         }
@@ -557,13 +555,13 @@ function Dinosaur() {
       }
 
       $.each(accessories, function(i, accessory) {
-        accessory.attachment(I.currentState.model);
+        accessory.attachment(I.currentState.model());
         accessory.draw(canvas);
       });
 
       $.each(weapons, function(i, weapon) {
         if(!weapon.selectable() || weapon == selectedWeapon) {
-          weapon.attachment(I.currentState.model);
+          weapon.attachment(I.currentState.model());
           weapon.draw(canvas);
         }
       });
