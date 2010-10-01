@@ -1,0 +1,131 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 8,
+    "height": 63,
+    "width": 70,
+    "url": "images/enemies/commando/commando_run.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -13,
+          "y": -2,
+          "radius": 12
+        },
+        {
+          "x": -21,
+          "y": 20,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

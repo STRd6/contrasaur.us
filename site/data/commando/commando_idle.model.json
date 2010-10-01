@@ -1,0 +1,86 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 5,
+    "height": 63,
+    "width": 70,
+    "url": "images/enemies/commando/commando_idle.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -20,
+          "y": -4,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 17,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -20,
+          "y": -4,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 17,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -20,
+          "y": -4,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 17,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -20,
+          "y": -4,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 17,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -20,
+          "y": -4,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 17,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}
