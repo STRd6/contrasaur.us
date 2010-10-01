@@ -16,7 +16,7 @@ function Fighter(I) {
         // Shoot
         addGameObject(Bullet($.extend(self.position(), {
           collisionType: "enemyBullet",
-          sprite: Sprite.load("images/effects/enemybullet1_small.png"),
+          sprite: Sprite.load("images/projectiles/plane_bullet.png"),
           theta: shootAngle
         })));
       }

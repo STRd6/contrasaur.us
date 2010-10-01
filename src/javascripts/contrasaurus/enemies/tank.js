@@ -27,7 +27,7 @@ function Tank(I) {
         self.shoot(gunAngle, {
           x: p.x,
           y: p.y,
-          sprite: Sprite.load("images/projectiles/blast_small.png"),
+          sprite: Sprite.load("images/projectiles/tank_shell.png"),
           collideDamage: 7
         });
       }

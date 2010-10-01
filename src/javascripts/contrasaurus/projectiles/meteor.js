@@ -26,7 +26,7 @@ function Meteor(I) {
         y: I.y,
         collisionType: "enemyBullet",
         duration: 10,
-        sprite: loadAnimation("images/effects/explosion_46x46.png", 5, 46, 46, 2)
+        sprite: loadAnimation("images/effects/small_explosion.png", 5, 44, 41, 2)
       }));
     },
 

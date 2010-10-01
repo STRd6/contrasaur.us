@@ -43,7 +43,7 @@ function Soldier(I) {
       shootLogic: function() {
         var t = self.getTransform();
 
-        var shootPoint = states.shoot.model.attachment("shot");
+        var shootPoint = states.shoot.model().attachment("shot");
         var direction = shootPoint.direction;
 
         var p = t.transformPoint(shootPoint);
@@ -71,7 +71,7 @@ function Soldier(I) {
       shootLogic: function() {
         var t = self.getTransform();
 
-        var shootPoint = states.shoot.model.attachment("shot");
+        var shootPoint = states.shoot.model().attachment("shot");
         var direction = shootPoint.direction;
 
         var p = t.transformPoint(shootPoint);

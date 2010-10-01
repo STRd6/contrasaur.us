@@ -8,7 +8,7 @@ function EffectGenerator(I) {
       return Effect($.extend(I, {
         duration: I.spawnDuration,
         rotation: 0,
-        sprite: loadAnimation("images/effects/explosion_46x46.png", 5, 46, 46, 2)
+        sprite: loadAnimation("images/effects/small_explosion.png", 5, 44, 41, 2)
       }));
     },
     spawnDuration: 25
