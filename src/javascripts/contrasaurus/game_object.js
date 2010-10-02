@@ -25,7 +25,7 @@ function GameObject(I) {
     I.y += I.yVelocity;
   }
 
-  var self = {
+  var self = Core(I).extend({
     active: function(newActive) {
       if(newActive != undefined) {
         I.active = newActive;
@@ -118,15 +118,6 @@ function GameObject(I) {
       return Matrix.translation(I.x, I.y);
     },
 
-    health: function(newHealth) {
-      if(newHealth != undefined) {
-        I.health = newHealth;
-        return this;
-      } else {
-        return I.health;
-      }
-    },
-
     hit: $.noop,
 
     midpoint: function() {
@@ -161,15 +152,6 @@ function GameObject(I) {
       addGameObject(effect);
     },
 
-    sprite: function(value) {
-      if (value === undefined) {
-        return I.sprite;
-      } else {
-        I.sprite = value;
-        return self;
-      }
-    },
-
     update: function() {
       I.age++;
       move();
@@ -188,34 +170,10 @@ function GameObject(I) {
         x: I.xVelocity,
         y: I.yVelocity
       }
-    },
-
-    extend: function(options) {
-      var afterMethods = options.after;
-      var beforeMethods = options.before;
-
-      delete options.after;
-      delete options.before;
-
-      $.each(options, function(name, method) {
-        self[name] = method;
-      });
-
-      if(beforeMethods) {
-        $.each(beforeMethods, function(name, method) {
-          self[name] = before(self[name], method);
-        });
-      }
-
-      if(afterMethods) {
-        $.each(afterMethods, function(name, method) {
-          self[name] = after(self[name], method);
-        });
-      }
-
-      return self;
     }
-  };
+  });
+
+  self.attrAccessor('health', 'sprite');
 
   self.extend(Bindable());
 
