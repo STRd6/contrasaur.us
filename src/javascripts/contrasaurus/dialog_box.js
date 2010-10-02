@@ -4,7 +4,7 @@ function DialogBox(I) {
   $.reverseMerge(I, {
     avatar: null,
     backgroundColor: "#000",
-    blinkRate: 8,
+    blinkRate: 16,
     cursor: true,
     cursorWidth: 10,
     height: 480,
