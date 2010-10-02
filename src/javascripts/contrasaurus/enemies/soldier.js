@@ -29,7 +29,7 @@ function Soldier(I) {
       model: parachuteFallModel,
       shootLogic: $.noop,
       update: function() {
-        if (Math.random() < 0.03) {
+        if (Math.random() < 0.01) {
           I.currentState = states.parachuteShoot;
         }
       }
@@ -92,7 +92,9 @@ function Soldier(I) {
     }),
     run: State({
       complete: function() {
-        I.currentState = states.shoot;
+        if (Math.random() < 0.04) {
+          I.currentState = states.shoot;
+        }
       },
       duration: 24,
       model: runModel,

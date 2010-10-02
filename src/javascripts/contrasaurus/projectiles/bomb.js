@@ -7,7 +7,7 @@ function Bomb(I) {
     color: "#000",
     width: 64,
     height: 23,
-    radius: 12,
+    radius: 8,
     collideDamage: 0,
     xVelocity: I.xVelocity,
     yVelocity: 0,
@@ -30,7 +30,7 @@ function Bomb(I) {
       update: function() {
         I.yVelocity += GRAVITY;
 
-        if(I.y > 300) {
+        if(I.y > 320) {
           explode();
         }
       }

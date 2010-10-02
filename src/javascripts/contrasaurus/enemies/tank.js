@@ -19,7 +19,7 @@ function Tank(I) {
     pointsWorth: 5000,
     shootLogic: function() {
       // Shoot
-      if (Math.random() < 0.05) {
+      if (Math.random() < 0.02) {
         var transform = self.getTransform();
 
         var p = transform.transformPoint(exitPoint);

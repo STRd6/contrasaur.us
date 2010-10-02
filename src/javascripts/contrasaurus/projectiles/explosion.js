@@ -9,7 +9,7 @@ function Explosion(I) {
     hitCircles: [{"x": 0, "y": 20, "radius": 25}, {"x": 0, "y": -40, "radius": 25}],
     radius: 20,
     sound: "explosion",
-    sprite: loadAnimation("images/effects/explosion.png", 25, 67, 171),
+    sprite: loadAnimation("images/effects/tall_explosion.png", 11, 48, 110),
     width: 67
   });
 
