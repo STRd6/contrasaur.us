@@ -75,7 +75,13 @@ function Stateful(I) {
     transition: function(state) {
       if (I.currentState.allowedTransitions) {
         if (I.currentState.allowedTransitions.indexOf(state) > 0) {
+          // TODO: Handle resetting inside the state class with more robust transitions
+          I.currentState.reset();
+
           I.currentState = state;
+          
+          // TODO: Handle resetting inside the state class with more robust transitions
+          I.currentState.reset();
         }
       }
     },

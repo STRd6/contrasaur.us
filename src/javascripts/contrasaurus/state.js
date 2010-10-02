@@ -13,23 +13,10 @@ function State(I) {
     update: $.noop
   });
 
-  var self = {
-    hitCircles: function() {
-      return I.hitCircles;
-    },
-    model: function() {
-      return I.model;
-    },
-    shootLogic: function() {
-      return I.shootLogic;
-    },
-    sprite: function(value) {
-      if (value === undefined) {
-        return I.sprite;
-      } else {
-        I.sprite = value;
-        return self;
-      }
+  var self = Core(I).extend({
+    reset: function() {
+      I.age = 0;
+      I.model.animation.frame(0);
     },
     update: function() {
       I.model.update();
@@ -43,9 +30,12 @@ function State(I) {
         self.trigger("complete");
       }
     }
-  };
+  });
 
-  $.extend(self, Bindable());
+  self.attrAccessor('age', 'sprite');
+  self.attrReader('hitCircles', 'model', 'shootLogic');
+
+  self.extend(Bindable());
 
   self.bind("complete", function() {
     I.complete();

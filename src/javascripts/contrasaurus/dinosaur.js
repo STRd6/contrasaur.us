@@ -37,13 +37,7 @@ function Dinosaur() {
   var states = {
     bite: State({
       complete: function() {
-        if (I.poisoned) {
-          I.poisoned = false;
-          I.currentState = states.cry;
-        } else {
-          I.currentState = states.idle1;
-        }
-
+        I.currentState = states.idle1;
       },
       duration: 24,
       model: biteModel,
@@ -155,7 +149,7 @@ function Dinosaur() {
     })
   };
 
-  states.bite.allowedTransitions = [states.idle1, states.walk];
+  states.bite.allowedTransitions = [states.idle1, states.walk, states.cry];
   states.fly.allowedTransitions = [states.flyBite, states.cry, states.idle1, states.walk];
   states.flyBite.allowedTransitions = [states.fly, states.idle1, states.walk];
   states.idle1.allowedTransitions = [states.bite, states.fly, states.idle1, states.idle2, states.walk];
@@ -431,8 +425,8 @@ function Dinosaur() {
 
     sink: $.noop,
 
-    poison: function() {
-      I.poisoned = true;
+    poison: function(amount) {
+      self.transition(states.cry);
     },
 
     prevWeapon: prevWeapon,
