@@ -51,7 +51,7 @@ function Soldier(I) {
         var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
         var theta = Point.direction(Point(0,0), tmpPoint);
 
-        if(shootPoint.x != 0) {
+        if(shootPoint.x != 0 && (I.currentState.age() % 3 == 0)) {
           addGameObject(Bullet({
             collisionType: "enemyBullet",
             sprite: Sprite.load("images/effects/enemybullet1_small.png"),
@@ -79,7 +79,7 @@ function Soldier(I) {
         var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
         var theta = Point.direction(Point(0,0), tmpPoint);
 
-        if(shootPoint.x != 0) {
+        if(shootPoint.x != 0 && (I.currentState.age() % 3 == 0)) {
           addGameObject(Bullet({
             collisionType: "enemyBullet",
             sprite: Sprite.load("images/effects/enemybullet1_small.png"),
