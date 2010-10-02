@@ -4,12 +4,12 @@ function Explosion(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "enemyBullet",
-    duration: 25,
+    duration: 21,
     height: 171,
     hitCircles: [{"x": 0, "y": 20, "radius": 25}, {"x": 0, "y": -40, "radius": 25}],
     radius: 20,
     sound: "explosion",
-    sprite: loadAnimation("images/effects/tall_explosion.png", 11, 48, 110),
+    sprite: loadAnimation("images/effects/tall_explosion.png", 11, 48, 110, 2),
     width: 67
   });
 
