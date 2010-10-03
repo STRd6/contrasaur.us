@@ -4,26 +4,26 @@
     "frames": 1,
     "height": 286,
     "width": 288,
-    "url": "images/enemies/gunship/lob1.png"
+    "url": "images/enemies/gunship/bunker_dead.png"
   },
   "frames": [
     {
       "attachmentPoints": {
         "exit": {
-          "x": 31,
-          "y": -103,
-          "direction": 3.5342917352885173
+          "x": -80,
+          "y": -10,
+          "direction": 3.141592653589793
         }
       },
       "circles": [
         {
-          "x": 48,
-          "y": -93,
-          "radius": 17
+          "x": -61,
+          "y": -4,
+          "radius": 21
         },
         {
-          "x": 66,
-          "y": -94,
+          "x": -28,
+          "y": -8,
           "radius": 18
         }
       ]

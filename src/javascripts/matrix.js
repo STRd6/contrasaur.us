@@ -11,6 +11,9 @@
       y: y || 0,
       add: function(other) {
         return Point(this.x + other.x, this.y + other.y);
+      },
+      equal: function(other) {
+        return this.x == other.x && this.y == other.y;
       }
     }
   }

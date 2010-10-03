@@ -5,6 +5,7 @@
  * animation frame in sync.
  */
 function Model(animation, frames, hitFrames) {
+  var warnings = false;
 
   return {
     animation: animation,
@@ -30,20 +31,18 @@ function Model(animation, frames, hitFrames) {
         if(currentFrame.attachmentPoints[name]) {
           return currentFrame.attachmentPoints[name];
         } else {
-          //warning("no attachment point for " + name + " in " + this.url);
-          return {
-            x: 0,
-            y: 0,
-            direction: 0
-          };
+          if(warnings) {
+            warning("no attachment point for " + name + " in " + this.url);
+          }
+          
+          return undefined;
         }
       } else {
-        //warning("no attachment points for " + this.url);
-        return {
-          x: 0,
-          y: 0,
-          direction: 0
-        };
+        if(warnings) {
+          warning("no attachment points for " + this.url);
+        }
+
+        return undefined;
       }
 
     },

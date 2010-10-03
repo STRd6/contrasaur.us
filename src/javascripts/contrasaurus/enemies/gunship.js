@@ -12,6 +12,8 @@ function Gunship(I) {
 
   var shipModel = Model.loadJSONUrl("data/gunship/hull.model.json");
   var lob1Model = Model.loadJSONUrl("data/gunship/lob1.model.json");
+  var lob2Model = Model.loadJSONUrl("data/gunship/lob2.model.json");
+  var bunkerModel = Model.loadJSONUrl("data/gunship/bunker.model.json");
 
   var states = {
     attack: State({
@@ -24,11 +26,6 @@ function Gunship(I) {
   
   function ShipComponent(I) {
     I = I || {};
-
-    $.reverseMerge(I, {
-      //TODO: Load exit points from model
-      exitPoints: [Point(0, 0)]
-    });
     
     var self = GameObject(I).extend({
       getCircles: function() {
@@ -38,17 +35,18 @@ function Gunship(I) {
       shoot: function(transform) {
         var netTransform = transform.concat(self.getTransform());
 
-        $.each(I.exitPoints, function(i, exitPoint) {
+        var exitPoint = I.model.attachment('exit');
+        if(exitPoint.x) {
           var levelPosition = netTransform.transformPoint(exitPoint);
 
           addGameObject(Bullet({
             collisionType: "enemyBullet",
             sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-            theta: Math.PI,
+            theta: exitPoint.direction,
             x: levelPosition.x,
             y: levelPosition.y
           }));
-        });
+        }
       },
 
       before: {
@@ -62,8 +60,11 @@ function Gunship(I) {
   }
 
   I.components.push(ShipComponent({
-    model: lob1Model,
-    y: -90
+    model: lob1Model
+  }), ShipComponent({
+    model: lob2Model
+  }), ShipComponent({
+    model: bunkerModel
   }));
 
   var boatTarget = Point(I.x - 25, I.y);

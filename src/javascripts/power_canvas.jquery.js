@@ -27,7 +27,11 @@
       },
 
       drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
-        context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        try {
+          context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        } catch(e) {
+          debugger
+        }
 
         return this;
       },

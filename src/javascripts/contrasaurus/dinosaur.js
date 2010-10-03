@@ -43,7 +43,7 @@ function Dinosaur() {
       model: biteModel,
       update: function() {
         var bitePoint = states.bite.model().attachment("bite");
-        if(bitePoint.x != 0) {
+        if(bitePoint) {
           var t = self.getTransform();
           var p = t.transformPoint(bitePoint);
 
@@ -94,7 +94,7 @@ function Dinosaur() {
       model: flyBiteModel,
       update: function() {
         var bitePoint = states.flyBite.model().attachment("bite");
-        if(bitePoint.x != 0) {
+        if(bitePoint) {
           var t = self.getTransform();
           var p = t.transformPoint(bitePoint);
 

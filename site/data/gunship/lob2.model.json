@@ -4,27 +4,27 @@
     "frames": 1,
     "height": 286,
     "width": 288,
-    "url": "images/enemies/gunship/lob1.png"
+    "url": "images/enemies/gunship/lob2.png"
   },
   "frames": [
     {
       "attachmentPoints": {
         "exit": {
-          "x": 31,
-          "y": -103,
-          "direction": 3.5342917352885173
+          "x": 61,
+          "y": -135,
+          "direction": -2.356194490192345
         }
       },
       "circles": [
         {
-          "x": 48,
-          "y": -93,
+          "x": 69,
+          "y": -121,
           "radius": 17
         },
         {
-          "x": 66,
-          "y": -94,
-          "radius": 18
+          "x": 100,
+          "y": -117,
+          "radius": 17
         }
       ]
     }

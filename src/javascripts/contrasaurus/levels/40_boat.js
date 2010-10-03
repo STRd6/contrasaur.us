@@ -118,7 +118,7 @@ $(function() {
       }));
     }
   }, {
-    at: 2000,
+    at: 20,
     event: function(level) {
       var gunship = Gunship();
       level.addGameObject(gunship);
