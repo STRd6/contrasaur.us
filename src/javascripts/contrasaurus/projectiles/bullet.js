@@ -19,18 +19,6 @@ function Bullet(I) {
   });
 
   var self = GameObject(I).extend({
-    damageType: function() {
-      return I.damageType;
-    },
-
-    dispersion: function() {
-      return I.dispersion;
-    },
-
-    effectCount: function() {
-      return I.effectCount;
-    },
-
     getTransform: GameObject.velocityGetTransform(I),
 
     hit: function(other) {
@@ -56,6 +44,8 @@ function Bullet(I) {
       update: GameObject.generateCheckBounds(I)
     }
   });
+
+  self.attrReader('damageType', 'dispersion', 'effectCount');
 
   return self;
 }
