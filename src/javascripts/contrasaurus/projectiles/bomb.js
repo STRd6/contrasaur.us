@@ -26,13 +26,13 @@ function Bomb(I) {
 
     hit: $.noop,
 
+    land: function() {
+      explode();
+    },
+
     after: {
       update: function() {
         I.yVelocity += GRAVITY;
-
-        if(I.y > 320) {
-          explode();
-        }
       }
     }
   });
