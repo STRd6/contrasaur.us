@@ -9,16 +9,26 @@ function Fighter(I) {
         cooldown--;
       } else {
         cooldown += 3;
-        var shootAngle = Math.PI/5;
-        if(I.xVelocity < 0) {
-          shootAngle = Math.PI - shootAngle;
+
+        var t = self.getTransform();
+
+        var shootPoint = I.model.attachment("shot");
+        var direction = shootPoint.direction;
+
+        var p = t.transformPoint(shootPoint);
+
+        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+        var theta = Point.direction(Point(0,0), tmpPoint);
+
+        if(shootPoint.x != 0) {
+          addGameObject(Bullet({
+            collisionType: "enemyBullet",
+            sprite: Sprite.load("images/projectiles/plane_bullet.png"),
+            theta: theta,
+            x: p.x,
+            y: p.y
+          }));
         }
-        // Shoot
-        addGameObject(Bullet($.extend(self.position(), {
-          collisionType: "enemyBullet",
-          sprite: Sprite.load("images/projectiles/plane_bullet.png"),
-          theta: shootAngle
-        })));
       }
     },
     type: 'fighter'

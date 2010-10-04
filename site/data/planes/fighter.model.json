@@ -33,7 +33,13 @@
       ]
     },
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 79,
+          "y": 11,
+          "direction": 0.5235987755982988
+        }
+      },
       "circles": [
         {
           "x": 55,
@@ -88,7 +94,13 @@
       ]
     },
     {
-      "attachmentPoints": {},
+      "attachmentPoints": {
+        "shot": {
+          "x": 78,
+          "y": 13,
+          "direction": 0.4487989505128276
+        }
+      },
       "circles": [
         {
           "x": 56,
