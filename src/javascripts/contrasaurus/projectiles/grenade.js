@@ -1,10 +1,9 @@
 function Grenade(I) {
   I = I || {};
 
-  var fuse = 45;
-
   $.reverseMerge(I, {
     collideDamage: 0,
+    fuse: 45,
     radius: 8,
     rotation: 0,
     rotationalVelocity: Math.PI / 32,
@@ -18,6 +17,7 @@ function Grenade(I) {
       addGameObject(Explosion({
         collideDamage: I.collideDamage,
         collisionType: I.collisionType,
+        sprite: loadAnimation("images/effects/large_explosion.png", 27, 124, 98, 3),
         x: I.x,
         y: I.y - 50
       }));
@@ -38,7 +38,7 @@ function Grenade(I) {
         I.rotation += I.rotationalVelocity;
         I.yVelocity += GRAVITY;
 
-        if(I.age > fuse) {
+        if(I.age > I.fuse) {
           detonate();
         }
       }
