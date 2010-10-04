@@ -41,17 +41,17 @@ function Soldier(I) {
       duration: 12,
       model: parachuteShootModel,
       shootLogic: function() {
-        var t = self.getTransform();
-
         var shootPoint = states.shoot.model().attachment("shot");
-        var direction = shootPoint.direction;
 
-        var p = t.transformPoint(shootPoint);
+        if(shootPoint && (I.currentState.age() % 3 == 0)) {
+          var t = self.getTransform();
+          var direction = shootPoint.direction;
 
-        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-        var theta = Point.direction(Point(0,0), tmpPoint);
+          var p = t.transformPoint(shootPoint);
 
-        if(shootPoint.x != 0 && (I.currentState.age() % 3 == 0)) {
+          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+          var theta = Point.direction(Point(0,0), tmpPoint);
+
           addGameObject(Bullet({
             collisionType: "enemyBullet",
             sprite: Sprite.load("images/effects/enemybullet1_small.png"),
@@ -69,17 +69,18 @@ function Soldier(I) {
       duration: 24,
       model: shootModel,
       shootLogic: function() {
-        var t = self.getTransform();
-
         var shootPoint = states.shoot.model().attachment("shot");
-        var direction = shootPoint.direction;
 
-        var p = t.transformPoint(shootPoint);
+        if(shootPoint && (I.currentState.age() % 3 == 0)) {
+          var t = self.getTransform();
 
-        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-        var theta = Point.direction(Point(0,0), tmpPoint);
+          var direction = shootPoint.direction;
 
-        if(shootPoint.x != 0 && (I.currentState.age() % 3 == 0)) {
+          var p = t.transformPoint(shootPoint);
+
+          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+          var theta = Point.direction(Point(0,0), tmpPoint);
+
           addGameObject(Bullet({
             collisionType: "enemyBullet",
             sprite: Sprite.load("images/effects/enemybullet1_small.png"),
