@@ -21,6 +21,10 @@ function Enemy(I) {
   var self = GameObject(I).extend({
     bulletHitEffect: Enemy.bloodSprayEffect,
 
+    currentModel: function() {
+      return I.model;
+    },
+
     hit: function(other) {
       var damageFactor;
 
@@ -49,6 +53,27 @@ function Enemy(I) {
       }));
 
       addGameObject(bullet);
+    },
+
+    shootFrom: function (attachment, bulletData) {
+      var shootPoint = self.currentModel().attachment(attachment);
+
+      if(shootPoint) {
+        var t = self.getTransform();
+        var direction = shootPoint.direction;
+
+        var p = t.transformPoint(shootPoint);
+
+        var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+        var theta = Point.direction(Point(0,0), tmpPoint);
+
+        addGameObject(Bullet($.extend({
+          collisionType: "enemyBullet",
+          theta: theta,
+          x: p.x,
+          y: p.y
+        }, bulletData)));
+      }
     },
 
     getTransform: function() {

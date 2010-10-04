@@ -27,7 +27,6 @@ function Soldier(I) {
   var states = {
     parachuteFall: State({
       model: parachuteFallModel,
-      shootLogic: $.noop,
       update: function() {
         if (Math.random() < 0.01) {
           I.currentState = states.parachuteShoot;
@@ -41,24 +40,10 @@ function Soldier(I) {
       duration: 12,
       model: parachuteShootModel,
       shootLogic: function() {
-        var shootPoint = states.shoot.model().attachment("shot");
-
-        if(shootPoint && (I.currentState.age() % 3 == 0)) {
-          var t = self.getTransform();
-          var direction = shootPoint.direction;
-
-          var p = t.transformPoint(shootPoint);
-
-          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-          var theta = Point.direction(Point(0,0), tmpPoint);
-
-          addGameObject(Bullet({
-            collisionType: "enemyBullet",
-            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-            theta: theta,
-            x: p.x - 15,
-            y: p.y + 4
-          }));
+        if(I.currentState.age() % 3 == 0) {
+          self.shootFrom("shot", {
+            sprite: Sprite.load("images/effects/enemybullet1_small.png")
+          });
         }
       }
     }),
@@ -69,25 +54,10 @@ function Soldier(I) {
       duration: 24,
       model: shootModel,
       shootLogic: function() {
-        var shootPoint = states.shoot.model().attachment("shot");
-
-        if(shootPoint && (I.currentState.age() % 3 == 0)) {
-          var t = self.getTransform();
-
-          var direction = shootPoint.direction;
-
-          var p = t.transformPoint(shootPoint);
-
-          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-          var theta = Point.direction(Point(0,0), tmpPoint);
-
-          addGameObject(Bullet({
-            collisionType: "enemyBullet",
-            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-            theta: theta,
-            x: p.x,
-            y: p.y
-          }));
+        if(I.currentState.age() % 3 == 0) {
+          self.shootFrom("shot", {
+            sprite: Sprite.load("images/effects/enemybullet1_small.png")
+          });
         }
       }
     }),
@@ -99,14 +69,12 @@ function Soldier(I) {
       },
       duration: 24,
       model: runModel,
-      shootLogic: $.noop
     })
   };
 
   $.reverseMerge(I, {
     airborne: false,
     currentState: states.run,
-    shootLogic: $.noop,
     nutrition: 50,
     type: 'sandinista',
     x: rand(CANVAS_WIDTH),

@@ -10,25 +10,9 @@ function Fighter(I) {
       } else {
         cooldown += 3;
 
-        var shootPoint = I.model.attachment("shot");
-
-        if(shootPoint) {
-          var t = self.getTransform();
-          var direction = shootPoint.direction;
-
-          var p = t.transformPoint(shootPoint);
-
-          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-          var theta = Point.direction(Point(0,0), tmpPoint);
-
-          addGameObject(Bullet({
-            collisionType: "enemyBullet",
-            sprite: Sprite.load("images/projectiles/plane_bullet.png"),
-            theta: theta,
-            x: p.x,
-            y: p.y
-          }));
-        }
+        self.shootFrom("shot", {
+          sprite: Sprite.load("images/projectiles/plane_bullet.png")
+        });
       }
     },
     type: 'fighter'

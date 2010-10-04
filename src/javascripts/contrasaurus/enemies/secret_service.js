@@ -22,25 +22,10 @@ function SecretService(I) {
       duration: 24,
       model: shootModel,
       shootLogic: function() {
-        var shootPoint = states.shoot.model().attachment("shot");
-
-        if(shootPoint && (I.currentState.age() % 3 == 0)) {
-          var t = self.getTransform();
-
-          var direction = shootPoint.direction;
-
-          var p = t.transformPoint(shootPoint);
-
-          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
-          var theta = Point.direction(Point(0,0), tmpPoint);
-
-          addGameObject(Bullet({
-            collisionType: "enemyBullet",
-            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-            theta: theta,
-            x: p.x,
-            y: p.y
-          }));
+        if(I.currentState.age() % 3 == 0) {
+          self.shootFrom("shot", {
+            sprite: Sprite.load("images/effects/enemybullet1_small.png")
+          });
         }
       }
     }),
@@ -73,7 +58,6 @@ function SecretService(I) {
       },
       duration: 60,
       model: standModel,
-      shootLogic: $.noop,
       update: function() {
         I.xVelocity = 0;
       }
@@ -83,7 +67,6 @@ function SecretService(I) {
   $.reverseMerge(I, {
     currentState: states.run,
     nutrition: 25,
-    shootLogic: $.noop,
     type: 'secret service',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
