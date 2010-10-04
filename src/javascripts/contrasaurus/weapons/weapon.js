@@ -89,10 +89,6 @@ function Weapon(I) {
       }
     },
 
-    selectable: function() {
-      return I.selectable;
-    },
-
     toss: toss,
 
     before: {
@@ -125,6 +121,8 @@ function Weapon(I) {
       }
     }
   });
+
+  self.attrReader('selectable');
 
   return self;
 }
