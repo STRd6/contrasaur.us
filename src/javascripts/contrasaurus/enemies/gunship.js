@@ -23,10 +23,10 @@ function Gunship(I) {
       }
     })
   };
-  
+
   function ShipComponent(I) {
     I = I || {};
-    
+
     var self = GameObject(I).extend({
       getCircles: function() {
         return I.model.hitFrame();
@@ -55,7 +55,7 @@ function Gunship(I) {
         }
       }
     });
-    
+
     return self;
   }
 
@@ -73,10 +73,6 @@ function Gunship(I) {
   var self = Boss(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
 
-    components: function() {
-      return I.components;
-    },
-
     getTransform: function() {
       return Matrix.translation(I.x, I.y);
     },
@@ -93,6 +89,8 @@ function Gunship(I) {
       }
     }
   });
+
+  self.attrReader('components');
 
   self.extend(Stateful(I));
 
