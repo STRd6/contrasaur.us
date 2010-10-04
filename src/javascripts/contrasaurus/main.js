@@ -22,7 +22,6 @@ var pauseDisplay = {
 var debugHalt = false;
 var currentLevel;
 var displayTexts = [];
-var testExplosion = loadAnimation("images/effects/explosion.png", 25, 67, 171);
 var stages = [];
 
 var weapons = [];
