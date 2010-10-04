@@ -7,24 +7,14 @@ function Brontosaurus(I) {
     pointsWorth: 50000,
     radius: 90,
     shootLogic: function() {
-      var currentModel = self.currentModel();
-      var boomPoint = currentModel.attachment("boom");
-
-      if(boomPoint.x != 0) {
-        var point = self.getTransform().transformPoint(boomPoint);
-
-        addGameObject(Bullet({
-          collideDamage: 15,
-          collisionType: "enemyBullet",
-          duration: 1,
-          radius: 100,
-          sprite: Sprite.EMPTY,
-          theta: 0,
-          velocity: 0,
-          x: point.x,
-          y: point.y
-        }));
-      }
+      self.shootFrom("boom", {
+        collideDamage: 15,
+        duration: 1,
+        radius: 100,
+        // TODO: Shockwave sprite
+        sprite: Sprite.EMPTY,
+        velocity: 0
+      });
     },
     xVelocity: 0,
     y: 170
