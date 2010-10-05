@@ -16,8 +16,11 @@ function Gunship(I) {
   };
 
   var healthBar;
+  var ship;
+  var shipComponents;
 
   var cannonDead = false;
+  var componentsDestroyed = 0;
 
   var smallBulletSprite = Sprite.load("images/effects/enemybullet1_small.png");
   var bulletSprite = Sprite.load("images/projectiles/plane_bullet.png");
@@ -166,6 +169,11 @@ function Gunship(I) {
       self.update = $.noop;
       I.health = 0;
       I.sprite = I.destroyedSprite;
+
+      componentsDestroyed += 1;
+      if(componentsDestroyed == shipComponents.length) {
+        ship.destroy();
+      }
     });
 
     return self;
@@ -237,10 +245,12 @@ function Gunship(I) {
   })
   );
 
+  shipComponents = I.components;
+
   var boatTarget = Point(I.x - 25, I.y);
   I.currentState = states.attack;
 
-  var self = Boss(I).extend({
+  var self = ship = Boss(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
 
     getTransform: function() {
