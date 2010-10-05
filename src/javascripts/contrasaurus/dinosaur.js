@@ -503,9 +503,11 @@ function Dinosaur() {
           I.yVelocity += GRAVITY / 2;
         }
 
-        I.y = I.y.clamp(30, CANVAS_HEIGHT);
-
-        dino.addJetpack();
+        if (parasailing) {
+          I.y = I.y.clamp(30, CANVAS_HEIGHT - Floor.LEVEL);
+        } else {
+          I.y = I.y.clamp(30, CANVAS_HEIGHT);
+        }
 
         updateWeapons(levelPosition);
 
