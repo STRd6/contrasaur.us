@@ -1,15 +1,10 @@
 function FloatingCrate(I) {
   I = I || {};
 
-  var normalSprite = Sprite.load("images/enemies/crate/normal.png");
-  var damagedSprite = Sprite.load("images/enemies/crate/damaged.png");
-
   $.reverseMerge(I, {
     health: 25,
     theta: Math.PI / 4
   });
-
-  var healthMax = I.health;
 
   var self = Crate(I).extend({
     before: {
@@ -19,7 +14,6 @@ function FloatingCrate(I) {
     },
 
     getTransform: function() {
-      debugger;
       var transform;
 
       transform = Matrix.rotation(I.theta).concat(Matrix.IDENTITY);
@@ -28,14 +22,6 @@ function FloatingCrate(I) {
     },
 
     sink: $.noop
-  });
-
-  self.extend(Shakeable(I));
-
-  self.bind("destroy", function() {
-    if(I.weaponClass) {
-      dino.addWeapon(I.weaponClass());
-    }
   });
 
   return self;
