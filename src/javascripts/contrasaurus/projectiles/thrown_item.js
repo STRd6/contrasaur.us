@@ -31,6 +31,7 @@ function ThrownItem(I) {
       addGameObject(Explosion({
         collideDamage: I.explodeDamage + throwSpeed*10,
         collisionType: "dinoBullet",
+        sprite: loadAnimation("images/effects/small_explosion.png", 5, 44, 41, 2),
         x: I.x + 10,
         y: I.y
       }));
@@ -39,7 +40,7 @@ function ThrownItem(I) {
 
   var self = Bullet(I).extend({
     getTransform: GameObject.rotationGetTransform(I),
-    
+
     land: function() {
       I.active = false;
     },

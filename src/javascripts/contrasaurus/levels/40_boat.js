@@ -2,6 +2,16 @@ $(function() {
   var imgPath = "images/levels/parasail/";
   var levelVelocity = Point(-6, 0);
 
+  function addCrate(weaponClass) {
+    var crate = FloatingCrate({
+      weaponClass: weaponClass,
+      x: level.position().x + CANVAS_WIDTH,
+      y: 320
+    });
+
+    addGameObject(crate);
+  }
+
   var scene = Scene([
     {
       image: Sprite.load(imgPath + "background.png"),
@@ -116,9 +126,13 @@ $(function() {
         x: level.position().x + CANVAS_WIDTH + 20,
         y: rand(120) + 100,
       }));
+
+      if (Math.random() < 0.1) {
+        addCrate(BattleAxe);
+      }
     }
   }, {
-    at: 20,
+    at: 500,
     event: function(level) {
       var gunship = Gunship();
       level.addGameObject(gunship);
@@ -140,7 +154,7 @@ $(function() {
     }
   }];
 
-  addLevel({
+  var level = addLevel({
     scene: scene,
     platforms: [floor],
     triggers: triggers,
