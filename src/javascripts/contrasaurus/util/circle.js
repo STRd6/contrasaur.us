@@ -11,3 +11,7 @@ function Circle(x, y, radius) {
     }
   }
 }
+
+Circle.randomPoint = function(radius) {
+  return Circle(0, 0, radius).randomPoint();
+};

@@ -3,12 +3,18 @@ function Gunship(I) {
 
   $.reverseMerge(I, {
     components: [],
+    damageTable: {
+      fire: 0.05,
+    },
     health: 2000,
     hFlip: false,
     x: 550,
     xVelocity: 0,
     y: 240
   });
+
+  var smallBulletSprite = Sprite.load("images/effects/enemybullet1_small.png");
+  var bulletSprite = Sprite.load("images/projectiles/plane_bullet.png");
 
   var shipModel = Model.loadJSONUrl("data/gunship/hull.model.json");
   var lob1Model = Model.loadJSONUrl("data/gunship/lob1.model.json");
@@ -27,25 +33,62 @@ function Gunship(I) {
   function ShipComponent(I) {
     I = I || {};
 
+    $.reverseMerge(I, {
+      bulletData: {
+        sprite: smallBulletSprite
+      },
+      cooldown: 0,
+      fireRate: 3,
+      shot: {
+        count: 1,
+        dispersion: 0
+      }
+    });
+
     var self = GameObject(I).extend({
       getCircles: function() {
         return I.model.hitFrame();
       },
 
-      shoot: function(transform) {
-        var netTransform = transform.concat(self.getTransform());
+      shootFrom: function (attachment, bulletData, transform) {
+        var shootPoint = I.model.attachment(attachment);
 
-        var exitPoint = I.model.attachment('exit');
-        if(exitPoint.x) {
-          var levelPosition = netTransform.transformPoint(exitPoint);
+        if(shootPoint) {
+          var t = transform.concat(self.getTransform());
+          var direction = shootPoint.direction;
 
-          addGameObject(Bullet({
+          var p = t.transformPoint(shootPoint);
+
+          var tmpPoint = t.deltaTransformPoint(Point(Math.cos(direction), Math.sin(direction)));
+          var theta = Point.direction(Point(0,0), tmpPoint);
+
+          var dispersion = Circle.randomPoint(I.shot.dispersion);
+
+          var bullet = Bullet($.extend({
             collisionType: "enemyBullet",
-            sprite: Sprite.load("images/effects/enemybullet1_small.png"),
-            theta: exitPoint.direction,
-            x: levelPosition.x,
-            y: levelPosition.y
-          }));
+            theta: theta,
+            x: p.x + dispersion.x,
+            y: p.y + dispersion.y
+          }, bulletData));
+
+          addGameObject(bullet);
+
+          return bullet;
+        } else {
+          return undefined;
+        }
+      },
+
+      shoot: function(transform) {
+        if(I.cooldown >= I.fireRate) {
+
+          I.shot.count.times(function() {
+            self.shootFrom("exit", I.bulletData, transform);
+          });
+
+          I.cooldown = 0;
+        } else {
+          I.cooldown += 1;
         }
       },
 
@@ -60,10 +103,31 @@ function Gunship(I) {
   }
 
   I.components.push(ShipComponent({
-    model: lob1Model
+    bulletData: {
+      collideDamage: 5,
+      sprite: bulletSprite,
+      yAcceleration: GRAVITY / 2
+    },
+    fireRate: 99,
+    model: lob1Model,
+    shot: {
+      count: 10,
+      dispersion: 8,
+    }
   }), ShipComponent({
-    model: lob2Model
+    bulletData: {
+      collideDamage: 5,
+      sprite: bulletSprite,
+      yAcceleration: GRAVITY / 2
+    },
+    fireRate: 33,
+    model: lob2Model,
+    shot: {
+      count: 10,
+      dispersion: 15,
+    }
   }), ShipComponent({
+    fireRate: 1,
     model: bunkerModel
   }));
 

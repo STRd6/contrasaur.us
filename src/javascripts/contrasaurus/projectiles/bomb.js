@@ -4,14 +4,12 @@ function Bomb(I) {
   var bombTile = Sprite.load("images/projectiles/bomb.png");
 
   $.reverseMerge(I, {
-    color: "#000",
-    width: 64,
-    height: 23,
-    radius: 8,
     collideDamage: 0,
+    radius: 8,
+    sprite: bombTile,
     xVelocity: I.xVelocity,
-    yVelocity: 0,
-    sprite: bombTile
+    yAcceleration: GRAVITY,
+    yVelocity: 0
   });
 
   function explode() {
@@ -28,13 +26,8 @@ function Bomb(I) {
 
     land: function() {
       explode();
-    },
-
-    after: {
-      update: function() {
-        I.yVelocity += GRAVITY;
-      }
     }
   });
+
   return self;
 }

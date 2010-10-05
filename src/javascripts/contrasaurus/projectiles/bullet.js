@@ -15,7 +15,8 @@ function Bullet(I) {
     radius: 2,
     sprite: Sprite.load("images/projectiles/playerbullet.png"),
     xVelocity: Math.cos(I.theta)*I.speed,
-    yVelocity: Math.sin(I.theta)*I.speed
+    yVelocity: Math.sin(I.theta)*I.speed,
+    yAcceleration: 0
   });
 
   var self = GameObject(I).extend({
@@ -32,6 +33,12 @@ function Bullet(I) {
 
     land: function() {
       I.active = false;
+    },
+
+    before: {
+      update: function() {
+        I.yVelocity += I.yAcceleration;
+      }
     },
 
     after: {
