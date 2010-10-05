@@ -200,6 +200,19 @@ function Gunship(I) {
     }
   });
 
+  var cannonBase = ShipComponent({
+    destroyedSprite: cannonBaseDestroyed,
+    fireRate: Infinity,
+    model: cannonBaseModel,
+    shot: {
+      count: 0
+    }
+  });
+
+  cannonBase.bind("destroy", function() {
+    cannonDead = true;
+  });
+
   I.components.push(ShipComponent({
     bulletData: {
       collideDamage: 5,
@@ -235,14 +248,7 @@ function Gunship(I) {
     x: -70,
     y: -66
   }),
-  ShipComponent({
-    destroyedSprite: cannonBaseDestroyed,
-    fireRate: Infinity,
-    model: cannonBaseModel,
-    shot: {
-      count: 0
-    }
-  })
+  cannonBase
   );
 
   shipComponents = I.components;
