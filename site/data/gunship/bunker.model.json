@@ -1,32 +1,64 @@
 {
   "animation": {
     "delay": 3,
-    "frames": 1,
-    "height": 286,
-    "width": 288,
-    "url": "images/enemies/gunship/bunker_dead.png"
+    "frames": 3,
+    "height": 154,
+    "width": 147,
+    "url": "images/enemies/gunship/bunker_shoot.png"
   },
   "frames": [
     {
       "attachmentPoints": {
-        "exit": {
-          "x": -80,
-          "y": -10,
-          "direction": 3.141592653589793
-        }
       },
       "circles": [
         {
-          "x": -61,
-          "y": -4,
+          "x": 5,
+          "y": 66,
           "radius": 21
         },
         {
-          "x": -28,
-          "y": -8,
+          "x": 34,
+          "y": 58,
           "radius": 18
         }
       ]
+    },
+    {
+      "circles": [
+        {
+          "x": 5,
+          "y": 66,
+          "radius": 21
+        },
+        {
+          "x": 34,
+          "y": 58,
+          "radius": 18
+        }
+      ],
+      "attachmentPoints": {
+        "exit": {
+          "x": 3,
+          "y": 60,
+          "direction": 3.141592653589793
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": 5,
+          "y": 66,
+          "radius": 21
+        },
+        {
+          "x": 34,
+          "y": 58,
+          "radius": 18
+        }
+      ],
+      "attachmentPoints": {
+      }
     }
   ]
 }
