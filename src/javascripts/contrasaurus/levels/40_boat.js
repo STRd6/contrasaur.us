@@ -2,6 +2,8 @@ $(function() {
   var imgPath = "images/levels/parasail/";
   var levelVelocity = Point(-6, 0);
 
+  var bossBattle = false;
+
   function addCrate(weaponClass) {
     var crate = FloatingCrate({
       weaponClass: weaponClass,
@@ -108,13 +110,15 @@ $(function() {
   }, {
     every: 30,
     event: function(level) {
-      level.addGameObject(Soldier({
-        airborne: true,
-        xVelocity: 0,
-        x: level.position().x + CANVAS_WIDTH + 20,
-        y: -20,
-        yVelocity: 2
-      }));
+      if(!bossBattle) {
+        level.addGameObject(Soldier({
+          airborne: true,
+          xVelocity: 0,
+          x: level.position().x + CANVAS_WIDTH + 20,
+          y: -20,
+          yVelocity: 2
+        }));
+      }
     }
   }, {
     every: 50,
@@ -132,12 +136,13 @@ $(function() {
       }
     }
   }, {
-    at: 500,
+    at: 50,
     event: function(level) {
-      var gunship = Gunship();
+      gunship = Gunship();
       level.addGameObject(gunship);
 
       dino.boss(gunship);
+      bossBattle = true;
 
       gunship.bind("destroy", function() {
         level.after(140, function() {

@@ -3,30 +3,42 @@ function Gunship(I) {
 
   $.reverseMerge(I, {
     components: [],
-    damageTable: {
-      fire: 0.05,
-    },
     health: 2000,
     hFlip: false,
+    hitCircles: [],
     x: 550,
     xVelocity: 0,
     y: 240
   });
 
+  var damageTable = {
+    fire: 0.05
+  };
+
+  var healthBar;
+
+  var cannonDead = false;
+
   var smallBulletSprite = Sprite.load("images/effects/enemybullet1_small.png");
   var bulletSprite = Sprite.load("images/projectiles/plane_bullet.png");
 
-  var shipModel = Model.loadJSONUrl("data/gunship/hull.model.json");
+  var hullModel = Model.loadJSONUrl("data/gunship/hull.model.json");
   var lob1Model = Model.loadJSONUrl("data/gunship/lob1.model.json");
+  var lob1Destroyed = Sprite.load("images/enemies/gunship/lob1_dead.png");
   var lob2Model = Model.loadJSONUrl("data/gunship/lob2.model.json");
+  var lob2Destroyed = Sprite.load("images/enemies/gunship/lob2_dead.png");
   var bunkerModel = Model.loadJSONUrl("data/gunship/bunker.model.json");
+  var bunkerDestroyed = Sprite.load("images/enemies/gunship/bunker_dead.png");
   var cannonModel = Model.loadJSONUrl("data/gunship/cannon.model.json");
   var cannonBaseModel = Model.loadJSONUrl("data/gunship/cannon_base.model.json");
+  var cannonBaseDestroyed = Sprite.load("images/enemies/gunship/cannon_base_dead.png");
+  //var machineGunModel = Model.loadJSONUrl("data/gunship/machine_gun.model.json");
+  //var machineGunDestroyed = Sprite.load("images/enemies/gunship/machine_gun_dead.png");
 
   var states = {
     attack: State({
       duration: Infinity,
-      model: shipModel,
+      model: hullModel,
       update: function() {
       }
     })
@@ -41,6 +53,7 @@ function Gunship(I) {
       },
       cooldown: 0,
       fireRate: 3,
+      health: 50,
       muzzleFlash: false,
       shot: {
         count: 1,
@@ -50,7 +63,35 @@ function Gunship(I) {
 
     var self = GameObject(I).extend({
       getCircles: function() {
-        return I.model.hitFrame();
+        var transform = self.getTransform();
+
+        return $.map(I.model.hitFrame(), function(circle) {
+          var point = transform.transformPoint(circle);
+          return {
+            x: point.x,
+            y: point.y,
+            radius: circle.radius,
+            component: self
+          };
+        });
+      },
+
+      hit: function(other) {
+        var damageFactor;
+
+        if(other.damageType) {
+          damageFactor = damageTable[other.damageType()]
+        }
+
+        if(damageFactor === undefined) {
+          damageFactor = 1;
+        }
+
+        I.health = I.health - other.collideDamage() * damageFactor;
+
+        if (I.health <= 0) {
+          self.destroy();
+        }
       },
 
       shootFrom: function (attachment, bulletData, transform, muzzleFlash) {
@@ -118,6 +159,15 @@ function Gunship(I) {
       }
     });
 
+    self.bind("destroy", function() {
+      console.log("destroyed!!!1");
+      self.hit = $.noop;
+      self.shoot = $.noop;
+      self.update = $.noop;
+      I.health = 0;
+      I.sprite = I.destroyedSprite;
+    });
+
     return self;
   }
 
@@ -128,8 +178,8 @@ function Gunship(I) {
 
     },
     fireRate: 66,
-    muzzleFlash: true,
     model: cannonModel,
+    muzzleFlash: true,
     x: 60,
     y: -70
   }).extend({
@@ -149,6 +199,7 @@ function Gunship(I) {
       sprite: bulletSprite,
       yAcceleration: GRAVITY / 2
     },
+    destroyedSprite: lob1Destroyed,
     fireRate: 99,
     model: lob1Model,
     shot: {
@@ -162,6 +213,7 @@ function Gunship(I) {
       sprite: bulletSprite,
       yAcceleration: GRAVITY / 2
     },
+    destroyedSprite: lob2Destroyed,
     fireRate: 33,
     model: lob2Model,
     shot: {
@@ -169,19 +221,20 @@ function Gunship(I) {
       dispersion: 15,
     }
   }), ShipComponent({
+    destroyedSprite: bunkerDestroyed,
     fireRate: 0,
     model: bunkerModel,
     x: -70,
     y: -66
   }),
   ShipComponent({
+    destroyedSprite: cannonBaseDestroyed,
     fireRate: Infinity,
     model: cannonBaseModel,
     shot: {
       count: 0
     }
-  }),
-  cannon
+  })
   );
 
   var boatTarget = Point(I.x - 25, I.y);
@@ -194,6 +247,33 @@ function Gunship(I) {
       return Matrix.translation(I.x, I.y);
     },
 
+    health: function() {
+      var total = 0;
+
+      I.components.each(function(component) {
+        total += component.health();
+      });
+
+      if(I.age % 50 == 0) {
+        console.log(total);
+      }
+
+      return total;
+    },
+
+    healthBar: function() {
+      if(!healthBar) {
+        healthBar = ProgressBar({
+          colorMap: healthColorMap,
+          element: $("#bossHealth"),
+          max: self.health(),
+          value: self.health()
+        });
+      }
+
+      return healthBar;
+    },
+
     before: {
       update: function(position) {
         I.x = position.x + boatTarget.x + 20 * Math.sin(I.age/20);
@@ -203,7 +283,19 @@ function Gunship(I) {
           component.shoot(self.getTransform());
         });
 
-        cannonRotation += Math.PI / 180;
+        if(!cannonDead) {
+          cannon.update();
+          cannonRotation += Math.PI / 180;
+          cannon.shoot(self.getTransform());
+        }
+      }
+    },
+
+    after: {
+      update: function() {
+        if(healthBar) {
+          healthBar.value(self.health());
+        }
       }
     }
   });
@@ -213,12 +305,33 @@ function Gunship(I) {
   self.extend(Stateful(I));
 
   self.extend({
+    getCircles: function() {
+      var componentCircles = $.map(self.components(), function(component) {
+        var transform = self.getTransform();
+        return $.map(component.getCircles(), function(circle) {
+          var point = transform.transformPoint(circle);
+          return {
+            radius: circle.radius,
+            x: point.x,
+            y: point.y,
+            component: component
+          };
+        });
+      });
+
+      return componentCircles;
+    },
+
     after: {
       draw: function(canvas) {
         canvas.withTransform(self.getTransform(), function() {
           $.each(I.components, function(i, component) {
             component.draw(canvas);
           });
+
+          if(!cannonDead) {
+            cannon.draw(canvas);
+          }
         });
       }
     }
@@ -234,7 +347,7 @@ function Gunship(I) {
     var effect = Effect($.extend(effectI, {
       duration: 150,
       rotation: Math.PI / 2.25,
-      sprite: shipModel.animation,
+      sprite: hullModel.animation,
       velocity: Point(0, 0)
     })).extend({
       getTransform: GameObject.rotationGetTransform(effectI)
