@@ -93,8 +93,10 @@ function Gunship(I) {
     I = I || {};
 
     $.reverseMerge(I, {
-      bulletData: {
-        sprite: smallBulletSprite
+      genBulletData: function() {
+        return {
+          sprite: smallBulletSprite
+        };
       },
       cooldown: 0,
       fireRate: 3,
@@ -190,9 +192,17 @@ function Gunship(I) {
       shoot: function(transform) {
         if(I.cooldown >= I.fireRate) {
 
+          var bulletData;
+
+          if(aggro && I.genAggroBulletData) {
+            bulletData = I.genAggroBulletData();
+          } else {
+            bulletData = I.genBulletData();
+          }
+
           I.shot.count.times(function(i) {
             I.shotLocations.each(function(location) {
-              self.shootFrom(location, I.bulletData, transform, !i && I.muzzleFlash);
+              self.shootFrom(location, bulletData, transform, !i && I.muzzleFlash);
             });
           });
 
@@ -270,9 +280,6 @@ function Gunship(I) {
   var cannonRotation = - 5/6 * Math.PI;
 
   var cannon = ShipComponent({
-    bulletData: {
-
-    },
     fireRate: 66,
     model: cannonModel,
     muzzleFlash: true,
@@ -319,11 +326,13 @@ function Gunship(I) {
 
   I.components.push(
     ShipComponent({
-      bulletData: {
-        collideDamage: 5,
-        speed: 10,
-        sprite: bulletSprite,
-        yAcceleration: GRAVITY / 2
+      genBulletData: function() {
+        return {
+          collideDamage: 5,
+          speed: 10,
+          sprite: bulletSprite,
+          yAcceleration: GRAVITY / 2
+        };
       },
       destroyedSprite: lob1Destroyed,
       fireRate: 99,
@@ -333,12 +342,22 @@ function Gunship(I) {
         dispersion: 8,
       }
     }), ShipComponent({
-      bulletData: {
-        collideDamage: 5,
-        speed: 12,
-        sprite: bulletSprite,
-        yAcceleration: GRAVITY / 2
-      },
+      genBulletData: (function() {
+        var count = 0;
+        return function() {
+          if(count == 6) {
+            count = 0;
+          }
+          count += 1;
+          
+          return {
+            collideDamage: 5,
+            speed: count * 2,
+            sprite: bulletSprite,
+            yAcceleration: GRAVITY / 2
+          };
+        }
+      }()),
       destroyedSprite: lob2Destroyed,
       fireRate: 33,
       model: lob2Model,
