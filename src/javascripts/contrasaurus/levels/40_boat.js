@@ -96,11 +96,9 @@ $(function() {
       level.addGameObject(boat);
     }
   }, {
-    every: 1,
+    every: 100,
     event: function(level) {
-      // Update dino speed and position based on boat and cord elasticity
-
-      if(rand() < 0.01) {
+      if(!bossBattle) {
         level.addGameObject(Ramp({
           x: level.position().x + CANVAS_WIDTH,
           y: CANVAS_HEIGHT - Floor.LEVEL
