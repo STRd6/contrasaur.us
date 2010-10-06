@@ -542,14 +542,7 @@ function Dinosaur() {
         parasailTile.draw(canvas, -150, -170);
       }
 
-      if(I.currentState.sprite() && I.currentState.sprite() !== Sprite.EMPTY) {
-        I.currentState.sprite().draw(canvas,
-          -I.currentState.sprite().width/2,
-          -I.currentState.sprite().height/2
-        );
-      } else {
-        console.log("no dino sprite");
-      }
+      I.currentState.draw(canvas);
 
       if(timeTravelling) {
         canvas.withTransform(Matrix.scale(8, 8), function() {

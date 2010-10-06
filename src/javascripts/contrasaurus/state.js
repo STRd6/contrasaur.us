@@ -14,6 +14,9 @@ function State(I) {
   });
 
   var self = Core(I).extend({
+    draw: function(canvas) {
+      I.model.draw(canvas);
+    },
     reset: function() {
       I.age = 0;
       I.model.animation.frame(0);

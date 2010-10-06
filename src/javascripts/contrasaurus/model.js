@@ -9,6 +9,9 @@ function Model(animation, frames, hitFrames) {
 
   return {
     animation: animation,
+    draw: function(canvas) {
+      animation.draw(canvas, -animation.width/2, -animation.height/2);
+    },
     frames: frames,
     /**
      * Returns the array of circles representing the current hit frame.
@@ -58,6 +61,7 @@ function Model(animation, frames, hitFrames) {
  */
 Model.loadJSONUrl = function(url, callback) {
   var proxy = {
+    draw: $.noop,
     hitFrame: function() {
       return [];
     },
