@@ -131,7 +131,7 @@ Number.prototype.times = function(iterator, context) {
     iterator.call(context, i);
   }
   return i;
-}
+};
 
 /**
  * @returns The sign of this number, 0 if the number is 0.
@@ -144,7 +144,11 @@ Number.prototype.sign = function() {
   } else {
     return 0;
   }
-}
+};
+
+Number.prototype.approach = function(target, maxDelta) {
+  return (target - this).clamp(-maxDelta, maxDelta) + this;
+};
 
 function before(method, interception) {
   return function() {

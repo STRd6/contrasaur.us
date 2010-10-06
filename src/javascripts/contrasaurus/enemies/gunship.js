@@ -38,12 +38,24 @@ function Gunship(I) {
   var machineGunModel = Model.loadJSONUrl("data/gunship/machine_gun.model.json");
   var machineGunDestroyed = Sprite.load("images/enemies/gunship/machine_gun_dead.png");
 
+  var onPath = false;
+
   var states = {
     attack: State({
       duration: Infinity,
       model: hullModel,
       update: function(levelPosition) {
-        I.x = levelPosition.x + boatTarget.x + 20 * Math.sin(I.age/20);
+        var targetPosition = levelPosition.x + boatTarget.x + 20 * Math.sin(I.age/20);
+
+        if(onPath) {
+          I.x = targetPosition;
+        } else {
+          I.x = I.x.approach(targetPosition, 5);
+
+          if(I.x == targetPosition) {
+            onPath = true;
+          }
+        }
 
         I.components.each(function(component) {
           component.update();
