@@ -136,9 +136,9 @@ $(function() {
       }
     }
   }, {
-    at: 50,
+    at: 500,
     event: function(level) {
-      gunship = Gunship();
+      var gunship = Gunship();
       level.addGameObject(gunship);
 
       dino.boss(gunship);
