@@ -174,6 +174,7 @@ function GameObject(I) {
   });
 
   self.attrAccessor('health', 'sprite');
+  self.attrReader('age');
 
   self.extend(Bindable());
 

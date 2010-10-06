@@ -35,8 +35,8 @@ function Gunship(I) {
   var cannonModel = Model.loadJSONUrl("data/gunship/cannon.model.json");
   var cannonBaseModel = Model.loadJSONUrl("data/gunship/cannon_base.model.json");
   var cannonBaseDestroyed = Sprite.load("images/enemies/gunship/cannon_base_dead.png");
-  //var machineGunModel = Model.loadJSONUrl("data/gunship/machine_gun.model.json");
-  //var machineGunDestroyed = Sprite.load("images/enemies/gunship/machine_gun_dead.png");
+  var machineGunModel = Model.loadJSONUrl("data/gunship/machine_gun.model.json");
+  var machineGunDestroyed = Sprite.load("images/enemies/gunship/machine_gun_dead.png");
 
   var states = {
     attack: State({
@@ -56,12 +56,13 @@ function Gunship(I) {
       },
       cooldown: 0,
       fireRate: 3,
-      health: 50,
+      health: 500,
       muzzleFlash: false,
       shot: {
         count: 1,
         dispersion: 0
-      }
+      },
+      shotLocations: ["exit"]
     });
 
     var self = GameObject(I).extend({
@@ -146,7 +147,9 @@ function Gunship(I) {
         if(I.cooldown >= I.fireRate) {
 
           I.shot.count.times(function(i) {
-            self.shootFrom("exit", I.bulletData, transform, !i && I.muzzleFlash);
+            I.shotLocations.each(function(location) {
+              self.shootFrom(location, I.bulletData, transform, !i && I.muzzleFlash);
+            });
           });
 
           I.cooldown = 0;
@@ -163,7 +166,6 @@ function Gunship(I) {
     });
 
     self.bind("destroy", function() {
-      console.log("destroyed!!!1");
       self.hit = $.noop;
       self.shoot = $.noop;
       self.update = $.noop;
@@ -178,6 +180,31 @@ function Gunship(I) {
 
     return self;
   }
+
+  var machineGunRotation = Math.PI;
+
+  var machineGun = ShipComponent({
+    destroyedSprite: machineGunDestroyed,
+    fireRate: 2,
+    model: machineGunModel,
+    shotLocations: ["exit", "exit1"],
+    x: 50,
+    y: 16
+  }).extend({
+    getTransform: function() {
+      var position = machineGun.position();
+      
+      var t = Matrix.rotation(machineGunRotation, Point(-25, 0)).translate(position.x, position.y);
+
+      return t;
+    },
+    before: {
+      update: function() {
+        // Aim at dino
+        machineGunRotation = Point.direction(ship.position().add(machineGun.position()), dino.position());
+      }
+    }
+  });
 
   var cannonRotation = - 5/6 * Math.PI;
 
@@ -197,6 +224,12 @@ function Gunship(I) {
       var t = Matrix.rotation(cannonRotation, Point(-42, 0)).translate(position.x, position.y);
 
       return t;
+    },
+
+    before: {
+      update: function() {
+        cannonRotation = 2/3 * Math.PI * (1 + Math.abs(Math.sin(this.age() / 90)));
+      }
     }
   });
 
@@ -213,42 +246,44 @@ function Gunship(I) {
     cannonDead = true;
   });
 
-  I.components.push(ShipComponent({
-    bulletData: {
-      collideDamage: 5,
-      speed: 10,
-      sprite: bulletSprite,
-      yAcceleration: GRAVITY / 2
-    },
-    destroyedSprite: lob1Destroyed,
-    fireRate: 99,
-    model: lob1Model,
-    shot: {
-      count: 10,
-      dispersion: 8,
-    }
-  }), ShipComponent({
-    bulletData: {
-      collideDamage: 5,
-      speed: 12,
-      sprite: bulletSprite,
-      yAcceleration: GRAVITY / 2
-    },
-    destroyedSprite: lob2Destroyed,
-    fireRate: 33,
-    model: lob2Model,
-    shot: {
-      count: 10,
-      dispersion: 15,
-    }
-  }), ShipComponent({
-    destroyedSprite: bunkerDestroyed,
-    fireRate: 0,
-    model: bunkerModel,
-    x: -70,
-    y: -66
-  }),
-  cannonBase
+  I.components.push(
+    ShipComponent({
+      bulletData: {
+        collideDamage: 5,
+        speed: 10,
+        sprite: bulletSprite,
+        yAcceleration: GRAVITY / 2
+      },
+      destroyedSprite: lob1Destroyed,
+      fireRate: 99,
+      model: lob1Model,
+      shot: {
+        count: 10,
+        dispersion: 8,
+      }
+    }), ShipComponent({
+      bulletData: {
+        collideDamage: 5,
+        speed: 12,
+        sprite: bulletSprite,
+        yAcceleration: GRAVITY / 2
+      },
+      destroyedSprite: lob2Destroyed,
+      fireRate: 33,
+      model: lob2Model,
+      shot: {
+        count: 10,
+        dispersion: 15,
+      }
+    }), ShipComponent({
+      destroyedSprite: bunkerDestroyed,
+      fireRate: 0,
+      model: bunkerModel,
+      x: -70,
+      y: -66
+    }),
+    cannonBase,
+    machineGun
   );
 
   shipComponents = I.components;
@@ -269,10 +304,6 @@ function Gunship(I) {
       I.components.each(function(component) {
         total += component.health();
       });
-
-      if(I.age % 50 == 0) {
-        console.log(total);
-      }
 
       return total;
     },
@@ -301,7 +332,6 @@ function Gunship(I) {
 
         if(!cannonDead) {
           cannon.update();
-          cannonRotation += Math.PI / 180;
           cannon.shoot(self.getTransform());
         }
       }
