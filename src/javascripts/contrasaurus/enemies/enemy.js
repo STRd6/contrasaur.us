@@ -79,7 +79,7 @@ function Enemy(I) {
     getTransform: function() {
       var t;
       if(I.xVelocity <= 0) {
-        t =  Matrix.HORIZONTAL_FLIP;
+        t = Matrix.HORIZONTAL_FLIP;
       } else {
         t = Matrix.IDENTITY;
       }

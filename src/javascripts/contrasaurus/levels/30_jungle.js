@@ -51,49 +51,52 @@ $(function() {
   var planeDelay = 15;
 
   function generateEnemies(level) {
-    if (Math.random() < 0.03) {
-      if (Math.random() < 0.5) {
-        var soldier = Soldier({
-          hFlip: true,
-          x: level.position().x + CANVAS_WIDTH + 20,
-          xVelocity: -2
-        });
+    if (!dino.boss()) {
+      if (Math.random() < 0.03) {
+        if (Math.random() < 0.5) {
+          var soldier = Soldier({
+            hFlip: true,
+            x: level.position().x + CANVAS_WIDTH + 20,
+            xVelocity: -2
+          });
 
-        level.addGameObject(soldier);
-      } else {
-        level.addGameObject(Soldier({
-          airborne: true,
-          xVelocity: 0,
-          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
-          y: -100,
-          yVelocity: 2
-        }));
+          level.addGameObject(soldier);
+        } else {
+          level.addGameObject(Soldier({
+            airborne: true,
+            hFlip: true,
+            xVelocity: 0,
+            x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
+            y: -100,
+            yVelocity: 2
+          }));
+        }
       }
-    }
 
-    if (Math.random() < 0.01) {
-      level.addGameObject(Tank({
-        x: level.position().x + CANVAS_WIDTH + 20
-      }));
-    }
-
-    if (bombingRunActive) {
-      var PlaneClass = (numPlanes % 2) ? Fighter : Bomber;
-
-      if (bombingRunCount % planeDelay == 0) {
-        level.addGameObject(PlaneClass({
-          x: level.position().x - 50 - bombingRunCount,
-          y: 40
+      if (Math.random() < 0.01) {
+        level.addGameObject(Tank({
+          x: level.position().x + CANVAS_WIDTH + 20
         }));
       }
 
-      bombingRunCount++;
+      if (bombingRunActive) {
+        var PlaneClass = (numPlanes % 2) ? Fighter : Bomber;
 
-      if (bombingRunCount >= planeDelay * numPlanes) {
-        bombingRunActive = false;
-        bombingRunCount = 0;
-        if (numPlanes < maxPlanes) {
-          numPlanes++;
+        if (bombingRunCount % planeDelay == 0) {
+          level.addGameObject(PlaneClass({
+            x: level.position().x - 50 - bombingRunCount,
+            y: 40
+          }));
+        }
+
+        bombingRunCount++;
+
+        if (bombingRunCount >= planeDelay * numPlanes) {
+          bombingRunActive = false;
+          bombingRunCount = 0;
+          if (numPlanes < maxPlanes) {
+            numPlanes++;
+          }
         }
       }
     }
@@ -132,7 +135,26 @@ $(function() {
   }, {
     at: 3000,
     event: function(level) {
-      level.complete();
+      commando = Commando({
+        x: level.position().x + CANVAS_WIDTH + 40
+      });
+
+      commando.bind('destroy', function() {
+        dino.boss(false);
+
+        level.after(140, function() {
+          level.fadeOut(10);
+        });
+
+        level.after(150, function() {
+          level.complete();
+        });
+      });
+
+      dino.boss(commando);
+
+      level.addGameObject(commando);
+      level.lockCamera(level.position().x, level.position().x + 160);
     }
   }];
 
