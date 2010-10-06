@@ -47,6 +47,11 @@ $(function() {
       position: Point(0, 0),
       repeat: true
     }, {
+      image: Sprite.load('images/levels/washington_dc/foreground.png'),
+      parallaxRate: 1,
+      position: Point(0, 0),
+      repeat: true
+    }, {
       image: Sprite.load('images/levels/washington_dc/ground.png'),
       parallaxRate: 0,
       position: {
