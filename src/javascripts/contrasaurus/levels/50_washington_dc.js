@@ -157,6 +157,7 @@ $(function() {
 
   level.bind("afterStep", function(level) {
     if (level.age() > destroyWhitehouseAge && (level.age() < destroyWhitehouseAge + 200) && destroyWhitehouseAge > 0) {
+      roboreaganDialog.update();
       roboreaganDialog.draw(canvas);
     }
   });
