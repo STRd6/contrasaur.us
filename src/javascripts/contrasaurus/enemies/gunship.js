@@ -454,18 +454,10 @@ function Gunship(I) {
       radius: 100
     })));
 
-    var effectI = self.position();
-
-    var effect = Effect($.extend(effectI, {
-      duration: 150,
-      rotation: Math.PI / 2.25,
-      sprite: hullModel.animation,
-      velocity: Point(0, 0)
-    })).extend({
-      getTransform: GameObject.rotationGetTransform(effectI)
-    });
-
-    addGameObject(effect);
+    I.active = true;
+    I.rotation = Math.PI / 2.25;
+    self.update = $.noop;
+    self.getTransform = GameObject.rotationGetTransform(I);
   });
 
   return self;
