@@ -24,12 +24,12 @@ function State(I) {
       I.age = 0;
       I.model.animation.frame(0);
     },
-    update: function() {
+    update: function(levelPosition) {
       I.model.update();
       I.sprite = I.model.animation;
       I.hitCircles = I.model.hitFrame();
 
-      I.update();
+      I.update(levelPosition);
       I.age++;
 
       if (I.age == I.duration) {

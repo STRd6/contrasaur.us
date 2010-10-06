@@ -136,10 +136,10 @@ $(function() {
       }
     }
   }, {
-    at: 500,
+    at: 100,
     event: function(level) {
       var gunship = Gunship();
-      level.addGameObject(gunship);
+      level.prependGameObject(gunship);
 
       dino.boss(gunship);
       bossBattle = true;

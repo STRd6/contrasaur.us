@@ -82,8 +82,8 @@ function Stateful(I) {
       }
     },
     before: {
-      update: function() {
-        I.currentState.update();
+      update: function(levelPosition) {
+        I.currentState.update(levelPosition);
       }
     }
   };

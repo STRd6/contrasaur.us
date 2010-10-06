@@ -42,7 +42,34 @@ function Gunship(I) {
     attack: State({
       duration: Infinity,
       model: hullModel,
-      update: function() {
+      update: function(levelPosition) {
+        I.x = levelPosition.x + boatTarget.x + 20 * Math.sin(I.age/20);
+
+        I.components.each(function(component) {
+          component.update();
+          component.shoot(self.getTransform());
+        });
+
+        if(!cannonDead) {
+          cannon.update();
+          cannon.shoot(self.getTransform());
+        }
+      }
+    }),
+    enter: State({
+      complete: function() {
+        I.currentState = states.attack;
+      },
+      duration: 66,
+      model: hullModel,
+      update: function(levelPosition) {
+        I.x = levelPosition.x + CANVAS_WIDTH + 120 - 4 * I.age;
+
+        I.components.each(function(component) {
+          component.setAnimation();
+        });
+
+        cannon.update();
       }
     })
   };
@@ -66,6 +93,8 @@ function Gunship(I) {
     });
 
     var self = GameObject(I).extend({
+      bulletHitEffect: Enemy.sparkSprayEffect,
+
       getCircles: function() {
         var transform = self.getTransform();
 
@@ -158,9 +187,13 @@ function Gunship(I) {
         }
       },
 
+      setAnimation: function() {
+        I.sprite = I.model.animation;
+      },
+
       before: {
         update: function() {
-          I.sprite = I.model.animation;
+          self.setAnimation();
         }
       }
     });
@@ -169,6 +202,9 @@ function Gunship(I) {
       self.hit = $.noop;
       self.shoot = $.noop;
       self.update = $.noop;
+      self.getCircles = function() {
+        return [];
+      };
       I.health = 0;
       I.sprite = I.destroyedSprite;
 
@@ -289,7 +325,7 @@ function Gunship(I) {
   shipComponents = I.components;
 
   var boatTarget = Point(I.x - 25, I.y);
-  I.currentState = states.attack;
+  I.currentState = states.enter;
 
   var self = ship = Boss(I).extend({
     bulletHitEffect: Enemy.sparkSprayEffect,
@@ -322,18 +358,8 @@ function Gunship(I) {
     },
 
     before: {
-      update: function(position) {
-        I.x = position.x + boatTarget.x + 20 * Math.sin(I.age/20);
-
-        I.components.each(function(component) {
-          component.update();
-          component.shoot(self.getTransform());
-        });
-
-        if(!cannonDead) {
-          cannon.update();
-          cannon.shoot(self.getTransform());
-        }
+      update: function(levelPosition) {
+        
       }
     },
 
