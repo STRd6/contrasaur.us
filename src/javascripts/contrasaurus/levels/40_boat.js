@@ -154,7 +154,7 @@ $(function() {
   }, {
     at: 100,
     event: function(level) {
-      var gunship = Gunship();
+      gunship = Gunship();
       level.prependGameObject(gunship);
 
       dino.boss(gunship);

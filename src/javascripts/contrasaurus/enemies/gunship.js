@@ -6,6 +6,8 @@ function Gunship(I) {
     health: 2000,
     hFlip: false,
     hitCircles: [],
+    maxShakeAmplitude: 50,
+    shakeAmplitude: 0,
     x: 550,
     xVelocity: 0,
     y: 240
@@ -18,6 +20,7 @@ function Gunship(I) {
   var healthBar;
   var ship;
   var shipComponents;
+  var aggro = false;
 
   var cannonDead = false;
   var componentsDestroyed = 0;
@@ -195,7 +198,11 @@ function Gunship(I) {
 
           I.cooldown = 0;
         } else {
-          I.cooldown += 1;
+          if(aggro) {
+            I.cooldown += 3;
+          } else {
+            I.cooldown += 1;
+          }
         }
       },
 
@@ -221,6 +228,12 @@ function Gunship(I) {
       I.sprite = I.destroyedSprite;
 
       componentsDestroyed += 1;
+
+      if(componentsDestroyed == 3) {
+        aggro = true;
+        ship.shudder();
+      }
+
       if(componentsDestroyed == shipComponents.length) {
         ship.destroy();
       }
@@ -379,16 +392,21 @@ function Gunship(I) {
       return healthBar;
     },
 
-    before: {
-      update: function(levelPosition) {
-        
-      }
+    shudder: function() {
+      I.shakeAmplitude = 300;
     },
 
     after: {
       update: function() {
         if(healthBar) {
           healthBar.value(self.health());
+        }
+
+        if(I.shakeAmplitude > 10) {
+          I.shakeAmplitude = I.shakeAmplitude * 0.7;
+          I.x += (Math.min(I.maxShakeAmplitude, I.shakeAmplitude) * Math.sin(I.age)).abs();
+        } else {
+          I.shakeAmplitude = 0;
         }
       }
     }

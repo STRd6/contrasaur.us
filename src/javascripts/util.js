@@ -146,6 +146,10 @@ Number.prototype.sign = function() {
   }
 };
 
+Number.prototype.abs = function() {
+  return Math.abs(this);
+};
+
 Number.prototype.approach = function(target, maxDelta) {
   return (target - this).clamp(-maxDelta, maxDelta) + this;
 };
