@@ -139,6 +139,7 @@ $(function() {
       level.addGameObject(Fighter({
         airborne: true,
         hFlip: true,
+        type: "fighter2",
         xVelocity: -4,
         x: level.position().x + CANVAS_WIDTH + 20,
         y: rand(120) + 100,
