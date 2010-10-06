@@ -79,6 +79,25 @@ function Boat(I) {
     }
   });
 
+  self.bind('destroy', function() {
+    addGameObject(EffectGenerator($.extend(self.position(), {
+      radius: 100
+    })));
+
+    var effectI = self.position();
+
+    var effect = Effect($.extend(effectI, {
+      duration: 150,
+      rotation: - Math.PI / 2.25,
+      sprite: boatModel.animation,
+      velocity: Point(0, 0)
+    })).extend({
+      getTransform: GameObject.rotationGetTransform(effectI)
+    });
+
+    addGameObject(effect);
+  });
+
   var boatTarget = Point(I.x, I.y);
 
   return self;

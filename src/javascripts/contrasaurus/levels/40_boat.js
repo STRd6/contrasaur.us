@@ -14,6 +14,8 @@ $(function() {
     addGameObject(crate);
   }
 
+  var boat;
+
   var scene = Scene([
     {
       image: Sprite.load(imgPath + "background.png"),
@@ -88,7 +90,7 @@ $(function() {
     event: function(level) {
       dino.parasailing(true);
 
-      var boat = Boat({
+      boat = Boat({
         x: 540,
         y: 285
       });
@@ -141,6 +143,10 @@ $(function() {
 
       dino.boss(gunship);
       bossBattle = true;
+
+      level.after(20, function() {
+        boat.destroy();
+      });
 
       gunship.bind("destroy", function() {
         level.after(140, function() {
