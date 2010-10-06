@@ -8,7 +8,7 @@ function Boat(I) {
   $.reverseMerge(I, {
     collideDamage: 1,
     collisionType: "dino",
-    health: 50,
+    health: 5000,
     hitCircles: boatModel.hitFrames,
     onFire: false,
     sprite: boatModel.animation

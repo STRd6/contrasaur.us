@@ -4,6 +4,19 @@ $(function() {
 
   var bossBattle = false;
 
+  ThirdLaserEyeBlind = (function() {
+    var count = 0;
+    return function() {
+      count += 1;
+
+      if(count == 3) {
+        return LaserGun();
+      } else {
+        return BattleAxe();
+      }
+    }
+  }());
+
   function addCrate(weaponClass) {
     var crate = FloatingCrate({
       weaponClass: weaponClass,
@@ -130,9 +143,12 @@ $(function() {
         x: level.position().x + CANVAS_WIDTH + 20,
         y: rand(120) + 100,
       }));
-
-      if (Math.random() < 0.1) {
-        addCrate(BattleAxe);
+    }
+  }, {
+    every: 80,
+    event: function(level) {
+      if (Math.random() < 0.5 && level.age() > 0) {
+        addCrate(ThirdLaserEyeBlind);
       }
     }
   }, {
