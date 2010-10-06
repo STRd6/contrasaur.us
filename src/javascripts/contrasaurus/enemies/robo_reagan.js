@@ -6,6 +6,7 @@ function RoboReagan(I) {
 
   var states = {
     endBattle: State({
+      model: hoverModel,
       update: function() {
         I.x = centralPoint.x + 175 * Math.sin(I.age / 11);
         I.y = centralPoint.y + 30 * Math.cos(I.age / 13);
@@ -13,12 +14,13 @@ function RoboReagan(I) {
       }
     }),
     battle: State({
+      model: hoverModel,
       update: function() {
         I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
         I.y = centralPoint.y + 25 * Math.cos(I.age / 13);
-        I.hitCircles = hoverModel.hitFrame();
+
         if(I.health < 4500) { // TODO: make different events to transition states better
-          currentState = states.endBattle;
+          I.currentState = states.endBattle;
           I.shootLogic = function() {
             self.shoot(
               Math.random() * (Math.PI), {
@@ -39,7 +41,7 @@ function RoboReagan(I) {
     }),
     takeOff: State({
       complete: function() {
-        currentState = states.battle;
+        I.currentState = states.battle;
         I.shootLogic = function() {
           self.shoot(
             Math.random() * (Math.PI), {
@@ -51,50 +53,48 @@ function RoboReagan(I) {
         }
       },
       duration: 80,
+      model: hoverModel,
       update: function() {
-        I.sprite = hoverModel.animation;
         I.y -= 2;
       }
     }),
     shakeFist: State({
       complete: function() {
-        currentState = states.takeOff;
+        I.currentState = states.takeOff;
       },
       duration: 50,
+      model: kneelModel,
       update: function() {
-        I.sprite.frame((I.sprite.frame() % 2) + 8);
-        I.hitCircles = kneelModel.hitFrame();
+        I.currentState.frame((I.currentState.frame() % 2) + 8);
       }
     }),
     stand: State({
       complete: function() {
-        currentState = states.shakeFist;
+        I.currentState = states.shakeFist;
       },
       duration: 20,
+      model: kneelModel,
       update: function() {
-        I.hitCircles = kneelModel.hitFrame();
+        
       }
     }),
     kneel: State({
       complete: function() {
-        currentState = states.stand;
+        I.currentState = states.stand;
       },
       duration: 100,
+      model: kneelModel,
       update: function() {
         I.y = CANVAS_HEIGHT - Floor.LEVEL - 40;
-        I.sprite = kneelModel.animation;
-        I.sprite.frame(0);
-        I.hitCircles = kneelModel.hitFrame();
+
+        I.currentState.frame(0);
       }
     })
   };
 
-  var currentState = states.kneel;
-
   $.reverseMerge(I, {
     collideDamage: 1,
     health: 5000,
-    hitCircles: kneelModel.hitFrames,
     pointsWorth: 1000000,
     radius: 40,
     sprite: kneelModel.animation,
@@ -102,13 +102,11 @@ function RoboReagan(I) {
     y: 60
   });
 
-  var self = Boss(I).extend({
-    after: {
-      update: function() {
-        currentState.update();
-      }
-    }
-  });
+  I.currentState = states.kneel;
+
+  var self = Boss(I).extend({});
+
+  self.extend(Stateful(I));
 
   self.bind('destroy', function() {
     addGameObject(EffectGenerator($.extend(self.position(), {

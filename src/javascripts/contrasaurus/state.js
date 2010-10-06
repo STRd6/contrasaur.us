@@ -17,6 +17,9 @@ function State(I) {
     draw: function(canvas) {
       I.model.draw(canvas);
     },
+    frame: function(newFrame) {
+      return I.model.animation.frame(newFrame);
+    },
     reset: function() {
       I.age = 0;
       I.model.animation.frame(0);
