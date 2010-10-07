@@ -233,6 +233,7 @@ $(function() {
   }];
 
   var level = addLevel({
+    description: "AD 1984: Lake Xolotlán",
     scene: scene,
     platforms: [floor],
     triggers: triggers,

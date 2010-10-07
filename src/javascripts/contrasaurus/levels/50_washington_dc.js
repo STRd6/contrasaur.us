@@ -145,6 +145,7 @@ $(function() {
   });
 
   var level = addLevel({
+    description: "AD 1984: Washington D.C.",
     scene: scene,
     objective: "Destroy",
     objectiveImage: 'images/levels/washington_dc/whiteHouse_thumb.png',
