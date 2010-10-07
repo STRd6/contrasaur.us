@@ -6,9 +6,10 @@ function Boat(I) {
   });
 
   $.reverseMerge(I, {
-    collideDamage: 1,
-    collisionType: "dino",
-    health: 5000,
+    collideDamage: 20,
+    collisionType: "dinoBullet",
+    damageType: "boat",
+    health: Infinity,
     hitCircles: boatModel.hitFrames,
     onFire: false,
     sprite: boatModel.animation
@@ -97,6 +98,8 @@ function Boat(I) {
 
     addGameObject(effect);
   });
+
+  self.attrReader('damageType');
 
   var boatTarget = Point(I.x, I.y);
 

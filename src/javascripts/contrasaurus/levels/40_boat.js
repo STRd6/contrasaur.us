@@ -3,6 +3,7 @@ $(function() {
   var levelVelocity = Point(-6, 0);
 
   var bossBattle = false;
+  var bossDefeated = false;
 
   ThirdLaserEyeBlind = (function() {
     var count = 0;
@@ -42,26 +43,29 @@ $(function() {
     }, options)));
   }
 
-  function addFighterSquadron(n) {
-    var frontWave = Math.min(n, 7);
-    
-    (frontWave + 1).times(function(i) {
+  function addFrontFighterWave(n) {
+    (n + 1).times(function(i) {
       if(i) {
         var negative = i % 2 ? -1 : 1;
         var halfI = (i / 2).floor();
         addPlane(i * 20 + CANVAS_WIDTH, negative * 40 * halfI);
       }
     });
-    
-    var rearWave = Math.max(0, n - 7);
+  }
 
-    (rearWave + 1).times(function(i) {
+  function addRearFighterWave(n) {
+    (n + 1).times(function(i) {
       if(i) {
         var negative = i % 2 ? -1 : 1;
         var halfI = (i / 2).floor();
         addPlane(-i * 20, negative * 40 * halfI, {xVelocity: 8});
       }
     });
+  }
+
+  function addFighterSquadron(n) {
+    addFrontFighterWave(Math.min(n, 7));
+    addRearFighterWave(Math.max(0, n - 7));
   }
 
   function addParasoldier(x, y) {
@@ -167,7 +171,7 @@ $(function() {
   }, {
     every: 100,
     event: function(level) {
-      if(!bossBattle) {
+      if(level.age() < 2300) {
         level.addGameObject(Ramp({
           x: level.position().x + CANVAS_WIDTH,
           xVelocity: -2,
@@ -178,34 +182,40 @@ $(function() {
   }, {
     every: 120,
     event: function(level) {
-      if(bossBattle) {
-        addParasoldierFormation(rand(4));
-      } else {
-        addParasoldierFormation(2 + rand(4));
+      if(!bossDefeated) {
+        if(bossBattle) {
+          addParasoldierFormation(rand(4));
+        } else {
+          addParasoldierFormation(2 + rand(4));
+        }
       }
     }
   }, {
     every: 150,
     event: function(level) {
-      if(level.age() > 0) {
+      if(level.age() > 0 && !bossDefeated && level.age() != 2400) {
         fighterCount += 1;
 
         if(bossBattle) {
-          addFighterSquadron(3);
+          addFighterSquadron(1 + rand(3));
         } else {
-          addFighterSquadron(fighterCount);
+          if(fighterCount == 12 || fighterCount == 13) {
+            addRearFighterWave(fighterCount - 9);
+          } else {
+            addFighterSquadron(Math.min(fighterCount, 14));
+          }
         }
       }
     }
   }, {
     every: 200,
     event: function(level) {
-      if (Math.random() < 0.5 && level.age() > 0) {
+      if (Math.random() < 0.5 && level.age() > 0 && !bossDefeated) {
         addCrate(ThirdLaserEyeBlind);
       }
     }
   }, {
-    at: 2050,
+    at: 2400,
     event: function(level) {
       var gunship = Gunship();
       level.prependGameObject(gunship);
@@ -218,6 +228,8 @@ $(function() {
       });
 
       gunship.bind("destroy", function() {
+        bossDefeated = true;
+
         level.after(140, function() {
           level.fadeOut(10);
         });

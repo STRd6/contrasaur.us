@@ -8,7 +8,8 @@ function Crate(I) {
     checkBounds: $.noop,
     collideDamage: 0,
     damageTable: {
-      fire: 0.25
+      fire: 0.25,
+      boat: 0
     },
     health: 100,
     maxShakeAmplitude: 7,
