@@ -32,7 +32,8 @@ function RoboReagan(I) {
 
             if(rand(20) == 0) {
               addGameObject(HomingMissile($.extend({
-                collisionType: "enemyBullet"
+                collisionType: "enemyBullet",
+                sprite: Sprite.load("images/projectiles/homing_missile_red.png")
               }, self.position())));
             }
           }
@@ -75,7 +76,7 @@ function RoboReagan(I) {
       duration: 20,
       model: kneelModel,
       update: function() {
-        
+
       }
     }),
     kneel: State({
