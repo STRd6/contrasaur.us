@@ -11,9 +11,7 @@ function Chainsaw(I) {
     radius: 5,
     rotation: 0,
     rotationPoint: Point(-52, -12),
-    throwable: {
-      explodeDamage: 200
-    }
+    throwable: {}
   });
 
   var self = Weapon(I).extend({
