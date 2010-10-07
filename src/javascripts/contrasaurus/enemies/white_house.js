@@ -3,11 +3,10 @@ function WhiteHouse(I) {
 
   var fullSprite = Sprite.load('images/levels/washington_dc/whiteHouse_full.png');
   var damagedSprite = Sprite.load('images/levels/washington_dc/whiteHouse_damaged.png');
-  var destroyedSprite = Sprite.load('images/levels/washington_dc/whiteHouse_destroyed.png');
 
   $.reverseMerge(I, {
     damageTable: {
-      fire: 0.25,
+      fire: 0.1,
     },
     health: 1000,
     hitCircles: [
@@ -39,16 +38,6 @@ function WhiteHouse(I) {
   });
 
   self.extend(Shakeable(I));
-
-  self.bind('destroy', function() {
-    addGameObject(Effect({
-      duration: -1,
-      sprite: destroyedSprite,
-      velocity: Point(),
-      x: I.x,
-      y: I.y
-    }));
-  });
 
   return self;
 }

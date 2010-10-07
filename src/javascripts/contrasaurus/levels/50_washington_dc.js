@@ -1,6 +1,18 @@
 $(function() {
   var imgPath = "images/levels/washington_dc/";
-  var destroyWhitehouseAge = 0;
+
+
+  var destroyedWhiteHouseSprite = Sprite.load('images/levels/washington_dc/whiteHouse_destroyed.png');
+
+  function addCrate(weaponClass) {
+    var crate = Crate({
+      weaponClass: weaponClass,
+      x: level.position().x + rand(CANVAS_WIDTH) + 20,
+      y: 320
+    });
+
+    addGameObject(crate);
+  }
 
   function generateEnemies(level) {
     if (Math.random() < 0.03) {
@@ -65,68 +77,86 @@ $(function() {
   });
 
   var triggers = [{
-      at: 1000,
-      event: function(level) {
-        var whiteHouse = WhiteHouse({
-          x: level.position().x + CANVAS_WIDTH + 100
+    at: 1000,
+    event: function(level) {
+      var whiteHouse = WhiteHouse({
+        x: level.position().x + CANVAS_WIDTH + 100
+      });
+
+      level.addGameObject(GameObject({
+        sprite: Sprite.load(imgPath + "minitreebush.png"),
+        x: dino.position().x + CANVAS_WIDTH + 25,
+        y: 300
+      }));
+
+      level.addGameObject(GameObject({
+        sprite: Sprite.load(imgPath + "minitreebush.png"),
+        x: dino.position().x + CANVAS_WIDTH - 586 - 25,
+        y: 300
+      }));
+
+      dino.boss(whiteHouse);
+
+      whiteHouse.bind('destroy', function() {
+        level.prependGameObject(Effect($.extend(whiteHouse.position(), {
+          duration: -1,
+          sprite: destroyedWhiteHouseSprite,
+          velocity: Point()
+        })));
+
+        level.dialog(DialogBox({
+          avatar: roboReaganAvatar,
+          text: "You have only seen 1% of my true power"
+        }), 150);
+
+        var roboReagan = RoboReagan({
+          x: whiteHouse.position().x
         });
 
-        level.addGameObject(GameObject({
-          sprite: Sprite.load(imgPath + "minitreebush.png"),
-          x: dino.position().x + CANVAS_WIDTH + 25,
-          y: 300
-        }));
+        destroyWhitehouseAge = level.age();
+        dino.boss(roboReagan);
 
-        level.addGameObject(GameObject({
-          sprite: Sprite.load(imgPath + "minitreebush.png"),
-          x: dino.position().x + CANVAS_WIDTH - 586 - 25,
-          y: 300
-        }));
+        roboReagan.bind('destroy', function() {
+          dino.boss(false);
 
-        dino.boss(whiteHouse);
-
-        whiteHouse.bind('destroy', function() {
-          var roboReagan = RoboReagan({
-            x: whiteHouse.position().x
+          level.after(130, function() {
+            level.fadeOut(20);
           });
 
-          destroyWhitehouseAge = level.age();
-          dino.boss(roboReagan);
-
-          roboReagan.bind('destroy', function() {
-            dino.boss(false);
-
-            level.after(130, function() {
-              level.fadeOut(20);
-            });
-
-            level.after(150, function() {
-              level.complete();
-            });
+          level.after(150, function() {
+            level.complete();
           });
-
-          level.addGameObject(roboReagan);
         });
 
-        level.prependGameObject(whiteHouse);
-      }
-    }, {
+        level.addGameObject(roboReagan);
+      });
+
+      level.prependGameObject(whiteHouse);
+    }
+  }, {
     every: 1,
     event: function(level) {
       generateEnemies(level);
+    }
+  }, {
+    every: 400,
+    event: function(level) {
+      if(level.age() > 0) {
+        addCrate(Chainsaw);
+      }
     }
   }];
 
   addCutscene(
     "images/levels/cutscenes/hero_ceremony.png",
     "To Contrasaur, the greatest of American heros, for his valiant work in Nicaragua",
-    3000
+    4000
   );
 
   addCutscene(
     "",
     "Later that night...",
-    1000
+    1300
   );
 
   addCutscene(
@@ -137,12 +167,7 @@ $(function() {
 
   addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1000);
 
-  var roboreaganAvatar = Sprite.load("images/avatars/roboreagan.png");
-
-  var roboreaganDialog = DialogBox({
-    avatar: roboreaganAvatar,
-    text: "You have only seen 1% of my true power"
-  });
+  var roboReaganAvatar = Sprite.load("images/avatars/roboreagan.png");
 
   var level = addLevel({
     description: "AD 1984: Washington D.C.",
@@ -156,10 +181,4 @@ $(function() {
 
   addCutscene("images/levels/cutscenes/finale.png", "Everything is going according to plan...", 6000);
 
-  level.bind("afterStep", function(level) {
-    if (level.age() > destroyWhitehouseAge && (level.age() < destroyWhitehouseAge + 200) && destroyWhitehouseAge > 0) {
-      roboreaganDialog.update();
-      roboreaganDialog.draw(canvas);
-    }
-  });
 });
