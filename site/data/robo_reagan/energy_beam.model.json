@@ -1,0 +1,71 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 4,
+    "height": 54,
+    "width": 41,
+    "url": "images/enemies/robo_reagan/energy_beam.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 11
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "radius": 14
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 11
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "radius": 14
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 11
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "radius": 14
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": 0,
+          "y": -11,
+          "radius": 11
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "radius": 14
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

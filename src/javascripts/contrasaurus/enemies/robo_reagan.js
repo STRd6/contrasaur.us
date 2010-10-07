@@ -1,6 +1,8 @@
 function RoboReagan(I) {
   I = I || {};
 
+  var chargeModel = Model.loadJSONUrl("data/robo_reagan/charge.model.json");
+  var energyBeamModel = Model.loadJSONUrl("data/robo_reagan/energy_beam.model.json");
   var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json");
   var kneelModel = Model.loadJSONUrl("data/robo_reagan/kneel.model.json");
 
@@ -38,7 +40,25 @@ function RoboReagan(I) {
             }
           }
         }
+
+        if(rand() < 0.01) {
+          I.currentState = states.charge
+        }
       }
+    }),
+    charge: State({
+      complete: function() {
+        I.currentState = states.energyBeam;
+      },
+      duration: 40,
+      model: chargeModel
+    }),
+    energyBeam: State({
+      complete: function() {
+        I.currentState = states.battle;
+      },
+      duration: 40,
+      model: energyBeamModel
     }),
     takeOff: State({
       complete: function() {
