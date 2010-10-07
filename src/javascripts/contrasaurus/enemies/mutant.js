@@ -17,7 +17,7 @@ function Mutant(I) {
       }
     },
     hitCircles: walkModel.hitFrames,
-    health: 80,
+    health: 50,
     nutrition: -20,
     pointsWorth: 5000,
     radius: 20,

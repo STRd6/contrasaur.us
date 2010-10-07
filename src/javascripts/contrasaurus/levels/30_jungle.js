@@ -133,7 +133,7 @@ $(function() {
       }));
     }
   }, {
-    at: 300,
+    at: 3000,
     event: function(level) {
       commando = Commando({
         x: level.position().x + CANVAS_WIDTH + 40
