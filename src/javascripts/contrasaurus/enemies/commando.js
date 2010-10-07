@@ -144,7 +144,7 @@ function Commando(I) {
         t = Matrix.IDENTITY;
       }
 
-      if (I.currentState === states.idle || I.currentState === states.shoot || I.currentState === states.grenade) {
+      if (I.currentState !== states.run) {
         if(self.position().x - dino.position().x >= 0) {
           t = Matrix.HORIZONTAL_FLIP;
         } else {
