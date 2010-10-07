@@ -6,20 +6,37 @@ function RoboReagan(I) {
   var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json");
   var kneelModel = Model.loadJSONUrl("data/robo_reagan/kneel.model.json");
 
+  var xAmplitude = 100;
+  var yAmplitude = 25;
+
+  var maxDisplacementScale = 1;
+  var displacementScale = 0;
+  var displacementDelta = 0.025;
+
   var states = {
     endBattle: State({
       model: hoverModel,
       update: function() {
-        I.x = centralPoint.x + 175 * Math.sin(I.age / 11);
-        I.y = centralPoint.y + 30 * Math.cos(I.age / 13);
-        I.hitCircles = hoverModel.hitFrame();
+        I.x = centralPoint.x + displacementScale * xAmplitude * Math.sin(I.age / 11);
+        I.y = centralPoint.y + displacementScale * yAmplitude * Math.cos(I.age / 13);
       }
     }),
     battle: State({
       model: hoverModel,
       update: function() {
-        I.x = centralPoint.x + 100 * Math.sin(I.age / 11);
-        I.y = centralPoint.y + 25 * Math.cos(I.age / 13);
+        if(displacementScale >= 2 && displacementDelta > 0) {
+          displacementDelta = -displacementDelta;
+        } else if(displacementScale <= 0 && displacementDelta < 0){
+          displacementDelta = -displacementDelta;
+          I.currentState = states.charge;
+        }
+
+        displacementScale += displacementDelta;
+
+        var currentScale = Math.min(maxDisplacementScale, displacementScale);
+
+        I.x = centralPoint.x + currentScale * xAmplitude * Math.sin(I.age / 11);
+        I.y = centralPoint.y + currentScale * yAmplitude * Math.cos(I.age / 13);
 
         if(I.health < 4500) { // TODO: make different events to transition states better
           I.currentState = states.endBattle;
@@ -39,10 +56,6 @@ function RoboReagan(I) {
               }, self.position())));
             }
           }
-        }
-
-        if(rand() < 0.01) {
-          I.currentState = states.charge
         }
       }
     }),
