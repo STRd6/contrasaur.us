@@ -28,24 +28,38 @@ $(function() {
     addGameObject(crate);
   }
 
-  function addPlane(x, y) {
-    level.addGameObject(Fighter({
-      airborne: true,
-      cooldown: 1,
+  function addPlane(x, y, options) {
+    options || (options = {
       hFlip: true,
+      xVelocity: -4
+    });
+
+    level.addGameObject(Fighter($.extend({
+      cooldown: 1,
       type: "fighter2",
-      xVelocity: -4,
-      x: level.position().x + CANVAS_WIDTH + x,
+      x: level.position().x + x,
       y: 160 + y,
-    }));
+    }, options)));
   }
 
-  function addFighterSquadron() {
-    (6).times(function(i) {
+  function addFighterSquadron(n) {
+    var frontWave = Math.min(n, 7);
+    
+    (frontWave + 1).times(function(i) {
       if(i) {
         var negative = i % 2 ? -1 : 1;
         var halfI = (i / 2).floor();
-        addPlane(i * 20, negative * 40 * halfI);
+        addPlane(i * 20 + CANVAS_WIDTH, negative * 40 * halfI);
+      }
+    });
+    
+    var rearWave = Math.max(0, n - 7);
+
+    (rearWave + 1).times(function(i) {
+      if(i) {
+        var negative = i % 2 ? -1 : 1;
+        var halfI = (i / 2).floor();
+        addPlane(-i * 20, negative * 40 * halfI, {xVelocity: 8});
       }
     });
   }
@@ -60,13 +74,14 @@ $(function() {
     }));
   }
 
-  function addParasoldierFormation() {
-    (5).times(function(i) {
+  function addParasoldierFormation(n) {
+    (n).times(function(i) {
       addParasoldier(580 + 45 * i, -15 * i);
     });
   }
 
   var boat;
+  var fighterCount = 0;
 
   var scene = Scene([
     {
@@ -163,15 +178,23 @@ $(function() {
   }, {
     every: 120,
     event: function(level) {
-      if(!bossBattle) {
-        addParasoldierFormation();
+      if(bossBattle) {
+        addParasoldierFormation(rand(4));
+      } else {
+        addParasoldierFormation(2 + rand(4));
       }
     }
   }, {
     every: 150,
     event: function(level) {
       if(level.age() > 0) {
-        addFighterSquadron();
+        fighterCount += 1;
+
+        if(bossBattle) {
+          addFighterSquadron(3);
+        } else {
+          addFighterSquadron(fighterCount);
+        }
       }
     }
   }, {
@@ -182,7 +205,7 @@ $(function() {
       }
     }
   }, {
-    at: 2000,
+    at: 2050,
     event: function(level) {
       var gunship = Gunship();
       level.prependGameObject(gunship);

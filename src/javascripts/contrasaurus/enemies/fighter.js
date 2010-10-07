@@ -12,6 +12,7 @@ function Fighter(I) {
         cooldown += I.cooldown;
 
         self.shootFrom("shot", {
+          speed: 15,
           sprite: Sprite.load("images/projectiles/plane_bullet.png")
         });
       }
