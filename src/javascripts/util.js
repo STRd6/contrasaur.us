@@ -150,6 +150,14 @@ Number.prototype.abs = function() {
   return Math.abs(this);
 };
 
+Number.prototype.floor = function() {
+  return Math.floor(this);
+};
+
+Number.prototype.ceil = function() {
+  return Math.ceil(this);
+};
+
 Number.prototype.approach = function(target, maxDelta) {
   return (target - this).clamp(-maxDelta, maxDelta) + this;
 };

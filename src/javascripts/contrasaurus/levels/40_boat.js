@@ -21,10 +21,49 @@ $(function() {
     var crate = FloatingCrate({
       weaponClass: weaponClass,
       x: level.position().x + CANVAS_WIDTH,
+      xVelocity: 1,
       y: 320
     });
 
     addGameObject(crate);
+  }
+
+  function addPlane(x, y) {
+    level.addGameObject(Fighter({
+      airborne: true,
+      cooldown: 1,
+      hFlip: true,
+      type: "fighter2",
+      xVelocity: -4,
+      x: level.position().x + CANVAS_WIDTH + x,
+      y: 160 + y,
+    }));
+  }
+
+  function addFighterSquadron() {
+    (6).times(function(i) {
+      if(i) {
+        var negative = i % 2 ? -1 : 1;
+        var halfI = (i / 2).floor();
+        addPlane(i * 20, negative * 40 * halfI);
+      }
+    });
+  }
+
+  function addParasoldier(x, y) {
+    level.addGameObject(Soldier({
+      airborne: true,
+      xVelocity: 0,
+      x: level.position().x + x,
+      y: -20 + y,
+      yVelocity: 3
+    }));
+  }
+
+  function addParasoldierFormation() {
+    (5).times(function(i) {
+      addParasoldier(580 + 45 * i, -15 * i);
+    });
   }
 
   var boat;
@@ -116,44 +155,34 @@ $(function() {
       if(!bossBattle) {
         level.addGameObject(Ramp({
           x: level.position().x + CANVAS_WIDTH,
+          xVelocity: -2,
           y: CANVAS_HEIGHT - Floor.LEVEL
         }));
       }
     }
   }, {
-    every: 30,
+    every: 120,
     event: function(level) {
       if(!bossBattle) {
-        level.addGameObject(Soldier({
-          airborne: true,
-          xVelocity: 0,
-          x: level.position().x + CANVAS_WIDTH + 20,
-          y: -20,
-          yVelocity: 2
-        }));
+        addParasoldierFormation();
       }
     }
   }, {
-    every: 50,
+    every: 150,
     event: function(level) {
-      level.addGameObject(Fighter({
-        airborne: true,
-        hFlip: true,
-        type: "fighter2",
-        xVelocity: -4,
-        x: level.position().x + CANVAS_WIDTH + 20,
-        y: rand(120) + 100,
-      }));
+      if(level.age() > 0) {
+        addFighterSquadron();
+      }
     }
   }, {
-    every: 80,
+    every: 200,
     event: function(level) {
       if (Math.random() < 0.5 && level.age() > 0) {
         addCrate(ThirdLaserEyeBlind);
       }
     }
   }, {
-    at: 100,
+    at: 2000,
     event: function(level) {
       var gunship = Gunship();
       level.prependGameObject(gunship);
