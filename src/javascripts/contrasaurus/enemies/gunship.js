@@ -277,6 +277,13 @@ function Gunship(I) {
     }
   });
 
+  // Add some decoy circles to soak up floating homing missiles
+  machineGun.bind("destroy", function() {
+    machineGun.getCircles = function() {
+      return [{x: 20, y: 16, radius: 20}];
+    };
+  });
+
   var cannonRotation = - 5/6 * Math.PI;
 
   var cannon = ShipComponent({
@@ -437,8 +444,9 @@ function Gunship(I) {
 
   self.extend({
     getCircles: function() {
+      var transform = self.getTransform();
+
       var componentCircles = $.map(self.components(), function(component) {
-        var transform = self.getTransform();
         return $.map(component.getCircles(), function(circle) {
           var point = transform.transformPoint(circle);
           return {
