@@ -54,8 +54,8 @@ function Bomber(I) {
 
   self.bind('destroy', function() {
     addGameObject(Grenade({
-      collideDamage: 10,
       collisionType: "dinoBullet",
+      contactTrigger: false,
       rotationalVelocity: Math.random() * Math.PI / 12,
       sprite: I.sprite,
       x: I.x,

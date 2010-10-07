@@ -3,6 +3,8 @@ function Grenade(I) {
 
   $.reverseMerge(I, {
     collideDamage: 0,
+    contactTrigger: true,
+    explosionDamage: 10,
     fuse: 45,
     radius: 8,
     rotation: 0,
@@ -15,7 +17,7 @@ function Grenade(I) {
     if(I.active) {
       I.active = false;
       addGameObject(Explosion({
-        collideDamage: I.collideDamage,
+        collideDamage: I.explosionDamage,
         collisionType: I.collisionType,
         sprite: loadAnimation("images/effects/large_explosion.png", 27, 124, 98, 3),
         x: I.x,
@@ -31,7 +33,11 @@ function Grenade(I) {
       detonate();
     },
 
-    hit: $.noop,
+    hit: function() {
+      if(I.contactTrigger) {
+        detonate();
+      }
+    },
 
     after: {
       update: function() {

@@ -67,7 +67,8 @@ function Commando(I) {
               var theta = Point.direction(Point(0,0), tmpPoint);
 
               addGameObject(Grenade({
-                collideDamage: 15,
+                collisionType: "enemyBullet",
+                explosionDamage: 15,
                 speed: 15,
                 theta: theta,
                 x: self.position().x,
