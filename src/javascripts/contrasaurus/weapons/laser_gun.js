@@ -10,7 +10,7 @@ function LaserGun(I) {
   });
 
   $.reverseMerge(I, {
-    ammo: 256,
+    ammo: Infinity,
     attachment: "eye",
     cooldown: 12,
     exitPoints: [Point(5, 2)],

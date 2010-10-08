@@ -2,7 +2,7 @@ function Flamethrower(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    ammo: 128,
+    ammo: Infinity,
     attachment: "jaw",
     cooldown: 6,
     exitPoints: [Point(25, 0)],
