@@ -66,6 +66,7 @@ function RoboReagan(I) {
       complete: function() {
         I.currentState = states.battle;
         I.shootLogic = ragingShootLogic;
+        self.trigger("beamComplete");
       },
       duration: 40,
       model: energyBeamModel,

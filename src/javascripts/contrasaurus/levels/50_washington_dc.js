@@ -5,6 +5,22 @@ $(function() {
 
   var enemiesActive = true;
 
+  function addParasoldier(x, y) {
+    level.addGameObject(Soldier({
+      airborne: true,
+      xVelocity: 0,
+      x: level.position().x + x,
+      y: -20 + y,
+      yVelocity: 3
+    }));
+  }
+
+  function addParasoldierFormation(n, x) {
+    (n).times(function(i) {
+      addParasoldier(x + 45 * i, -15 * i);
+    });
+  }
+
   function addCrate(weaponClass) {
     var crate = Crate({
       weaponClass: weaponClass,
@@ -120,6 +136,14 @@ $(function() {
         });
 
         dino.boss(roboReagan);
+
+        roboReagan.bind('beamComplete', function() {
+          if(rand() < 0.5) {
+            addParasoldierFormation(rand(4) + 1, 160);
+          } else {
+            addParasoldierFormation(rand(4) + 1, 480);
+          }
+        });
 
         roboReagan.bind('destroy', function() {
           dino.boss(false);
