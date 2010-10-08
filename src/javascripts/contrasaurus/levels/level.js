@@ -139,7 +139,7 @@ function Level(I) {
       var textMargin = 12;
       var descriptionWidth = canvas.measureText(I.description);
       canvas.fillColor(I.textColor);
-      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), 16);
+      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), CANVAS_HEIGHT - textMargin);
     }
 
     if(displayDialog) {
