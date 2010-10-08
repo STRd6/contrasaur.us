@@ -18,7 +18,7 @@ function Mutant(I) {
     },
     hitCircles: walkModel.hitFrames,
     health: 50,
-    nutrition: -20,
+    nutrition: -7,
     pointsWorth: 5000,
     radius: 20,
     sprite: walkModel.animation,
