@@ -417,6 +417,7 @@ function Dinosaur() {
           I.x = (CANVAS_WIDTH - width) / 2 - 100;
           I.y = 200;
           airborne = true;
+          I.currentState = states.fly;
         }
         return self;
       } else {
