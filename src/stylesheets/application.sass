@@ -18,34 +18,54 @@ a
   width: 100%
   text-align: center
 
-
 #game_container
   position: relative
   margin-left: auto
   margin-right: auto
   width: 640px
-
-#level_objectives
-  color: white
-  padding-left: 15px
-
-#level_objectives p
-  display: inline-block
-
-#gameCanvas
   cursor: none
 
-#game_info
-  position: relative
-  width: 100%
-  height: auto
-  padding: 10px
-  padding-top: 4px
-  background: black
-  box-sizing: border-box
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
+#level_objectives
+  position: absolute
+  top: 60px
+  left: 10px
+  width: 200px
+  color: white
 
+#level_objectives span
+  position: absolute
+  left: 65px
+  top: 12px
+
+#gameCanvas
+  position: absolute
+  top: 0
+  left: 0
+
+#continue button
+  position: absolute
+
+#continue p
+  position: absolute
+  top: 355px
+  left: 270px
+  width: 50px
+  color: white
+
+.continue_yes
+  top: 405px
+  left: 260px
+  width: 50px
+
+.continue_no
+  top: 405px
+  left: 330px
+  width: 50px
+
+#game_info
+  position: absolute
+  top: 2px
+  left: 10px
 
 .label
   color: #ddd
@@ -54,17 +74,17 @@ a
   font-variant: small-caps
   font-weight: bold
   margin-bottom: 5px
-  vertical-align: top
-
 
 .progress_bar
-  position: relative
+  position: absolute
   width: 240px
   height: 24px
   border: 2px solid white
   border-radius: 5px
-  margin-right: 15px
 
+#boss
+  position: absolute
+  left: 250px
 
 #health, #bossHealth
   position: relative
@@ -72,17 +92,11 @@ a
   height: 100%
   background-color: #00BF00
 
-
 #score_holder
   position: absolute
   top: 0
-  right: 0
-  height: auto
-  width: auto
-  margin: 7px
+  left: 500px
   margin-right: 15px
-  text-align: right
-
 
 #score
   font-size: 18pt
@@ -92,7 +106,6 @@ a
 
 #money
   color: green
-
 
 .menu
   float: left
@@ -147,4 +160,6 @@ a
   top: 25px
 
 #footer
-  margin-top: 2em
+  position: absolute
+  top: 600px
+  left: 480px

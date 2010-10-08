@@ -7,6 +7,11 @@
   Test
 
 #game_container
+  %canvas#gameCanvas{:width => 640, :height => 480}
+    %p
+      HTML5 canvas not supported by your browser.
+      = link "Learn more here", "http://www.google.com/chrome"
+    #tilt
   #game_info
     .bar_container.left
       %span.label health
@@ -14,18 +19,17 @@
         #health
     #boss.bar_container.left{:style => "display: none;"}
       %span.label boss
-      .progress_bar.left
+      .progress_bar.boss
         #bossHealth
     #score_holder
       %span.label score
       %span#score 0
     .clear
   #level_objectives
-  %canvas#gameCanvas{:width => 640, :height => 480}
-    %p
-      HTML5 canvas not supported by your browser.
-      = link "Learn more here", "http://www.google.com/chrome"
-    #tilt
+  #continue{:width => 640, :height => 480, :style => "display: none;"}
+    %p CONTINUE?
+    %button.continue_yes{:name => 'Yes'} Yes
+    %button.continue_no{:name => 'No'} No
 
 :javascript
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
@@ -60,6 +64,19 @@
         canvas.fillText("LOADING" + dots, 280, 360);
       }
     }, 500);
+
+    $('#continue').hide();
+
+    $('.continue_yes').click(function() {
+      dino.heal(500);
+      score = Math.floor(score / 2);
+      currentLevel.continueResume();
+    });
+
+    $('.continue_no').click(function() {
+      dino.heal(-500);
+      overlayUpdate();
+    });
 
     $(document).bind("keydown", "space", function() {
       if(loaded && !started) {
