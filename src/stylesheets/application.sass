@@ -1,5 +1,14 @@
 /* Main contrasaurus stylesheet Copyright 2010 STRd6
 
+=text-shadow
+  text-shadow: 1px 1px 0px #000
+  -moz-text-shadow: 1px 1px 0px #000
+  -webkit-text-shadow: 1px 1px 0px #000
+
+=border-radius
+  border-radius: 5px
+  -moz-border-radius: 5px
+
 body
   background-color: #000
   color: #FFF
@@ -77,6 +86,7 @@ a
   font-variant: small-caps
   font-weight: bold
   margin-bottom: 5px
+  +text-shadow
 
 .progress_bar
   background-color: #000
@@ -84,8 +94,7 @@ a
   width: 240px
   height: 24px
   border: 2px solid white
-  border-radius: 5px
-  -moz-border-radius: 5px
+  +border-radius
 
 #boss
   position: absolute
@@ -108,6 +117,7 @@ a
   color: white
   font-weight: bold
   display: block
+  +text-shadow
 
 #money
   color: green
