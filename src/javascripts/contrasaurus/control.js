@@ -94,7 +94,7 @@ function Control(character, keyDown) {
        }
 
      return false;
-   }).mouseup(function() {
+   }).mouseup(function(event) {
      if(event.button == 0) {
        shooting = false;
      } else {
