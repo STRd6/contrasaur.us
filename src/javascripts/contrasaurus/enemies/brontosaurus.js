@@ -45,7 +45,7 @@ function Brontosaurus(I) {
       complete: function() {
         I.currentState = states.angry;
       },
-      duration: 40,
+      duration: 96,
       model: Model.loadJSONUrl("data/brontosaurus/stand.model.json"),
       update: function() {
         I.xVelocity = 0;
