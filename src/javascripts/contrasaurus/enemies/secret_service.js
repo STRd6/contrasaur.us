@@ -31,15 +31,14 @@ function SecretService(I) {
     }),
     run: State({
       complete: function() {
-        I.currentState = states.shoot;
+        if (rand() < 0.25) {
+          I.currentState = states.stand;
+        } else {
+          I.currentState = states.shoot;
+        }
       },
       duration: 24,
-      model: runModel,
-      update: function() {
-        if (Math.random() < 0.001) {
-          I.currentState = states.stand;
-        }
-      }
+      model: runModel
     }),
     stand: State({
       complete: function() {
@@ -56,7 +55,7 @@ function SecretService(I) {
           })
         ].rand());
       },
-      duration: 60,
+      duration: 48,
       model: standModel,
       update: function() {
         I.xVelocity = 0;
