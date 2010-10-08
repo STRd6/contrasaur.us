@@ -29,7 +29,7 @@ function ThrownItem(I) {
     if(I.active) {
       I.active = false;
       addGameObject(Explosion({
-        collideDamage: I.explodeDamage + throwSpeed*10,
+        collideDamage: I.explodeDamage,
         collisionType: "dinoBullet",
         sprite: loadAnimation("images/effects/small_explosion.png", 5, 44, 41, 2),
         x: I.x + 10,
@@ -47,7 +47,6 @@ function ThrownItem(I) {
 
     before: {
       hit: function(other) {
-        I.collideDamage = throwSpeed*30;
         detonate();
       },
 
