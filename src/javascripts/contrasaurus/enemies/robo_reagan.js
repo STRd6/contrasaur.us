@@ -13,14 +13,26 @@ function RoboReagan(I) {
   var displacementScale = 0;
   var displacementDelta = 0.025;
 
-  var states = {
-    endBattle: State({
-      model: hoverModel,
-      update: function() {
-        I.x = centralPoint.x + displacementScale * xAmplitude * Math.sin(I.age / 11);
-        I.y = centralPoint.y + displacementScale * yAmplitude * Math.cos(I.age / 13);
+  var missileFrequency = 0;
+
+  var ragingShootLogic = function() {
+    self.shoot(
+      Math.random() * (Math.PI), {
+        x: self.midpoint().x,
+        y: self.midpoint().y,
+        sprite: Sprite.load("images/effects/enemybullet1_small.png")
       }
-    }),
+    );
+
+    if(rand() < missileFrequency) {
+      addGameObject(HomingMissile($.extend({
+        collisionType: "enemyBullet",
+        sprite: Sprite.load("images/projectiles/homing_missile_red.png")
+      }, self.position())));
+    }
+  };
+
+  var states = {
     battle: State({
       model: hoverModel,
       update: function() {
@@ -29,6 +41,7 @@ function RoboReagan(I) {
         } else if(displacementScale <= 0 && displacementDelta < 0){
           displacementDelta = -displacementDelta;
           I.currentState = states.charge;
+          I.shootLogic = $.noop;
         }
 
         displacementScale += displacementDelta;
@@ -38,25 +51,8 @@ function RoboReagan(I) {
         I.x = centralPoint.x + currentScale * xAmplitude * Math.sin(I.age / 11);
         I.y = centralPoint.y + currentScale * yAmplitude * Math.cos(I.age / 13);
 
-        if(I.health < 4500) { // TODO: make different events to transition states better
-          I.currentState = states.endBattle;
-          I.shootLogic = function() {
-            self.shoot(
-              Math.random() * (Math.PI), {
-                x: self.midpoint().x,
-                y: self.midpoint().y,
-                sprite: Sprite.load("images/effects/enemybullet1_small.png")
-              }
-            );
-
-            if(rand(20) == 0) {
-              addGameObject(HomingMissile($.extend({
-                collisionType: "enemyBullet",
-                sprite: Sprite.load("images/projectiles/homing_missile_red.png")
-              }, self.position())));
-            }
-          }
-        }
+        maxDisplacementScale = Math.min((6000 - I.health) / 1000, 2);
+        missileFrequency = ((5000 - I.health) / 1000).floor() * 0.025;
       }
     }),
     charge: State({
@@ -69,22 +65,18 @@ function RoboReagan(I) {
     energyBeam: State({
       complete: function() {
         I.currentState = states.battle;
+        I.shootLogic = ragingShootLogic;
       },
       duration: 40,
-      model: energyBeamModel
+      model: energyBeamModel,
+      update: function() {
+        addGameObject(EnergyBeam(self.position()));
+      }
     }),
     takeOff: State({
       complete: function() {
         I.currentState = states.battle;
-        I.shootLogic = function() {
-          self.shoot(
-            Math.random() * (Math.PI), {
-              x: self.midpoint().x,
-              y: self.midpoint().y,
-              sprite: Sprite.load("images/effects/enemybullet1_small.png")
-            }
-          );
-        }
+        I.shootLogic = ragingShootLogic;
       },
       duration: 80,
       model: hoverModel,

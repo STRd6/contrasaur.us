@@ -1,8 +1,9 @@
 $(function() {
   var imgPath = "images/levels/washington_dc/";
 
-
   var destroyedWhiteHouseSprite = Sprite.load('images/levels/washington_dc/whiteHouse_destroyed.png');
+
+  var enemiesActive = true;
 
   function addCrate(weaponClass) {
     var crate = Crate({
@@ -15,7 +16,7 @@ $(function() {
   }
 
   function generateEnemies(level) {
-    if (Math.random() < 0.03) {
+    if (enemiesActive && rand() < 0.03) {
       var secretService = SecretService({
         hFlip: true,
         x: level.position().x + CANVAS_WIDTH + 20,
@@ -98,6 +99,11 @@ $(function() {
       dino.boss(whiteHouse);
 
       whiteHouse.bind('destroy', function() {
+        enemiesActive = false;
+
+        var lockPosition = whiteHouse.position().x - CANVAS_WIDTH/2;
+        level.lockCamera(lockPosition - 160, lockPosition + 160);
+
         level.prependGameObject(Effect($.extend(whiteHouse.position(), {
           duration: -1,
           sprite: destroyedWhiteHouseSprite,
@@ -106,14 +112,13 @@ $(function() {
 
         level.dialog(DialogBox({
           avatar: roboReaganAvatar,
-          text: "You have only seen 1% of my true power"
+          text: "Do you truly think you can defeat me? I made you what you are."
         }), 150);
 
         var roboReagan = RoboReagan({
           x: whiteHouse.position().x
         });
 
-        destroyWhitehouseAge = level.age();
         dino.boss(roboReagan);
 
         roboReagan.bind('destroy', function() {
