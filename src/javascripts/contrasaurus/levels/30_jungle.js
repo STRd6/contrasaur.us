@@ -166,7 +166,7 @@ $(function() {
 
   addLevel({
     scene: scene,
-    objective: "obey",
+    objective: "Obey",
     objectiveImage: "images/enemies/robo_reagan/reagan_thumb.png",
     platforms: [floor],
     triggers: triggers,
