@@ -86,7 +86,7 @@ function Control(character, keyDown) {
     keyDown.down = false;
   });
 
-  $("#gameCanvas").mousedown(function(event) {
+  $("#game_container").mousedown(function(event) {
        if(event.button == 0) {
          shooting = true;
        } else {

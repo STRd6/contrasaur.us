@@ -236,7 +236,7 @@ $(function() {
     }
   });
 
-  $("#gameCanvas").bind("mousemove", function(event) {
+  $("#game_container").bind("mousemove", function(event) {
     var offset = $(this).offset();
 
     var localY = event.pageY - offset.top;
