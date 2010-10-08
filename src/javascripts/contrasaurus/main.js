@@ -117,33 +117,38 @@ function endGame() {
   currentLevel.stop();
 }
 
+function endGameDisplay() {
+  endGame();
+
+  var leaderDisplay = {
+    draw: function(canvas) {
+      highScores.sort().reverse();
+      canvas.fill("rgba(0, 0, 0, 0.66)");
+      canvas.fillColor("#FFF");
+      canvas.centerText("ALL TIME LEADERS:", 200);
+      canvas.centerText(highScores[0][1] + ": " + highScores[0][0], 230);
+      canvas.centerText(highScores[1][1] + ": " + highScores[1][0], 260);
+      canvas.centerText(highScores[2][1] + ": " + highScores[2][0], 290);
+    }
+  };
+
+  cookieScores.push(score);
+  playerCookieScores.push([score, "You"]);
+
+  highScores = highScores.concat(playerCookieScores);
+  createCookie("highScore", cookieScores.join(";"));
+
+  leaderDisplay.draw(canvas);
+}
+
+function continueGame() {
+  currentLevel.continuePause();
+  $('#continue').show();
+  dino.active(true);
+}
+
 function overlayUpdate(){
   drawOverlay();
-
-  // GG
-  if (dino.health() <= 0) {
-    endGame();
-
-    var leaderDisplay = {
-      draw: function(canvas) {
-        highScores.sort().reverse();
-        canvas.fill("rgba(0, 0, 0, 0.66)");
-        canvas.fillColor("#FFF");
-        canvas.centerText("ALL TIME LEADERS:", 200);
-        canvas.centerText(highScores[0][1] + ": " + highScores[0][0], 230);
-        canvas.centerText(highScores[1][1] + ": " + highScores[1][0], 260);
-        canvas.centerText(highScores[2][1] + ": " + highScores[2][0], 290);
-      }
-    };
-
-    cookieScores.push(score);
-    playerCookieScores.push([score, "You"]);
-
-    highScores = highScores.concat(playerCookieScores);
-    createCookie("highScore", cookieScores.join(";"));
-
-    leaderDisplay.draw(canvas);
-  }
 }
 
 function addLevel(I) {

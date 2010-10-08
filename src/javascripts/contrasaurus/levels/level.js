@@ -331,9 +331,9 @@ function Level(I) {
         if(I.objectiveImage) {
           $('<img src=' + I.objectiveImage + '>').appendTo('#level_objectives');
         }
-        $('#level_objectives p').remove();
+        $('#level_objectives span').remove();
         if(I.objective) {
-          $('<p>' + I.objective + '</p>').appendTo('#level_objectives');
+          $('<span>' + I.objective + '</span>').appendTo('#level_objectives');
         }
       }
 
@@ -419,6 +419,16 @@ function Level(I) {
       }
 
       draw(canvas);
+    },
+
+    continuePause: function() {
+      backgroundMusic.pause();
+      paused = true;
+    },
+
+    continueResume: function() {
+      backgroundMusic.play();
+      paused = false;
     },
 
     togglePause: function() {

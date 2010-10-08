@@ -368,6 +368,7 @@ function Dinosaur() {
       if (I.health <= 0) {
         self.destroy();
         addScore(I.pointsWorth);
+        continueGame();
       }
     },
 

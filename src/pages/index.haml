@@ -65,17 +65,16 @@
       }
     }, 500);
 
-    $('#continue').hide();
-
     $('.continue_yes').click(function() {
       dino.heal(500);
       score = Math.floor(score / 2);
       currentLevel.continueResume();
+      $('#continue').hide();
     });
 
     $('.continue_no').click(function() {
-      dino.heal(-500);
-      overlayUpdate();
+      $('#continue').hide();
+      endGameDisplay();
     });
 
     $(document).bind("keydown", "space", function() {
