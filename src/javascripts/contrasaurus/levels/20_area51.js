@@ -42,6 +42,16 @@ $(function() {
     });
   }
 
+  function generateAgents() {
+    level.addGameObject(Area51Agent({
+      x: 460
+    }));
+
+    level.addGameObject(Area51Agent({
+      x: 480
+    }));
+  }
+
   function addCrate(weaponClass, onDestroy) {
     var crate = Crate({
       weaponClass: weaponClass,
@@ -138,6 +148,8 @@ $(function() {
           x: 300,
           y: 300
         }));
+
+        generateAgents();
       }
   }, {
     at: 60,

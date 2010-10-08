@@ -15,7 +15,6 @@ function Enemy(I) {
     type: '',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
-    yVelocity: 0
   });
 
   var self = GameObject(I).extend({

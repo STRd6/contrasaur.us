@@ -69,7 +69,6 @@ function SecretService(I) {
     type: 'secret service',
     x: rand(CANVAS_WIDTH),
     y: CANVAS_HEIGHT - Floor.LEVEL - 20,
-    yVelocity: 0
   });
 
   var self = Enemy(I).extend({
