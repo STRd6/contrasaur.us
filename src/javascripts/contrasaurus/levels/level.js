@@ -138,6 +138,10 @@ function Level(I) {
     if(I.description) {
       var textMargin = 12;
       var descriptionWidth = canvas.measureText(I.description);
+
+      // Draw drop-shadow and description text
+      canvas.fillColor("#000");
+      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin) + 1, CANVAS_HEIGHT - textMargin + 1);
       canvas.fillColor(I.textColor);
       canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), CANVAS_HEIGHT - textMargin);
     }

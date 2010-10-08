@@ -38,16 +38,22 @@ a
   width: 640px
 
 #level_objectives
-  position: absolute
-  top: 60px
-  left: 10px
-  width: 200px
-  color: white
+  background-color: #000
+  border: 3px solid white
+  color: #FFF
+  font-weight: bold
+  margin-left: auto
+  margin-top: 180px
+  margin-right: auto
+  padding: 1em
+  width: 150px
+  +border-radius
 
-#level_objectives span
-  position: absolute
-  left: 65px
-  top: 12px
+  img
+    margin-right: 1em
+    vertical-align: middle
+  span
+    padding-top: 6px
 
 #gameCanvas
   position: absolute
@@ -75,9 +81,9 @@ a
   width: 50px
 
 #game_info
+  padding: 0px 10px
   position: absolute
-  top: 2px
-  left: 10px
+  width: 620px
 
 .label
   color: #ddd

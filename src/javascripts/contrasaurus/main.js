@@ -220,18 +220,23 @@ $(function() {
   crosshair = Sprite.load("images/crosshair.png");
 
   $(document).bind('keydown', "0", function() {
-    GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
+    if(DEVELOPMENT) {
+      GameObject.DEBUG_HIT = !GameObject.DEBUG_HIT;
+    }
   });
 
   $(document).bind('keydown', "esc p", function() {
     if(currentLevel.togglePause()) {
       pauseDisplay.draw(canvas);
+      $("#level_objectives").show();
+    } else {
+      $("#level_objectives").hide();
     }
   });
 
   // Level select
   $(document).keydown(function(e) {
-    if(e.keyCode >= 49 && e.keyCode <= 57) {
+    if(DEVELOPMENT && e.keyCode >= 49 && e.keyCode <= 57) {
       nextStage(e.keyCode - 48);
     }
   });
@@ -245,5 +250,5 @@ $(function() {
     target = Point(localX, localY);
   }).bind("contextmenu", function() {
     return false;
-  });;
+  });
 });
