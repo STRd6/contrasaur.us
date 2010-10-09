@@ -16,7 +16,7 @@ var pauseDisplay = {
   draw: function(canvas) {
     canvas.fill("rgba(0, 0, 0, 0.66)");
     canvas.fillColor("#FFF");
-    canvas.centerText("PAUSED", 230);
+    canvas.centerText("PAUSED", 180);
   }
 };
 var debugHalt = false;
