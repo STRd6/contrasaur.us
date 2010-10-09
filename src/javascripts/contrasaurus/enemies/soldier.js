@@ -28,7 +28,7 @@ function Soldier(I) {
     parachuteFall: State({
       model: parachuteFallModel,
       update: function() {
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.015) {
           I.currentState = states.parachuteShoot;
         }
       }
@@ -63,7 +63,7 @@ function Soldier(I) {
     }),
     run: State({
       complete: function() {
-        if (Math.random() < 0.04) {
+        if (Math.random() < 0.15) {
           I.currentState = states.shoot;
         }
       },
