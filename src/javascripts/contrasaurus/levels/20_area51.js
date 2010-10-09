@@ -145,8 +145,8 @@ $(function() {
       event: function(level) {
         level.addGameObject(GameObject({
           sprite: Sprite.load("images/teleporter.png"),
-          x: 300,
-          y: 300
+          x: 345,
+          y: 312
         }));
 
         generateAgents();
