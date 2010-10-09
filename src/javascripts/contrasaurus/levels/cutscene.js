@@ -29,6 +29,8 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
         self.complete();
       }, duration);
 
+      $("#game_info").hide();
+
       intervalId = setInterval(function() {
         canvas.fill("#000");
         self.draw(canvas);
@@ -36,6 +38,8 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
     },
 
     stop: function() {
+      $("#game_info").show();
+
       clearInterval(intervalId);
       stopped = true;
     }
