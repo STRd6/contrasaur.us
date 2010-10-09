@@ -100,6 +100,14 @@ Array.prototype.partition = function(iterator, context) {
   return [trueCollection, falseCollection];
 };
 
+Array.prototype.select = function(iterator, context) {
+  return this.partition(iterator, context)[0];
+};
+
+Array.prototype.reject = function(iterator, context) {
+  return this.partition(iterator, context)[1];
+};
+
 /**
  * A mod method useful for array wrapping. The range of the function is
  * constrained to remain in bounds of array indices.

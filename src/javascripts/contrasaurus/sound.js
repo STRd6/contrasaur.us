@@ -40,7 +40,7 @@ var Sound = (function($) {
 
       var sameSounds = splitChannels[0];
 
-      var freeChannels = $.grep(sameSounds, availableToPlay);
+      var freeChannels = sameSounds.select(availableToPlay);
 
       // Don't play if sound is already playing on max # of channels
       if(sameSounds.length - freeChannels.length >= maxChannels) {
@@ -60,7 +60,7 @@ var Sound = (function($) {
 
       var otherSounds = splitChannels[1];
 
-      freeChannels = $.grep(otherSounds, availableToPlay);
+      freeChannels = otherSounds.select(availableToPlay);
 
       if(freeChannels[0]) {
         // Provision an available channel
