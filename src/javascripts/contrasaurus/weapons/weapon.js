@@ -7,13 +7,11 @@ function Weapon(I) {
     delay: 0,
     exitMode: "all",
     exitPoints: [Point(0, 0)],
+    selectable: false,
     primaryFn: function(direction, localPosition, centerDirection) {
       addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
     },
-    primaryShotCost: 1,
     secondaryFn: toss,
-    secondaryShotCost: 3,
-    selectable: false,
     theta: 0,
     throwable: false
   });
@@ -80,10 +78,9 @@ function Weapon(I) {
 
           if (mode == 'primary') {
             I.primaryFn(direction, localPosition, centerDirection);
-            I.ammo -= I.primaryShotCost;
+            I.ammo--;
           } else if (mode == 'secondary') {
             I.secondaryFn(direction, localPosition, centerDirection);
-            I.ammo -= I.secondaryShotCost;
           }
         });
       }
@@ -95,7 +92,7 @@ function Weapon(I) {
       update: function(dino, levelPosition) {
         targetPosition = target.add(levelPosition);
 
-        if(I.ammo <= 0 && I.name != "machineGun") {
+        if(I.ammo <= 0 && I.name != 'machineGun') {
           I.active = false;
         }
       }

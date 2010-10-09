@@ -17,11 +17,6 @@ function LaserGun(I) {
     name: "laserGun",
     power: 0,
     radius: 5,
-    secondaryFn: function(direction, localPosition, centerDirection) {
-      addGameObject(self.generateProjectile(direction, localPosition, centerDirection));
-      addGameObject(self.generateWaveProjectile(direction, localPosition, 10));
-      addGameObject(self.generateWaveProjectile(direction, localPosition, -10));
-    },
     sprite: monocle
   });
 
@@ -39,19 +34,7 @@ function LaserGun(I) {
         x: position.x,
         y: position.y
       });
-    },
-
-    generateWaveProjectile: function(direction, position, amplitude) {
-      Sound.play("laserGun");
-
-      return Laser({
-        amplitude: amplitude,
-        theta: direction,
-        x: position.x,
-        y: position.y
-      });
     }
-
   });
 
   return self;
