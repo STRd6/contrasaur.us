@@ -333,14 +333,18 @@ function Gunship(I) {
 
   I.components.push(
     ShipComponent({
-      genBulletData: function() {
-        return {
-          collideDamage: 5,
-          speed: 10,
-          sprite: bulletSprite,
-          yAcceleration: GRAVITY / 2
+      genBulletData: (function() {
+        var count = 0;
+        return function() {
+          count += 1;
+          return {
+            collideDamage: 5,
+            speed: 10 + 12 * (count % 2),
+            sprite: bulletSprite,
+            yAcceleration: GRAVITY / 2
+          };
         };
-      },
+      }()),
       destroyedSprite: lob1Destroyed,
       fireRate: 99,
       model: lob1Model,
