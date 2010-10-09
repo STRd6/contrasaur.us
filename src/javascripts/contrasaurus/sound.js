@@ -4,54 +4,68 @@ var Sound = (function($) {
   // audio.canPlayType("audio/ogg") === "maybe" WTF?
   // http://ajaxian.com/archives/the-doctor-subscribes-html-5-audio-cross-browser-support
   var format = $.browser.webkit ? ".mp3" : ".wav";
-  var sounds = {};
 
-  function loadSoundChannel(name) {
-    var sound = $('<audio />').appendTo('#game_container').get(0);
-    sound.src = "sounds/" + name + format;
+  var soundChannels = [];
+  var maxChannels = 5;
 
-    return sound;
+  maxChannels.times(function() {
+    soundChannels.push(new Audio());
+  });
+
+  function nameToFile(name) {
+    return "sounds/" + name + format;
   }
-  
+
+  var availableToPlay = function(sound) {
+    return sound.currentTime == sound.duration || sound.currentTime == 0;
+  };
+
   function Sound(name, maxChannels) {
     return {
       play: function() {
         Sound.play(name, maxChannels);
-      },
-
-      stop: function() {
-        Sound.stop(name);
       }
     }
   }
 
   return $.extend(Sound, {
     play: function(name, maxChannels) {
-      // TODO: Too many channels crash Chrome!!!1
       maxChannels = maxChannels || 2;
 
-      if(!sounds[name]) {
-        sounds[name] = [loadSoundChannel(name)];
-      }
+      var file = nameToFile(name);
 
-      var freeChannels = $.grep(sounds[name], function(sound) {
-        return sound.currentTime == sound.duration || sound.currentTime == 0
+      var splitChannels = soundChannels.partition(function(channel) {
+        return channel.src.indexOf(file) != -1;
       });
 
-      if(freeChannels[0]) {
-        freeChannels[0].play();
-      } else {
-        if(!maxChannels || sounds[name].length < maxChannels) {
-          var sound = loadSoundChannel(name);
-          sounds[name].push(sound);
-          sound.play();
-        }
-      }
-    },
+      var sameSounds = splitChannels[0];
 
-    stop: function(name) {
-      if(sounds[name]) {
-        sounds[name].stop();
+      var freeChannels = $.grep(sameSounds, availableToPlay);
+
+      // Don't play if sound is already playing on max # of channels
+      if(sameSounds.length - freeChannels.length >= maxChannels) {
+        return;
+      }
+
+      if(freeChannels[0]) {
+        // Recycle an existing channel that has finished.
+        freeChannels[0].play();
+        return;
+      }
+      
+      if(sameSounds.length >= maxChannels) {
+        // This sound is playing on it's maximum channels allowed.
+        return;
+      }
+
+      var otherSounds = splitChannels[1];
+
+      freeChannels = $.grep(otherSounds, availableToPlay);
+
+      if(freeChannels[0]) {
+        // Provision an available channel
+        freeChannels[0].src = file;
+        freeChannels[0].play();
       }
     }
   });

@@ -3,7 +3,7 @@ function Scene(backgrounds, foregrounds) {
     return function(position, canvas) {
       $.each(layers, function(i, layer) {
         var x = layer.position.x - (position.x * layer.parallaxRate);
-        var y = layer.position.y -position.y * layer.parallaxRate;
+        var y = layer.position.y - (position.y * layer.parallaxRate);
 
         var imgWidth = layer.image.width;
         var x1 = Math.floor(Math.mod(-x, imgWidth));

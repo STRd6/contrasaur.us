@@ -76,6 +76,31 @@ Array.prototype.each = function(iterator, context) {
 };
 
 /**
+ * Partitions the elements into two groups: those for which the iterator returns
+ * true, and those for which it returns false.
+ * @param {Function} iterator
+ * @param {Object} [context] Optional context parameter to be
+ * used as `this` when calling the iterator function.
+ *
+ * @type Array
+ * @returns An array in the form of [trueCollection, falseCollection]
+ */
+Array.prototype.partition = function(iterator, context) {
+  var trueCollection = [];
+  var falseCollection = [];
+
+  this.each(function(element) {
+    if(iterator.call(context, element)) {
+      trueCollection.push(element);
+    } else {
+      falseCollection.push(element);
+    }
+  });
+
+  return [trueCollection, falseCollection];
+};
+
+/**
  * A mod method useful for array wrapping. The range of the function is
  * constrained to remain in bounds of array indices.
  *
