@@ -144,6 +144,7 @@ function endGameDisplay() {
 function continueGame() {
   currentLevel.continuePause();
   $('#continue').show();
+  $("#game_container").css("cursor", "default");
   dino.active(true);
 }
 

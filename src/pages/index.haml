@@ -26,7 +26,7 @@
       %span#score 0
     .clear
     #level_objectives{:style => "display: none;"}
-  #continue{:width => 640, :height => 480, :style => "display: none;"}
+  #continue{:style => "display: none;"}
     %p CONTINUE?
     %button.continue_yes{:name => 'Yes'} Yes
     %button.continue_no{:name => 'No'} No
@@ -69,6 +69,7 @@
       dino.heal(500);
       score = Math.floor(score / 2);
       currentLevel.continueResume();
+      $("#game_container").css("cursor", "none");
       $('#continue').hide();
     });
 
