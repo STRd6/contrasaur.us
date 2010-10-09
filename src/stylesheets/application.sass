@@ -37,6 +37,11 @@ a
   position: relative
   width: 640px
 
+#gameCanvas
+  position: absolute
+  top: 0
+  left: 0
+
 #level_objectives
   background-color: #000
   border: 3px solid white
@@ -55,33 +60,50 @@ a
   span
     padding-top: 6px
 
-#gameCanvas
-  position: absolute
-  top: 0
-  left: 0
+#continue
+  background-color: #000
+  border: 3px solid white
+  color: #FFF
+  font-weight: bold
+  margin-left: auto
+  margin-top: 180px
+  margin-right: auto
+  padding: 1em
+  width: 140px
+  height: 55px
+  +border-radius
 
 #continue
-  height: 480px
-  width: 640px
+  background-color: #000
+  border: 3px solid white
+  color: #FFF
+  font-weight: bold
+  margin-left: auto
+  margin-top: 180px
+  margin-right: auto
+  padding: 1em
+  width: 140px
+  height: 55px
+  +border-radius
 
   button
     position: absolute
 
   p
     position: absolute
-    top: 325px
-    left: 270px
+    top: 205px
+    left: 260px
     width: 50px
     color: white
 
 .continue_yes
-  top: 375px
-  left: 260px
+  top: 250px
+  left: 255px
   width: 50px
 
 .continue_no
-  top: 375px
-  left: 330px
+  top: 250px
+  left: 325px
   width: 50px
 
 #game_info
