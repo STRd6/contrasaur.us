@@ -111,6 +111,8 @@ function Enemy(I) {
 }
 
 Enemy.bloodSprayEffect = function(bullet) {
+  Sound.play("bullet_hit_flesh", 1);
+
   bullet.effectCount().times(function() {
     var point = bullet.position();
     var offset = Circle(0, 0, bullet.dispersion()).randomPoint();
