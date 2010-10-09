@@ -22,7 +22,7 @@ function LaserGun(I) {
 
   var self = Weapon(I).extend({
     generateProjectile: function(direction, position) {
-      Sound.play("laserGun");
+      Sound.play("laserGun", 1);
 
       return Bullet({
         speed: 15,

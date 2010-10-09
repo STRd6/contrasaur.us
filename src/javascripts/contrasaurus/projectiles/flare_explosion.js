@@ -25,7 +25,7 @@ function FlareExplosion(I) {
     }
   });
 
-  Sound.play(I.sound);
+  Sound.play(I.sound, 1);
 
   return self;
 }
