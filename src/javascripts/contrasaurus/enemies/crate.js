@@ -24,7 +24,7 @@ function Crate(I) {
   var healthMax = I.health;
 
   var self = Enemy(I).extend({
-    bulletHitEffect: Enemy.sparkSprayEffect,
+    bulletHitEffect: Enemy.crateSmashEffect,
 
     before: {
       update: function() {

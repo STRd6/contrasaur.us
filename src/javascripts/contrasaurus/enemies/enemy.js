@@ -155,3 +155,7 @@ Enemy.debrisSprayEffect = function(bullet) {
 
   addGameObject(effect);
 };
+
+Enemy.crateSmashEffect = function(bullet) {
+  Sound.play("crate_smash", 1);
+};
