@@ -75,6 +75,7 @@ function Area51Agent(I) {
 
   self.extend(Biteable(I));
   self.extend(Burnable(I));
+  self.extend(Chopable(I));
   self.extend(Stateful(I));
 
   return self;

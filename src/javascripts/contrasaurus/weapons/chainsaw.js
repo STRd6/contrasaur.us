@@ -35,8 +35,8 @@ function Chainsaw(I) {
       }).extend({
         before: {
           hit: function(other) {
-            if(other.bite) {
-              other.bite();
+            if(other.chop) {
+              other.chop();
             }
           }
         }

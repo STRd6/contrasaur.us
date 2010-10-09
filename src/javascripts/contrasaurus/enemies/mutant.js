@@ -73,6 +73,7 @@ function Mutant(I) {
 
   self.extend(Biteable(I));
   self.extend(Burnable(I));
+  self.extend(Chopable(I));
 
   return self;
 }

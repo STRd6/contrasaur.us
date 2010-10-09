@@ -154,6 +154,7 @@ function Soldier(I) {
 
   self.extend(Biteable(I));
   self.extend(Burnable(I));
+  self.extend(Chopable(I));
   self.extend(Stateful(I));
 
   self.draw = function(canvas) {
