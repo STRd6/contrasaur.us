@@ -121,15 +121,25 @@ function Commando(I) {
         theta -= Math.PI / 8;
       }
 
-      addGameObject(Grenade({
+      var grenade = Grenade({
         collisionType: "enemyBullet",
         explosionDamage: 15,
         rotationalVelocity: rotationalVelocity,
         speed: 13,
         theta: theta,
         x: self.position().x,
-        y: self.position().y - 30,
-      }));
+        y: self.position().y - 30
+      });
+
+      var flare = Flare({
+        rotationalVelocity: rotationalVelocity,
+        speed: 13,
+        theta: theta,
+        x: self.position().x,
+        y: self.position().y - 30
+      });
+
+      addGameObject([grenade, flare].rand());
     }
   }
 
