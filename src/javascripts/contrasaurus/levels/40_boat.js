@@ -247,6 +247,8 @@ $(function() {
   var level = addLevel({
     description: "AD 1984: Lake Xolotlán",
     scene: scene,
+    objective: "Parasail",
+    objectiveImage: "images/levels/parasail/sail_thumb.png",
     platforms: [floor],
     triggers: triggers,
     audio: "Lady Gaga - Alejandro"
