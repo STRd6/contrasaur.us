@@ -17,9 +17,11 @@ function Floor(I) {
   var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
       if(!I.water) {
+        Sound.play("bullet_hit_dirt");
+
         var sprite;
         sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
-      
+
         var effect = Effect($.extend(bullet.position(), {
           duration: 8,
           sprite: sprite,
