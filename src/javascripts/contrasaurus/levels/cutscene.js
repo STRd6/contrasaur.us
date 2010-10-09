@@ -29,7 +29,7 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
         self.complete();
       }, duration);
 
-      $("#game_info").hide();
+      $("#game_info").fadeOut(150);
 
       intervalId = setInterval(function() {
         canvas.fill("#000");
@@ -38,7 +38,7 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
     },
 
     stop: function() {
-      $("#game_info").show();
+      $("#game_info").fadeIn(500);
 
       clearInterval(intervalId);
       stopped = true;
