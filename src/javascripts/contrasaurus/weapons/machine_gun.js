@@ -7,15 +7,7 @@ function MachineGun(I) {
   $.reverseMerge(I, {
     ammo: Infinity,
     exitPoints: [Point(50, 1)],
-    name: "machineGun",
-    throwable: {
-      shoot: function(I) {
-        if(I.ammo > 0) {
-          addGameObject(Bullet({ theta: I.rotation, x: I.x, y: I.y }));
-          I.ammo--;
-        }
-      }
-    }
+    name: "machineGun"
   });
 
   // Adjust machine gun angle
