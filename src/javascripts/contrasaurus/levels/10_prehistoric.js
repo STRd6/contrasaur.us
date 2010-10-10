@@ -16,7 +16,7 @@ $(function() {
 
   function generateForegroundScenary() {
     var foregrounds = [];
-    (7).times(function() {
+    (2).times(function() {
       foregrounds.push({
         image: Sprite.load(imgPath + "rock.png"),
         parallaxRate: 1,
@@ -44,15 +44,15 @@ $(function() {
       });
     });
 
-    (12).times(function(i) {
+    (6).times(function(i) {
       foregrounds.push({
         image: Sprite.load([
           imgPath + "plant1.png",
           imgPath + "plant2.png"
         ].rand()),
-        parallaxRate: 1.5,
+        parallaxRate: 2,
         position: {
-          x: i * 100,
+          x: i * 200 + rand(100) - 50,
           y: 400
         },
         every: 1200
@@ -64,7 +64,7 @@ $(function() {
 
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/ground.png'),
+      image: Sprite.load(imgPath + 'ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
