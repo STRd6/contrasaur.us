@@ -148,6 +148,11 @@ $(function() {
         roboReagan.bind('destroy', function() {
           dino.boss(false);
 
+          level.dialog(DialogBox({
+            avatar: roboReaganAvatar,
+            text: "HA HA HA! This is only the beginning! You have seen but 1% of my True Power!"
+          }), 150);
+
           level.after(130, function() {
             level.fadeOut(100);
 
