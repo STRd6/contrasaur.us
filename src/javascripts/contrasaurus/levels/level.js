@@ -333,7 +333,7 @@ function Level(I) {
 
     start: function() {
       $("#game_info").show();
-      $("#level_objectives").delay(500).fadeIn('fast').delay(1800).fadeOut('slow');
+      $("#level_objectives").delay(4500).fadeIn('fast').delay(1800).fadeOut('slow');
 
       if (backgroundMusic) {
         backgroundMusic.play();
