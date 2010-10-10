@@ -126,7 +126,7 @@ function RoboReagan(I) {
     radius: 40,
     sprite: kneelModel.animation,
     x: rand(CANVAS_WIDTH),
-    y: 60
+    y: 100
   });
 
   I.currentState = states.kneel;
