@@ -332,6 +332,8 @@ function Level(I) {
     },
 
     start: function() {
+      $("#game_info").show();
+
       if (backgroundMusic) {
         backgroundMusic.play();
         $('#level_objectives img').remove();
