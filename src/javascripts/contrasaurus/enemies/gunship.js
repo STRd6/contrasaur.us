@@ -17,6 +17,20 @@ function Gunship(I) {
     fire: 0.05
   };
 
+  var sparkSprayEffect = function(bullet) {
+    if(!rand(3)) {
+      Sound.play("ricochet" + (rand(4) + 2), 1);
+
+      var effect = Effect($.extend(bullet.position(), {
+        duration: 9,
+        sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16),
+        velocity: bullet.velocity()
+      }));
+
+      addGameObject(effect);
+    }
+  };
+
   var healthBar;
   var ship;
   var shipComponents;
@@ -98,6 +112,7 @@ function Gunship(I) {
           sprite: smallBulletSprite
         };
       },
+      collideDamage: 1,
       cooldown: 0,
       fireRate: 3,
       health: 500,
@@ -110,7 +125,7 @@ function Gunship(I) {
     });
 
     var self = GameObject(I).extend({
-      bulletHitEffect: Enemy.sparkSprayEffect,
+      bulletHitEffect: sparkSprayEffect,
 
       getCircles: function() {
         var transform = self.getTransform();
@@ -288,8 +303,22 @@ function Gunship(I) {
 
   var cannon = ShipComponent({
     fireRate: 66,
+    genBulletData: (function() {
+      return function() {
+        return {
+          collideDamage: 5,
+          speed: 12,
+          sprite: bulletSprite,
+          yAcceleration: GRAVITY / 4
+        };
+      };
+    }()),
     model: cannonModel,
     muzzleFlash: true,
+    shot: {
+      count: 4,
+      dispersion: 6,
+    },
     x: 60,
     y: -70
   }).extend({
@@ -393,7 +422,7 @@ function Gunship(I) {
   I.currentState = states.enter;
 
   var self = ship = Boss(I).extend({
-    bulletHitEffect: Enemy.sparkSprayEffect,
+    bulletHitEffect: sparkSprayEffect,
 
     getTransform: function() {
       return Matrix.translation(I.x, I.y);
