@@ -66,22 +66,22 @@ $(function() {
 
   var scene = Scene(
     [{
-      image: Sprite.load('images/levels/washington_dc/background.png'),
+      image: Sprite.load(imgPath + 'background.png'),
       parallaxRate: 0.25,
       position: Point(0, 0),
       repeat: true
     }, {
-      image: Sprite.load('images/levels/washington_dc/midground.png'),
+      image: Sprite.load(imgPath + 'midground.png'),
       parallaxRate: 0.5,
       position: Point(0, 0),
       repeat: true
     }, {
-      image: Sprite.load('images/levels/washington_dc/foreground.png'),
+      image: Sprite.load(imgPath + 'foreground.png'),
       parallaxRate: 1,
       position: Point(0, 0),
       repeat: true
     }, {
-      image: Sprite.load('images/levels/washington_dc/ground.png'),
+      image: Sprite.load(imgPath + 'ground.png'),
       parallaxRate: 0,
       position: {
         x: 0,
@@ -199,13 +199,14 @@ $(function() {
   var roboReaganAvatar = Sprite.load("images/avatars/roboreagan.png");
 
   var level = addLevel({
+    audio: "Dragonforce - My Spirit Will Go On",
+    backgroundColor: "#00A800",
     description: "AD 1984: Washington D.C.",
-    scene: scene,
     objective: "Destroy",
     objectiveImage: 'images/levels/washington_dc/whiteHouse_thumb.png',
     platforms: [floor],
-    triggers: triggers,
-    audio: "Dragonforce - My Spirit Will Go On"
+    scene: scene,
+    triggers: triggers
   });
 
   addCutscene("images/levels/cutscenes/finale.png", "Everything is going according to plan...", 6000);

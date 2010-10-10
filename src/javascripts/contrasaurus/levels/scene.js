@@ -20,7 +20,13 @@ function Scene(backgrounds, foregrounds) {
             layer.image.draw(canvas, 0, y, x1, 0, CANVAS_WIDTH);
           }
         } else if(layer.sky) {
-          var sHeight = Math.min(CANVAS_HEIGHT, imgHeight);
+          y = y.ceil();
+
+          var sHeight = Math.min(CANVAS_HEIGHT, imgHeight + y);
+
+          if(sHeight <= 0) {
+            return;
+          }
 
           if(x2 < x1) {
             if(CANVAS_WIDTH - x2 > 0) {

@@ -13,7 +13,6 @@ function Level(I) {
   var oldEnemies = [];
   var collidables;
 
-  var backgroundColor = "#A2EEFF";
   var step = 0;
   var paused = false;
   var intervalId;
@@ -33,6 +32,7 @@ function Level(I) {
   };
 
   $.reverseMerge(I, {
+    backgroundColor: "#A2EEFF",
     textColor: "#FFF",
     triggers: []
   });
@@ -111,7 +111,7 @@ function Level(I) {
       prevDelta = position.x - oldPosition;
 
       if(I.skyMode) {
-        position.y = (dinoPosition.y - CANVAS_HEIGHT / 2).clamp(0, 5390 - CANVAS_HEIGHT);
+        position.y = (dinoPosition.y - CANVAS_HEIGHT / 2).clamp(-(5390 + CANVAS_HEIGHT), 0);
       }
     }
   }
@@ -122,7 +122,7 @@ function Level(I) {
 
   function draw(canvas) {
     // Draw Backgrounds
-    canvas.fill(backgroundColor);
+    canvas.fill(I.backgroundColor);
 
     if(!hideBackgrounds) {
       I.scene.drawBackgrounds(position, canvas);
