@@ -46,7 +46,6 @@ function Enemy(I) {
     land: $.noop,
 
     shoot: function(angle, bulletData) {
-      Sound.play("enemy_shoot", 1);
       var bullet = Bullet($.extend(bulletData, {
         collisionType: "enemyBullet",
         theta: angle
@@ -56,7 +55,6 @@ function Enemy(I) {
     },
 
     shootFrom: function (attachment, bulletData) {
-      Sound.play("enemy_shoot", 1);
       var shootPoint = self.currentModel().attachment(attachment);
 
       if(shootPoint) {
