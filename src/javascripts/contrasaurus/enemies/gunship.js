@@ -348,10 +348,11 @@ function Gunship(I) {
 
   cannonBase.bind("destroy", function() {
     cannonDead = true;
-    
+
     var position = cannon.position().add(ship.position());
 
     addGameObject(Grenade($.extend(position, {
+      contactTrigger: false,
       rotation: cannonRotation,
       rotationalVelocity: Math.PI / 12,
       speed: 15,
