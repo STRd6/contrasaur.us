@@ -6,7 +6,7 @@ var Sound = (function($) {
   var format = $.browser.webkit ? ".mp3" : ".wav";
 
   var soundChannels = [];
-  var maxChannels = 5;
+  var maxChannels = 4;
 
   maxChannels.times(function() {
     soundChannels.push(new Audio());
