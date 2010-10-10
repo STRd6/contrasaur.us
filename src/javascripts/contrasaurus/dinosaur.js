@@ -49,6 +49,7 @@ function Dinosaur() {
 
           addGameObject(Bullet({
             collideDamage: 10,
+            damageType: "bite",
             dispersion: 30,
             effectCount: 5,
             duration: 1,
@@ -100,6 +101,7 @@ function Dinosaur() {
 
           addGameObject(Bullet({
             collideDamage: 10,
+            damageType: "bite",
             dispersion: 30,
             effectCount: 5,
             duration: 1,

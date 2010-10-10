@@ -2,6 +2,9 @@ function Commando(I) {
   I = I || {};
 
   $.reverseMerge(I, {
+    damageTable: {
+      bite: 10,
+    },
     health: 2000,
     nutrition: 1,
     pointsWorth: 100000,
