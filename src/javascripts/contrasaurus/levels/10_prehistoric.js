@@ -132,6 +132,13 @@ $(function() {
       }
     }
   }, {
+    at: 300,
+    event: function() {
+      level.dialog(DialogBox({
+        text: "Press space to CHOMP!"
+      }), 200);
+    }
+  }, {
     at: 495,
     event: function() {
       meteorsActive = true;
@@ -163,10 +170,6 @@ $(function() {
     }
   }];
 
-  var pressDownToChomp = DialogBox({
-    text: "Press space to CHOMP!"
-  });
-
   addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago... the search for a champion begins.", 3000);
 
   var level = addLevel({
@@ -177,12 +180,5 @@ $(function() {
     objectiveImage: 'images/enemies/dinofodder.png',
     platforms: [floor],
     triggers: triggers
-  });
-
-  level.bind("afterStep", function(level) {
-    if (level.age() > 300 && level.age() < 500) {
-      pressDownToChomp.update();
-      pressDownToChomp.draw(canvas);
-    }
   });
 });
