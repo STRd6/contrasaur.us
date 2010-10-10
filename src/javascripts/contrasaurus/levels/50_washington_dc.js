@@ -149,11 +149,11 @@ $(function() {
           dino.boss(false);
 
           level.after(130, function() {
-            level.fadeOut(20);
-          });
+            level.fadeOut(100);
 
-          level.after(150, function() {
-            level.complete();
+            level.after(130, function() {
+              level.complete();
+            });
           });
         });
 
@@ -202,13 +202,12 @@ $(function() {
     audio: "Dragonforce - My Spirit Will Go On",
     backgroundColor: "#00A800",
     description: "AD 1984: Washington D.C.",
+    fadeWhite: true,
     objective: "Destroy",
     objectiveImage: 'images/levels/washington_dc/whiteHouse_thumb.png',
     platforms: [floor],
     scene: scene,
     triggers: triggers
   });
-
-  addCutscene("images/levels/cutscenes/finale.png", "Everything is going according to plan...", 6000);
 
 });

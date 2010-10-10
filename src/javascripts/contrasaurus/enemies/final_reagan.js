@@ -1,10 +1,12 @@
-function RoboReagan(I) {
+function FinalReagan(I) {
   I = I || {};
 
   var chargeModel = Model.loadJSONUrl("data/robo_reagan/charge.model.json");
   var energyBeamModel = Model.loadJSONUrl("data/robo_reagan/energy_beam.model.json");
   var hoverModel = Model.loadJSONUrl("data/robo_reagan/hover.model.json");
-  var kneelModel = Model.loadJSONUrl("data/robo_reagan/kneel.model.json");
+
+  var beamSprite = Sprite.load('images/projectiles/beam.png');
+  var missileSprite = Sprite.load("images/projectiles/homing_missile_red.png");
 
   var xAmplitude = 100;
   var yAmplitude = 25;
@@ -14,33 +16,39 @@ function RoboReagan(I) {
   var displacementDelta = 0.025;
 
   var missileFrequency = 0;
+  var missilePos = 0;
+  var stateChooser = 0;
 
   var ragingShootLogic = function() {
     self.shoot(
       Math.random() * (Math.PI), {
+        speed: 25,
+        sprite: beamSprite,
         x: self.midpoint().x,
-        y: self.midpoint().y,
-        sprite: Sprite.load("images/effects/enemybullet1_small.png")
+        y: self.midpoint().y
       }
     );
-
-    if(rand() < missileFrequency) {
-      addGameObject(HomingMissile($.extend({
-        collisionType: "enemyBullet",
-        sprite: Sprite.load("images/projectiles/homing_missile_red.png")
-      }, self.position())));
-    }
   };
 
   var states = {
     battle: State({
       model: hoverModel,
-      update: function() {
+      update: function(position) {
+        I.rotation = 0;
+        var relativePoint = centralPoint.add(position);
+
         if(displacementScale >= 2 && displacementDelta > 0) {
           displacementDelta = -displacementDelta;
         } else if(displacementScale <= 0 && displacementDelta < 0){
           displacementDelta = -displacementDelta;
-          I.currentState = states.charge;
+
+          stateChooser = !stateChooser;
+
+          if(stateChooser) {
+            I.currentState = states.charge;
+          } else {
+            I.currentState = states.missileCharge;
+          }
           I.shootLogic = $.noop;
         }
 
@@ -48,11 +56,10 @@ function RoboReagan(I) {
 
         var currentScale = Math.min(maxDisplacementScale, displacementScale);
 
-        I.x = centralPoint.x + currentScale * xAmplitude * Math.sin(I.age / 11);
-        I.y = centralPoint.y + currentScale * yAmplitude * Math.cos(I.age / 13);
+        I.x = I.x.approach(relativePoint.x + currentScale * xAmplitude * Math.sin(I.age / 11), 10);
+        I.y = I.y.approach(relativePoint.y + currentScale * yAmplitude * Math.cos(I.age / 13), 6);
 
         maxDisplacementScale = Math.min((6000 - I.health) / 1000, 2);
-        missileFrequency = ((5000 - I.health) / 1000).floor() * 0.025;
       }
     }),
     charge: State({
@@ -60,7 +67,10 @@ function RoboReagan(I) {
         I.currentState = states.energyBeam;
       },
       duration: 40,
-      model: chargeModel
+      model: chargeModel,
+      update: function() {
+        I.rotation = I.rotation.approach(Point.direction(self.position(), dino.position()) - Math.PI/2, Math.PI/24);
+      }
     }),
     energyBeam: State({
       complete: function() {
@@ -71,52 +81,36 @@ function RoboReagan(I) {
       duration: 40,
       model: energyBeamModel,
       update: function() {
-        addGameObject(EnergyBeam(self.position()));
+        self.shoot(I.rotation + Math.PI/2, $.extend(self.position(), {
+          collisionType: 'enemyBullet',
+          health: Infinity,
+          radius: 8,
+          speed: 14,
+          sprite: Sprite.load('images/projectiles/beam.png'),
+        }));
       }
     }),
-    takeOff: State({
+    missileBarrage: State({
       complete: function() {
         I.currentState = states.battle;
-        I.shootLogic = ragingShootLogic;
       },
-      duration: 80,
-      model: hoverModel,
+      duration: 12,
+      model: energyBeamModel,
       update: function() {
-        I.y -= 2;
+        addGameObject(HomingMissile($.extend({
+          collisionType: "enemyBullet",
+          sprite: missileSprite,
+          theta: (missilePos++) * Math.PI / 6
+        }, self.position())));
       }
     }),
-    shakeFist: State({
+    missileCharge: State({
       complete: function() {
-        I.currentState = states.takeOff;
+        I.currentState = states.missileBarrage;
       },
-      duration: 50,
-      model: kneelModel,
-      update: function() {
-        I.currentState.frame((I.currentState.frame() % 2) + 8);
-      }
+      duration: 40,
+      model: chargeModel
     }),
-    stand: State({
-      complete: function() {
-        I.currentState = states.shakeFist;
-      },
-      duration: 20,
-      model: kneelModel,
-      update: function() {
-
-      }
-    }),
-    kneel: State({
-      complete: function() {
-        I.currentState = states.stand;
-      },
-      duration: 100,
-      model: kneelModel,
-      update: function() {
-        I.y = CANVAS_HEIGHT - Floor.LEVEL - 40;
-
-        I.currentState.frame(0);
-      }
-    })
   };
 
   $.reverseMerge(I, {
@@ -124,14 +118,16 @@ function RoboReagan(I) {
     health: 5000,
     pointsWorth: 1000000,
     radius: 40,
-    sprite: kneelModel.animation,
-    x: rand(CANVAS_WIDTH),
+    rotation: 0,
+    x: CANVAS_WIDTH/2,
     y: 100
   });
 
-  I.currentState = states.kneel;
+  I.currentState = states.battle;
 
-  var self = Boss(I).extend({});
+  var self = Boss(I).extend({
+    getTransform: GameObject.rotationGetTransform(I)
+  });
 
   self.extend(Stateful(I));
 

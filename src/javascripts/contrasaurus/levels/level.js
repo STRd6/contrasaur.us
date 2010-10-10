@@ -111,7 +111,7 @@ function Level(I) {
       prevDelta = position.x - oldPosition;
 
       if(I.skyMode) {
-        position.y = (dinoPosition.y - CANVAS_HEIGHT / 2).clamp(-(5390 + CANVAS_HEIGHT), 0);
+        position.y = (dinoPosition.y - CANVAS_HEIGHT / 2).clamp(0, 5390 - CANVAS_HEIGHT);
       }
     }
   }
@@ -158,7 +158,13 @@ function Level(I) {
     }
 
     if(fadeAmount != 0) {
-      var fadeColor = "rgba(0, 0, 0, " + fadeAmount.clamp(0, 1) + ")";
+      var fadeColor;
+      if(I.fadeWhite) {
+        fadeColor = "rgba(255, 255, 255, " + fadeAmount.clamp(0, 1) + ")";
+      } else {
+        fadeColor = "rgba(0, 0, 0, " + fadeAmount.clamp(0, 1) + ")";
+      }
+
       canvas.fill(fadeColor);
     }
   }

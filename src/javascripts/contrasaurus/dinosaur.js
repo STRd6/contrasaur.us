@@ -427,6 +427,18 @@ function Dinosaur() {
       }
     },
 
+    skyBattle: function() {
+      I.x = (CANVAS_WIDTH - width) / 2 - 100;
+      I.y = 400;
+      airborne = true;
+      I.currentState = states.fly;
+
+      I.yVelocity = -15;
+      I.xVelocity = 5;
+
+      self.addJetpack();
+    },
+
     sink: $.noop,
 
     poison: function(amount) {
