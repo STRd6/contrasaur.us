@@ -109,6 +109,10 @@ function Level(I) {
       position.x = position.x.clamp(cameraLock.min, cameraLock.max);
 
       prevDelta = position.x - oldPosition;
+
+      if(I.skyMode) {
+        position.y = (dinoPosition.y - CANVAS_HEIGHT / 2).clamp(0, 5390 - CANVAS_HEIGHT);
+      }
     }
   }
 

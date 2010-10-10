@@ -508,7 +508,7 @@ function Dinosaur() {
         if (parasailing) {
           I.y = I.y.clamp(30, CANVAS_HEIGHT - Floor.LEVEL);
         } else {
-          I.y = I.y.clamp(30, CANVAS_HEIGHT);
+          I.y = I.y.clamp(30, levelPosition.y + CANVAS_HEIGHT);
         }
 
         updateWeapons(levelPosition);
