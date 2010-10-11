@@ -78,7 +78,7 @@ function FinalReagan(I) {
       duration: 40,
       model: chargeModel,
       update: function(position) {
-        I.rotation = I.rotation.approach(Point.direction(self.position(), dino.position()) - Math.PI/2, Math.PI/24);
+        I.rotation = I.rotation.approachRotation(Point.direction(self.position(), dino.position()) - Math.PI/2, Math.PI/24);
 
         approachTargetLocation(position, 7, 7);
       }

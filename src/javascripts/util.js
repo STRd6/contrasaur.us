@@ -195,6 +195,20 @@ Number.prototype.approach = function(target, maxDelta) {
   return (target - this).clamp(-maxDelta, maxDelta) + this;
 };
 
+Number.prototype.approachRotation = function(target, maxDelta) {
+  var twoPi = 2 * Math.PI;
+
+  while(target > this + Math.PI) {
+    target -= twoPi
+  }
+
+  while(target < this - Math.PI) {
+    target += twoPi
+  }
+
+  return (target - this).clamp(-maxDelta, maxDelta) + this;
+};
+
 function before(method, interception) {
   return function() {
     interception.apply(this, arguments);
