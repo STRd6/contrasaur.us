@@ -63,7 +63,7 @@ $(function() {
     skyMode: true,
     scene: scene,
     objective: "???",
-    objectiveImage: 'images/enemies/dinofodder.png',
+    objectiveImage: '',
     platforms: [],
     triggers: triggers
   });

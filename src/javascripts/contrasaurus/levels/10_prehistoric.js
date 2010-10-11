@@ -170,7 +170,7 @@ $(function() {
     }
   }];
 
-  addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago... the search for a champion begins.", 3000);
+  addCutscene("images/levels/cutscenes/triassic.png", "Thousands of years ago... the search for a champion begins.", 4000);
 
   var level = addLevel({
     audio: "Lady Gaga - Bad Romance",

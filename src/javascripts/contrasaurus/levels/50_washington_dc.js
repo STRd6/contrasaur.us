@@ -126,10 +126,12 @@ $(function() {
           velocity: Point()
         })));
 
-        level.dialog(DialogBox({
-          avatar: roboReaganAvatar,
-          text: "Do you truly think you can defeat me? I made you what you are."
-        }), 150);
+        level.after(60, function() {
+          level.dialog(DialogBox({
+            avatar: roboReaganAvatar,
+            text: "Do you truly think you can defeat me? I made you what you are."
+          }), 150);
+        });
 
         var roboReagan = RoboReagan({
           x: whiteHouse.position().x
@@ -183,23 +185,23 @@ $(function() {
 
   addCutscene(
     "images/levels/cutscenes/hero_ceremony.png",
-    "To Contrasaur, the greatest of American heros, for his valiant work in Nicaragua",
-    4000
+    "To Contrasaur, the greatest of American heros, for his victory in Nicaragua",
+    6000
   );
 
   addCutscene(
     "",
     "Later that night...",
-    1300
+    3000
   );
 
   addCutscene(
     "images/levels/cutscenes/lincoln_memorial.png",
     "Contrasaur! I know the terrible Truth behind Reagan's plan!",
-    3000
+    4000
   );
 
-  addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1000);
+  addCutscene("images/levels/cutscenes/tyrannosaurus_rex.png", "?!", 1250);
 
   var roboReaganAvatar = Sprite.load("images/avatars/roboreagan.png");
 

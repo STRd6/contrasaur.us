@@ -1,6 +1,8 @@
 $(function() {
   var imgPath = "images/levels/jungle/";
 
+  var bossActive = false;
+
   var scene = Scene([
     {
       image: Sprite.load(imgPath + "ground.png"),
@@ -51,7 +53,7 @@ $(function() {
   var planeDelay = 15;
 
   function generateEnemies(level) {
-    if (!dino.boss()) {
+    if (!bossActive) {
       if (Math.random() < 0.03) {
         if (Math.random() < 0.5) {
           var soldier = Soldier({
@@ -117,11 +119,23 @@ $(function() {
   }, {
     at: 1000,
     event: function(level) {
-      addGameObject(Crate({
+      var jetPackCrate = Crate({
         weaponClass: function() {return "jetpack";},
         x: level.position().x + CANVAS_WIDTH,
         y: 320
-      }));
+      });
+
+      jetPackCrate.bind('destroy', function() {
+        level.unlockCamera();
+
+        level.dialog(DialogBox({
+          text: "With the jetpack you can take to the skies! Press up to fly!"
+        }), 200);
+      });
+
+      addGameObject(jetPackCrate);
+
+      level.lockCamera(level.position().x, level.position().x + 250);
     }
   }, {
     at: 2000,
@@ -135,7 +149,7 @@ $(function() {
   }, {
     at: 3000,
     event: function(level) {
-      commando = Commando({
+      var commando = Commando({
         x: level.position().x + CANVAS_WIDTH + 40
       });
 
@@ -151,6 +165,7 @@ $(function() {
         });
       });
 
+      bossActive = true;
       dino.boss(commando);
 
       level.addGameObject(commando);
@@ -161,15 +176,15 @@ $(function() {
   addCutscene(
     "images/levels/cutscenes/south_america.png",
     "He will be a great asset to us in assisting the Contras...",
-    4000
+    5000
   );
 
   addLevel({
+    audio: "Lady Gaga - Telephone",
     scene: scene,
-    objective: "Obey",
-    objectiveImage: "images/enemies/robo_reagan/reagan_thumb.png",
+    objective: "Defeat",
+    objectiveImage: "images/enemies/commando/commando_thumb.png",
     platforms: [floor],
-    triggers: triggers,
-    audio: "Lady Gaga - Telephone"
+    triggers: triggers
   });
 });

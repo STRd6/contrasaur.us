@@ -161,7 +161,7 @@ $(function() {
     event: machineGunTrial
   }];
 
-  addCutscene("images/levels/cutscenes/time_travel.png", "By the power of science!", 3000);
+  addCutscene("images/levels/cutscenes/time_travel.png", "By the power of science!", 4000);
 
   var reaganAvatar = Sprite.load("images/avatars/reagan.png");
 

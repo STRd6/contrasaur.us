@@ -244,6 +244,12 @@ $(function() {
     }
   }];
 
+  addCutscene(
+    null,
+    "Contrasaur, we've located your final objective. Procede to Lake Xolotlán and destroy the floating fortress.",
+    6000
+  );
+
   var level = addLevel({
     description: "AD 1984: Lake Xolotlán",
     scene: scene,
