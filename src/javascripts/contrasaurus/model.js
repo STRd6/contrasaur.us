@@ -30,7 +30,7 @@ function Model(animation, frames, hitFrames) {
 
     attachment: function(name) {
       var currentFrame = frames[animation.frame()];
-      if(currentFrame.attachmentPoints) {
+      if(currentFrame && currentFrame.attachmentPoints) {
         if(currentFrame.attachmentPoints[name]) {
           return currentFrame.attachmentPoints[name];
         } else {
@@ -61,6 +61,7 @@ function Model(animation, frames, hitFrames) {
  */
 Model.loadJSONUrl = function(url, callback) {
   var proxy = {
+    attachment: $.noop,
     draw: $.noop,
     hitFrame: function() {
       return [];
