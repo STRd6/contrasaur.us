@@ -246,7 +246,7 @@ $(function() {
 
   addCutscene(
     null,
-    "Contrasaur, we've located your final objective. Procede to Lake Xolotlán and destroy the floating fortress.",
+    "Contrasaur, we've located your final objective. Procede to Lake Xolotlán and destroy the Floating Fortress.",
     6000
   );
 
