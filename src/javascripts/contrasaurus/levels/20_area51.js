@@ -44,11 +44,11 @@ $(function() {
 
   function generateAgents() {
     level.addGameObject(Area51Agent({
-      x: 460
+      x: 500
     }));
 
     level.addGameObject(Area51Agent({
-      x: 480
+      x: 520
     }));
   }
 
