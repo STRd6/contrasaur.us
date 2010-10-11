@@ -1,20 +1,28 @@
 $(function() {
+  var imgPath = "images/levels/area51/";
+
   var scene = Scene([
     {
-      image: Sprite.load('images/levels/area51/warehouse_floor.png'),
+      image: Sprite.load(imgPath + 'ground.png'),
       parallaxRate: 0,
-      position: {
-        x: 0,
-        y: CANVAS_HEIGHT - Floor.LEVEL
-      },
-      width: 640
-    }, {
-      image: Sprite.load("images/levels/area51/warehouse.png"),
+      position: Point(0, CANVAS_HEIGHT - Floor.LEVEL)
+    },
+    {
+      image: Sprite.load(imgPath + "background.png"),
       parallaxRate: 0.25,
-      position: {
-        x: 0,
-        y: 0
-      },
+      position: Point(0, 0),
+      repeat: true
+    },
+    {
+      image: Sprite.load(imgPath + "midground.png"),
+      parallaxRate: 0.5,
+      position: Point(0, 0),
+      repeat: true
+    },
+    {
+      image: Sprite.load(imgPath + "foreground.png"),
+      parallaxRate: 1,
+      position: Point(0, 0),
       repeat: true
     }
   ], []);
