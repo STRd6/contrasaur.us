@@ -24,6 +24,23 @@ var currentLevel;
 var displayTexts = [];
 var stages = [];
 
+var highScores = [];
+var cookieScores = [];
+
+if (readCookie("highScore")) {
+  var cookieScores = readCookie("highScore").split(",");
+}
+
+cookieScores.push(score);
+$.unique(cookieScores);
+
+highScores = $.map(cookieScores, function(cookie) {
+  return [[parseInt(cookie), "You"]];
+});
+
+createCookie("highScore", cookieScores.join(","));
+highScores = highScores.concat([[100000, "Zuch"], [200000, "Dr. Werewolf"], [300000, "Condor"]]);
+
 var weapons = [];
 
 var weaponMap = {
@@ -35,18 +52,6 @@ var weaponMap = {
   "machineGun": MachineGun,
   "meat": Meat
 };
-
-var highScores = [[30000, "Condor"], [20000, "Dr. Werewolf"], [10000, "Zuch"]];
-var cookieScores = [];
-var playerCookieScores = [];
-
-if (readCookie("highScore")) {
-  cookieScores = readCookie("highScore").split(";");
-}
-
-$.each(cookieScores, function(i, cookieScore) {
-  playerCookieScores.push([cookieScore, "You"]);
-});
 
 $.each(weaponMap, function(name) {
   weapons.push(name);
@@ -101,6 +106,8 @@ function nextStage(choice) {
       currentStage++;
       if(currentStage >= stages.length) {
         endGame();
+        cookieScores.push(score);
+        createCookie("highScore", cookieScores.join(","));
         alert("You Win!");
       } else {
         currentLevel = stages[currentStage];
@@ -122,7 +129,9 @@ function endGameDisplay() {
 
   var leaderDisplay = {
     draw: function(canvas) {
-      highScores.sort().reverse();
+      highScores.sort(function(a, b) { return a[0] - b[0] });
+      highScores.reverse();
+
       canvas.fill("rgba(0, 0, 0, 0.66)");
       canvas.fillColor("#FFF");
       canvas.centerText("ALL TIME LEADERS:", 200);
@@ -131,12 +140,6 @@ function endGameDisplay() {
       canvas.centerText(highScores[2][1] + ": " + highScores[2][0], 290);
     }
   };
-
-  cookieScores.push(score);
-  playerCookieScores.push([score, "You"]);
-
-  highScores = highScores.concat(playerCookieScores);
-  createCookie("highScore", cookieScores.join(";"));
 
   leaderDisplay.draw(canvas);
 }
@@ -181,31 +184,42 @@ function display(text) {
 }
 
 function createCookie(name, value, days) {
+  var expires;
+  var cookie;
+
   if (days) {
     var date = new Date();
     date.setTime(date.getTime() + (days*24*60*60*1000));
-    var expires = "; expires=" + date.toGMTString();
+    expires = "; expires=" + date.toGMTString();
   } else {
-   var expires = "";
+    expires = "";
   }
-  document.cookie = name + "=" + value + expires + "; path=/";
+
+  cookie = name + "=" + value + expires + "; path=/";
+
+  return document.cookie = cookie;
 }
 
 function readCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) {
-      return c.substring(nameEQ.length, c.length);
+  var nameEquals = name + "=";
+  var cookies = document.cookie.replace(/\s/g, "").split(';');
+  var result;
+
+  $.each(cookies, function(i, cookie) {
+    if (cookie.indexOf(nameEquals) == 0) {
+      result = cookie.substring(nameEquals.length, cookie.length);
     }
-  }
-  return null;
+  });
+
+  return result;
 }
 
 function eraseCookie(name) {
   createCookie(name, "", -1);
+}
+
+function addHighScore(score, player) {
+  return highScores.push([parseInt(score), player]);
 }
 
 $(function() {
