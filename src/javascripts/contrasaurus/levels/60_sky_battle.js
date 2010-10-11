@@ -62,8 +62,8 @@ $(function() {
     description: "AD 1984: D.C. Sky",
     skyMode: true,
     scene: scene,
-    objective: "???",
-    objectiveImage: '',
+    objective: "Defeat",
+    objectiveImage: "images/enemies/robo_reagan/reagan_thumb.png",
     platforms: [],
     triggers: triggers
   });

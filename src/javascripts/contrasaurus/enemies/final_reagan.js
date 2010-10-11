@@ -15,13 +15,13 @@ function FinalReagan(I) {
   var displacementScale = 0;
   var displacementDelta = 0.025;
 
-  var missileFrequency = 0;
   var missilePos = 0;
   var stateChooser = 0;
 
   var ragingShootLogic = function() {
     self.shoot(
       Math.random() * (Math.PI), {
+        buffer: 500,
         speed: 25,
         sprite: beamSprite,
         x: self.midpoint().x,
@@ -30,12 +30,25 @@ function FinalReagan(I) {
     );
   };
 
+  function approachTargetLocation(levelPosition, xMax, yMax) {
+    var relativePoint = centralPoint.add(levelPosition);
+    var currentScale = Math.min(maxDisplacementScale, displacementScale);
+
+    var targetY = relativePoint.y + currentScale * yAmplitude * Math.cos(I.age / 13);
+
+    if(targetY > I.y) {
+      yMax += 7;
+    }
+
+    I.x = I.x.approach(relativePoint.x + currentScale * xAmplitude * Math.sin(I.age / 11), xMax);
+    I.y = I.y.approach(targetY, yMax);
+  }
+
   var states = {
     battle: State({
       model: hoverModel,
       update: function(position) {
         I.rotation = 0;
-        var relativePoint = centralPoint.add(position);
 
         if(displacementScale >= 2 && displacementDelta > 0) {
           displacementDelta = -displacementDelta;
@@ -53,13 +66,9 @@ function FinalReagan(I) {
         }
 
         displacementScale += displacementDelta;
-
-        var currentScale = Math.min(maxDisplacementScale, displacementScale);
-
-        I.x = I.x.approach(relativePoint.x + currentScale * xAmplitude * Math.sin(I.age / 11), 10);
-        I.y = I.y.approach(relativePoint.y + currentScale * yAmplitude * Math.cos(I.age / 13), 6);
-
         maxDisplacementScale = Math.min((6000 - I.health) / 1000, 2);
+
+        approachTargetLocation(position, 10, 7);
       }
     }),
     charge: State({
@@ -68,8 +77,10 @@ function FinalReagan(I) {
       },
       duration: 40,
       model: chargeModel,
-      update: function() {
+      update: function(position) {
         I.rotation = I.rotation.approach(Point.direction(self.position(), dino.position()) - Math.PI/2, Math.PI/24);
+
+        approachTargetLocation(position, 7, 7);
       }
     }),
     energyBeam: State({
@@ -82,6 +93,7 @@ function FinalReagan(I) {
       model: energyBeamModel,
       update: function() {
         self.shoot(I.rotation + Math.PI/2, $.extend(self.position(), {
+          buffer: 500,
           collisionType: 'enemyBullet',
           health: Infinity,
           radius: 8,
@@ -98,6 +110,7 @@ function FinalReagan(I) {
       model: energyBeamModel,
       update: function() {
         addGameObject(HomingMissile($.extend({
+          buffer: 150,
           collisionType: "enemyBullet",
           sprite: missileSprite,
           theta: (missilePos++) * Math.PI / 6
@@ -109,7 +122,10 @@ function FinalReagan(I) {
         I.currentState = states.missileBarrage;
       },
       duration: 40,
-      model: chargeModel
+      model: chargeModel,
+      update: function(position) {
+        approachTargetLocation(position, 7, 7);
+      }
     }),
   };
 

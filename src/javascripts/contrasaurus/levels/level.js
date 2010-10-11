@@ -291,6 +291,12 @@ function Level(I) {
       fadeDuration = duration;
     },
 
+    fadeOutMusic: function() {
+      if (backgroundMusic) {
+        backgroundMusic.fadeOut();
+      }
+    },
+
     lockCamera: function(min, max) {
       cameraLock.min = min;
       cameraLock.max = max;
@@ -369,9 +375,7 @@ function Level(I) {
     },
 
     stop: function() {
-      if (backgroundMusic) {
-        backgroundMusic.fadeOut();
-      }
+      self.fadeOutMusic();
 
       clearInterval(intervalId);
     },

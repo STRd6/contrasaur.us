@@ -183,7 +183,7 @@ function GameObject(I) {
 
 GameObject.DEBUG_HIT = false;
 GameObject.generateCheckBounds = function(I, buffer) {
-  buffer = buffer || 0;
+  buffer = buffer || I.buffer || 0;
   return function(position) {
     var xMax = position.x + CANVAS_WIDTH;
     var yMax = position.y + CANVAS_HEIGHT;
