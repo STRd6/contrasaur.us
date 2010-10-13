@@ -1,0 +1,7 @@
+#!/usr/bin/ruby1.9
+
+ARGV.map{|n| n.gsub(' ', '\\ ') }.each do |file_name|
+  cmd = "mpg321 #{file_name} -w raw && oggenc raw -o #{file_name[0...-4]}.ogg"
+  puts cmd
+  puts `#{cmd}`
+end
