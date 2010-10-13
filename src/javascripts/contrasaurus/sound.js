@@ -65,6 +65,7 @@ var Sound = (function($) {
       if(freeChannels[0]) {
         // Provision an available channel
         freeChannels[0].src = file;
+        freeChannels[0].load();
         freeChannels[0].play();
       }
     }
