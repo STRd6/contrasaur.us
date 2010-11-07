@@ -11,10 +11,6 @@ function detectIphoneOrIpod() {
 
 var mobile = detectIphoneOrIpod();
 
-if(mobile) {
-  $('img').show();
-}
-
 var pauseDisplay = {
   draw: function(canvas) {
     canvas.fill("rgba(0, 0, 0, 0.66)");
@@ -88,6 +84,9 @@ function drawOverlay() {
   if(showCrosshair && !mobile) {
     crosshair.draw(canvas, target.x - crosshair.width/2, target.y - crosshair.height/2);
   }
+
+  // Score display
+  $("#score").text(score);
 }
 
 function nextStage(choice) {

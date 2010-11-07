@@ -1,4 +1,5 @@
-hideBackgrounds = false;
+hideBackgrounds = true;
+debugText = '';
 
 function Level(I) {
   var position = {
@@ -168,6 +169,8 @@ function Level(I) {
 
       canvas.fill(fadeColor);
     }
+
+    canvas.centerText(debugText, 200);
   }
 
   function resetCollidables() {
