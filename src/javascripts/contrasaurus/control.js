@@ -49,11 +49,7 @@ function Control(character, keyDown) {
       character.bite();
 
       character.transition(character.states().bite);
-    },
-
-     "+": character.nextWeapon(),
-
-     "-": character.prevWeapon()
+    }
   }, function(key, fn) {
     $(document).bind('keydown', key, function() {
       fn();
@@ -94,17 +90,11 @@ function Control(character, keyDown) {
        }
 
      return false;
-   }).mouseup(function(event) {
-     if(event.button == 0) {
-       shooting = false;
-     } else {
-       secondaryShooting = false;
-     }
-   }).bind("mousewheel", function(event, delta) {
-     if(delta > 0) {
-       character.nextWeapon();
-     } else {
-       character.prevWeapon();
-     }
-   });
+  }).mouseup(function(event) {
+    if(event.button == 0) {
+      shooting = false;
+    } else {
+      secondaryShooting = false;
+    }
+  });
 }

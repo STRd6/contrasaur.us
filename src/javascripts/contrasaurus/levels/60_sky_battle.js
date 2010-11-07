@@ -12,7 +12,7 @@ $(function() {
       sky: true
     },
     {
-      image: Sprite.load(imgPath + "midground.png"),
+      image: Sprite.load(imgPath + "midground_mobile.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
@@ -22,7 +22,7 @@ $(function() {
     }
   ], [
     {
-      image: Sprite.load(imgPath + "foreground.png"),
+      image: Sprite.load(imgPath + "foreground_mobile.png"),
       parallaxRate: 1,
       position: {
         x: 0,

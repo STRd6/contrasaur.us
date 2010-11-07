@@ -18,10 +18,6 @@ function Weapon(I) {
 
   I.sprite = I.sprite || Sprite.load("images/weapons/" + I.name + ".png");
 
-  if(I.name && !I.ammoSprite) {
-    I.ammoSprite = Sprite.load("images/ammo/" + I.name + ".png");
-  }
-
   var lastPoint = -1;
   var targetPosition = 0;
 
@@ -51,7 +47,6 @@ function Weapon(I) {
 
     data: function() {
       return {
-        sprite: I.ammoSprite,
         ammo: I.ammo
       }
     },

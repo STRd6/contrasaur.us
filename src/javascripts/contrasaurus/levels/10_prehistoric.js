@@ -135,7 +135,7 @@ $(function() {
     at: 300,
     event: function() {
       level.dialog(DialogBox({
-        text: "Press space to CHOMP!"
+        text: (mobile) ? "Tap red button to CHOMP" : "Press space to CHOMP!"
       }), 200);
     }
   }, {

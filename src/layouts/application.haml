@@ -3,12 +3,28 @@
   %head
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.62, user-scalable=no"/>
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <link rel="apple-touch-icon" href="images/apple_home_icon.png">
     %title Contrasaurus - Defender of the American Dream
-  
+
     = stylesheets
     %link{ :rel => "shortcut icon", :href => "favicon.ico", :type => "image/x-icon"}
 
     = javascripts("contrasaurus")
+
+    :plain
+      <script>
+        $(function() {
+          if (detectIphoneOrIpod()) {
+            $('#footer').remove();
+            $('#title').remove();
+            $('#fb-root').remove();
+          }
+        });
+      </script>
 
     = partial 'analytics'
 
