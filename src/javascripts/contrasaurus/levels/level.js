@@ -1,4 +1,4 @@
-hideBackgrounds = true;
+hideBackgrounds = false;
 debugText = '';
 
 function Level(I) {
@@ -33,6 +33,9 @@ function Level(I) {
     min: -Infinity,
     max: Infinity
   };
+
+  var framesDrawn = [];
+  var levelStartTime;
 
   $.reverseMerge(I, {
     backgroundColor: "#A2EEFF",
@@ -170,7 +173,10 @@ function Level(I) {
       canvas.fill(fadeColor);
     }
 
+    canvas.fillColor("#FFF")
     canvas.centerText(debugText, 200);
+    var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[0]);
+    canvas.fillText("FPS: " + fps, 540, 60)
   }
 
   function resetCollidables() {
@@ -339,6 +345,8 @@ function Level(I) {
     },
 
     start: function() {
+      levelStartTime = new Date().getTime();
+
       $("#game_info").show();
       $("#level_objectives").delay(4500).fadeIn('fast').delay(1800).fadeOut('slow');
 
@@ -430,6 +438,11 @@ function Level(I) {
         draw(canvas);
         framesSkipped = 0;
         timeLastDrawn = new Date().getTime();
+        framesDrawn.push(timeLastDrawn);
+
+        if(framesDrawn.length > 10) {
+          framesDrawn.unshift();
+        }
       }
     },
 
