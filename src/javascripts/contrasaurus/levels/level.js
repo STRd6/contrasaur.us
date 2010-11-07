@@ -1,4 +1,3 @@
-debugCounts = false;
 hideBackgrounds = false;
 
 function Level(I) {
@@ -6,6 +5,9 @@ function Level(I) {
     x: 0,
     y: 0
   };
+
+  var framesSkipped = 0;
+  var timeLastDrawn = new Date().getTime();
 
   var gameObjects = [];
   var gameObjectsQueue = [];
@@ -145,10 +147,8 @@ function Level(I) {
       var descriptionWidth = canvas.measureText(I.description);
 
       // Draw drop-shadow and description text
-      canvas.fillColor("#000");
-      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin) + 1, CANVAS_HEIGHT - textMargin + 1);
       canvas.fillColor(I.textColor);
-      canvas.fillText(I.description, CANVAS_WIDTH - (descriptionWidth + textMargin), CANVAS_HEIGHT - textMargin);
+      canvas.centerText(I.description, CANVAS_HEIGHT - textMargin);
     }
 
     if(displayDialog) {
@@ -265,15 +265,6 @@ function Level(I) {
       self.stop();
 
       I.completed();
-    },
-
-    debugCounts: function() {
-      var results = {};
-      $.each(collidables, function(key, value) {
-        results[key] = value.length;
-      });
-
-      return results;
     },
 
     dialog: function(dialog, duration) {
@@ -425,22 +416,18 @@ function Level(I) {
 
       oldEnemies = collidables.enemy;
 
-      // Update debug
-      if(debugCounts) {
-        var html = "";
-        $.each(self.debugCounts(), function(key, value) {
-          html += key + ": " + value + "<br />"
-        });
-
-        $("#debug").html(html);
-      }
-
       // Update dialogs
       if(step > dialogStop) {
         displayDialog = null;
       }
 
-      draw(canvas);
+      if (framesSkipped < 2 && (new Date().getTime() - timeLastDrawn) > 30) {
+        framesSkipped++;
+      } else {
+        draw(canvas);
+        framesSkipped = 0;
+        timeLastDrawn = new Date().getTime();
+      }
     },
 
     continuePause: function() {
