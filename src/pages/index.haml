@@ -4,7 +4,7 @@
   %h1 Contrasaurus
 
 #game_container
-  %canvas#gameCanvas{:width => 640, :height => 480}
+  %canvas#gameCanvas.touch{:width => 640, :height => 480}
     %p
       HTML5 canvas not supported by your browser.
       = link "Learn more here", "http://www.google.com/chrome"
@@ -27,6 +27,10 @@
       %p CONTINUE?
       %button.continue_yes{:name => 'Yes'} Yes
       %button.continue_no{:name => 'No'} No
+  #control.touch
+    %img{:src => 'images/direction_pad_transparent.png', :style => "display: none;"}
+  #button.touch
+    %img{:src => 'images/controller_buttons_transparent.png', :style => "display: none;"}
 
 :javascript
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
@@ -56,7 +60,7 @@
       titleScreen.draw(canvas, 0, 0);
       canvas.fillColor("#FFF");
       if(loaded) {
-        canvas.centerText("PRESS SPACE TO START", 360);
+        canvas.centerText((mobile) ? "TAP TO START" : "PRESS SPACE TO START", 360);
       } else {
         canvas.fillText("LOADING" + dots, 280, 360);
       }
@@ -80,5 +84,12 @@
         started = true;
         nextStage();
       }
-    })
+    });
+
+    $('canvas').bind("tap", function() {
+      if(loaded && !started) {
+        started = true;
+        nextStage();
+      }
+    });
   }});
