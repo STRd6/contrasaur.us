@@ -17,11 +17,7 @@ function MachineGun(I) {
     var displacement = 0;
 
     if(shooting) {
-      if(I.ammo > 0) {
-        displacement = rand() * jitter - jitter / 2;
-      } else {
-        Sound.play("no_ammo");
-      }
+      displacement = rand() * jitter - jitter / 2;
     }
 
     I.rotation = Point.direction(position, target.add(levelPosition)) + displacement;
