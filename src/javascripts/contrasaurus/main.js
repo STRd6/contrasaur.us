@@ -3,15 +3,6 @@ var money = 1000;
 var canvas;
 var dino;
 var healthBar;
-var killCounter = {
-  'bomber': 0,
-  'boss': 0,
-  'parasoldier': 0,
-  'sandinista': 0,
-  'secret service': 0,
-  'tank': 0,
-  'utahraptor': 0
-};
 var pauseDisplay = {
   draw: function(canvas) {
     canvas.fill("rgba(0, 0, 0, 0.66)");

@@ -101,12 +101,6 @@ function Enemy(I) {
     }
   });
 
-  self.bind('destroy', function() {
-    if(I.type) {
-      killCounter[I.type]++;
-    }
-  });
-
   return self;
 }
 

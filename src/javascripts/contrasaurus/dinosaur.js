@@ -584,5 +584,7 @@ function Dinosaur() {
     }
   };
 
+  self.addJetpack();
+
   return self;
 }
