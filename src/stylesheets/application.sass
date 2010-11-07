@@ -23,6 +23,25 @@ a
   &:hover
     text-decoration: underline
 
+#control
+  position: absolute
+  top: 320px
+  left: 0px
+  height: 160px
+  width: 160px
+
+  img
+    position: absolute
+    left: 17.5px
+    top: 17.5px
+
+#button
+  position: absolute
+  top: 358px
+  left: 520px
+  width: 109px
+  height: 120px
+
 #title
   position: relative
   width: 100%
@@ -36,6 +55,8 @@ a
   margin-right: auto
   position: relative
   width: 640px
+  -webkit-touch-callout: none
+  -webkit-user-select: none
 
 #gameCanvas
   position: absolute
@@ -159,3 +180,8 @@ a
 
 .clear
   clear: both
+
+/* Mobile contrasaurus stylesheet Copyright 2010 STRd6
+@media only screen and (max-device-width: 480px)
+  #game_container
+    margin-left: 13%
