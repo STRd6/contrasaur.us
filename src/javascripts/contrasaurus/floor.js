@@ -30,11 +30,7 @@ function Floor(I) {
         addGameObject(effect);
       }
     },
-    draw: function(canvas) {
-      if (I.sprite) {
-        I.sprite.draw(canvas, I.x, I.y);
-      }
-    },
+    draw: function(canvas) {},
     hit: function(other) {
       if(I.water) {
         if(other.sink) {
