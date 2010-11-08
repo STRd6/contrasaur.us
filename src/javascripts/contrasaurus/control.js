@@ -1,5 +1,59 @@
 function Control(character, keyDown) {
-  var tapCounter = 0;
+
+  function getRelativePoint(htmlElement, touchEvent) {
+    var offset = htmlElement.offset();
+    var localX = touchEvent.pageX - offset.left;
+    var localY = touchEvent.pageY - offset.top;
+
+    return Point(localX, localY);
+  }
+
+  function pressingDpad(localPoint) {
+    var directionPushed;
+
+    if ((localPoint.x > 0 && localPoint.x < 80) && (localPoint.y > 52.5 && localPoint.y < 160)) {
+      directionPushed = "left";
+    } else if ((localPoint.x > 0 && localPoint.x < 52.5) && (localPoint.y > 0 && localPoint.y < 52.5)) {
+      directionPushed = "up-left";
+    } else if ((localPoint.x >= 80 && localPoint.x <= 160) && (localPoint.y > 52.5 && localPoint.y < 160)) {
+      directionPushed = "right";
+    } else if ((localPoint.x >= 107.5 && localPoint.x < 160) && (localPoint.y > 0 && localPoint.y < 52.5)) {
+      directionPushed = "up-right";
+    } else if ((target.x >= 52.5 && target.x < 107.5) && (target.y > 0 && target.y < 52.5)) {
+      directionPushed = "up";
+    }
+
+    return directionPushed;
+  }
+
+  function walkLeft() {
+    if (!character.airborne() && (character.currentState() !== character.states().bite)) {
+      character.xVelocity(-WALK_VELOCITY);
+      character.transition(character.states().walk);
+    } else {
+      if (!character.states().flyBite) {
+        character.transition(character.state().fly);
+      }
+    }
+  }
+
+  function walkRight() {
+    if (!character.airborne() && (character.currentState() !== character.states().bite)) {
+      character.xVelocity(WALK_VELOCITY);
+      character.transition(character.states().walk);
+    } else {
+      if (!character.states().flyBite) {
+        character.transition(character.state().fly);
+      }
+    }
+  }
+
+  function land() {
+    if(!character.airborne()) {
+      character.xVelocity(0);
+      character.transition(character.states().idle1);
+    }
+  }
 
   $.each({
 
@@ -18,28 +72,12 @@ function Control(character, keyDown) {
 
     "left a": function() {
       keyDown.left = true;
-
-      if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-        character.xVelocity(-WALK_VELOCITY);
-        character.transition(character.states().walk);
-      } else {
-        if (!character.states().flyBite) {
-          character.transition(character.state().fly);
-        }
-      }
+      walkLeft();
     },
 
     "right d": function() {
       keyDown.right = true;
-
-      if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-        character.xVelocity(WALK_VELOCITY);
-        character.transition(character.states().walk);
-      } else {
-        if (!character.states().flyBite) {
-          character.transition(character.state().fly);
-        }
-      }
+      walkRight();
     },
 
     "down s": function() {
@@ -49,8 +87,6 @@ function Control(character, keyDown) {
     "space": function() {
       keyDown.space = true;
       character.bite();
-
-      character.transition(character.states().bite);
     }
   }, function(key, fn) {
     $(document).bind('keydown', key, function() {
@@ -68,8 +104,6 @@ function Control(character, keyDown) {
   $('body').bind('touchstart', function(e){
     e.preventDefault();
     event.preventDefault();
-
-    return false;
   });
 
   $('.touch').bind('touchstart', handleTouch);
@@ -85,96 +119,59 @@ function Control(character, keyDown) {
 
     character.bite();
 
-    character.transition(character.states().bite);
-
     return false;
   });
 
-  $('#game_container').bind('touchstart', function(e) {
+  $('#gameCanvas').bind('touchstart', function(e) {
+    e.preventDefault();
     var el = $(this);
 
-    e.preventDefault();
-
     $.each(event.changedTouches, function(i, touch) {
-      var offset = el.offset();
 
-      var localY = touch.pageY - offset.top;
-      var localX = touch.pageX - offset.left;
-
-      target = Point(localX, localY);
-
-      debugText = "X: " + localX + ", Y: " + localY;
-
-      target = Point(localX, localY);
+      target = getRelativePoint(el, touch);
 
       if ((target.x > 480 && target.x < 640) && (target.y > 320 && target.y < 480)) {
         keyDown.space = true;
 
         character.bite();
-
-        character.transition(character.states().bite);
       }
     });
   });
 
   $('#control').bind('touchmove', function(e) {
+    e.preventDefault();
     var el = $(this);
 
-    e.preventDefault();
-
     $.each(event.changedTouches, function(i, touch) {
-      var offset = el.offset();
+      target = getRelativePoint(el, touch);
 
-      var localY = touch.pageY - offset.top;
-      var localX = touch.pageX - offset.left;
-
-      target = Point(localX, localY);
-
-      debugText = "X: " + localX + ", Y: " + localY;
-
-      if ((target.x > 0 && target.x < 80) && (target.y > 52.5 && target.y < 160)) {
+      if (pressingDpad(target) == "left") {
         keyDown.left = true;
         keyDown.right = false;
 
-        if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-          character.xVelocity(-WALK_VELOCITY);
-          character.transition(character.states().walk);
-        } else {
-          if (!character.states().flyBite) {
-            character.transition(character.state().fly);
-          }
-        }
+        walkLeft();
       }
 
-      if ((target.x > 0 && target.x < 52.5) && (target.y > 0 && target.y < 52.5)) {
+      if (pressingDpad(target) == "up-left") {
         keyDown.left = true;
         keyDown.up = true;
         keyDown.right = false;
       }
 
-      if ((target.x >= 80 && target.x <= 160) && (target.y > 52.5 && target.y < 160)) {
+      if (pressingDpad(target) == "right") {
         keyDown.right = true;
         keyDown.left = false;
 
-        if (!character.airborne() && (character.currentState() !== character.states().bite)) {
-          character.xVelocity(WALK_VELOCITY);
-          character.transition(character.states().walk);
-        } else {
-          if (!character.states().flyBite) {
-            character.transition(character.state().fly);
-          }
-        }
+        walkRight();
       }
 
-      //up-right
-      if ((target.x >= 107.5 && target.x < 160) && (target.y > 0 && target.y < 52.5)) {
+      if (pressingDpad(target) == "up-right") {
         keyDown.right = true;
         keyDown.up = true;
         keyDown.left = false;
       }
 
-      //up
-      if ((target.x >= 52.5 && target.x < 107.5) && (target.y > 0 && target.y < 52.5)) {
+      if (pressingDpad(target) == "up") {
         keyDown.up = true;
 
         if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
@@ -182,6 +179,8 @@ function Control(character, keyDown) {
         }
       }
     });
+
+    return false;
   });
 
   $('.touch').bind('touchend', function(e) {
@@ -197,47 +196,34 @@ function Control(character, keyDown) {
 
   $(document).bind('keyup', 'left a', function() {
     keyDown.left = false;
-
-    if(!character.airborne()) {
-      character.xVelocity(0);
-      character.transition(character.states().idle1);
-    }
+    land();
   });
 
   $(document).bind('keyup', 'right d', function() {
     keyDown.right = false;
-    if(!character.airborne()) {
-      character.xVelocity(0);
-      character.transition(character.states().idle1);
-    }
+    land();
   });
 
   $(document).bind('keyup', 'down s', function() {
     keyDown.down = false;
   });
 
-  $("#game_container").bind('touchstart', function() {
-    console.log(tapCounter++);
-    shooting = true;
-  });
-
-  $("#game_container").bind('swipe', function() {
-    shooting = false;
-  });
-
   $("#game_container").mousedown(function(event) {
-       if(event.button == 0) {
-         shooting = true;
-       } else {
-         secondaryShooting = true;
-       }
-
-     return false;
+    if(event.button == 0) {
+      shooting = true;
+    } else {
+      secondaryShooting = true;
+    }
+    return false;
   }).mouseup(function(event) {
     if(event.button == 0) {
       shooting = false;
     } else {
       secondaryShooting = false;
     }
+  }).bind('touchstart', function() {
+    shooting = true;
+  }).bind('swipe', function() {
+    shooting = false;
   });
 }
