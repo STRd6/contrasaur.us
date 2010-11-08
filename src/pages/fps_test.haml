@@ -16,20 +16,24 @@
     var timeLastDrawn = new Date().getTime();
     var framesDrawn = [];
 
+    for(var i = 0; i < 10; i++) {
+      framesDrawn[i] = timeLastDrawn;
+    }
+
+    var frameIndex = 0
+
     setInterval(function() {
       canvas.fill('#008');
 
       canvas.fillColor("#F00")
       canvas.fillRect(300, 220, 40, 40);
 
-      var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[0]);
+      framesDrawn[frameIndex] = timeLastDrawn;
+      frameIndex = (frameIndex + 1) % 10;
+
+      var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[frameIndex]);
       canvas.fillText("FPS: " + fps, 540, 60);
 
       timeLastDrawn = new Date().getTime();
-      framesDrawn.push(timeLastDrawn);
-
-      if(framesDrawn.length > 10) {
-        framesDrawn.unshift();
-      }
     }, 1);
   }});
