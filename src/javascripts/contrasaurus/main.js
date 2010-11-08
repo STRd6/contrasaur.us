@@ -86,7 +86,7 @@ function drawOverlay() {
   }
 
   // Score display
-  $("#score").text(score);
+  canvas.fillText(score, 510, 38)
 }
 
 function nextStage(choice) {
