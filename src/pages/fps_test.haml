@@ -1,0 +1,31 @@
+#title
+  %h1 FPS Test
+
+%canvas#gameCanvas{:width => 640, :height => 480}
+  %p
+    HTML5 canvas not supported by your browser.
+    = link "Learn more here", "http://www.google.com/chrome"
+
+:javascript
+  var rotate = false;
+  $('#gameCanvas').powerCanvas({init: function(canvas) {
+    var timeLastDrawn = new Date().getTime();
+    var framesDrawn = [];
+
+    setInterval(function() {
+      canvas.fill('#008');
+
+      canvas.fillColor("#F00")
+      canvas.fillRect(300, 220, 40, 40);
+
+      var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[0]);
+      canvas.fillText("FPS: " + fps, 540, 60);
+
+      timeLastDrawn = new Date().getTime();
+      framesDrawn.push(timeLastDrawn);
+
+      if(framesDrawn.length > 10) {
+        framesDrawn.unshift();
+      }
+    }, 33);
+  }});
