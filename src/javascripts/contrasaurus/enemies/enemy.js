@@ -105,6 +105,9 @@ function Enemy(I) {
 }
 
 Enemy.bloodSprayEffect = function(bullet) {
+  if(!SPRAY_EFFECTS_ENABLED) {
+    return;
+  }
 
   bullet.effectCount().times(function() {
     var point = bullet.position();
@@ -132,6 +135,10 @@ Enemy.bloodSprayEffect = function(bullet) {
 Enemy.sparkSprayEffect = function(bullet) {
   Sound.play("ricochet" + (rand(4) + 2), 1);
 
+  if(!SPRAY_EFFECTS_ENABLED) {
+    return;
+  }
+
   var effect = Effect($.extend(bullet.position(), {
     duration: 9,
     sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 7, 16, 16),
@@ -142,6 +149,10 @@ Enemy.sparkSprayEffect = function(bullet) {
 };
 
 Enemy.debrisSprayEffect = function(bullet) {
+  if(!SPRAY_EFFECTS_ENABLED) {
+    return;
+  }
+
   var effect = Effect($.extend(bullet.position(), {
     duration: 9,
     sprite: loadAnimation("images/effects/vehicle_debris_32x32.png", 1, 32, 32),

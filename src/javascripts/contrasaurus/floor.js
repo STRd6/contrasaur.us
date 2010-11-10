@@ -16,10 +16,12 @@ function Floor(I) {
 
   var self = GameObject(I).extend({
     bulletHitEffect: function(bullet) {
-      if(!I.water) {
+      if(!SPRAY_EFFECTS_ENABLED) {
+        return;
+      }
 
-        var sprite;
-        sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
+      if(!I.water) {
+        var sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
 
         var effect = Effect($.extend(bullet.position(), {
           duration: 8,
