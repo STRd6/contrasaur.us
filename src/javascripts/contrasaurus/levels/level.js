@@ -1,4 +1,4 @@
-hideBackgrounds = true;
+hideBackgrounds = false;
 debugText = '';
 
 function Level(I) {
@@ -19,6 +19,7 @@ function Level(I) {
   var step = 0;
   var paused = false;
   var intervalId;
+  var stopped = false;
 
   var fadeAmount = 0;
   var fadeDuration;
@@ -365,22 +366,32 @@ function Level(I) {
 
       dino.position(Point(CANVAS_WIDTH / 2, dino.position().y));
 
-      intervalId = setInterval(function() {
-        if (paused) {
-          return;
+      function mainLoop() {
+        var loopFiredAt = new Date().getTime();
+
+        if (!paused) {
+          activateTriggers();
+          self.trigger("beforeStep");
+          self.step();
+          self.trigger("afterStep");
+          step++;
         }
-        activateTriggers();
-        self.trigger("beforeStep");
-        self.step();
-        self.trigger("afterStep");
-        step++;
-      }, MILLISECONDS_PER_FRAME);
+
+        var loopDuration = new Date().getTime() - loopFiredAt;
+
+        if(!stopped) {
+          intervalId = setTimeout(mainLoop, MILLISECONDS_PER_FRAME - loopDuration)
+        }
+      }
+
+      mainLoop();
     },
 
     stop: function() {
+      stopped = true;
       self.fadeOutMusic();
 
-      clearInterval(intervalId);
+      clearTimeout(intervalId);
     },
 
     step: function() {
