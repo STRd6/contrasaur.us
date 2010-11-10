@@ -1,4 +1,4 @@
-hideBackgrounds = true;
+hideBackgrounds = false;
 debugText = '';
 
 function Level(I) {
@@ -35,7 +35,10 @@ function Level(I) {
   };
 
   var framesDrawn = [];
-  var levelStartTime;
+  for(var i = 0; i < 5; i++) {
+    framesDrawn[i] = timeLastDrawn;
+  }
+  var frameIndex = 0;
 
   $.reverseMerge(I, {
     backgroundColor: "#A2EEFF",
@@ -128,6 +131,8 @@ function Level(I) {
   }
 
   function draw(canvas) {
+    framesDrawn[frameIndex] = new Date().getTime();
+
     // Draw Backgrounds
     canvas.fill(I.backgroundColor);
 
@@ -175,7 +180,10 @@ function Level(I) {
 
     canvas.fillColor("#FFF")
     canvas.centerText(debugText, 200);
-    var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[0]);
+
+    frameIndex = (frameIndex + 1) % framesDrawn.length;
+    var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[frameIndex]);
+
     canvas.fillText("FPS: " + fps, 520, 60)
   }
 
@@ -438,11 +446,6 @@ function Level(I) {
         draw(canvas);
         framesSkipped = 0;
         timeLastDrawn = new Date().getTime();
-        framesDrawn.push(timeLastDrawn);
-
-        if(framesDrawn.length > 10) {
-          framesDrawn.unshift();
-        }
       }
     },
 
