@@ -1,0 +1,16 @@
+{
+  "name": "Contrasaurus: Defender of the American Dream",
+  "description": "You are a dinosaur. The year is 3,700 B.C. You are summoned into the future to save America.",
+  "version": "0.0.0.1",
+  "icons": {
+    "128": "icons/128.png"
+  },
+  "app": {
+    "urls": [
+      "http://contrasaur.us/"
+    ],
+    "launch": {
+      "web_url": "http://contrasaur.us/"
+    }
+  }
+}
