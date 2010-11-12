@@ -56,7 +56,7 @@ $(function() {
     every: 1,
     event: function(level) {
       if(Math.random() < 0.01) {
-        generateRunningEnemies(level, rand(5));
+        generateRunningEnemies(level, 1);
       }
 
       if(meteorsActive) {
