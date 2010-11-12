@@ -358,17 +358,18 @@ function Level(I) {
       $("#game_info").show();
       $("#level_objectives").delay(4500).fadeIn('fast').delay(1800).fadeOut('slow');
 
+      $('#level_objectives img').remove();
+
+      if(I.objectiveImage) {
+        $('<img src=' + I.objectiveImage + '>').appendTo('#level_objectives');
+      }
+      $('#level_objectives span').remove();
+      if(I.objective) {
+        $('<span>' + I.objective + '</span>').appendTo('#level_objectives');
+      }
+
       if (backgroundMusic) {
         backgroundMusic.play();
-        $('#level_objectives img').remove();
-
-        if(I.objectiveImage) {
-          $('<img src=' + I.objectiveImage + '>').appendTo('#level_objectives');
-        }
-        $('#level_objectives span').remove();
-        if(I.objective) {
-          $('<span>' + I.objective + '</span>').appendTo('#level_objectives');
-        }
       }
 
       dino.position(Point(CANVAS_WIDTH / 2, dino.position().y));
