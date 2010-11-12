@@ -53,31 +53,18 @@ $(function() {
   var brontosaurus;
 
   var triggers = [{
-    every: 1,
+    every: 43,
     event: function(level) {
-      if(Math.random() < 0.01) {
-        generateRunningEnemies(level, 1);
-      }
-
       if(meteorsActive) {
-        if (Math.random() < 0.03) {
-          level.addGameObject(Meteor({
-            x: level.position().x + rand(CANVAS_WIDTH)
-          }));
-        }
+        level.addGameObject(Meteor({
+          x: level.position().x + rand(CANVAS_WIDTH)
+        }));
       }
     }
   }, {
-    every: 50,
+    every: 100,
     event: function(level) {
-
-      if (dino.boss()) {
-        level.addGameObject(
-          Utahraptor({
-            xVelocity: -6, x: level.position().x + CANVAS_WIDTH + 30
-          })
-        );
-      }
+      generateRunningEnemies(level, 1);
     }
   }, {
     at: 300,
