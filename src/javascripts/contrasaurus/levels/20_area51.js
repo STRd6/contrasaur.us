@@ -3,25 +3,8 @@ $(function() {
 
   var scene = Scene([
     {
-      image: Sprite.load(imgPath + 'ground.png'),
-      parallaxRate: 0,
-      position: Point(0, CANVAS_HEIGHT - Floor.LEVEL)
-    },
-    {
-      image: Sprite.load(imgPath + "background.png"),
-      parallaxRate: 0.25,
-      position: Point(0, 0),
-      repeat: true
-    },
-    {
-      image: Sprite.load(imgPath + "midground.png"),
+      image: Sprite.load(imgPath + 'mobile.png'),
       parallaxRate: 0.5,
-      position: Point(0, 0),
-      repeat: true
-    },
-    {
-      image: Sprite.load(imgPath + "foreground.png"),
-      parallaxRate: 1,
       position: Point(0, 0),
       repeat: true
     }
@@ -78,7 +61,7 @@ $(function() {
     level.lockCamera(level.position().x, level.position().x + 250);
 
     level.after(180, function() {
-      generateMutants(level, 3, function() {
+      generateMutants(level, 1, function() {
         level.unlockCamera();
 
         level.after(300, flameThrowerTrial);
@@ -101,7 +84,7 @@ $(function() {
     level.lockCamera(level.position().x, level.position().x + 250);
 
     level.after(180, function() {
-      generateMutants(level, 5, function() {
+      generateMutants(level, 2, function() {
         level.unlockCamera();
 
         level.after(300, chainsawTrial);
@@ -125,7 +108,7 @@ $(function() {
     level.after(30, function() {
       level.lockCamera(level.position().x, level.position().x + 250);
 
-      generateMutants(level, 20, function() {
+      generateMutants(level, 5, function() {
         level.unlockCamera();
 
         level.after(30, function() {
