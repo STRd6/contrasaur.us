@@ -39,7 +39,7 @@ $(function() {
   var scene = Scene([
     {
       image: Sprite.load(imgPath + "mobile.png"),
-      parallaxRate: 0.25,
+      parallaxRate: 0.5,
       position: {
         x: 0,
         y: 0
