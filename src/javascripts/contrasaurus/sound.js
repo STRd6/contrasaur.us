@@ -21,53 +21,66 @@ var Sound = (function($) {
   };
 
   function Sound(name, maxChannels) {
-    return {
-      play: function() {
-        Sound.play(name, maxChannels);
-      }
+    if(SOUND_EFFECTS_ENABLED) {
+      return {
+        play: function() {
+          Sound.play(name, maxChannels);
+        }
+      };
+    } else {
+      return {
+        play: $.noop
+      };
     }
   }
 
-  return $.extend(Sound, {
-    play: function(name, maxChannels) {
-      maxChannels = maxChannels || 2;
+  if(SOUND_EFFECTS_ENABLED) {
+    return $.extend(Sound, {
+      play: function(name, maxChannels) {
+        maxChannels = maxChannels || 2;
 
-      var file = nameToFile(name);
+        var file = nameToFile(name);
 
-      var splitChannels = soundChannels.partition(function(channel) {
-        return channel.src.indexOf(file) != -1;
-      });
+        var splitChannels = soundChannels.partition(function(channel) {
+          return channel.src.indexOf(file) != -1;
+        });
 
-      var sameSounds = splitChannels[0];
+        var sameSounds = splitChannels[0];
 
-      var freeChannels = sameSounds.select(availableToPlay);
+        var freeChannels = sameSounds.select(availableToPlay);
 
-      // Don't play if sound is already playing on max # of channels
-      if(sameSounds.length - freeChannels.length >= maxChannels) {
-        return;
+        // Don't play if sound is already playing on max # of channels
+        if(sameSounds.length - freeChannels.length >= maxChannels) {
+          return;
+        }
+
+        if(freeChannels[0]) {
+          // Recycle an existing channel that has finished.
+          freeChannels[0].play();
+          return;
+        }
+
+        if(sameSounds.length >= maxChannels) {
+          // This sound is playing on it's maximum channels allowed.
+          return;
+        }
+
+        var otherSounds = splitChannels[1];
+
+        freeChannels = otherSounds.select(availableToPlay);
+
+        if(freeChannels[0]) {
+          // Provision an available channel
+          freeChannels[0].src = file;
+          freeChannels[0].load();
+          freeChannels[0].play();
+        }
       }
+    });
+  } else {
+    return {
+      play: $.noop
+    };
+  }
 
-      if(freeChannels[0]) {
-        // Recycle an existing channel that has finished.
-        freeChannels[0].play();
-        return;
-      }
-      
-      if(sameSounds.length >= maxChannels) {
-        // This sound is playing on it's maximum channels allowed.
-        return;
-      }
-
-      var otherSounds = splitChannels[1];
-
-      freeChannels = otherSounds.select(availableToPlay);
-
-      if(freeChannels[0]) {
-        // Provision an available channel
-        freeChannels[0].src = file;
-        freeChannels[0].load();
-        freeChannels[0].play();
-      }
-    }
-  });
 }(jQuery));
