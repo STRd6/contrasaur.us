@@ -4,7 +4,7 @@ function Fighter(I) {
   var cooldown = 0;
 
   $.reverseMerge(I, {
-    cooldown: 3,
+    cooldown: 15,
     shootLogic: function() {
       if (cooldown > 0) {
         cooldown--;
@@ -12,6 +12,7 @@ function Fighter(I) {
         cooldown += I.cooldown;
 
         self.shootFrom("shot", {
+          collideDamage: 5,
           speed: 15,
           sprite: Sprite.load("images/projectiles/plane_bullet.png")
         });
