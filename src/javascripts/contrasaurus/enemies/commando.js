@@ -3,9 +3,9 @@ function Commando(I) {
 
   $.reverseMerge(I, {
     damageTable: {
-      bite: 10,
+      bite: 5,
     },
-    health: 2000,
+    health: 1000,
     nutrition: 1,
     pointsWorth: 100000,
     radius: 90,
