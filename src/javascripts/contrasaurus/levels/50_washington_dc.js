@@ -46,12 +46,12 @@ $(function() {
   function generateForegroundScenary() {
     var foregrounds = [];
 
-    (5).times(function(i) {
+    (2).times(function(i) {
       foregrounds.push({
         image: Sprite.load([
           imgPath + "bush.png",
           imgPath + "hedge.png"
-        ].rand()),
+        ][i]),
         parallaxRate: 1,
         position: {
           x: i * 150 + rand(50),
@@ -66,27 +66,10 @@ $(function() {
 
   var scene = Scene(
     [{
-      image: Sprite.load(imgPath + 'background.png'),
-      parallaxRate: 0.25,
-      position: Point(0, 0),
-      repeat: true
-    }, {
-      image: Sprite.load(imgPath + 'midground.png'),
+      image: Sprite.load(imgPath + 'mobile.png'),
       parallaxRate: 0.5,
       position: Point(0, 0),
       repeat: true
-    }, {
-      image: Sprite.load(imgPath + 'foreground.png'),
-      parallaxRate: 1,
-      position: Point(0, 0),
-      repeat: true
-    }, {
-      image: Sprite.load(imgPath + 'ground.png'),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: CANVAS_HEIGHT - Floor.LEVEL
-      }
     }], generateForegroundScenary());
 
   var floor = Floor({
