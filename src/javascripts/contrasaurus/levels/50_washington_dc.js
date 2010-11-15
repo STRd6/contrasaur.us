@@ -32,7 +32,7 @@ $(function() {
   }
 
   function generateEnemies(level) {
-    if (enemiesActive && rand() < 0.03) {
+    if (enemiesActive) {
       var secretService = SecretService({
         hFlip: true,
         x: level.position().x + CANVAS_WIDTH + 20,
@@ -155,7 +155,7 @@ $(function() {
       level.prependGameObject(whiteHouse);
     }
   }, {
-    every: 1,
+    every: 70,
     event: function(level) {
       generateEnemies(level);
     }
