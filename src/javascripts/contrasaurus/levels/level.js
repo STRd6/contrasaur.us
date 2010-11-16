@@ -1,5 +1,4 @@
 hideBackgrounds = true;
-debugText = '';
 
 function Level(I) {
   var position = {
@@ -174,7 +173,6 @@ function Level(I) {
     }
 
     canvas.fillColor("#FFF")
-    canvas.centerText(debugText, 200);
     var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[0]);
     canvas.fillText("FPS: " + fps, 520, 60)
   }
