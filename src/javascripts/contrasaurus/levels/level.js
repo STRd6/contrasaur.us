@@ -76,7 +76,16 @@ function Level(I) {
   }
 
   if (I.audio) {
-    var backgroundMusic = BGMusic(I.audio);
+    var backgroundMusic;
+    if(MUSIC_ENABLED) {
+      backgroundMusic = BGMusic(I.audio);
+    } else {
+      backgroundMusic = {
+        fadeOut: $.noop,
+        play: $.noop,
+        pause: $.noop
+      };
+    }
   }
 
   function activateTriggers() {

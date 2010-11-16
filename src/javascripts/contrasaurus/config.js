@@ -9,3 +9,4 @@ var DEVELOPMENT = true;
 var SPRAY_EFFECTS_ENABLED = false;
 
 var SOUND_EFFECTS_ENABLED = false;
+var MUSIC_ENABLED = false;
