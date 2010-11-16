@@ -2,7 +2,7 @@ var score = 0;
 
 var canvas;
 var dino;
-var healthBar;
+var bossHealthBar;
 
 function detectIphoneOrIpod() {
   var userAgent = navigator.userAgent.toLowerCase();
@@ -18,6 +18,7 @@ var pauseDisplay = {
     canvas.centerText("PAUSED", 180);
   }
 };
+
 var debugHalt = false;
 var currentLevel;
 var displayTexts = [];
@@ -79,14 +80,23 @@ function drawOverlay() {
   });
   displayTexts = activeTexts;
 
-  healthBar.value(dino.health());
-
   if(showCrosshair && !mobile) {
     crosshair.draw(canvas, target.x - crosshair.width/2, target.y - crosshair.height/2);
   }
 
   // Score display
-  canvas.fillText(score, 510, 38)
+  canvas.fillColor('#000');
+  canvas.fillText(score, 511, 39);
+
+  canvas.fillColor('#FFF');
+  canvas.fillText(score, 510, 38);
+
+  dino.healthBar().draw(canvas);
+
+  if (bossHealthBar) {
+    console.log(bossHealthBar);
+    bossHealthBar.draw(canvas);
+  }
 }
 
 function nextStage(choice) {
@@ -222,11 +232,6 @@ function addHighScore(score, player) {
 $(function() {
 
   dino = Dinosaur();
-  healthBar = ProgressBar({
-    colorMap: healthColorMap,
-    max: dino.health(),
-    value: dino.health()
-  });
 
   target = Point();
   crosshair = Sprite.load("images/crosshair.png");
