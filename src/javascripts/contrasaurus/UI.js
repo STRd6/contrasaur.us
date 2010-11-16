@@ -3,30 +3,50 @@ function ProgressBar(I) {
     return I.value / I.max;
   }
 
-  function update() {
-    I.element.css({
-      'background-color': I.colorMap(completeness()),
-      'width': Math.floor(completeness() * 100) + "%"
-    });
-  }
-
   // Init Defaults
   I = $.extend({
+    backgroundColor: "#000",
+    borderColor: "#FFF",
+    borderWidth: 2,
+    color: "#0C0",
     colorMap: function() {
       return I.color;
     },
-    vertical: false,
-    element: $("#health")
+    value: 10,
+    x: 200,
+    y: 40
   }, I);
 
   var self = {
+    draw: function(canvas) {
+      canvas.fillColor(I.borderColor);
+      canvas.fillRect(
+        I.x - I.borderWidth,
+        I.y - I.borderWidth,
+        I.width + 2 * I.borderWidth,
+        I.height + 2 * I.borderWidth
+      );
+
+      canvas.fillColor(I.backgroundColor);
+      canvas.fillRect(I.x, I.y, I.width, I.height);
+
+      canvas.fillColor(I.colorMap(completeness()));
+      canvas.fillRect(I.x, I.y, I.width * completeness(), I.height);
+    },
     value: function(newValue) {
       if(newValue != undefined) {
         I.value = Math.min(newValue, I.max);
-        update();
         return self;
       } else {
         return I.value;
+      }
+    },
+    x: function(val) {
+      if (val != undefined) {
+        I.x = val;
+        return self;
+      } else {
+        return I.x;
       }
     }
   };
@@ -41,8 +61,18 @@ function GameText(text, I) {
 
   return GameObject(I).extend({
     draw: function(canvas) {
-      canvas.fillColor("#000");
-      canvas.fillText(text, I.x, I.y);
+      canvas.fillColor(I.borderColor);
+      canvas.fillRect(
+        I.x - I.borderWidth,
+        I.y - I.borderWidth,
+        I.width + 2 * I.borderWidth,
+        I.height + 2 * I.borderWidth
+      );
+
+      canvas.fillColor(I.backgroundColor);
+      canvas.fillRect(I.x, I.y, I.width, I.height);
+
+      canvas.fillColor(I.colorMap(completeness()));
     },
 
     after: {

@@ -178,6 +178,17 @@ function Dinosaur() {
 
   var lastDirection = 1;
   var healthMax = I.health;
+  var healthBar;
+
+  healthBar = ProgressBar({
+    colorMap: healthColorMap,
+    max: I.health,
+    value: I.health,
+    x: 10,
+    y: 20,
+    width: 240,
+    height: 30
+  });
 
   function heal(amount) {
     I.health = (I.health + amount).clamp(0, healthMax);
@@ -264,7 +275,6 @@ function Dinosaur() {
         boss = value;
 
         if (boss) {
-          boss.healthBar()
           $("#boss").show();
         } else {
           $("#boss").hide();
@@ -312,6 +322,10 @@ function Dinosaur() {
 
     hasJetpack: function() {
       return jetpack;
+    },
+
+    healthBar: function() {
+      return healthBar;
     },
 
     hit: function(other) {
@@ -437,6 +451,7 @@ function Dinosaur() {
         }
 
         currentHealth = I.health;
+        healthBar.value(I.health);
       }
     },
     after: {
@@ -496,8 +511,8 @@ function Dinosaur() {
   self.extend(Stateful(I));
 
   self.draw = function(canvas) {
-
     canvas.withTransform(self.getTransform(), function() {
+
       if(parasailing) {
         parasailTile.draw(canvas, -150, -170);
       }

@@ -15,21 +15,22 @@ function Floor(I) {
   });
 
   var self = GameObject(I).extend({
-    bulletHitEffect: function(bullet) {
-      if(!I.water) {
-
-        var sprite;
-        sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
-
-        var effect = Effect($.extend(bullet.position(), {
-          duration: 8,
-          sprite: sprite,
-          velocity: Point()
-        }));
-
-        addGameObject(effect);
-      }
-    },
+    bulletHitEffect: function() {},
+    // function(bullet) {
+    //      if(!I.water) {
+    //
+    //        var sprite;
+    //        sprite = loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8);
+    //
+    //        var effect = Effect($.extend(bullet.position(), {
+    //          duration: 8,
+    //          sprite: sprite,
+    //          velocity: Point()
+    //        }));
+    //
+    //        addGameObject(effect);
+    //      }
+    //},
     draw: function(canvas) {},
     hit: function(other) {
       if(I.water) {

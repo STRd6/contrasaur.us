@@ -6,31 +6,30 @@ function Boss(I) {
     type: 'boss'
   });
 
-  var healthBar;
+  bossHealthBar = ProgressBar({
+    colorMap: healthColorMap,
+    max: I.health,
+    value: I.health,
+    x: 262,
+    y: 20,
+    width: 240,
+    height: 30
+  });
 
   var self = Enemy(I).extend({
-    healthBar: function() {
-      if(!healthBar) {
-        healthBar = ProgressBar({
-          colorMap: healthColorMap,
-          element: $("#bossHealth"),
-          max: self.health(),
-          value: self.health()
-        });
-      }
-
-      return healthBar;
-    },
-
     sink: $.noop,
 
-    after: {
+    before: {
       update: function() {
-        if(healthBar) {
-          healthBar.value(I.health);
+        if (I.health > 0)  {
+          bossHealthBar.value(I.health);
         }
       }
     }
+  });
+
+  self.bind('destroy', function() {
+    bossHealthBar = null;
   });
 
   return self;
