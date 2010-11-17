@@ -17,17 +17,23 @@ function FinalReagan(I) {
 
   var missilePos = 0;
   var stateChooser = 0;
+  var shootCount = 0;
 
   var ragingShootLogic = function() {
-    self.shoot(
-      Math.random() * (Math.PI), {
-        buffer: 500,
-        speed: 25,
-        sprite: beamSprite,
-        x: self.midpoint().x,
-        y: self.midpoint().y
-      }
-    );
+    if(shootCount % 3 == 0) {
+      self.shoot(
+        Math.random() * (Math.PI), {
+          buffer: 500,
+          collideDamage: 3,
+          speed: 25,
+          sprite: beamSprite,
+          x: self.midpoint().x,
+          y: self.midpoint().y
+        }
+      );
+    }
+
+    shootCount++;
   };
 
   function approachTargetLocation(levelPosition, xMax, yMax) {
