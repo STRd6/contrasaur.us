@@ -100,10 +100,6 @@ function Control(character, keyDown) {
   // Prevent default scrolling behavior
   $('body').bind('touchmove', function(e){
     e.preventDefault();
-    event.preventDefault();
-  }).bind('touchstart', function(e){
-    e.preventDefault();
-    event.preventDefault();
   });
 
   $('.touch').bind('touchstart',
@@ -122,7 +118,7 @@ function Control(character, keyDown) {
     return false;
   });
 
-  $('#control').bind('touchmove', function(e) {
+  $('#control').bind('touchmove touchstart', function(e) {
     e.preventDefault();
     var el = $(this);
 
@@ -169,11 +165,19 @@ function Control(character, keyDown) {
     return false;
   });
 
-  $('.touch').bind('touchend', function(e) {
+  $('body').bind('touchend', function(e) {
     keyDown.up = false;
     keyDown.left = false;
     keyDown.right = false;
     keyDown.space = false;
+  });
+
+  $('#control').bind('touchend', function() {
+    keyDown.up = false;
+    keyDown.left = false;
+    keyDown.right = false;
+    keyDown.space = false;
+    land();
   });
 
   $(document).bind('keyup', 'w up', function() {
