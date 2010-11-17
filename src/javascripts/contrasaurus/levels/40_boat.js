@@ -84,7 +84,6 @@ $(function() {
     });
   }
 
-  var boat;
   var fighterCount = 0;
 
   var scene = Scene([
@@ -160,24 +159,6 @@ $(function() {
     at: 0,
     event: function(level) {
       dino.parasailing(true);
-
-      boat = Boat({
-        x: 540,
-        y: 285
-      });
-
-      level.addGameObject(boat);
-    }
-  }, {
-    every: 100,
-    event: function(level) {
-      if(level.age() < 2300) {
-        level.addGameObject(Ramp({
-          x: level.position().x + CANVAS_WIDTH,
-          xVelocity: -2,
-          y: CANVAS_HEIGHT - Floor.LEVEL
-        }));
-      }
     }
   }, {
     every: 120,
@@ -216,10 +197,6 @@ $(function() {
 
       dino.boss(gunship);
       bossBattle = true;
-
-      level.after(20, function() {
-        boat.destroy();
-      });
 
       gunship.bind("destroy", function() {
         bossDefeated = true;
