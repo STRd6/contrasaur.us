@@ -1,11 +1,11 @@
 function Bomber(I) {
   I = I || {};
 
-  var bombs = 6;
+  var bombs = 3;
   var cooldown = 0;
 
   function dropBomb() {
-    cooldown += 10;
+    cooldown += 20;
     bombs--;
     addGameObject(Bomb({
       xVelocity: I.xVelocity,

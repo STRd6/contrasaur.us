@@ -15,7 +15,12 @@ function Bomb(I) {
   function explode() {
     if(I.active) {
       I.active = false;
-      addGameObject(Explosion({x: I.x, y: I.y - 50}));
+
+      addGameObject(Explosion({
+        collideDamage: 2,
+        x: I.x,
+        y: I.y - 50
+      }));
     }
   }
 
