@@ -83,18 +83,6 @@ $(function() {
         x: level.position().x + CANVAS_WIDTH + 100
       });
 
-      level.addGameObject(GameObject({
-        sprite: Sprite.load(imgPath + "minitreebush.png"),
-        x: dino.position().x + CANVAS_WIDTH + 25,
-        y: 300
-      }));
-
-      level.addGameObject(GameObject({
-        sprite: Sprite.load(imgPath + "minitreebush.png"),
-        x: dino.position().x + CANVAS_WIDTH - 586 - 25,
-        y: 300
-      }));
-
       dino.boss(whiteHouse);
 
       whiteHouse.bind('destroy', function() {
