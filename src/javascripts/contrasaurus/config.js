@@ -9,4 +9,8 @@ var DEVELOPMENT = true;
 var SPRAY_EFFECTS_ENABLED = false;
 
 var SOUND_EFFECTS_ENABLED = false;
+<<<<<<< HEAD
 var MUSIC_ENABLED = false;
+=======
+var MUSIC_ENABLED = true;
+>>>>>>> strd6/mobile
