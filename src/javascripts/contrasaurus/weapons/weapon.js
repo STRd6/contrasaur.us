@@ -97,18 +97,16 @@ function Weapon(I) {
       update: function(dino) {
         if(I.delay > 0) {
           I.delay--;
-        }
-
-        if (I.delay <= 0) {
+        } else {
           if(shooting || I.autofire) {
             self.shoot(dino.position(), dino.getTransform(), 'primary');
+
+            I.delay += I.cooldown;
           }
 
           if(secondaryShooting) {
             self.shoot(dino.position(), dino.getTransform(), 'secondary');
           }
-
-          I.delay += I.cooldown;
         }
       }
     }
