@@ -15,47 +15,6 @@
 
     = javascripts("contrasaurus")
 
-    :plain
-      <script>
-        $(function() {
-          if (detectIphoneOrIpod()) {
-            $('#footer').remove();
-            $('#title').remove();
-            $('#fb-root').remove();
-          }
-        });
-      </script>
-
-    = partial 'analytics'
-
   %body
     = yield
     .clear
-
-    #footer
-      %center
-        = partial "donate_button"
-        %br
-        = link "Feedback", "http://www.facebook.com/#!/topic.php?uid=101113043274821&topic=7", :target => "_blank"
-        = " | "
-        = link "Created by STRd6", "http://strd6.com"
-      %center
-        %p
-          %fb:like
-
-    :plain
-      <div id="fb-root"></div>
-      <script>
-        window.fbAsyncInit = function() {
-          FB.init({appId: '125517504156817', status: true, cookie: true,
-                   xfbml: true});
-        };
-        (function() {
-          var e = document.createElement('script');
-          e.type = 'text/javascript';
-          e.src = document.location.protocol +
-            '//connect.facebook.net/en_US/all.js';
-          e.async = true;
-          document.getElementById('fb-root').appendChild(e);
-        }());
-      </script>
