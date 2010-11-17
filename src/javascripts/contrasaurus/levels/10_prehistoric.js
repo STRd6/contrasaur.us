@@ -16,19 +16,8 @@ $(function() {
 
   function generateForegroundScenary() {
     var foregrounds = [];
-    (2).times(function() {
-      foregrounds.push({
-        image: Sprite.load(imgPath + "rock.png"),
-        parallaxRate: 1,
-        position: {
-          x: rand(1920),
-          y: 325 + rand(150)
-        },
-        every: 1920
-      });
-    });
 
-    (5).times(function(i) {
+    (1).times(function(i) {
       foregrounds.push({
         image: Sprite.load([
           imgPath + "plant3.png",
@@ -44,57 +33,16 @@ $(function() {
       });
     });
 
-    (6).times(function(i) {
-      foregrounds.push({
-        image: Sprite.load([
-          imgPath + "plant1.png",
-          imgPath + "plant2.png"
-        ].rand()),
-        parallaxRate: 2,
-        position: {
-          x: i * 200 + rand(100) - 50,
-          y: 400
-        },
-        every: 1200
-      });
-    });
-
     return foregrounds;
   }
 
   var scene = Scene([
     {
-      image: Sprite.load(imgPath + 'ground.png'),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: CANVAS_HEIGHT - Floor.LEVEL
-      }
-    },
-    {
-      image: Sprite.load(imgPath + "volcano_background.png"),
-      parallaxRate: 0.25,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true
-    },
-    {
-      image: Sprite.load(imgPath + "volcano_midground.png"),
+      image: Sprite.load(imgPath + "mobile.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
         y: 0
-      },
-      repeat: true
-    },
-    {
-      image: Sprite.load(imgPath + "volcano_grassy_foreground.png"),
-      parallaxRate: 1,
-      position: {
-        x: 0,
-        y: 4
       },
       repeat: true
     }
@@ -105,31 +53,18 @@ $(function() {
   var brontosaurus;
 
   var triggers = [{
-    every: 1,
+    every: 43,
     event: function(level) {
-      if(Math.random() < 0.01) {
-        generateRunningEnemies(level, rand(5));
-      }
-
       if(meteorsActive) {
-        if (Math.random() < 0.03) {
-          level.addGameObject(Meteor({
-            x: level.position().x + rand(CANVAS_WIDTH)
-          }));
-        }
+        level.addGameObject(Meteor({
+          x: level.position().x + rand(CANVAS_WIDTH)
+        }));
       }
     }
   }, {
-    every: 50,
+    every: 100,
     event: function(level) {
-
-      if (dino.boss()) {
-        level.addGameObject(
-          Utahraptor({
-            xVelocity: -6, x: level.position().x + CANVAS_WIDTH + 30
-          })
-        );
-      }
+      generateRunningEnemies(level, 1);
     }
   }, {
     at: 300,

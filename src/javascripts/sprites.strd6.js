@@ -1,4 +1,7 @@
-(function(){
+(function() {
+  var spriteCache = {};
+  var animImageCache = {};
+
   function LoaderProxy() {
     return {
       draw: $.noop,
@@ -74,27 +77,34 @@
   };
 
   Sprite.load = function(url, loadedCallback) {
-    var img = new Image();
-    var proxy = LoaderProxy();
+    if(spriteCache[url]) {
+      setTimeout(loadedCallback, 0);
+      return spriteCache[url]
+    } else {
+      var img = new Image();
+      var proxy = LoaderProxy();
 
-    img.onload = function() {
-      var tile = Sprite(this);
+      spriteCache[url] = proxy;
 
-      $.extend(proxy, tile);
+      img.onload = function() {
+        var tile = Sprite(this);
 
-      if(loadedCallback) {
-        loadedCallback(proxy);
+        $.extend(proxy, tile);
+
+        if(loadedCallback) {
+          loadedCallback(proxy);
+        }
+      };
+
+      if(url) {
+        track($(img));
       }
-    };
+      img.onerror = brokenImageWarning(url);
 
-    if(url) {
-      track($(img));
+      img.src = url;
+
+      return proxy;
     }
-    img.onerror = brokenImageWarning(url);
-
-    img.src = url;
-
-    return proxy;
   };
 
   Sprite.EMPTY = LoaderProxy();
@@ -172,20 +182,20 @@
   };
 
   Animation.load = function(options, proxy, callback) {
-    var img = new Image();
-    proxy = proxy || LoaderProxy();
-
     var url = options.url;
     var frames = options.frames;
     var delay = options.delay;
     var width = options.width;
     var height = options.height;
 
+    proxy = proxy || LoaderProxy();
+
     proxy.width = width;
     proxy.height = height;
 
-    img.onload = function() {
+    var process = function() {
       var frameData = [];
+      var img = this;
 
       frames.times(function(i) {
         frameData[i] = Sprite(img, i * width, 0, width, height);
@@ -200,14 +210,29 @@
       if(callback) {
         callback(proxy);
       }
-    };
-
-    if(url) {
-      track($(img));
     }
-    img.onerror = brokenImageWarning(url);
 
-    img.src = url;
+    var $img;
+    if(animImageCache[url]) {
+      $img = animImageCache[url];
+
+      setTimeout(function() {
+        process.apply($img.get(0))
+      }, 0);
+    } else {
+      var img = new Image();
+      $img = $(img);
+
+      if(url) {
+        track($img);
+      }
+      $img.error(brokenImageWarning(url));
+
+      img.src = url;
+      animImageCache[url] = $img;
+
+      $img.load(process);
+    }
 
     return proxy;
   };

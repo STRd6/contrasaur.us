@@ -36,7 +36,7 @@ $(function() {
     });
 
     level.addGameObject(Fighter($.extend({
-      cooldown: 1,
+      cooldown: 5,
       type: "fighter2",
       x: level.position().x + x,
       y: 160 + y,
@@ -184,9 +184,9 @@ $(function() {
     event: function(level) {
       if(!bossDefeated) {
         if(bossBattle) {
-          addParasoldierFormation(rand(4));
+          addParasoldierFormation(2);
         } else {
-          addParasoldierFormation(2 + rand(4));
+          addParasoldierFormation(1 + rand(3));
         }
       }
     }
@@ -194,16 +194,10 @@ $(function() {
     every: 150,
     event: function(level) {
       if(level.age() > 0 && !bossDefeated && level.age() != 2400) {
-        fighterCount += 1;
-
         if(bossBattle) {
-          addFighterSquadron(1 + rand(3));
+          addFighterSquadron(1);
         } else {
-          if(fighterCount == 12 || fighterCount == 13) {
-            addRearFighterWave(fighterCount - 9);
-          } else {
-            addFighterSquadron(Math.min(fighterCount, 14));
-          }
+          addFighterSquadron(2);
         }
       }
     }

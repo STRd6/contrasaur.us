@@ -56,46 +56,59 @@ function Model(animation, frames, hitFrames) {
   }
 }
 
-/**
- * Loads a model from the JSON data at a specified URL.
- */
-Model.loadJSONUrl = function(url, callback) {
-  var proxy = {
-    attachment: $.noop,
-    draw: $.noop,
-    hitFrame: function() {
-      return [];
-    },
-    hitFrames: $.noop,
-    update: $.noop,
-    url: url
-  };
+(function() {
+  var jsonCache = {};
+  
+  /**
+   * Loads a model from the JSON data at a specified URL.
+   */
+  Model.loadJSONUrl = function(url, callback) {
+    var process = function(data) {
+      jsonCache[url] = data;
+      var model = Model(Animation.loadJSON(data.animation, null, animCallback), data.frames, data.hitFrames);
 
-  var animCallback = function(animation, animationData) {
-    if(callback) {
-      callback(proxy, animationData)
-    }
-  };
+      $.extend(proxy, model);
 
-  $.getJSON(url, function(data) {
-    var model = Model(Animation.loadJSON(data.animation, null, animCallback), data.frames, data.hitFrames);
+      if(data.animation.destinationOffset) {
+        $.each(proxy.frames, function(i, frame) {
+          $.each(frame.circles, function(j, circle) {
+            circle.x += data.animation.destinationOffset.x;
+            circle.y += data.animation.destinationOffset.y;
+          });
 
-    $.extend(proxy, model);
-
-    if(data.animation.destinationOffset) {
-      $.each(proxy.frames, function(i, frame) {
-        $.each(frame.circles, function(j, circle) {
-          circle.x += data.animation.destinationOffset.x;
-          circle.y += data.animation.destinationOffset.y;
+          $.each(frame.attachmentPoints, function(key, point) {
+            point.x += data.animation.destinationOffset.x;
+            point.y += data.animation.destinationOffset.y;
+          });
         });
+      }
+    };
 
-        $.each(frame.attachmentPoints, function(key, point) {
-          point.x += data.animation.destinationOffset.x;
-          point.y += data.animation.destinationOffset.y;
-        });
-      });
+    var proxy = {
+      attachment: $.noop,
+      draw: $.noop,
+      hitFrame: function() {
+        return [];
+      },
+      hitFrames: $.noop,
+      update: $.noop,
+      url: url
+    };
+
+    var animCallback = function(animation, animationData) {
+      if(callback) {
+        callback(proxy, animationData)
+      }
+    };
+    
+    if(jsonCache[url]) {
+      setTimeout(function() {
+        process(jsonCache[url]);
+      }, 1);
+    } else {
+      $.getJSON(url, process);
     }
-  });
 
-  return proxy;
-};
+    return proxy;
+  };
+}());

@@ -3,34 +3,12 @@ $(function() {
 
   var scene = Scene([
     {
-      image: Sprite.load(imgPath + "background.png"),
+      image: Sprite.load(imgPath + "mobile.png"),
       parallaxRate: 0.25,
-      position: {
-        x: 0,
-        y: 0
-      },
-      sky: true
-    },
-    {
-      image: Sprite.load(imgPath + "midground_mobile.png"),
-      parallaxRate: 0.5,
-      position: {
-        x: 0,
-        y: 0
-      },
+      position: Point(0, 0),
       sky: true
     }
-  ], [
-    {
-      image: Sprite.load(imgPath + "foreground_mobile.png"),
-      parallaxRate: 1,
-      position: {
-        x: 0,
-        y: 0
-      },
-      sky: true
-    }
-  ]);
+  ], []);
 
   var triggers = [
     {

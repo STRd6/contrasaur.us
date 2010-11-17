@@ -5,82 +5,21 @@ $(function() {
 
   var scene = Scene([
     {
-      image: Sprite.load(imgPath + "ground.png"),
-      parallaxRate: 0,
-      position: {
-        x: 0,
-        y: CANVAS_HEIGHT - Floor.LEVEL
-      },
-      repeat: true,
-      width: 640
-    },
-    {
-      image: Sprite.load(imgPath + "background.png"),
-      parallaxRate: 0.25,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      width: 2700
-    },
-    {
-      image: Sprite.load(imgPath + "midground.png"),
+      image: Sprite.load(imgPath + "mobile.png"),
       parallaxRate: 0.5,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      width: 4670
-    },
-    {
-      image: Sprite.load(imgPath + "foreground.png"),
-      parallaxRate: 1,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      width: 5600
+      position: Point(0, 0),
+      repeat: true
     }
   ], []);
 
   var bombingRunActive = false;
   var bombingRunCount = 0;
-  var maxPlanes = 10;
+  var maxPlanes = 2;
   var numPlanes = 1;
   var planeDelay = 15;
 
   function generateEnemies(level) {
     if (!bossActive) {
-      if (Math.random() < 0.03) {
-        if (Math.random() < 0.5) {
-          var soldier = Soldier({
-            hFlip: true,
-            x: level.position().x + CANVAS_WIDTH + 20,
-            xVelocity: -2
-          });
-
-          level.addGameObject(soldier);
-        } else {
-          level.addGameObject(Soldier({
-            airborne: true,
-            hFlip: true,
-            xVelocity: 0,
-            x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
-            y: -100,
-            yVelocity: 2
-          }));
-        }
-      }
-
-      if (Math.random() < 0.01) {
-        level.addGameObject(Tank({
-          x: level.position().x + CANVAS_WIDTH + 20
-        }));
-      }
-
       if (bombingRunActive) {
         var PlaneClass = (numPlanes % 2) ? Fighter : Bomber;
 
@@ -115,6 +54,29 @@ $(function() {
     every: 1,
     event: function(level) {
       generateEnemies(level);
+    }
+  }, {
+    every: 110,
+    event: function(level) {
+      if(!bossActive) {
+        level.addGameObject(Soldier({
+          airborne: true,
+          hFlip: true,
+          xVelocity: 0,
+          x: level.position().x + rand(CANVAS_WIDTH - 40) + 20,
+          y: -100,
+          yVelocity: 2
+        }));
+      }
+    }
+  }, {
+    every: 400,
+    event: function(level) {
+      if(!bossActive) {
+        level.addGameObject(Tank({
+          x: level.position().x + CANVAS_WIDTH + 20
+        }));
+      }
     }
   }, {
     at: 1000,

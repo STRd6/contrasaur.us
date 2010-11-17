@@ -9,21 +9,23 @@ function Control(character, keyDown) {
   }
 
   function pressingDpad(localPoint) {
-    var directionPushed;
+    var keyPushed;
 
     if ((localPoint.x > 0 && localPoint.x < 80) && (localPoint.y > 52.5 && localPoint.y < 160)) {
-      directionPushed = "left";
+      keyPushed = "left";
     } else if ((localPoint.x > 0 && localPoint.x < 52.5) && (localPoint.y > 0 && localPoint.y < 52.5)) {
-      directionPushed = "up-left";
+      keyPushed = "up-left";
     } else if ((localPoint.x >= 80 && localPoint.x <= 160) && (localPoint.y > 52.5 && localPoint.y < 160)) {
-      directionPushed = "right";
+      keyPushed = "right";
     } else if ((localPoint.x >= 107.5 && localPoint.x < 160) && (localPoint.y > 0 && localPoint.y < 52.5)) {
-      directionPushed = "up-right";
-    } else if ((target.x >= 52.5 && target.x < 107.5) && (target.y > 0 && target.y < 52.5)) {
-      directionPushed = "up";
+      keyPushed = "up-right";
+    } else if ((localPoint.x >= 52.5 && localPoint.x < 107.5) && (localPoint.y > 0 && localPoint.y < 52.5)) {
+      keyPushed = "up";
+    } else if ((localPoint.x > 480 && localPoint.x < 640) && (localPoint.y > 320 && localPoint.y < 480)) {
+      keyPushed = "space";
     }
 
-    return directionPushed;
+    return keyPushed;
   }
 
   function walkLeft() {
@@ -99,16 +101,14 @@ function Control(character, keyDown) {
   $('body').bind('touchmove', function(e){
     e.preventDefault();
     event.preventDefault();
-  });
-
-  $('body').bind('touchstart', function(e){
+  }).bind('touchstart', function(e){
     e.preventDefault();
     event.preventDefault();
   });
 
-  $('.touch').bind('touchstart', handleTouch);
-
-  $('.touch').bind('tap', function(e) {
+  $('.touch').bind('touchstart',
+    handleTouch
+  ).bind('tap', function(e) {
     keyDown.space = true;
 
     return false;
@@ -122,56 +122,42 @@ function Control(character, keyDown) {
     return false;
   });
 
-  $('#gameCanvas').bind('touchstart', function(e) {
-    e.preventDefault();
-    var el = $(this);
-
-    $.each(event.changedTouches, function(i, touch) {
-
-      target = getRelativePoint(el, touch);
-
-      if ((target.x > 480 && target.x < 640) && (target.y > 320 && target.y < 480)) {
-        keyDown.space = true;
-
-        character.bite();
-      }
-    });
-  });
-
   $('#control').bind('touchmove', function(e) {
     e.preventDefault();
     var el = $(this);
 
     $.each(event.changedTouches, function(i, touch) {
-      target = getRelativePoint(el, touch);
+      var point = getRelativePoint(el, touch);
 
-      if (pressingDpad(target) == "left") {
+      if (pressingDpad(point) == "left") {
         keyDown.left = true;
         keyDown.right = false;
+        keyDown.up = false;
 
         walkLeft();
       }
 
-      if (pressingDpad(target) == "up-left") {
+      if (pressingDpad(point) == "up-left") {
         keyDown.left = true;
         keyDown.up = true;
         keyDown.right = false;
       }
 
-      if (pressingDpad(target) == "right") {
+      if (pressingDpad(point) == "right") {
         keyDown.right = true;
         keyDown.left = false;
+        keyDown.up = false;
 
         walkRight();
       }
 
-      if (pressingDpad(target) == "up-right") {
+      if (pressingDpad(point) == "up-right") {
         keyDown.right = true;
         keyDown.up = true;
         keyDown.left = false;
       }
 
-      if (pressingDpad(target) == "up") {
+      if (pressingDpad(point) == "up") {
         keyDown.up = true;
 
         if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
@@ -192,19 +178,13 @@ function Control(character, keyDown) {
 
   $(document).bind('keyup', 'w up', function() {
     keyDown.up = false;
-  });
-
-  $(document).bind('keyup', 'left a', function() {
+  }).bind('keyup', 'left a', function() {
     keyDown.left = false;
     land();
-  });
-
-  $(document).bind('keyup', 'right d', function() {
+  }).bind('keyup', 'right d', function() {
     keyDown.right = false;
     land();
-  });
-
-  $(document).bind('keyup', 'down s', function() {
+  }).bind('keyup', 'down s', function() {
     keyDown.down = false;
   });
 
@@ -221,9 +201,19 @@ function Control(character, keyDown) {
     } else {
       secondaryShooting = false;
     }
-  }).bind('touchstart', function() {
-    shooting = true;
-  }).bind('swipe', function() {
+  }).bind('touchstart', function(e) {
+    e.preventDefault();
+    var el = $(this);
+
+    $.each(event.changedTouches, function(i, touch) {
+
+      if (touch.pageY < 320) {
+        target = getRelativePoint(el, touch);
+        shooting = true;
+      }
+    });
+  }).bind('swipe', function(e) {
+    e.preventDefault();
     shooting = false;
   });
 }

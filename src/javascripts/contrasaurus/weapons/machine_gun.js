@@ -6,6 +6,7 @@ function MachineGun(I) {
 
   $.reverseMerge(I, {
     ammo: Infinity,
+    cooldown: 3,
     exitPoints: [Point(50, 1)],
     name: "machineGun"
   });
@@ -28,6 +29,7 @@ function MachineGun(I) {
       Sound.play(I.name, 1);
 
       return Bullet({
+        collideDamage: 4,
         theta: centerDirection,
         x: position.x,
         y: position.y
