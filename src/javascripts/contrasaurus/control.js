@@ -21,8 +21,6 @@ function Control(character, keyDown) {
       keyPushed = "up-right";
     } else if ((localPoint.x >= 52.5 && localPoint.x < 107.5) && (localPoint.y > 0 && localPoint.y < 52.5)) {
       keyPushed = "up";
-    } else if ((localPoint.x > 480 && localPoint.x < 640) && (localPoint.y > 320 && localPoint.y < 480)) {
-      keyPushed = "space";
     }
 
     return keyPushed;
@@ -102,20 +100,12 @@ function Control(character, keyDown) {
     e.preventDefault();
   });
 
-  $('.touch').bind('touchstart',
-    handleTouch
-  ).bind('tap', function(e) {
-    keyDown.space = true;
-
-    return false;
-  });
+  $('.touch').bind('touchstart', handleTouch);
 
   $('#button').bind('touchstart', function(e){
     keyDown.space = true;
 
     character.bite();
-
-    return false;
   });
 
   $('#control').bind('touchmove touchstart', function(e) {
@@ -161,8 +151,6 @@ function Control(character, keyDown) {
         }
       }
     });
-
-    return false;
   });
 
   $('body').bind('touchend', function(e) {
