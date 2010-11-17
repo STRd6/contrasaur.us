@@ -13,6 +13,9 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
         self.stop();
 
         completedCallback();
+
+        $('#button img').fadeIn('slow');
+        $('#control img').fadeIn('slow');
       }
     },
 
@@ -24,6 +27,9 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
 
     start: function(canvas) {
       stopped = false;
+
+      $('#button img').hide();
+      $('#control img').hide();
 
       setTimeout(function() {
         self.complete();

@@ -22,10 +22,10 @@
       %p CONTINUE?
       %button.continue_yes{:name => 'Yes'} Yes
       %button.continue_no{:name => 'No'} No
-  #control.touch{:style => 'display: none'}
-    %img{:src => 'images/direction_pad_transparent.png'}
-  #button.touch{:style => 'display: none'}
-    %img{:src => 'images/controller_buttons_transparent.png'}
+  #control
+    %img{:src => 'images/direction_pad_transparent.png', :style => 'display: none'}
+  #button
+    %img{:src => 'images/controller_buttons_transparent.png', :style => 'display: none'}
 
 :javascript
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
