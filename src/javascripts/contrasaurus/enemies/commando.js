@@ -1,7 +1,10 @@
 function Commando(I) {
   I = I || {};
 
+  var cooldown = 0;
+
   $.reverseMerge(I, {
+    cooldown: 3,
     damageTable: {
       bite: 5,
     },
@@ -98,9 +101,16 @@ function Commando(I) {
   }
 
   function defaultShootLogic() {
-    self.shootFrom("shot", {
-      sprite: Sprite.load("images/effects/enemybullet1_small.png")
-    });
+    if (cooldown > 0) {
+      cooldown--;
+    } else {
+      cooldown += I.cooldown;
+
+      self.shootFrom("shot", {
+        collideDamage: 3,
+        sprite: Sprite.load("images/effects/enemybullet1_small.png")
+      });
+    }
   }
 
   function grenadeShootLogic() {
