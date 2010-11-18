@@ -75,7 +75,7 @@ $(function() {
       }), 150);
 
       level.after(220, function() {
-        level.dialog(DialogBox({ text: "Aim with the mouse. Left click to fire weapons" }), 90);
+        level.dialog(DialogBox({ text: (mobile) ? "Touch the screen to shoot. Swipe to cease fire." : "Aim with the mouse. Left click to fire weapons." }), 90);
       });
     });
   }
