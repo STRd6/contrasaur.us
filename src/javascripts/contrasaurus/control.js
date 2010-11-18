@@ -238,6 +238,9 @@ function Control(character, keyDown) {
       if (touch.pageY < 320) {
         target = getRelativePoint(el, touch);
         shooting = true;
+      } else if (touch.pageX > 200 && touch.pageX < 500) {
+        target = getRelativePoint(el, touch);
+        shooting = true;
       }
     });
   }).bind('swipe', function(e) {
