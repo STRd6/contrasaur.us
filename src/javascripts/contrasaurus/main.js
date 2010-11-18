@@ -94,7 +94,6 @@ function drawOverlay() {
   dino.healthBar().draw(canvas);
 
   if (bossHealthBar) {
-    console.log(bossHealthBar);
     bossHealthBar.draw(canvas);
   }
 }

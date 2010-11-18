@@ -1,6 +1,8 @@
 function Boss(I) {
   I = I || {};
 
+  $('#boss_health_text').show();
+
   $.reverseMerge(I, {
     checkBounds: $.noop,
     type: 'boss'
@@ -30,6 +32,7 @@ function Boss(I) {
 
   self.bind('destroy', function() {
     bossHealthBar = null;
+    $('#boss_health_text').hide();
   });
 
   return self;
