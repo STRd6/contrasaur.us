@@ -18,7 +18,7 @@ function Gunship(I) {
   };
 
   var sparkSprayEffect = function(bullet) {
-    if(!rand(3)) {
+    if(SPRAY_EFFECTS_ENABLED && !rand(3)) {
       Sound.play("ricochet" + (rand(4) + 2), 1);
 
       var effect = Effect($.extend(bullet.position(), {
