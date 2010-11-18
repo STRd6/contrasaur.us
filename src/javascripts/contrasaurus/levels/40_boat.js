@@ -88,17 +88,7 @@ $(function() {
 
   var scene = Scene([
     {
-      image: Sprite.load(imgPath + "background.png"),
-      parallaxRate: 0.25,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      velocity: levelVelocity
-    },
-    {
-      image: Sprite.load(imgPath + "midground.png"),
+      image: Sprite.load(imgPath + "mobile.png"),
       parallaxRate: 0.5,
       position: {
         x: 0,
@@ -107,43 +97,13 @@ $(function() {
       repeat: true,
       velocity: levelVelocity
     },
-    {
-      image: Sprite.load(imgPath + "foreground.png"),
-      parallaxRate: 1,
-      position: {
-        x: 0,
-        y: 0
-      },
-      repeat: true,
-      velocity: levelVelocity
-    }
   ], [
     {
-      image: Sprite.load(imgPath + "water_background.png"),
+      image: Sprite.load(imgPath + "mobile_foreground.png"),
       parallaxRate: 1,
       position: {
         x: 0,
         y: 320,
-      },
-      repeat: true,
-      velocity: levelVelocity
-    },
-    {
-      image: Sprite.load(imgPath + "water_midground.png"),
-      parallaxRate: 1,
-      position: {
-        x: 0,
-        y: 320
-      },
-      repeat: true,
-      velocity: levelVelocity
-    },
-    {
-      image: Sprite.load(imgPath + "water_foreground.png"),
-      parallaxRate: 4,
-      position: {
-        x: 0,
-        y: 320
       },
       repeat: true,
       velocity: levelVelocity
