@@ -26,6 +26,22 @@ function Control(character, keyDown) {
     return keyPushed;
   }
 
+  function pressingDpadParasail(localPoint) {
+    var keyPushed;
+
+    if ((localPoint.x > 0 && localPoint.x < 80) && (localPoint.y > 52.5 && localPoint.y < 107.5)) {
+      keyPushed = "left";
+    } else if ((localPoint.x >= 80 && localPoint.x <= 160) && (localPoint.y > 52.5 && localPoint.y < 107.5)) {
+      keyPushed = "right";
+    } else if ((localPoint.x >= 52.5 && localPoint.x < 107.5) && (localPoint.y > 0 && localPoint.y < 52.5)) {
+      keyPushed = "up";
+    } else if ((localPoint.x >= 52.5 && localPoint.x < 107.5) && (localPoint.y > 107.5 && localPoint.y <= 160)) {
+      keyPushed = "down";
+    }
+
+    return keyPushed;
+  }
+
   function walkLeft() {
     if (!character.airborne() && (character.currentState() !== character.states().bite)) {
       character.xVelocity(-WALK_VELOCITY);
@@ -115,39 +131,65 @@ function Control(character, keyDown) {
     $.each(event.changedTouches, function(i, touch) {
       var point = getRelativePoint(el, touch);
 
-      if (pressingDpad(point) == "left") {
-        keyDown.left = true;
-        keyDown.right = false;
-        keyDown.up = false;
+      if (!dino.parasailing()) {
+        if (pressingDpad(point) == "left") {
+          keyDown.left = true;
+          keyDown.right = false;
+          keyDown.up = false;
 
-        walkLeft();
-      }
+          walkLeft();
+        }
 
-      if (pressingDpad(point) == "up-left") {
-        keyDown.left = true;
-        keyDown.up = true;
-        keyDown.right = false;
-      }
+        if (pressingDpad(point) == "up-left") {
+          keyDown.left = true;
+          keyDown.up = true;
+          keyDown.right = false;
+        }
 
-      if (pressingDpad(point) == "right") {
-        keyDown.right = true;
-        keyDown.left = false;
-        keyDown.up = false;
+        if (pressingDpad(point) == "right") {
+          keyDown.right = true;
+          keyDown.left = false;
+          keyDown.up = false;
 
-        walkRight();
-      }
+          walkRight();
+        }
 
-      if (pressingDpad(point) == "up-right") {
-        keyDown.right = true;
-        keyDown.up = true;
-        keyDown.left = false;
-      }
+        if (pressingDpad(point) == "up-right") {
+          keyDown.right = true;
+          keyDown.up = true;
+          keyDown.left = false;
+        }
 
-      if (pressingDpad(point) == "up") {
-        keyDown.up = true;
+        if (pressingDpad(point) == "up") {
+          keyDown.up = true;
 
-        if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
-          character.transition(character.states().fly);
+          if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
+            character.transition(character.states().fly);
+          }
+        }
+      } else {
+        if (pressingDpadParasail(point) == "left") {
+          keyDown.left = true;
+
+          walkLeft();
+        }
+
+        if (pressingDpadParasail(point) == "right") {
+          keyDown.right = true;
+
+          walkRight();
+        }
+
+        if (pressingDpadParasail(point) == "up") {
+          keyDown.up = true;
+
+          if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
+            character.transition(character.states().fly);
+          }
+        }
+
+        if (pressingDpadParasail(point) == "down") {
+          keyDown.down = true;
         }
       }
     });
@@ -157,6 +199,7 @@ function Control(character, keyDown) {
     keyDown.up = false;
     keyDown.left = false;
     keyDown.right = false;
+    keyDown.down = false;
     keyDown.space = false;
     land();
   });
@@ -193,6 +236,9 @@ function Control(character, keyDown) {
     $.each(event.changedTouches, function(i, touch) {
 
       if (touch.pageY < 320) {
+        target = getRelativePoint(el, touch);
+        shooting = true;
+      } else if (touch.pageX > 200 && touch.pageX < 500) {
         target = getRelativePoint(el, touch);
         shooting = true;
       }
