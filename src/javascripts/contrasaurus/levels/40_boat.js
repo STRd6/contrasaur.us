@@ -183,11 +183,10 @@ $(function() {
 
   var level = addLevel({
     audio: "4",
-    scene: scene,
     objective: "Parasail",
     objectiveImage: "images/levels/parasail/sail_thumb.png",
     platforms: [floor],
-    triggers: triggers,
-    audio: "Lady Gaga - Alejandro"
+    scene: scene,
+    triggers: triggers
   });
 });
