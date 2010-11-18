@@ -6,7 +6,7 @@ $(function() {
   var scene = Scene([
     {
       image: Sprite.load(imgPath + "mobile.png"),
-      parallaxRate: 0.5,
+      parallaxRate: 1,
       position: Point(0, 0),
       repeat: true
     }
