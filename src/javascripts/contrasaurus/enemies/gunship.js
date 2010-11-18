@@ -306,7 +306,7 @@ function Gunship(I) {
     genBulletData: (function() {
       return function() {
         return {
-          collideDamage: 5,
+          collideDamage: 10,
           speed: 12,
           sprite: bulletSprite,
           yAcceleration: GRAVITY / 4
@@ -316,7 +316,7 @@ function Gunship(I) {
     model: cannonModel,
     muzzleFlash: true,
     shot: {
-      count: 4,
+      count: 2,
       dispersion: 6,
     },
     x: 60,
@@ -368,7 +368,7 @@ function Gunship(I) {
         return function() {
           count += 1;
           return {
-            collideDamage: 5,
+            collideDamage: 20,
             speed: 10 + 12 * (count % 2),
             sprite: bulletSprite,
             yAcceleration: GRAVITY / 2
@@ -379,7 +379,7 @@ function Gunship(I) {
       fireRate: 99,
       model: lob1Model,
       shot: {
-        count: 10,
+        count: 2,
         dispersion: 8,
       }
     }), ShipComponent({
@@ -392,7 +392,7 @@ function Gunship(I) {
           count += 1;
           
           return {
-            collideDamage: 5,
+            collideDamage: 20,
             speed: count * 2,
             sprite: bulletSprite,
             yAcceleration: GRAVITY / 2
@@ -403,7 +403,7 @@ function Gunship(I) {
       fireRate: 33,
       model: lob2Model,
       shot: {
-        count: 10,
+        count: 2,
         dispersion: 15,
       }
     }), ShipComponent({
