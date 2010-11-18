@@ -183,6 +183,7 @@ $(function() {
 
   var level = addLevel({
     audio: "4",
+    description: "AD 1984: Lake Xolotlán",
     objective: "Parasail",
     objectiveImage: "images/levels/parasail/sail_thumb.png",
     platforms: [floor],
