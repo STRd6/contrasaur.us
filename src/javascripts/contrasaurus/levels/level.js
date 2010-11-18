@@ -48,7 +48,7 @@ function Level(I) {
 
   function BGMusic(name) {
     var format = $.browser.webkit ? ".mp3" : ".ogg";
-    var audio = $('<audio src="audio/' + name + format + '"></audio>').appendTo('#game_container');
+    var audio = $('<audio loop src="audio/' + name + format + '"></audio>').appendTo('#game_container');
 
     return {
       fadeOut: function() {

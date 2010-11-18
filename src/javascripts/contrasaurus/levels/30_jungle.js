@@ -142,7 +142,7 @@ $(function() {
   );
 
   addLevel({
-    audio: "Lady Gaga - Telephone",
+    audio: "3",
     scene: scene,
     objective: "Defeat",
     objectiveImage: "images/enemies/commando/commando_thumb.png",

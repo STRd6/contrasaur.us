@@ -36,7 +36,7 @@ $(function() {
   ];
 
   var level = addLevel({
-    audio: "Dragonforce - My Spirit Will Go On",
+    audio: "5",
     description: "AD 1984: D.C. Sky",
     skyMode: true,
     scene: scene,
