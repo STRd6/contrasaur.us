@@ -69,8 +69,7 @@ $(function() {
   }, {
     at: 300,
     event: function() {
-      $('#button img').hide();
-      $('#control img').hide();
+      showRedButton = true;
       level.dialog(DialogBox({
         text: (mobile) ? "Tap red button to CHOMP" : "Press space to CHOMP!"
       }), 200);
@@ -79,12 +78,6 @@ $(function() {
     at: 495,
     event: function() {
       meteorsActive = true;
-    }
-  }, {
-    at: 500,
-    event: function() {
-      $('#button img').show();
-      $('#control img').show();
     }
   }, {
     at: 1200,

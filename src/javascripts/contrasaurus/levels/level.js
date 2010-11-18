@@ -1,4 +1,5 @@
 hideBackgrounds = false;
+showRedButton = false;
 
 function Level(I) {
   var position = {
@@ -169,6 +170,11 @@ function Level(I) {
     }
 
     if(displayDialog) {
+      $('#control img').hide();
+
+      if (!showRedButton) {
+        $('#button img').hide();
+      }
       if (displayDialog.update) {
         displayDialog.update();
       }
@@ -446,6 +452,8 @@ function Level(I) {
       // Update dialogs
       if(step > dialogStop) {
         displayDialog = null;
+        $('#control img').show();
+        $('#button img').show();
       }
 
       if (framesSkipped < 2 && (new Date().getTime() - timeLastDrawn) > 30) {
