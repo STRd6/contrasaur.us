@@ -441,11 +441,14 @@ function Gunship(I) {
 
     healthBar: function() {
       if(!healthBar) {
-        healthBar = ProgressBar({
+        bossHealthBar = healthBar = ProgressBar({
           colorMap: healthColorMap,
-          element: $("#bossHealth"),
           max: self.health(),
-          value: self.health()
+          value: self.health(),
+          x: 262,
+          y: 20,
+          width: 240,
+          height: 30
         });
       }
 
@@ -520,6 +523,8 @@ function Gunship(I) {
     self.update = $.noop;
     self.getTransform = GameObject.rotationGetTransform(I);
   });
+
+  self.healthBar();
 
   return self;
 }
