@@ -174,7 +174,7 @@ $(function() {
   var reaganAvatar = Sprite.load("images/avatars/reagan.png");
 
   var level = addLevel({
-    audio: "Lady Gaga - Paparazzi",
+    audio: "2",
     description: "AD 1984: Area 51",
     objective: "Annihilate",
     objectiveImage: 'images/enemies/mutant/mutant_thumb.png',

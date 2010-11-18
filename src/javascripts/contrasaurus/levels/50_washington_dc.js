@@ -208,7 +208,7 @@ $(function() {
   var roboReaganAvatar = Sprite.load("images/avatars/roboreagan.png");
 
   var level = addLevel({
-    audio: "Dragonforce - My Spirit Will Go On",
+    audio: "5",
     backgroundColor: "#00A800",
     description: "AD 1984: Washington D.C.",
     fadeWhite: true,
