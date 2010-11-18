@@ -7,6 +7,9 @@
       = link "Learn more here", "http://www.google.com/chrome"
     #tilt
   #game_info
+    %span#health_text.label{:style => "display: none;"} health
+    %span#boss_health_text.label{:style => "display: none;"} boss
+    %span#score_text.label{:style => "display: none;"} score
     #level_objectives{:style => "display: none;"}
     #continue{:style => "display: none;"}
       %p CONTINUE?
@@ -71,6 +74,8 @@
       if(loaded && !started) {
         started = true;
         nextStage();
+        $('#health_text').show();
+        $('#score_text').show();
       }
     });
 
@@ -79,6 +84,8 @@
         started = true;
         nextStage();
         shooting = false;
+        $('#health_text').show();
+        $('#score_text').show();
       }
     });
   }});

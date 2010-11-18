@@ -158,7 +158,7 @@ $(function() {
 
   addCutscene(
     "images/levels/cutscenes/hero_ceremony.png",
-    "To Contrasaur, the greatest of American heros, for his victory in Nicaragua",
+    "To Contrasaur, the greatest of American heroes, for his victory in Nicaragua",
     6000
   );
 

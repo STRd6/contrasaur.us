@@ -153,13 +153,6 @@ function Control(character, keyDown) {
     });
   });
 
-  $('body').bind('touchend', function(e) {
-    keyDown.up = false;
-    keyDown.left = false;
-    keyDown.right = false;
-    keyDown.space = false;
-  });
-
   $('#control').bind('touchend', function() {
     keyDown.up = false;
     keyDown.left = false;
