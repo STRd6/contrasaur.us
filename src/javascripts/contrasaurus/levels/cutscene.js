@@ -20,6 +20,10 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
     },
 
     draw: function(canvas) {
+      if (!stopped) {
+        $('#button img').hide();
+        $('#control img').hide();
+      }
       imageTile.draw(canvas, (canvas.width() - imageTile.width)/2, 0);
       dialogBox.update();
       dialogBox.draw(canvas);
@@ -27,9 +31,6 @@ function Cutscene(imageURL, text, duration, avatar, completedCallback) {
 
     start: function(canvas) {
       stopped = false;
-
-      $('#button img').hide();
-      $('#control img').hide();
 
       setTimeout(function() {
         self.complete();

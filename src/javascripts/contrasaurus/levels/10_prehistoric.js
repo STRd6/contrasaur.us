@@ -80,6 +80,11 @@ $(function() {
       meteorsActive = true;
     }
   }, {
+    at: 500,
+    event: function() {
+      showRedButton = false;
+    }
+  }, {
     at: 1200,
     event: function(level) {
       brontosaurus = Brontosaurus({
