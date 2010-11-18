@@ -80,7 +80,6 @@ function Brontosaurus(I) {
 
   self.bind('destroy', function() {
     addGameObject(EffectGenerator($.extend(self.position(), {
-      delay: 18,
       radius: 100
     })));
 

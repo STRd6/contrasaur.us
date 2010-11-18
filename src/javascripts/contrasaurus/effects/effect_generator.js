@@ -2,7 +2,7 @@ function EffectGenerator(I) {
   I = I || {};
 
   $.reverseMerge(I, {
-    delay: 6,
+    delay: 18,
     duration: 100,
     objectGenerator: function(I) {
       return Effect($.extend(I, {
