@@ -119,12 +119,20 @@ function Control(character, keyDown) {
   $('.touch').bind('touchstart', handleTouch);
 
   $('#button').bind('touchstart', function(e){
+    if(currentLevel && currentLevel.playMusic) {
+      currentLevel.playMusic();
+    }
+
     keyDown.space = true;
 
     character.bite();
   });
 
   $('#control').bind('touchmove touchstart', function(e) {
+    if(currentLevel && currentLevel.playMusic) {
+      currentLevel.playMusic();
+    }
+
     e.preventDefault();
     var el = $(this);
 
