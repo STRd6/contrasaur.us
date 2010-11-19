@@ -79,7 +79,7 @@ $(function() {
       }
     }
   }, {
-    at: 1000,
+    at: 500,
     event: function(level) {
       var jetPackCrate = Crate({
         weaponClass: function() {return "jetpack";},
@@ -100,7 +100,7 @@ $(function() {
       level.lockCamera(level.position().x, level.position().x + 250);
     }
   }, {
-    at: 2000,
+    at: 1000,
     event: function(level) {
       addGameObject(Crate({
         weaponClass: MissileLauncher,
@@ -109,7 +109,7 @@ $(function() {
       }));
     }
   }, {
-    at: 3000,
+    at: 1500,
     event: function(level) {
       var commando = Commando({
         x: level.position().x + CANVAS_WIDTH + 40
