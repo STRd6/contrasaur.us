@@ -114,7 +114,7 @@ function nextStage(choice) {
         endGame();
         cookieScores.push(score);
         createCookie("highScore", cookieScores.join(","));
-        alert("You Win!");
+        endGameDisplay(true);
       } else {
         currentLevel = stages[currentStage];
         stages[currentStage].start(canvas);
@@ -130,7 +130,7 @@ function endGame() {
   currentLevel.stop();
 }
 
-function endGameDisplay() {
+function endGameDisplay(victory) {
   endGame();
 
   var leaderDisplay = {
@@ -140,6 +140,11 @@ function endGameDisplay() {
 
       canvas.fill("rgba(0, 0, 0, 0.66)");
       canvas.fillColor("#FFF");
+
+      if(victory) {
+        canvas.centerText("Congratulations, you win!", 100);
+      }
+
       canvas.centerText("ALL TIME LEADERS:", 200);
       canvas.centerText(highScores[0][1] + ": " + highScores[0][0], 230);
       canvas.centerText(highScores[1][1] + ": " + highScores[1][0], 260);
