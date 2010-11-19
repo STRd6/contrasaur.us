@@ -91,29 +91,25 @@ a
   margin-top: 180px
   margin-right: auto
   padding: 1em
-  width: 140px
-  height: 55px
+  width: 200px
   +border-radius
 
-  button
-    position: absolute
+  .buttons
+    width: 180px
+    margin-left: auto
+    margin-right: auto
+
+    button
+      display: inline-block
+      height: 40px
+      width: 80px
+
+      &.continue_yes
+        margin-right: 15px
 
   p
-    position: absolute
-    top: 205px
-    left: 260px
-    width: 50px
     color: white
-
-.continue_yes
-  top: 250px
-  left: 255px
-  width: 50px
-
-.continue_no
-  top: 250px
-  left: 325px
-  width: 50px
+    text-align: center
 
 #game_info
   padding: 0px 7px
