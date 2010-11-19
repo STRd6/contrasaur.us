@@ -14,6 +14,7 @@ function Gunship(I) {
   });
 
   var damageTable = {
+    bite: 5,
     fire: 0.05
   };
 

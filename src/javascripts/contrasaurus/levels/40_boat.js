@@ -143,14 +143,14 @@ $(function() {
       }
     }
   }, {
-    every: 200,
+    every: 160,
     event: function(level) {
       if (Math.random() < 0.5 && level.age() > 0 && !bossDefeated) {
         addCrate(ThirdLaserEyeBlind);
       }
     }
   }, {
-    at: 2400,
+    at: 1800,
     event: function(level) {
       var gunship = Gunship();
       level.prependGameObject(gunship);
