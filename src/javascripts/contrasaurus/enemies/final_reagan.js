@@ -72,7 +72,7 @@ function FinalReagan(I) {
         }
 
         displacementScale += displacementDelta;
-        maxDisplacementScale = Math.min((6000 - I.health) / 1000, 2);
+        maxDisplacementScale = Math.min((3500 - I.health) / 1000, 2);
 
         approachTargetLocation(position, 10, 7);
       }
@@ -137,7 +137,7 @@ function FinalReagan(I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
-    health: 5000,
+    health: 2500,
     pointsWorth: 1000000,
     radius: 40,
     rotation: 0,

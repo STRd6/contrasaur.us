@@ -14,19 +14,25 @@ function RoboReagan(I) {
   var displacementDelta = 0.025;
 
   var missileFrequency = 0;
+  var shootCount = 0;
 
   var ragingShootLogic = function() {
-    self.shoot(
-      Math.random() * (Math.PI), {
-        x: self.midpoint().x,
-        y: self.midpoint().y,
-        sprite: Sprite.load("images/effects/enemybullet1_small.png")
-      }
-    );
+    shootCount++;
+
+    if(shootCount % 10 == 0) {
+      self.shoot(
+        Math.random() * (Math.PI), {
+          x: self.midpoint().x,
+          y: self.midpoint().y,
+          sprite: Sprite.load("images/effects/enemybullet1_small.png")
+        }
+      );
+    }
 
     if(rand() < missileFrequency) {
       addGameObject(HomingMissile($.extend({
         collisionType: "enemyBullet",
+        explosionDamage: 3,
         sprite: Sprite.load("images/projectiles/homing_missile_red.png")
       }, self.position())));
     }
@@ -51,8 +57,8 @@ function RoboReagan(I) {
         I.x = centralPoint.x + currentScale * xAmplitude * Math.sin(I.age / 11);
         I.y = centralPoint.y + currentScale * yAmplitude * Math.cos(I.age / 13);
 
-        maxDisplacementScale = Math.min((6000 - I.health) / 1000, 2);
-        missileFrequency = ((5000 - I.health) / 1000).floor() * 0.025;
+        maxDisplacementScale = Math.min((3000 - I.health) / 1000, 2);
+        missileFrequency = ((3000 - I.health) / 1000).floor() * 0.025;
       }
     }),
     charge: State({
@@ -121,7 +127,7 @@ function RoboReagan(I) {
 
   $.reverseMerge(I, {
     collideDamage: 1,
-    health: 5000,
+    health: 2000,
     pointsWorth: 1000000,
     radius: 40,
     sprite: kneelModel.animation,
