@@ -534,8 +534,12 @@ function Dinosaur() {
     }
   };
 
-  self.addJetpack();
-  self.addWeapon(MachineGun());
+  if(DEVELOPMENT) {
+    self.addJetpack();
+    self.addWeapon(MachineGun());
+    self.addWeapon(Flamethrower());
+    //self.addWeapon(MissileLauncher());
+  }
 
   return self;
 }
