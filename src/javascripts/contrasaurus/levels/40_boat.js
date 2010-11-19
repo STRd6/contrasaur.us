@@ -150,7 +150,7 @@ $(function() {
       }
     }
   }, {
-    at: 1800,
+    at: 1500,
     event: function(level) {
       var gunship = Gunship();
       level.prependGameObject(gunship);
