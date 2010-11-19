@@ -498,15 +498,6 @@ function Dinosaur() {
     }
   });
 
-  var tophat = Accessory({
-    attachment: "hat",
-    sprite: Sprite.load("images/accessories/tophat.png")
-  });
-
-  if(false) {
-    self.addAccessory(tophat);
-  }
-
   Control(self, keyDown);
   self.extend(Stateful(I));
 
