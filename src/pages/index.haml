@@ -57,18 +57,21 @@
       }
     }, 500);
 
-    $('.continue_yes').click(function() {
+    function continueYes() {
       dino.heal(500);
       score = Math.floor(score / 2);
       currentLevel.continueResume();
       $("#game_container").css("cursor", "none");
       $('#continue').hide();
-    });
+    }
 
-    $('.continue_no').click(function() {
+    function continueNo() {
       $('#continue').hide();
       endGameDisplay();
-    });
+    }
+
+    $("#continue .continue_yes").click(continueYes).bind("touchstart", continueYes);
+    $("#continue .continue_no").click(continueNo).bind("touchstart", continueNo);
 
     $(document).bind("keydown", "space", function() {
       if(loaded && !started) {
