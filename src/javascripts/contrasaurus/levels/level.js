@@ -192,12 +192,14 @@ function Level(I) {
       canvas.fill(fadeColor);
     }
 
-    canvas.fillColor("#FFF")
+    if(DEVELOPMENT) {
+      canvas.fillColor("#FFF")
 
-    frameIndex = (frameIndex + 1) % framesDrawn.length;
-    var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[frameIndex]);
+      frameIndex = (frameIndex + 1) % framesDrawn.length;
+      var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[frameIndex]);
 
-    canvas.fillText("FPS: " + fps, 520, 60)
+      canvas.fillText("FPS: " + fps, 520, 60)
+    }
   }
 
   function resetCollidables() {
