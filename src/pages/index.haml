@@ -25,71 +25,86 @@
   Landscape is better
 
 :javascript
-  $('#gameCanvas').powerCanvas({init: function(_canvas) {
-
-    canvas = _canvas;
-    canvas.font("bold 1.2em 'Monaco', 'Inconsolata', 'consolas', 'Courier New', 'andale mono', 'lucida console', 'monospace'");
-
-    var started = false;
-    var loaded = false;
-    var titleScreen = Sprite.load("images/titlescreen.png");
-    var dots = "";
-
-    var loadingInterval = setInterval(function() {
-      if(dots.length % 4 == 3) {
-        dots = "";
-      } else {
-        dots = dots + ".";
-      }
-
-      var status = AssetTracker.count();
-
-      if(status[0] >= status[1]) {
-        loaded = true;
-        clearInterval(loadingInterval);
-      }
-
-      titleScreen.draw(canvas, 0, 0);
-      canvas.fillColor("#FFF");
-      if(loaded) {
-        canvas.centerText((mobile) ? "TAP TO START" : "PRESS SPACE TO START", 360);
-      } else {
-        canvas.fillText("LOADING" + dots, 280, 360);
-      }
-    }, 500);
-
-    function continueYes() {
-      dino.heal(500);
-      score = Math.floor(score / 2);
-      currentLevel.continueResume();
-      $("#game_container").css("cursor", "none");
-      $('#continue').hide();
+  if(detectIphoneOrIpod()) {
+    if(window.navigator.standalone) {
+      runApp();
+    } else {
+      $("body").addClass("teaser scaled_down");
+      alert("Tap '+' and select 'Add to Home Screen'");
     }
+  } else {
+    $("body").addClass("scaled_down");
+    runApp();
+  }
 
-    function continueNo() {
-      $('#continue').hide();
-      endGameDisplay();
-    }
+  function runApp() {
+    $('#gameCanvas').powerCanvas({init: function(_canvas) {
 
-    $("#continue .continue_yes").click(continueYes).bind("touchstart", continueYes);
-    $("#continue .continue_no").click(continueNo).bind("touchstart", continueNo);
+      canvas = _canvas;
+      canvas.font("bold 1.2em 'Monaco', 'Inconsolata', 'consolas', 'Courier New', 'andale mono', 'lucida console', 'monospace'");
 
-    $(document).bind("keydown", "space", function() {
-      if(loaded && !started) {
-        started = true;
-        nextStage();
-        $('#health_text').show();
-        $('#score_text').show();
+      var started = false;
+      var loaded = false;
+      var titleScreen = Sprite.load("images/titlescreen.png");
+      var dots = "";
+
+      var loadingInterval = setInterval(function() {
+        if(dots.length % 4 == 3) {
+          dots = "";
+        } else {
+          dots = dots + ".";
+        }
+
+        var status = AssetTracker.count();
+
+        if(status[0] >= status[1]) {
+          loaded = true;
+          clearInterval(loadingInterval);
+        }
+
+        titleScreen.draw(canvas, 0, 0);
+        canvas.fillColor("#FFF");
+        if(loaded) {
+          canvas.centerText((mobile) ? "TAP TO START" : "PRESS SPACE TO START", 360);
+        } else {
+          canvas.fillText("LOADING" + dots, 280, 360);
+        }
+      }, 500);
+
+      function continueYes() {
+        dino.heal(500);
+        score = Math.floor(score / 2);
+        currentLevel.continueResume();
+        $("#game_container").css("cursor", "none");
+        $('#continue').hide();
       }
-    });
 
-    $('canvas').bind("tap", function() {
-      if(loaded && !started) {
-        started = true;
-        nextStage();
-        shooting = false;
-        $('#health_text').show();
-        $('#score_text').show();
+      function continueNo() {
+        $('#continue').hide();
+        endGameDisplay();
       }
-    });
-  }});
+
+      $("#continue .continue_yes").click(continueYes).bind("touchstart", continueYes);
+      $("#continue .continue_no").click(continueNo).bind("touchstart", continueNo);
+
+      $(document).bind("keydown", "space", function() {
+        if(loaded && !started) {
+          started = true;
+          nextStage();
+          $('#health_text').show();
+          $('#score_text').show();
+        }
+      });
+
+      $('canvas').bind("tap", function() {
+        if(loaded && !started) {
+          started = true;
+          nextStage();
+          shooting = false;
+          $('#health_text').show();
+          $('#score_text').show();
+        }
+      });
+
+    }});
+  }

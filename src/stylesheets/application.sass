@@ -12,10 +12,26 @@
 body
   background-color: #000
   color: #FFF
+  font-family: Verdana, sans-serif
+  height: 480px
   margin: 0
   padding: 0
-  font-family: Verdana, sans-serif
+  width: 640px
 
+  &.scaled_down
+    -moz-transform: scale(0.62)
+    -moz-transform-origin: 0 0
+    -webkit-transform: scale(0.62)
+    -webkit-transform-origin: 0 0
+
+  &.teaser
+    *
+      display: none
+
+    #game_container
+      background-image: url('../images/titlescreen.png')
+      background-repeat: no-repeat
+      display: block
 a
   color: #DB4B00
   font-weight: bold
