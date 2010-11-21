@@ -58,6 +58,7 @@ $.each(weaponMap, function(name) {
 });
 
 var target;
+var targetAngle = 0;
 var crosshair;
 var showCrosshair = false;
 
@@ -66,6 +67,11 @@ var currentStage = -1;
 
 function addScore(points) {
   score += points;
+}
+
+function updateTarget() {
+  var deltaPoint = Point(Math.cos(targetAngle) * 150, Math.sin(targetAngle) * 150);
+  target = Point(CANVAS_WIDTH/2, CANVAS_HEIGHT/2).add(deltaPoint);
 }
 
 function drawOverlay() {

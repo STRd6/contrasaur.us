@@ -1,7 +1,10 @@
 function Control(character, keyDown) {
   $.each({
+    "return": function() {
+      shooting = true;
+    },
 
-    "w up": function() {
+    "w up ,": function() {
       keyDown.up = true;
 
       if (character.hasJetpack() && (character.currentState() !== character.states().bite)) {
@@ -27,7 +30,7 @@ function Control(character, keyDown) {
       }
     },
 
-    "right d": function() {
+    "right d e": function() {
       keyDown.right = true;
 
       if (!character.airborne() && (character.currentState() !== character.states().bite)) {
@@ -40,7 +43,7 @@ function Control(character, keyDown) {
       }
     },
 
-    "down s": function() {
+    "down s o": function() {
       keyDown.down = true;
     },
 
@@ -50,10 +53,12 @@ function Control(character, keyDown) {
 
       character.transition(character.states().bite);
     },
-
-     "+": character.nextWeapon(),
-
-     "-": character.prevWeapon()
+    "'": function() {
+      keyDown.aimAntiClockwise = true;
+    },
+    ".": function() {
+      keyDown.aimClockwise = true;
+    }
   }, function(key, fn) {
     $(document).bind('keydown', key, function() {
       fn();
@@ -61,8 +66,27 @@ function Control(character, keyDown) {
     });
   });
 
-  $(document).bind('keyup', 'w up', function() {
-    keyDown.up = false;
+  $.each({
+    "return": function() {
+      shooting = false;
+    },
+    "w up ,": function() {
+      keyDown.up = false;
+    },
+    "down s o": function() {
+      keyDown.down = false;
+    },
+    "'": function() {
+      keyDown.aimAntiClockwise = false;
+    },
+    ".": function() {
+      keyDown.aimClockwise = false;
+    }
+  }, function(key, fn) {
+    $(document).bind('keyup', key, function() {
+      fn();
+      return false;
+    });
   });
 
   $(document).bind('keyup', 'left a', function() {
@@ -74,7 +98,7 @@ function Control(character, keyDown) {
     }
   });
 
-  $(document).bind('keyup', 'right d', function() {
+  $(document).bind('keyup', 'right d e', function() {
     keyDown.right = false;
     if(!character.airborne()) {
       character.xVelocity(0);
@@ -82,16 +106,12 @@ function Control(character, keyDown) {
     }
   });
 
-  $(document).bind('keyup', 'down s', function() {
-    keyDown.down = false;
-  });
-
   $("#game_container").mousedown(function(event) {
-       if(event.button == 0) {
-         shooting = true;
-       } else {
-         secondaryShooting = true;
-       }
+     if(event.button == 0) {
+       shooting = true;
+     } else {
+       secondaryShooting = true;
+     }
 
      return false;
    }).mouseup(function(event) {

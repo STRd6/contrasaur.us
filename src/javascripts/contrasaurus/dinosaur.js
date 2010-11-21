@@ -495,6 +495,16 @@ function Dinosaur() {
     },
     after: {
       update: function(levelPosition) {
+        // Keyboard aiming
+        if(keyDown.aimClockwise) {
+          targetAngle += Math.PI / 36;
+          updateTarget();
+        }
+        if(keyDown.aimAntiClockwise) {
+          targetAngle -= Math.PI / 36;
+          updateTarget();
+        }
+
         // Flight velocities
         if(parasailing) {
           I.yVelocity = 0;
