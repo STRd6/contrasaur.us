@@ -1,0 +1,17 @@
+shared: &shared
+  adapter: postgresql
+  encoding: utf8
+  username: postgres
+
+development:
+  <<: *shared
+  database: csaur_development
+
+test:
+  <<: *shared
+  database: csaur_test
+  min_messages: WARNING
+
+production:
+  <<: *shared
+  database: csaur_production
