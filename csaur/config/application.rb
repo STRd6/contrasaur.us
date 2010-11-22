@@ -33,6 +33,12 @@ module Csaur
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :haml
+      g.test_framework  :test_unit, :fixture => false
+    end
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
