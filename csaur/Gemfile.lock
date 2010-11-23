@@ -49,6 +49,7 @@ GEM
       rack-openid (>= 0.2.1)
       ruby-openid
     builder (2.1.2)
+    columnize (0.3.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.5.3)
@@ -60,6 +61,7 @@ GEM
       addressable (~> 2.2.0)
     i18n (0.4.1)
     json (1.4.6)
+    linecache (0.43)
     mail (2.2.5)
       activesupport (>= 2.3.6)
       mime-types
@@ -95,6 +97,11 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
+    ruby-debug (0.10.3)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.3.0)
+    ruby-debug-base (0.10.3)
+      linecache (>= 0.3)
     ruby-openid (2.1.8)
     signet (0.1.4)
       addressable (~> 2.2.1)
@@ -117,6 +124,7 @@ DEPENDENCIES
   pg
   rack-openid (>= 0.2.1)
   rails (= 3.0.0)
+  ruby-debug
   ruby-openid
   signet
   sqlite3-ruby
