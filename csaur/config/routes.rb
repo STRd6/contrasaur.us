@@ -1,4 +1,18 @@
 Csaur::Application.routes.draw do
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'authenticate' => 'user_sessions#create', :as => :authenticate, :via => :post
+  match 'signup' => 'users#new', :as => :signup
+  match 'connect' => 'users#update', :as => :connect, :via => :post
+
+  match "reset" => "users#detonate"
+
+  resources :users
+  resource :user_session
+
+  match '/people/:id' => 'users#show', :as => :profile
+  root :to => "user_sessions#new"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

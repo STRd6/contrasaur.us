@@ -1,0 +1,16 @@
+%h2 Login!
+- form_for @user_session, :url => authenticate_path, :html => { :method => :post, :class => "authentication_form" } do |f|
+  = f.error_messages
+  / authentication_type should be "user" or "session", based on controller
+  = oauth_login_hidden_input
+  %fieldset
+    %legend Click your Oauth or OpenID provider
+    .oauth_providers
+      %ul
+        - %w(google).each do |name|
+          %li.oauth_provider
+            = image_tag "/images/oauth/#{name}.png"
+            = radio_button_tag :oauth_provider, name
+        .clearfix
+
+  = submit_tag "Login", :class => :submit
