@@ -12,6 +12,9 @@
       add: function(other) {
         return Point(this.x + other.x, this.y + other.y);
       },
+      subtract: function(other) {
+        return Point(this.x - other.x, this.y - other.y);
+      },
       equal: function(other) {
         return this.x == other.x && this.y == other.y;
       }
