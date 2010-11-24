@@ -498,11 +498,9 @@ function Dinosaur() {
         // Keyboard aiming
         if(keyDown.aimClockwise) {
           targetAngle += Math.PI / 36;
-          updateTarget();
         }
         if(keyDown.aimAntiClockwise) {
           targetAngle -= Math.PI / 36;
-          updateTarget();
         }
 
         // Flight velocities

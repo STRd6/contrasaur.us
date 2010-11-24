@@ -61,6 +61,7 @@ var target;
 var targetAngle = 0;
 var crosshair;
 var showCrosshair = false;
+var keyboardAiming = false;
 
 var gameOver = false;
 var currentStage = -1;
@@ -70,8 +71,11 @@ function addScore(points) {
 }
 
 function updateTarget() {
-  var deltaPoint = Point(Math.cos(targetAngle) * 150, Math.sin(targetAngle) * 150);
-  target = Point(CANVAS_WIDTH/2, CANVAS_HEIGHT/2).add(deltaPoint);
+  if(keyboardAiming) {
+    var deltaPoint = Point(Math.cos(targetAngle) * 150, Math.sin(targetAngle) * 150);
+    var localDinoPosition = Point().add(dino.position()).subtract(currentLevel.position());
+    target = localDinoPosition.add(deltaPoint);
+  }
 }
 
 function drawOverlay() {
@@ -135,7 +139,7 @@ function endGameDisplay() {
 
   var leaderDisplay = {
     draw: function(canvas) {
-      highScores.sort(function(a, b) { return a[0] - b[0] });
+      highScores.sort(function(a, b) {return a[0] - b[0]});
       highScores.reverse();
 
       canvas.fill("rgba(0, 0, 0, 0.66)");
@@ -263,13 +267,16 @@ $(function() {
   });
 
   $("#game_container").bind("mousemove", function(event) {
+    keyboardAiming = false;
     var offset = $(this).offset();
 
     var localY = event.pageY - offset.top;
     var localX = event.pageX - offset.left;
 
     target = Point(localX, localY);
-  }).bind("contextmenu", function() {
-    return false;
+  });
+
+  $(document).bind("contextmenu", function(event) {
+    event.preventDefault();
   });
 });
