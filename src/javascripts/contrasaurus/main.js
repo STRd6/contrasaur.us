@@ -9,7 +9,12 @@ function detectIphoneOrIpod() {
   return userAgent.search("iphone") !== -1 || userAgent.search("ipod") !== -1;
 }
 
-var mobile = detectIphoneOrIpod();
+function detectAndroid() {
+  var userAgent = navigator.userAgent.toLowerCase();
+  return userAgent.search("android") !== -1;
+}
+
+var mobile = detectIphoneOrIpod() || detectAndroid();
 
 var pauseDisplay = {
   draw: function(canvas) {
