@@ -112,7 +112,7 @@ function Control(character, keyDown) {
   });
 
   // Prevent default scrolling behavior
-  $('body').bind('touchmove', function(e){
+  $('body').bind('touchstart touchmove', function(e){
     e.preventDefault();
   });
 

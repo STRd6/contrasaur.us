@@ -9,19 +9,25 @@
   border-radius: 5px
   -moz-border-radius: 5px
 
+html
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -moz-user-select: none
+
 body
   background-color: #000
   color: #FFF
   font-family: Verdana, sans-serif
-  height: 480px
   margin: 0
   padding: 0
-  width: 640px
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -moz-user-select: none
 
   &.scaled_down
-    -moz-transform: scale(0.62) translate(21%, 0)
+    -moz-transform: translate(15%, 0) scale(0.62)
     -moz-transform-origin: 0 0
-    -webkit-transform: scale(0.62) translate(21%, 0)
+    -webkit-transform: translate(15%, 0) scale(0.62)
     -webkit-transform-origin: 0 0
 
   &.teaser
@@ -73,6 +79,7 @@ a
   width: 640px
   -webkit-touch-callout: none
   -webkit-user-select: none
+  -moz-user-select: none
 
 #gameCanvas
   position: absolute
@@ -200,4 +207,4 @@ a
 /* Mobile contrasaurus stylesheet Copyright 2010 STRd6
 @media only screen and (max-device-width: 480px)
   #game_container
-    margin-left: 13%
+    margin-left: 9%
