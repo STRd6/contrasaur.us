@@ -440,6 +440,8 @@ function Level(I) {
         displayDialog = null;
       }
 
+      updateTarget();
+
       draw(canvas);
     },
 

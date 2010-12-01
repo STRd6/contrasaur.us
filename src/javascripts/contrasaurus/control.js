@@ -1,7 +1,7 @@
 function Control(character, keyDown) {
   $.each({
     "return": function() {
-      shooting = true;
+      shooting = !shooting;
     },
 
     "w up ,": function() {
@@ -50,8 +50,6 @@ function Control(character, keyDown) {
     "space": function() {
       keyDown.space = true;
       character.bite();
-
-      character.transition(character.states().bite);
     },
     "'": function() {
       keyDown.aimAntiClockwise = true;
@@ -67,9 +65,6 @@ function Control(character, keyDown) {
   });
 
   $.each({
-    "return": function() {
-      shooting = false;
-    },
     "w up ,": function() {
       keyDown.up = false;
     },
@@ -77,15 +72,18 @@ function Control(character, keyDown) {
       keyDown.down = false;
     },
     "'": function() {
+      keyboardAiming = true;
       keyDown.aimAntiClockwise = false;
     },
     ".": function() {
+      keyboardAiming = true;
       keyDown.aimClockwise = false;
     }
   }, function(key, fn) {
-    $(document).bind('keyup', key, function() {
+    $(document).bind('keyup', key, function(event) {
+      event.preventDefault();
+
       fn();
-      return false;
     });
   });
 
@@ -106,25 +104,31 @@ function Control(character, keyDown) {
     }
   });
 
-  $("#game_container").mousedown(function(event) {
-     if(event.button == 0) {
-       shooting = true;
-     } else {
-       secondaryShooting = true;
-     }
+  $(document).mousedown(function(event) {
+    event.preventDefault();
 
-     return false;
-   }).mouseup(function(event) {
-     if(event.button == 0) {
-       shooting = false;
-     } else {
-       secondaryShooting = false;
-     }
-   }).bind("mousewheel", function(event, delta) {
-     if(delta > 0) {
-       character.nextWeapon();
-     } else {
-       character.prevWeapon();
-     }
-   });
+    if(event.button != 0) {
+      character.bite();
+    }
+  });
+
+  $("#game_container").mousedown(function(event) {
+    event.preventDefault();
+
+    if(event.button == 0) {
+      shooting = true;
+    }
+  }).mouseup(function(event) {
+    event.preventDefault();
+
+    if(event.button == 0) {
+      shooting = false;
+    }
+  }).bind("mousewheel", function(event, delta) {
+    if(delta > 0) {
+      character.nextWeapon();
+    } else {
+      character.prevWeapon();
+    }
+  });
 }
