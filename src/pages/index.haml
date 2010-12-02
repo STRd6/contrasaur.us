@@ -5,7 +5,6 @@
     %p
       HTML5 canvas not supported by your browser.
       = link "Learn more here", "http://www.google.com/chrome"
-    #tilt
   #game_info
     %span#health_text.label{:style => "display: none;"} health
     %span#boss_health_text.label{:style => "display: none;"} boss
@@ -23,6 +22,14 @@
 
 :javascript
   if(detectIphoneOrIpod()) {
+    if (orientation) {
+      var gameContainer = $('#game_container');
+
+      if (orientation.abs() == 90) {
+        gameContainer.css('margin-left', '9%');
+      }
+    }
+
     if(window.navigator.standalone) {
       runApp();
     } else {

@@ -70,7 +70,7 @@
       frameCount: function() {
         return 1;
       },
-      
+
       width: width,
       height: height
     };
@@ -110,7 +110,7 @@
   Sprite.EMPTY = LoaderProxy();
 
   window["Sprite"] = Sprite;
-  
+
 
   window["Composite"] = function(tileData) {
     var tileCount = tileData.length;
@@ -146,7 +146,7 @@
 
     return {
       draw: function(canvas, x, y, options) {
-        frameData[currentFrame].draw(canvas, 
+        frameData[currentFrame].draw(canvas,
           x + destinationOffset.x,
           y + destinationOffset.y,
           options

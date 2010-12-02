@@ -67,7 +67,7 @@ $(function() {
       generateRunningEnemies(level, 1);
     }
   }, {
-    at: 300,
+    at: 200,
     event: function() {
       showRedButton = true;
       level.dialog(DialogBox({
