@@ -1,3 +1,5 @@
 site/*.html
 site/javascripts/
 site/stylesheets/
+Contrasaurus.tmproj
+.DS_Store
