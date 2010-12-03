@@ -99,6 +99,12 @@ function drawOverlay() {
 var payStage = 7;
 
 function checkPayStatus() {
+  // TODO: Check if user is logged in
+  // TODO: Check for real if user has paid
+  // TODO: Send them to Chrome App Store to pay
+  // TODO: Save game or use ajax to verify payment
+
+  // Placeholder
   if(confirm("Do you own the full game?")) {
     currentLevel = stages[currentStage];
     stages[currentStage].start(canvas);
