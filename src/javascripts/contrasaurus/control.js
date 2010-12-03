@@ -2,8 +2,16 @@ function Control(character, keyDown) {
 
   function getRelativePoint(htmlElement, touchEvent) {
     var offset = htmlElement.offset();
-    var localX = touchEvent.pageX - offset.left;
-    var localY = touchEvent.pageY - offset.top;
+    var localX;
+    var localY;
+
+    if (detectAndroid()) {
+      localX = (touchEvent.pageX - offset.left) / 0.62;
+      localY = (touchEvent.pageY - offset.top) / 0.62;
+    } else {
+      localX = touchEvent.pageX - offset.left;
+      localY = touchEvent.pageY - offset.top;
+    }
 
     return Point(localX, localY);
   }
