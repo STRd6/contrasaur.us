@@ -96,6 +96,17 @@ function drawOverlay() {
   $("#money .amount").text(money);
 }
 
+var payStage = 7;
+
+function checkPayStatus() {
+  if(confirm("Do you own the full game?")) {
+    currentLevel = stages[currentStage];
+    stages[currentStage].start(canvas);
+  } else {
+    endGame();
+  }
+}
+
 function nextStage(choice) {
   if(choice !== undefined) {
     if(currentLevel && currentLevel.stop) {
@@ -108,7 +119,10 @@ function nextStage(choice) {
   } else {
     if(!gameOver) {
       currentStage++;
-      if(currentStage >= stages.length) {
+
+      if(currentStage == payStage) {
+        checkPayStatus();
+      } else if(currentStage >= stages.length) {
         endGame();
         alert("You Win!");
       } else {
