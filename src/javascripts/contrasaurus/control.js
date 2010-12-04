@@ -250,11 +250,23 @@ function Control(character, keyDown) {
     var el = $(this);
 
     $.each(event.changedTouches, function(i, touch) {
+      var localX;
+      var localY;
 
-      if (touch.pageY < 320) {
+      var offset = $('#game_container').offset();
+
+      if (detectAndroid()) {
+        localX = (touch.pageX - offset.left) / 0.62;
+        localY = (touch.pageY - offset.top) / 0.62;
+      } else {
+        localX = touch.pageX - offset.left;
+        localY = touch.pageY - offset.top;
+      }
+
+      if (localY < 320) {
         target = getRelativePoint(el, touch);
         shooting = true;
-      } else if (touch.pageX > 200 && touch.pageX < 500) {
+      } else if (localX > 200 && localX < 500) {
         target = getRelativePoint(el, touch);
         shooting = true;
       }
