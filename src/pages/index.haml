@@ -21,12 +21,23 @@
     %img{:src => 'images/controller_buttons_transparent.png', :style => 'display: none'}
 
 :javascript
+  var intervalId = setInterval(function() {
+    if (orientation) {
+      if (orientation.abs() == 90) {
+        $('#portrait_display').hide();
+        clearInterval(intervalId);
+      }
+    }
+  }, 100);
+
   if(detectIphoneOrIpod()) {
     if (orientation) {
       var gameContainer = $('#game_container');
 
       if (orientation.abs() == 90) {
         gameContainer.css('margin-left', '9%');
+      } else {
+        $('#portrait_display').show();
       }
     }
 
