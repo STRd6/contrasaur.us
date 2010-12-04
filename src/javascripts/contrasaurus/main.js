@@ -1,4 +1,5 @@
 var score = 0;
+var canScore = false;
 
 var canvas;
 var dino;

@@ -446,8 +446,10 @@ function Level(I) {
         fadeAmount = (step - fadeStart) / fadeDuration;
       }
 
-      // TODO: Move this somewhere
-      score += collidables.dinoBullet.length;
+      // TODONE: Move this somewhere
+      if (canScore) {
+        score += collidables.dinoBullet.length;
+      }
 
       oldEnemies = collidables.enemy;
 

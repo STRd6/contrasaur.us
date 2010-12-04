@@ -37,6 +37,10 @@ function Utahraptor(I) {
     }
   });
 
+  self.bind('destroy', function() {
+    canScore = true;
+  });
+
   self.extend(Biteable(I));
 
   return self;

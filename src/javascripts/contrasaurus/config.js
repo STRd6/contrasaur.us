@@ -4,7 +4,7 @@ var CANVAS_HEIGHT = 480;
 var GRAVITY = 0.8;
 var MILLISECONDS_PER_FRAME = 33;
 
-var DEVELOPMENT = false;
+var DEVELOPMENT = true;
 
 var SPRAY_EFFECTS_ENABLED = false;
 
