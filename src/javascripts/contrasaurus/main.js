@@ -143,7 +143,7 @@ function endGame() {
     return [[parseInt(cookie), "You"]];
   });
 
-  highScores = highScores.concat([[100000, "Zuch"], [200000, "Dr. Werewolf"], [300000, "Condor"]]);
+  highScores = highScores.concat([[100000, "Lan"], [200000, "Dr. Werewolf"], [300000, "Condor"]]);
 
   gameOver = true;
   currentLevel.stop();
