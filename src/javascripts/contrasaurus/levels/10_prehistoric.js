@@ -87,6 +87,8 @@ $(function() {
   }, {
     at: 1200,
     event: function(level) {
+      canScore = true;
+
       brontosaurus = Brontosaurus({
         x: level.position().x + CANVAS_WIDTH + 160
       });
