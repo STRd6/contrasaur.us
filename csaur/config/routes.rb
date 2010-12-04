@@ -11,7 +11,7 @@ Csaur::Application.routes.draw do
   resource :user_session
 
   match '/people/:id' => 'users#show', :as => :profile
-  root :to => "user_sessions#new"
+  root :to => "main#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
