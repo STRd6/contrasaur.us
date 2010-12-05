@@ -1,6 +1,6 @@
 - @layout = "empty"
 
-= javascripts 'jquery-1.4.2.min', 'test/power_canvas.jquery'
+= javascripts 'jquery-1.4.2.min', 'test/power_canvas.jquery', 'sprites.strd6'
 
 #title
   %h1 FPS Test
@@ -20,18 +20,23 @@
       framesDrawn[i] = timeLastDrawn;
     }
 
-    var frameIndex = 0
+    var frameIndex = 0;
+
+    s1 = Sprite.load("images/contrasaurus/cry.png");
 
     setInterval(function() {
       canvas.fill('#008');
 
-      canvas.fillColor("#F00")
-      canvas.fillRect(300, 220, 40, 40);
+      for(var i = 0; i < 15; i++) {
+        s1.draw(canvas, Math.random()*480, Math.random()*320);
+      }
 
       framesDrawn[frameIndex] = timeLastDrawn;
       frameIndex = (frameIndex + 1) % 10;
 
       var fps = 1000 * (framesDrawn.length) / (new Date().getTime() - framesDrawn[frameIndex]);
+
+      canvas.fillColor("#FFF");
       canvas.fillText("FPS: " + fps, 540, 60);
 
       timeLastDrawn = new Date().getTime();

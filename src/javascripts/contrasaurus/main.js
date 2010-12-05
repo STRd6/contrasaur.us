@@ -17,6 +17,22 @@ function detectAndroid() {
 
 var mobile = detectIphoneOrIpod() || detectAndroid();
 
+Array.prototype.unique = function () {
+  var r = new Array();
+  o:for(var i = 0, n = this.length; i < n; i++)
+  {
+    for(var x = 0, y = r.length; x < y; x++)
+    {
+      if(r[x]==this[i])
+      {
+        continue o;
+      }
+    }
+    r[r.length] = this[i];
+  }
+  return r;
+}
+
 var pauseDisplay = {
   draw: function(canvas) {
     canvas.fill("rgba(0, 0, 0, 0.66)");
@@ -32,20 +48,6 @@ var stages = [];
 
 var highScores = [];
 var cookieScores = [];
-
-if (readCookie("highScore")) {
-  var cookieScores = readCookie("highScore").split(",");
-}
-
-cookieScores.push(score);
-$.unique(cookieScores);
-
-highScores = $.map(cookieScores, function(cookie) {
-  return [[parseInt(cookie), "You"]];
-});
-
-createCookie("highScore", cookieScores.join(","));
-highScores = highScores.concat([[100000, "Zuch"], [200000, "Dr. Werewolf"], [300000, "Condor"]]);
 
 var weapons = [];
 
@@ -118,8 +120,6 @@ function nextStage(choice) {
       currentStage++;
       if(currentStage >= stages.length) {
         endGame();
-        cookieScores.push(score);
-        createCookie("highScore", cookieScores.join(","));
         endGameDisplay(true);
       } else {
         currentLevel = stages[currentStage];
@@ -132,6 +132,19 @@ function nextStage(choice) {
 }
 
 function endGame() {
+  if (readCookie("highScore")) {
+    cookieScores = (readCookie("highScore").split(",")).unique();
+  }
+
+  cookieScores.push(score);
+  createCookie("highScore", cookieScores.join(","));
+
+  highScores = $.map(cookieScores, function(cookie) {
+    return [[parseInt(cookie), "You"]];
+  });
+
+  highScores = highScores.concat([[100000, "Lan"], [200000, "Dr. Werewolf"], [300000, "Condor"]]);
+
   gameOver = true;
   currentLevel.stop();
 }
