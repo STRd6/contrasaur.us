@@ -21,24 +21,36 @@
     %img{:src => 'images/controller_buttons_transparent.png', :style => 'display: none'}
 
 :javascript
+  var startingOrientation = orientation;
+
   var intervalId = setInterval(function() {
     if (orientation) {
       if (orientation.abs() == 90) {
+
+        if (detectAndroid()) {
+          androidRotated();
+        } else if (detectIphoneOrIpod()) {
+          iPodRotated();
+        } else {
+          $("body").addClass("teaser scaled_down");
+          alert("Tap '+' and select 'Add to Home Screen'");
+        }
+
         $('#portrait_display').hide();
         clearInterval(intervalId);
       }
     }
   }, 100);
 
-  if(detectIphoneOrIpod()) {
-    if (orientation) {
-      var gameContainer = $('#game_container');
+  function iPodRotated() {
+    var gameContainer = $('#game_container');
 
-      if (orientation.abs() == 90) {
-        gameContainer.css('margin-left', '9%');
-      } else {
-        $('#portrait_display').show();
-      }
+    if (orientation.abs() == 90 && startingOrientation == 0) {
+      gameContainer.css('margin-left', '13%');
+    } else if (orientation.abs() == 90 && startingOrientation != 0) {
+      gameContainer.css('margin-left', '9%');
+    } else {
+      $('#portrait_display').show();
     }
 
     if(window.navigator.standalone) {
@@ -47,8 +59,22 @@
       $("body").addClass("teaser scaled_down");
       alert("Tap '+' and select 'Add to Home Screen'");
     }
-  } else {
-    $("body").addClass("scaled_down");
+  }
+
+  function androidRotated() {
+    var gameContainer = $('#game_container');
+
+    if (orientation.abs() == 90) {
+      gameContainer.css('margin-left', '1%');
+    }
+    window.scrollTo(0, 1);
+  }
+
+  if (!detectIphoneOrIpod()) {
+    $('body').addClass('scaled_down');
+  }
+
+  if (!window.navigator.standalone) {
     runApp();
   }
 

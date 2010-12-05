@@ -12,7 +12,6 @@ function detectIphoneOrIpod() {
 
 function detectAndroid() {
   var userAgent = navigator.userAgent.toLowerCase();
-
   return userAgent.search("android") !== -1;
 }
 
