@@ -102,18 +102,12 @@ var loggedIn = false;
 var hasPaid = undefined;
 
 function checkPayStatus() {
-  if(loggedIn) {
-    // TODO: Check for real if user has paid
-    if(hasPaid) {
-      currentLevel = stages[currentStage];
-      stages[currentStage].start(canvas);
-    } else {
-      $("#purchase_prompt").show();
-      _gaq.push(['_trackEvent', 'purchase', "Purchase Prompt"]);
-    }
+  if(hasPaid) {
+    currentLevel = stages[currentStage];
+    stages[currentStage].start(canvas);
   } else {
-    $("#login_prompt").show();
-    _gaq.push(['_trackEvent', 'purchase', "Login Prompt"]);
+    $("#purchase_prompt").show();
+    _gaq.push(['_trackEvent', 'purchase', "Purchase Prompt"]);
   }
 }
 
@@ -266,25 +260,31 @@ function addHighScore(score, player) {
 }
 
 function saveGame() {
-  sessionStorage.setItem("savedGame", JSON.stringify({
+  localStorage.setItem("savedGame", JSON.stringify({
     level: currentStage,
     health: dino.health(),
-    weapons: dino.weaponNames()
+    weapons: dino.weaponNames(),
+    timestamp: new Date().getTime()
   }));
 }
 
 function loadSavedGameData() {
-  var savedData = sessionStorage.getItem("savedGame");
+  var savedData = localStorage.getItem("savedGame");
 
   if(savedData) {
-    return JSON.parse(savedData);
-  } else {
-    return undefined;
+    // Save game lasts for 15 min, just so player can authorize/purchase
+    if(new Date().getTime() - savedData.timestamp > 1000 * 60 * 15) {
+      clearSavedGame();
+    } else {
+      return JSON.parse(savedData);
+    }
   }
+
+  return undefined;
 }
 
 function clearSavedGame() {
-  sessionStorage.removeItem("savedGame");
+  localStorage.removeItem("savedGame");
 }
 
 savedGameData = loadSavedGameData();

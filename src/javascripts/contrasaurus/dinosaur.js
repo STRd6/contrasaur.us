@@ -3,7 +3,9 @@ var WALK_VELOCITY = 6;
 var shooting = false;
 var secondaryShooting = false;
 
-function Dinosaur() {
+function Dinosaur(I) {
+  I = I || {};
+
   var width = 128;
   var height = 128;
 
@@ -163,7 +165,7 @@ function Dinosaur() {
 
   var healthMax = 500;
 
-  var I = {
+  $.reverseMerge(I, {
     collideDamage: 2,
     collisionType: "dino",
     currentState: states.idle1,
@@ -175,7 +177,7 @@ function Dinosaur() {
     y: CANVAS_HEIGHT - Floor.LEVEL,
     xVelocity: 0,
     yVelocity: 6
-  };
+  });
 
   var accessories = [];
 
@@ -462,12 +464,6 @@ function Dinosaur() {
     },
 
     toss: toss,
-
-    weaponData: function() {
-      return $.map(weapons, function(weapon) {
-        return weapon.data();
-      });
-    },
 
     weaponNames: function() {
       return weapons.map(function(weapon) {
