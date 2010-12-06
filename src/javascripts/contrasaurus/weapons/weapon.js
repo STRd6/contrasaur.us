@@ -56,6 +56,10 @@ function Weapon(I) {
       }
     },
 
+    name: function() {
+      return I.name;
+    },
+
     shoot: function(position, transform, mode) {
       if(I.ammo > 0) {
         lastPoint++;

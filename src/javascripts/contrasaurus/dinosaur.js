@@ -161,11 +161,14 @@ function Dinosaur() {
   var timeTravelling = false;
   var timeTravel = TimeTravel();
 
+  var healthMax = 500;
+
   var I = {
     collideDamage: 2,
     collisionType: "dino",
     currentState: states.idle1,
-    health: 500,
+    health: healthMax,
+    loadedWeapons: [],
     poisoned: false,
     radius: 72,
     x: CANVAS_WIDTH / 2,
@@ -177,7 +180,6 @@ function Dinosaur() {
   var accessories = [];
 
   var lastDirection = 1;
-  var healthMax = I.health;
 
   function nextWeapon() {
     var selectedIndex = weapons.indexOf(selectedWeapon);
@@ -364,6 +366,10 @@ function Dinosaur() {
       return jetpack;
     },
 
+    healthMax: function() {
+      return healthMax;
+    },
+
     hit: function(other) {
       I.health = I.health - other.collideDamage();
 
@@ -463,6 +469,12 @@ function Dinosaur() {
       });
     },
 
+    weaponNames: function() {
+      return weapons.map(function(weapon) {
+        return weapon.name();
+      });
+    },
+
     xVelocity: function(value) {
       if(value !== undefined) {
         I.xVelocity = value;
@@ -555,6 +567,10 @@ function Dinosaur() {
   if(false) {
     self.addAccessory(tophat);
   }
+
+  I.loadedWeapons.each(function(weaponName) {
+    self.addWeapon(weaponMap[weaponName]());
+  });
 
   Control(self, keyDown);
   self.extend(Stateful(I));

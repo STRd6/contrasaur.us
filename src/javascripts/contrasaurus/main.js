@@ -42,6 +42,7 @@ var weaponMap = {
   "missileLauncher": MissileLauncher,
   "chainsaw": Chainsaw,
   "flamethrower": Flamethrower,
+  "jetpack": function() { return "jetpack"; },
   "laserGun": LaserGun,
   "machineGun": MachineGun,
   "meat": Meat
@@ -97,19 +98,22 @@ function drawOverlay() {
 }
 
 var payStage = 7;
+var loggedIn = false;
+var hasPaid = undefined;
 
 function checkPayStatus() {
-  // TODO: Check if user is logged in
-  // TODO: Check for real if user has paid
-  // TODO: Send them to Chrome App Store to pay
-  // TODO: Save game or use ajax to verify payment
-
-  // Placeholder
-  if(confirm("Do you own the full game?")) {
-    currentLevel = stages[currentStage];
-    stages[currentStage].start(canvas);
+  if(loggedIn) {
+    // TODO: Check for real if user has paid
+    if(hasPaid) {
+      currentLevel = stages[currentStage];
+      stages[currentStage].start(canvas);
+    } else {
+      $("#purchase_prompt").show();
+      _gaq.push(['_trackEvent', 'purchase', "Purchase Prompt"]);
+    }
   } else {
-    endGame();
+    $("#login_prompt").show();
+    _gaq.push(['_trackEvent', 'purchase', "Login Prompt"]);
   }
 }
 
@@ -125,6 +129,8 @@ function nextStage(choice) {
   } else {
     if(!gameOver) {
       currentStage++;
+
+      saveGame();
 
       if(currentStage == payStage) {
         checkPayStatus();
@@ -142,6 +148,8 @@ function nextStage(choice) {
 }
 
 function endGame() {
+  clearSavedGame();
+
   if (readCookie("highScore")) {
     cookieScores = (readCookie("highScore").split(",")).unique();
   }
@@ -257,12 +265,43 @@ function addHighScore(score, player) {
   return highScores.push([parseInt(score), player]);
 }
 
-$(function() {
+function saveGame() {
+  sessionStorage.setItem("savedGame", JSON.stringify({
+    level: currentStage,
+    health: dino.health(),
+    weapons: dino.weaponNames()
+  }));
+}
 
-  dino = Dinosaur();
+function loadSavedGameData() {
+  var savedData = sessionStorage.getItem("savedGame");
+
+  if(savedData) {
+    return JSON.parse(savedData);
+  } else {
+    return undefined;
+  }
+}
+
+function clearSavedGame() {
+  sessionStorage.removeItem("savedGame");
+}
+
+savedGameData = loadSavedGameData();
+
+$(function() {
+  if(savedGameData) {
+    dino = Dinosaur({
+      health: savedGameData.health,
+      loadedWeapons: savedGameData.weapons
+    });
+  } else {
+    dino = Dinosaur();
+  }
+
   healthBar = ProgressBar({
     colorMap: healthColorMap,
-    max: dino.health(),
+    max: dino.healthMax(),
     value: dino.health()
   });
 

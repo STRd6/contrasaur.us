@@ -23,6 +23,7 @@ function Jetpack(I) {
   $.reverseMerge(I, {
     attachment: "back",
     duration: -1,
+    name: "jetpack",
     sprite: jetpackSprite
   });
 

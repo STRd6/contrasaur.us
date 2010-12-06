@@ -102,7 +102,12 @@
     $(document).bind("keydown", "space", function() {
       if(loaded && !started) {
         started = true;
-        nextStage();
+
+        if(savedGameData) {
+          nextStage(savedGameData.level);
+        } else {
+          nextStage();
+        }
       }
     })
   }});
