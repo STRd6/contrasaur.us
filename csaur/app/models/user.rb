@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
       :token_credential_secret => oauth_token_secret
     )
 
-    # TODO Get user identity dealy
     token = get_token(:openid).key
 
     # a test user, from http://code.google.com/chrome/webstore/docs/check_for_payment.html#test
@@ -49,5 +48,9 @@ class User < ActiveRecord::Base
     else
       user_app_data["result"]
     end
+  end
+
+  def has_full_version?
+    payment_status == "FULL"
   end
 end

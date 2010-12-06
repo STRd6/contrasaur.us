@@ -26,9 +26,24 @@
       %button.continue_yes{:name => 'Yes'} Yes
       %button.continue_no{:name => 'No'} No
 
+#login_prompt.modal_prompt{:style => "display: none;"}
+  %p You must log-in with your Google account to access the full game.
+  - form_for UserSession.new, :url => authenticate_path, :html => { :method => :post, :class => "authentication_form" } do |f|
+    = hidden_field_tag :openid_identifier, "https://www.google.com/accounts/o8/id"
+    .actions
+      = submit_tag "Login", :class => "login_yes"
+
+#purchase_prompt.modal_prompt{:style => "display: none;"}
+  %p In order to play the complete game you need to purchase the full version
+  .actions
+    %button.purchase_yes Purchase from Chrome Web Store
+
 = javascript_include_tag "contrasaurus"
 
 :javascript
+  loggedIn = #{!!current_user};
+  hasPaid = #{!!current_user && current_user.has_full_version?};
+
   $('#gameCanvas').powerCanvas({init: function(_canvas) {
 
     canvas = _canvas;
@@ -73,6 +88,15 @@
     $('.continue_no').click(function() {
       $('#continue').hide();
       endGameDisplay();
+    });
+
+    $(".login_yes").click(function() {
+      // TODO: Save game
+    });
+
+    $(".purchase_yes").click(function() {
+      // TODO: If playing, save game
+      window.location = "https://chrome.google.com/extensions/detail/depggoipkaplhlnliihoddiiakoliloa?hl=en-US";
     });
 
     $(document).bind("keydown", "space", function() {

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user.save do |result|
       if result
         flash[:notice] = "Account registered!"
-        redirect_back_or_default profile_url(@user)
+        redirect_to "/"
       else
         redirect_to login_url
       end

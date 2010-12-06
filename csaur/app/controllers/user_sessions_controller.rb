@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
     @user_session.save do |result|
       if result
         flash[:notice] = "Login successful!"
-        redirect_to current_user ? profile_url(current_user) : login_url
+        redirect_to "/"
       else
         if @user_session.errors.on(:user)
           # if we set error on the base object, likely it's because we didn't find a user
@@ -28,6 +28,6 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
-    redirect_to login_url
+    redirect_to "/"
   end
 end
