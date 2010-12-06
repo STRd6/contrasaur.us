@@ -18,10 +18,6 @@ function Weapon(I) {
 
   I.sprite = I.sprite || Sprite.load("images/weapons/" + I.name + ".png");
 
-  if(I.name && !I.ammoSprite) {
-    I.ammoSprite = Sprite.load("images/ammo/" + I.name + ".png");
-  }
-
   var lastPoint = -1;
   var targetPosition = 0;
 
@@ -47,13 +43,6 @@ function Weapon(I) {
   var self = Accessory(I).extend({
     generateProjectile: function(direction, position) {
       return Bullet({ theta: direction, x: position.x, y: position.y });
-    },
-
-    data: function() {
-      return {
-        sprite: I.ammoSprite,
-        ammo: I.ammo
-      }
     },
 
     name: function() {
