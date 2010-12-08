@@ -273,11 +273,12 @@ function loadSavedGameData() {
   var savedData = localStorage.getItem("savedGame");
 
   if(savedData) {
+    savedData = JSON.parse(savedData);
     // Save game lasts for 15 min, just so player can authorize/purchase
     if(new Date().getTime() - savedData.timestamp > 1000 * 60 * 15) {
       clearSavedGame();
     } else {
-      return JSON.parse(savedData);
+      return savedData;
     }
   }
 
