@@ -262,6 +262,7 @@ function addHighScore(score, player) {
 function saveGame() {
   localStorage.setItem("savedGame", JSON.stringify({
     level: currentStage,
+    score: score,
     health: dino.health(),
     weapons: dino.weaponNames(),
     timestamp: new Date().getTime()
@@ -295,6 +296,8 @@ $(function() {
       health: savedGameData.health,
       loadedWeapons: savedGameData.weapons
     });
+
+    score = savedGameData.score || 0;
   } else {
     dino = Dinosaur();
   }
