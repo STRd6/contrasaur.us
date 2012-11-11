@@ -1,6 +1,0 @@
-.bundle
-config/authlogic.yml
-config/chrome_app.yml
-db/*.sqlite3
-log/*.log
-tmp/**/*

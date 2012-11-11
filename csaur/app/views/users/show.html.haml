@@ -1,5 +1,0 @@
-%h2 Hey You!
-%p
-  You have connected to your
-  = current_user.authenticated_with.collect(&:titleize).join(" and ")
-  = 'account'.send(current_user.authenticated_with.length > 1 ? 'pluralize' : 'singularize')

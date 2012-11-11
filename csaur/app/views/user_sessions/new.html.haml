@@ -1,5 +1,0 @@
-%h2 Login!
-- form_for @user_session, :url => authenticate_path, :html => { :method => :post, :class => "authentication_form" } do |f|
-  = hidden_field_tag :openid_identifier, "https://www.google.com/accounts/o8/id"
-
-  = submit_tag "Login", :class => :submit
