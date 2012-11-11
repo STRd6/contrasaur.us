@@ -99,7 +99,7 @@ function drawOverlay() {
 
 var payStage = 7;
 var loggedIn = false;
-var hasPaid = undefined;
+var hasPaid = true;
 
 function checkPayStatus() {
   if(hasPaid) {

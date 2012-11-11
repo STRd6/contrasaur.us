@@ -1,16 +1,14 @@
 !!!
-%html{ 'xmlns' => "http://www.w3.org/1999/xhtml",  'xmlns:fb' => "http://www.facebook.com/2008/fbml" }
+%html
   %head
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     %title Contrasaurus - Defender of the American Dream
-  
+
     = stylesheets
     %link{ :rel => "shortcut icon", :href => "favicon.ico", :type => "image/x-icon"}
 
     = javascripts("contrasaurus")
-
-    = partial 'analytics'
 
   %body
     = yield
@@ -18,26 +16,4 @@
 
     #footer
       %center
-        = link "Feedback", "http://www.facebook.com/#!/topic.php?uid=101113043274821&topic=7", :target => "_blank"
-        = " | "
         = link "Created by STRd6", "http://strd6.com"
-      %center
-        %p
-          %fb:like
-
-    :plain
-      <div id="fb-root"></div>
-      <script>
-        window.fbAsyncInit = function() {
-          FB.init({appId: '125517504156817', status: true, cookie: true,
-                   xfbml: true});
-        };
-        (function() {
-          var e = document.createElement('script');
-          e.type = 'text/javascript';
-          e.src = document.location.protocol +
-            '//connect.facebook.net/en_US/all.js';
-          e.async = true;
-          document.getElementById('fb-root').appendChild(e);
-        }());
-      </script>
