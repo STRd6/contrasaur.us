@@ -1,7 +1,7 @@
 task :default => [:build, :zip]
 
 task :build do
-  sh "mkdir -p site/javascripts"
+  sh "mkdir -p site/javascripts/editors"
   sh "cat src/javascripts/*.js src/javascripts/contrasaurus/*.js src/javascripts/contrasaurus/*/*.js > site/javascripts/contrasaurus.js"
   sh "cp src/javascripts/editors/* site/javascripts/editors/"
   sh "cp src/javascripts/matrix.js src/javascripts/jquery-1.4.2.min.js src/javascripts/jquery.mousewheel.js src/javascripts/qunit.js site/javascripts/"
