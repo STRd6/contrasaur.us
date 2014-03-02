@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Contrasaurus - Defender of the American Dream</title>
+    <link href="/stylesheets/qunit.css" media="all" rel="stylesheet" type="text/css"/><link href="/stylesheets/application.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href='favicon.ico' rel='shortcut icon' type='image/x-icon' />
+    <script language="javascript" src="javascripts/contrasaurus.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id='title'>
+      <h1>Art Test</h1>
+    </div>
+    <div id='game_container'>
+      <div id='game_info'>
+        <span id='health_label'>health</span>
+        <div id='progress_bar'>
+          <div id='health'></div>
+        </div>
+        <div id='score_holder'>
+          <span id='score_label'>score</span>
+          <span id='score'>0</span>
+        </div>
+      </div>
+      <canvas height='480' id='gameCanvas' width='640'>
+        <p>
+          HTML5 canvas not supported by your browser.
+          <a href="http://www.google.com/chrome">Learn more here</a>
+        </p>
+      </canvas>
+    </div>
+    <script type='text/javascript'>
+      //<![CDATA[
+        var rotate = false;
+        $('#gameCanvas').powerCanvas({init: function(canvas) {
+          var objects = [
+            GameObject({x: 10, y: 10, sprite: Sprite.load("images/effects/playerbullet1.png")}),
+            GameObject({x: 10, y: 20, sprite: Sprite.load("images/effects/playerbullet1_small.png")}),
+            GameObject({x: 10, y: 30, sprite: Sprite.load("images/effects/enemybullet1.png")}),
+            GameObject({x: 10, y: 40, sprite: Sprite.load("images/effects/enemybullet1_small.png")}),
+            GameObject({x: 10, y: 60, sprite: loadAnimation("images/effects/bloodEffect1_8x8.png", 8, 8, 8)}),
+            GameObject({x: 10, y: 80, sprite: loadAnimation("images/effects/bloodEffect2_8x8.png", 8, 8, 8)}),
+            GameObject({x: 10, y: 100, sprite: loadAnimation("images/effects/dirtEffect1_8x8.png", 8, 8, 8)}),
+            GameObject({x: 10, y: 120, sprite: loadAnimation("images/effects/sparkEffect1_8x8.png", 6, 8, 8)}),
+            GameObject({x: 50, y: 60, sprite: loadAnimation("images/effects/bloodEffect3_16x16.png", 9, 16, 16)}),
+            GameObject({x: 50, y: 80, sprite: loadAnimation("images/effects/bloodEffect3_16x16_flip.png", 9, 16, 16)}),
+            GameObject({x: 50, y: 100, sprite: loadAnimation("images/effects/bloodEffect4_16x16.png", 9, 16, 16)}),
+            GameObject({x: 50, y: 120, sprite: loadAnimation("images/effects/bloodEffect4_16x16_flip.png", 9, 16, 16)}),
+            GameObject({x: 50, y: 140, sprite: loadAnimation("images/effects/dirtEffect2_16x16.png", 11, 16, 16)}),
+            GameObject({x: 50, y: 160, sprite: loadAnimation("images/effects/sparkEffect2_16x16.png", 6, 16, 16)}),
+            GameObject({x: 100, y: 50, sprite: loadAnimation("images/projectiles/explosion.png", 5, 46, 46, 2)}),
+            GameObject({x: 150, y: 150, sprite: loadAnimation("images/effects/sandinista_die_61x61.png", 12, 61, 61, 4)}),
+            GameObject({x: 200, y: 200, sprite: loadAnimation("images/enemies/dinofodder_eat.png", 2, 61, 33, 6)})
+          ];
+        
+          // Rotation testing
+          if(false) {
+            $.each(objects, function(i, object) {
+              var t = 0;
+              object.extend({
+                getTransform: function() {
+                  return Matrix.rotation(this.angle, Point(50, 0));
+                },
+                after: {
+                  update: function() {
+                    t++;
+                    this.angle = t * Math.PI / 48
+                  }
+                }
+              });
+            });
+          }
+        
+          setInterval(function() {
+            canvas.fill('#000');
+        
+            $.each(objects, function(i, object) {
+              object.update();
+              object.draw(canvas);
+            });
+          }, 33);
+        }});
+      //]]>
+    </script>
+    <div class='clear'></div>
+    <div id='footer'>
+      <center>
+        <a href="http://strd6.com">Created by STRd6</a>
+      </center>
+    </div>
+  </body>
+</html>

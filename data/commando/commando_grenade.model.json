@@ -1,0 +1,122 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 7,
+    "height": 63,
+    "width": 70,
+    "url": "images/enemies/commando/commando_grenade.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -21,
+          "y": -2,
+          "radius": 13
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -21,
+          "y": -2,
+          "radius": 13
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -21,
+          "y": -2,
+          "radius": 13
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -14,
+          "y": 0,
+          "radius": 13
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {
+        "grenade": {
+          "x": 3,
+          "y": -17,
+          "direction": -0.8975979010256552
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": -14,
+          "y": 1,
+          "radius": 12
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -18,
+          "y": 2,
+          "radius": 10
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -17,
+          "y": -1,
+          "radius": 11
+        },
+        {
+          "x": -20,
+          "y": 21,
+          "radius": 11
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

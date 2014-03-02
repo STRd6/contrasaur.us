@@ -1,0 +1,15 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 286,
+    "width": 288,
+    "url": "images/enemies/gunship/hull.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": []
+    }
+  ]
+}

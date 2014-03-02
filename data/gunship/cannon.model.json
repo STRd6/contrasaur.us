@@ -1,0 +1,27 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 28,
+    "width": 84,
+    "url": "images/enemies/gunship/cannon.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "exit": {
+          "x": 34,
+          "y": 0,
+          "direction": 0
+        }
+      },
+      "circles": [
+        {
+          "x": 0,
+          "y": 0,
+          "radius": 30
+        }
+      ]
+    }
+  ]
+}

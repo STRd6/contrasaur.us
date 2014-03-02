@@ -1,0 +1,32 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 286,
+    "width": 288,
+    "url": "images/enemies/gunship/cannon_base.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+      },
+      "circles": [
+        {
+          "x": 9,
+          "y": -61,
+          "radius": 17
+        },
+        {
+          "x": 60,
+          "y": -63,
+          "radius": 15
+        },
+        {
+          "x": 34,
+          "y": -65,
+          "radius": 14
+        }
+      ]
+    }
+  ]
+}

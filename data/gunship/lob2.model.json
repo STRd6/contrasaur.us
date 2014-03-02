@@ -1,0 +1,32 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 286,
+    "width": 288,
+    "url": "images/enemies/gunship/lob2.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "exit": {
+          "x": 61,
+          "y": -135,
+          "direction": -2.356194490192345
+        }
+      },
+      "circles": [
+        {
+          "x": 69,
+          "y": -121,
+          "radius": 17
+        },
+        {
+          "x": 100,
+          "y": -117,
+          "radius": 17
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Contrasaurus - Defender of the American Dream</title>
+    <link href="/stylesheets/qunit.css" media="all" rel="stylesheet" type="text/css"/><link href="/stylesheets/application.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href='favicon.ico' rel='shortcut icon' type='image/x-icon' />
+    <script language="javascript" src="javascripts/contrasaurus.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id='title'>
+      <h1>Collision Test</h1>
+    </div>
+    <div id='game_container'>
+      <div id='game_info'>
+        <span id='health_label'>health</span>
+        <div id='progress_bar'>
+          <div id='health'></div>
+        </div>
+        <div id='score_holder'>
+          <span id='score_label'>score</span>
+          <span id='score'>0</span>
+        </div>
+      </div>
+      <canvas height='480' id='gameCanvas' width='640'>
+        <p>
+          HTML5 canvas not supported by your browser.
+          <a href="http://www.google.com/chrome">Learn more here</a>
+        </p>
+      </canvas>
+    </div>
+    <script type='text/javascript'>
+      //<![CDATA[
+        $('#gameCanvas').powerCanvas({init: function(canvas) {
+          testObject = GameObject({
+            x: 250,
+            y: 250,
+            radius: 64,
+            sprite: loadImageTile('images/levels/dino1.png')
+          }).extend({
+            after: {
+              draw: function(canvas) {
+                canvas.fillColor('rgba(255,0,0,0.5)');
+                var circle = testObject.getCircle();
+                canvas.fillCircle(circle.x, circle.y, circle.radius);
+              }
+            }
+          });
+          
+          flipObject = GameObject({
+            x: 450,
+            y: 250,
+            radius: 64,
+            sprite: loadImageTile('images/levels/dino1.png')
+          }).extend({
+            after: {
+              draw: function(canvas) {
+                canvas.fillColor('rgba(255,0,0,0.5)');
+                var circle = flipObject.getCircle();
+                canvas.fillCircle(circle.x, circle.y, circle.radius);
+              }
+            }
+          });
+          
+          function Circle(I) {
+            $.reverseMerge(I, {
+              x: 50,
+              y: 50,
+              radius: 10,
+              color: "rgba(0, 0, 255, 0.5)"
+            });
+        
+            return GameObject(I).extend({
+              draw: function(canvas) {
+                canvas.fillCircle(I.x, I.y, I.radius, I.color)
+              },
+              after: {
+                hit: function() {
+                  I.color = "rgba(255, 0, 0, 0.5)";
+                }
+              }
+            });
+          }
+          
+          circle1 = Circle({x: 50, y: 50});
+          circle2 = Circle({x: 100, y: 50});
+          circle3 = Circle({x: 36, y: 36});
+        
+          parasoldier = Parasoldier().extend({
+            after: {
+              draw: function(canvas) {
+                canvas.fillColor('rgba(255,0,0,0.5)');
+                var circle = parasoldier.getCircle();
+                canvas.fillCircle(circle.x, circle.y, circle.radius);
+              }
+            }
+          });
+          
+          setInterval(function() {
+            canvas.fill('#000');
+            testObject.draw(canvas);
+            flipObject.draw(canvas);
+            
+            circleCollision(circle1, circle2);
+            circleCollision(circle1, circle3);
+            
+            circle1.draw(canvas);
+            circle2.draw(canvas);
+            circle3.draw(canvas);
+        
+            parasoldier.draw(canvas);
+          }, 33);
+        }});
+      //]]>
+    </script>
+    <div class='clear'></div>
+    <div id='footer'>
+      <center>
+        <a href="http://strd6.com">Created by STRd6</a>
+      </center>
+    </div>
+  </body>
+</html>

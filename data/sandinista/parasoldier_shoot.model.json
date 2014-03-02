@@ -1,0 +1,84 @@
+{
+  "animation": {
+    "delay": 3,
+    "destinationOffset": { "x": 5, "y": 0 },
+    "frames": 4,
+    "height": 56,
+    "width": 80,
+    "url": "images/enemies/sandinista/parasoldier_shoot.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "shot": {
+          "x": 15,
+          "y": -22,
+          "direction": -0.5235987755982988
+        }
+      },
+      "circles": [
+        {
+          "x": -9,
+          "y": -5,
+          "radius": 10
+        },
+        {
+          "x": -10,
+          "y": 15,
+          "radius": 10
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -9,
+          "y": -5,
+          "radius": 10
+        },
+        {
+          "x": -10,
+          "y": 15,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -9,
+          "y": -5,
+          "radius": 10
+        },
+        {
+          "x": -10,
+          "y": 15,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {
+        "shot": {
+          "x": 15,
+          "y": -22,
+          "direction": -0.5235987755982988
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": -9,
+          "y": -5,
+          "radius": 10
+        },
+        {
+          "x": -10,
+          "y": 15,
+          "radius": 10
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

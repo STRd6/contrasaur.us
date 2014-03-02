@@ -1,0 +1,103 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 5,
+    "height": 103,
+    "width": 156,
+    "url": "images/enemies/gunship/machine_gun_shoot.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -56,
+          "y": 4,
+          "radius": 22
+        },
+        {
+          "x": -32,
+          "y": 4,
+          "radius": 21
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": -56,
+          "y": 4,
+          "radius": 22
+        },
+        {
+          "x": -32,
+          "y": 4,
+          "radius": 21
+        }
+      ],
+      "attachmentPoints": {
+        "exit": {
+          "x": 6,
+          "y": -6,
+          "direction": 0
+        },
+        "exit1": {
+          "x": 6,
+          "y": 14,
+          "direction": 0
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": -56,
+          "y": 4,
+          "radius": 22
+        },
+        {
+          "x": -32,
+          "y": 4,
+          "radius": 21
+        }
+      ],
+      "attachmentPoints": {}
+    },
+    {
+      "circles": [
+        {
+          "x": -56,
+          "y": 4,
+          "radius": 22
+        },
+        {
+          "x": -32,
+          "y": 4,
+          "radius": 21
+        }
+      ],
+      "attachmentPoints": {
+        "exit": {
+          "x": 9,
+          "y": 4,
+          "direction": 0
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": -56,
+          "y": 4,
+          "radius": 22
+        },
+        {
+          "x": -32,
+          "y": 4,
+          "radius": 21
+        }
+      ],
+      "attachmentPoints": {}
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Contrasaurus - Defender of the American Dream</title>
+    <link href="/stylesheets/qunit.css" media="all" rel="stylesheet" type="text/css"/><link href="/stylesheets/application.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href='favicon.ico' rel='shortcut icon' type='image/x-icon' />
+    <script language="javascript" src="javascripts/contrasaurus.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id='title'>
+      <h1>Contrasaurus</h1>
+    </div>
+    <div id='game_container'>
+      <canvas height='480' id='gameCanvas' width='640'>
+        <p>
+          HTML5 canvas not supported by your browser.
+          <a href="http://www.google.com/chrome">Learn more here</a>
+        </p>
+        <div id='tilt'></div>
+      </canvas>
+      <div id='game_info' style='display: none;'>
+        <div class='bar_container left'>
+          <span class='label'>health</span>
+          <div class='progress_bar'>
+            <div id='health'></div>
+          </div>
+        </div>
+        <div class='bar_container left' id='boss' style='display: none;'>
+          <span class='label'>boss</span>
+          <div class='progress_bar boss'>
+            <div id='bossHealth'></div>
+          </div>
+        </div>
+        <div id='score_holder'>
+          <span class='label'>score</span>
+          <span id='score'>0</span>
+        </div>
+        <div class='clear'></div>
+        <div id='level_objectives' style='display: none;'></div>
+        <div id='continue' style='display: none;'>
+          <p>CONTINUE?</p>
+          <button class='continue_yes' name='Yes'>Yes</button>
+          <button class='continue_no' name='No'>No</button>
+        </div>
+      </div>
+    </div>
+    <script language="javascript" src="javascripts/run.js" type="text/javascript"></script>
+    <div class='clear'></div>
+    <div id='footer'>
+      <center>
+        <a href="http://strd6.com">Created by STRd6</a>
+      </center>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 56,
+    "width": 67,
+    "url": "images/enemies/secret_service/listen.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {},
+      "circles": [
+        {
+          "x": -11,
+          "y": -9,
+          "radius": 8
+        },
+        {
+          "x": -15,
+          "y": 5,
+          "radius": 8
+        },
+        {
+          "x": -12,
+          "y": 20,
+          "radius": 8
+        }
+      ]
+    }
+  ]
+}

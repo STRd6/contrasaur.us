@@ -1,0 +1,122 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 1,
+    "height": 189,
+    "width": 283,
+    "url": "images/contrasaurus/cry.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+        "hat": {
+          "x": 90,
+          "y": -80,
+          "direction": 0
+        },
+        "eye": {
+          "x": 99,
+          "y": -56,
+          "direction": 0
+        },
+        "hand": {
+          "x": 57,
+          "y": 7,
+          "direction": 0
+        },
+        "back": {
+          "x": 9,
+          "y": -30,
+          "direction": 0
+        },
+        "jaw": {
+          "x": 89,
+          "y": -5,
+          "direction": 0.6283185307179586
+        }
+      },
+      "circles": [
+        {
+          "x": 79,
+          "y": -46,
+          "radius": 17
+        },
+        {
+          "x": 97,
+          "y": -57,
+          "radius": 12
+        },
+        {
+          "x": 52,
+          "y": -28,
+          "radius": 21
+        },
+        {
+          "x": 4,
+          "y": -1,
+          "radius": 39
+        },
+        {
+          "x": -24,
+          "y": -2,
+          "radius": 31
+        },
+        {
+          "x": -107,
+          "y": 30,
+          "radius": 13
+        },
+        {
+          "x": -80,
+          "y": 19,
+          "radius": 17
+        },
+        {
+          "x": 125,
+          "y": -38,
+          "radius": 16
+        },
+        {
+          "x": 101,
+          "y": 4,
+          "radius": 14
+        },
+        {
+          "x": 83,
+          "y": -18,
+          "radius": 13
+        },
+        {
+          "x": 106,
+          "y": -44,
+          "radius": 13
+        },
+        {
+          "x": 30,
+          "y": 35,
+          "radius": 16
+        },
+        {
+          "x": -16,
+          "y": 43,
+          "radius": 19
+        },
+        {
+          "x": 16,
+          "y": 69,
+          "radius": 21
+        },
+        {
+          "x": -32,
+          "y": 76,
+          "radius": 19
+        },
+        {
+          "x": -55,
+          "y": 9,
+          "radius": 20
+        }
+      ]
+    }
+  ]
+}

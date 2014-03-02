@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Contrasaurus - Defender of the American Dream</title>
+    <link href="/stylesheets/qunit.css" media="all" rel="stylesheet" type="text/css"/><link href="/stylesheets/application.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href='favicon.ico' rel='shortcut icon' type='image/x-icon' />
+    <script language="javascript" src="javascripts/contrasaurus.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <style>
+  body {
+    background-color: white; }
+</style>
+<div id='title'>
+  <h1>Hitbox Editor</h1>
+</div>
+<div id='game_container'>
+  <div id='game_info'>
+    <span id='health_label'>health</span>
+    <div id='progress_bar'>
+      <div id='health'></div>
+    </div>
+    <div id='score_holder'>
+      <span id='score_label'>score</span>
+      <span id='score'>0</span>
+    </div>
+  </div>
+  <canvas height='480' id='editorCanvas' width='640'>
+    <p>
+      HTML5 canvas not supported by your browser.
+      <a href="http://www.google.com/chrome">Learn more here</a>
+    </p>
+  </canvas>
+</div>
+<div id='controls'></div>
+<input id="imageUrl" name="imageUrl" type="text" value="images/enemies/ramp.png"/>
+<button id='loadImage'>Load Image</button>
+|
+<input id="animationDataUrl" name="animationDataUrl" type="text" value="data/bomber/bomber.animation.json"/>
+<button id='loadAnimation'>Load Animation</button>
+|
+<input id="modelDataUrl" name="modelDataUrl" type="text" value="data/commando/commando_idle.model.json"/>
+<button id='loadModel'>Load Model</button>
+|
+<button id='export'>Export</button>
+<pre id='output'></pre>
+<script language="javascript" src="javascripts/editors/hit.js" type="text/javascript"></script>
+    <div class='clear'></div>
+    <div id='footer'>
+      <center>
+        <a href="http://strd6.com">Created by STRd6</a>
+      </center>
+    </div>
+  </body>
+</html>

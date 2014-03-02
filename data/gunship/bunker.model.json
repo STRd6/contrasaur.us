@@ -1,0 +1,64 @@
+{
+  "animation": {
+    "delay": 3,
+    "frames": 3,
+    "height": 154,
+    "width": 147,
+    "url": "images/enemies/gunship/bunker_shoot.png"
+  },
+  "frames": [
+    {
+      "attachmentPoints": {
+      },
+      "circles": [
+        {
+          "x": 5,
+          "y": 66,
+          "radius": 21
+        },
+        {
+          "x": 34,
+          "y": 58,
+          "radius": 18
+        }
+      ]
+    },
+    {
+      "circles": [
+        {
+          "x": 5,
+          "y": 66,
+          "radius": 21
+        },
+        {
+          "x": 34,
+          "y": 58,
+          "radius": 18
+        }
+      ],
+      "attachmentPoints": {
+        "exit": {
+          "x": 3,
+          "y": 60,
+          "direction": 3.141592653589793
+        }
+      }
+    },
+    {
+      "circles": [
+        {
+          "x": 5,
+          "y": 66,
+          "radius": 21
+        },
+        {
+          "x": 34,
+          "y": 58,
+          "radius": 18
+        }
+      ],
+      "attachmentPoints": {
+      }
+    }
+  ]
+}
