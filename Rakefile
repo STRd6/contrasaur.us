@@ -9,7 +9,6 @@ task :build do
   sh "cp src/javascripts/test/matrix.js site/javascripts/test/"
   sh "cp src/manifest.json site/manifest.json"
   sh "cp src/javascripts/run.js site/javascripts/run.js"
-  sh "staticmatic build ."
 end
 
 task :doc do

@@ -105,6 +105,7 @@ function Control(character, keyDown) {
   });
 
   $(document).mousedown(function(event) {
+    window.focus();
     event.preventDefault();
 
     if(event.button != 0) {
@@ -131,4 +132,5 @@ function Control(character, keyDown) {
       character.prevWeapon();
     }
   });
+
 }
