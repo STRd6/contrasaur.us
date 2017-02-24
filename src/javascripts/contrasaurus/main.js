@@ -4,6 +4,18 @@ var canvas;
 var dino;
 var healthBar;
 
+var postmaster = Postmaster();
+var _slice = [].slice
+
+function trackEvent(/* args... */) {
+  console.log("trackEvent", arguments);
+  if(postmaster.remoteTarget()) {
+    var args = _slice.call(arguments, 0);
+    args.unshift("event")
+    postmaster.invokeRemote.apply(postmaster, args);
+  }
+}
+
 Array.prototype.unique = function () {
   var r = new Array();
   o:for(var i = 0, n = this.length; i < n; i++)
@@ -123,6 +135,7 @@ function nextStage(choice) {
   } else {
     if(!gameOver) {
       currentStage++;
+      trackEvent("stage", currentStage);
 
       saveGame();
 
@@ -131,6 +144,7 @@ function nextStage(choice) {
       } else if(currentStage >= stages.length) {
         endGame();
         alert("You Win!");
+        trackEvent("win");
       } else {
         currentLevel = stages[currentStage];
         stages[currentStage].start(canvas);

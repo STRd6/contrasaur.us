@@ -273,6 +273,7 @@ function Dinosaur(I) {
         });
 
         self.addWeapon(jetpack);
+        trackEvent("jetpack");
       }
     },
 
@@ -289,6 +290,8 @@ function Dinosaur(I) {
         if(weapon.selectable()) {
           selectedWeapon = weapon;
         }
+
+        trackEvent("weapon", weapon);
       }
 
       Sound.play("reload");
